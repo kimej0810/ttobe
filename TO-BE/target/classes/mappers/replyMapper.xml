@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tobe.project.mapper.replyMapper">
+	<!-- 댓글 출력 -->
+	<resultMap id="selectAllReplyVO" type="replyVO">
+		<id column="RIDX" property="ridx"/>
+		<result column="R_CONTENT" property="r_content"/>
+		<result column="R_WRITEDATE" property="r_writedate"/>
+		<result column="DELYN" property="delyn"/>
+		<result column="TIDX" property="tidx"/>
+		<result column="BIDX" property="bidx"/>
+		<association property="memberVO" resultMap="memberResultMap"></association>
+	</resultMap>
+	
+	<resultMap type="memberVO" id="memberResultMap">
+		<id column="TIDX" property="tidx"/>
+		<result column="T_NAME" property="t_name"/>
+	</resultMap>
+	
+	<select id="list" resultMap="selectAllReplyVO">
+		SELECT 
+			REPLY.RIDX,
+			REPLY.R_CONTENT,
+			REPLY.R_WRITEDATE,
+			REPLY.DELYN,
+			REPLY.TIDX,
+			REPLY.BIDX,
+			TOBE_MEMBER.T_NAME
+		FROM REPLY, TOBE_MEMBER
+		WHERE 1=1 AND BIDX=#{bidx} AND REPLY.DELYN='N' AND REPLY.TIDX = TOBE_MEMBER.TIDX
+		ORDER BY RIDX ASC
+	</select>
+	
+	<!-- 댓글 작성 -->
+	<insert id="create">
+		INSERT INTO REPLY(
+			RIDX,
+			R_CONTENT,
+			R_WRITEDATE,
+			DELYN,
+			TIDX,
+			BIDX
+		) VALUES(
+			RIDX_SEQ.NEXTVAL,
+			#{r_content},
+			sysdate,
+			'N',
+			1,
+			#{bidx}
+		)
+	</insert>
+	
+	<!-- 댓글 수정 -->
+	<update id="update">
+		UPDATE REPLY SET
+		R_CONTENT=#{r_content}
+		WHERE RIDX=#{ridx}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<update id="delete">
+		UPDATE REPLY SET
+		DELYN='Y'
+		WHERE RIDX=#{ridx}
+	</update>
+</mapper>

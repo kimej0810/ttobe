@@ -1,0 +1,35 @@
+<!-- security -->	
+	<s:http auto-config="true" use-expressions="true">
+		<!-- 정적 리소스는 모두 접근 허용 -->
+		<s:intercept-url pattern="/resources/**" access="permitAll" />
+	
+		<!-- 로그인된 상태에서는 로그인이나 회원가입 화면에 접근 못하도록 함 -->
+		<s:intercept-url pattern="/loginView" access="isAnonymous()" />
+		<s:intercept-url pattern="/registerUserView" access="isAnonymous()" />
+	
+		<!-- 관리자페이지는 관리자만 접근 허용 -->
+		<s:intercept-url pattern="/admin/**" access="hasRole('admin')" />
+	
+		<!-- 로그인 설정 -->
+		<s:form-login	
+			username-parameter="userId" 
+			password-parameter="userPw"
+			login-processing-url="/loginAsk" 
+			login-page="/loginView" default-target-url="/"
+			authentication-failure-url="/loginView" />
+	
+		<!-- 로그아웃 설정 -->
+		<s:logout 
+			logout-url="/logoutAsk"
+			logout-success-url="/"
+			invalidate-session="true"
+			delete-cookies="true" />
+	</s:http>
+	<!-- 권한이 없어서 금지된 URI 접속할 때 보여줄 페이지(403 에러 페이지 대체) -->
+	<s:access-denied-handler error-page="/" />
+	
+	<!-- DB 연동 설정 -->
+	<s:authentication-manager>
+		<s:authentication-provider user-service-ref="userLoginService">
+		</s:authentication-provider>
+	</s:authentication-manager>

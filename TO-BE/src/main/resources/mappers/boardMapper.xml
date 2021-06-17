@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tobe.project.mapper.boardMapper">
+
+	<resultMap id="selectAllBoardVO" type="boardVO">
+		<id column="BIDX" property="bidx"/>
+		<result column="B_TYPE" property="b_type"/>
+		<result column="B_TITLE" property="b_title"/>
+		<result column="B_CONTENT" property="b_content"/>
+		<result column="B_WRITEDATE" property="b_writedate"/>
+		<result column="B_HIT" property="b_hit"/>
+		<result column="DELYN" property="delyn"/>
+		<result column="TIDX" property="tidx"/>
+		<association property="memberVO" resultMap="memberResultMap"/>
+	</resultMap>
+	
+	<resultMap type="memberVO" id="memberResultMap">
+		<id column="TIDX" property="tidx"/>
+		<result column="T_NAME" property="t_name"/>
+	</resultMap>
+	
+	<!--  게시판 전체 조회()-->
+    <select id="selectAllBoard" resultMap="selectAllBoardVO">
+    	SELECT * 
+        FROM (
+		        SELECT BOARD.BIDX,
+					   BOARD.B_TYPE,
+					   BOARD.B_TITLE,
+					   BOARD.B_CONTENT,
+					   BOARD.B_WRITEDATE,
+					   BOARD.B_HIT,
+					   BOARD.DELYN,
+                       BOARD.TIDX,
+					   TOBE_MEMBER.T_NAME,
+		               ROW_NUMBER() OVER(ORDER BY BOARD.B_TYPE DESC, BIDX DESC) AS RNUM
+		         FROM BOARD, TOBE_MEMBER
+		         WHERE 1=1 <include refid="search"></include> AND BOARD.DELYN='N' AND BOARD.TIDX = TOBE_MEMBER.TIDX
+		      )
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd} 
+		ORDER BY B_TYPE DESC, BIDX DESC
+    </select>
+    
+    <!-- 페이징 -->
+    <select id="totalCount" resultType="int">
+		SELECT COUNT(BIDX)
+			FROM BOARD
+			WHERE 1=1
+		 <include refid="search"></include>
+		 	AND BIDX > 0 AND DELYN='N'
+	</select>
+    
+    <sql id="search">
+    	<if test="searchType != null">
+    		<if test="searchType == 'w'.toString()">AND BOARD.TIDX LIKE '%' || #{keyword} || '%'</if>
+    		<if test="searchType == 'c'.toString()">AND B_CONTENT LIKE '%' || #{keyword} || '%'</if>
+    		<if test="searchType == 'n'.toString()">AND B_TYPE = 'N'</if>
+    		<if test="searchType == 'g'.toString()">AND B_TYPE = 'G'</if>
+    	</if>
+    </sql>
+    
+    <!-- 게시글 상세 조회 -->
+    <select id="selectOneBoard" resultMap="selectAllBoardVO">
+    	SELECT 
+    	   BOARD.BIDX,
+		   BOARD.B_TYPE,
+		   BOARD.B_TITLE,
+		   BOARD.B_CONTENT,
+		   BOARD.B_WRITEDATE,
+		   BOARD.B_HIT,
+		   BOARD.DELYN,
+           BOARD.TIDX,
+		   TOBE_MEMBER.T_NAME
+    	FROM BOARD, TOBE_MEMBER
+    	WHERE BIDX=#{bidx} AND BOARD.TIDX=TOBE_MEMBER.TIDX
+    </select>
+    
+    <!-- 조회수 업 -->
+    <update id="hitBoard">
+    	UPDATE BOARD
+    	SET
+    		B_HIT = B_HIT+1
+    	WHERE BIDX = #{bidx}
+    </update>
+    
+    <!-- 게시글 작성 -->
+    <insert id="writeBoard" parameterType="boardVO" useGeneratedKeys="true" keyProperty="bidx">
+	    <selectKey keyProperty="bidx" resultType="int" order="BEFORE">
+	    	SELECT BIDX_SEQ.NEXTVAL FROM DUAL
+	    </selectKey>
+	    INSERT INTO BOARD(    
+	    	BIDX,
+			B_TYPE,
+			B_TITLE,
+			B_CONTENT,
+			B_WRITEDATE,
+			B_HIT,
+			DELYN,
+			TIDX
+			) VALUES(
+			#{bidx}, 
+	    	#{b_type}, 
+	    	#{b_title}, 
+	    	#{b_content}, 
+	    	sysdate,
+	    	0,
+	    	'N',
+	    	1
+			)
+    </insert>
+    <insert id="insertFile" parameterType="hashMap">
+    	INSERT INTO FILE_INFOTEST(
+    		FIDX,
+			TIDX,
+			F_TYPE,
+			F_ORG_FILE_NAME,
+			F_STORED_FILE_NAME,
+			F_FILE_SIZE,
+			DELYN,
+			BIDX
+    	)VALUES(
+    		F_FILE_SEQ.NEXTVAL,
+    		22,
+    		#{F_TYPE},
+    		#{ORG_FILE_NAME},
+    		#{STORED_FILE_NAME},
+    		#{FILE_SIZE},
+    		'N',
+    		#{bidx}
+    	)
+    </insert>
+    
+    <update id="modifyBoard">
+    	UPDATE BOARD SET
+    		B_TITLE = #{b_title}, 
+	    	B_CONTENT = #{b_content}
+	    WHERE BIDX = #{bidx}
+    </update>
+    
+    <update id="deleteBoard">
+    	UPDATE BOARD SET
+    		DELYN = 'Y'
+	    WHERE BIDX = #{bidx}
+    </update>
+</mapper>

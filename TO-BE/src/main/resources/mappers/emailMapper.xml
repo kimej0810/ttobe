@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tobe.project.mapper.emailMapper">
+	<insert id="writeEmail" parameterType="emailVO">
+		insert into manager_email(midx,m_addressee,m_senddate,m_title,m_content)
+		values(midx_seq.nextval,#{m_addressee},sysdate,#{m_title},#{m_content})
+	</insert>
+	<select id="totalCountEmail" parameterType="hashmap" resultType="int">
+		select count(*) as cnt from manager_email where delyn = 'N' and m_title like '%'||#{keyword}||'%'
+	</select>
+<!-- 	<select id="listCriteria" resultType="emailVO">
+		<![CDATA[
+			select * from (select row_number() over (order by midx desc)
+			num, A.* from manager_email A order by midx desc)
+			where delyn = 'N' and num between #{pageStart} and #{perPageNum}
+		]]>
+	</select> -->
+	<select id="searchEmailList" resultType="emailVO">
+		select * from (select row_number() over (order by midx desc)num,
+		A.* from manager_email A where 1=1
+		<include refid="search"/>
+		order by midx desc)
+		where delyn = 'N' and num between #{rowStart} and #{rowEnd}
+	</select>
+	<select id="totalCountsearchEmail" resultType="int">
+		<![CDATA[
+			select count(midx)
+			from manager_email
+			where delyn = 'N'
+		]]>
+		<include refid="search"/>
+	</select>
+	<select id="selectOneEmail" resultType="emailVO">
+		SELECT * FROM MANAGER_EMAIL WHERE MIDX = #{midx}
+		AND DELYN = 'N'
+	</select>
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">
+				and m_title like '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 'c'.toString()">
+				and m_content like '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 'w'.toString()">
+				and tidx like '%'||#{keyword}||'%'
+			</if>
+		</if>
+	</sql>
+</mapper>

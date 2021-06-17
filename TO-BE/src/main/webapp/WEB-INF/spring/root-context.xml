@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:s="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- test
+	<bean id = "dataSource" class = "org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value = "com.mysql.cj.jdbc.Driver"/>
+		<property name="url" value = "jdbc:mysql://localhost:3306/member?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;serverTimezone=UTC"/>
+		<property name="username" value ="root"/>
+		<property name="password" value = "mySql1234"/>
+	</bean> -->
+	<!-- DB 변경 -->
+<!-- 	<bean id = "dataSource" class = "org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value = "net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+		<property name="url" value = "jdbc:log4jdbc:mysql://localhost:3306/member?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;serverTimezone=UTC"/>
+		<property name="username" value ="root"/>
+		<property name="password" value = "mySql1234"/>
+	</bean> -->
+	<!-- oracle -->
+	<bean id = "dataSource" class = "org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value = "net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+		<property name="url" value = "jdbc:log4jdbc:oracle:thin:@192.168.0.101:1521:xe"/>
+		<property name="username" value ="system"/>
+		<property name="password" value = "1234"/>
+	</bean>
+	<!-- mybatis SqlSessionFactoryBean -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+		<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"/>
+	</bean>
+	<!-- mybatis SqlSessionTemplate -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	    <bean id="mailSender" 
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com" /> <!-- gmail을 사용 -->
+        <property name="port" value="587" />
+        <property name="username" value="tobe202105@gmail.com" />
+        <property name="password" value="tobe0524!" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+                <prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.debug">true</prop>
+            </props>
+        </property>
+    </bean>
+    <!-- 첨부파일 경로 -->
+    <bean id="uploadPath" class="java.lang.String">
+    	<constructor-arg value="D:\\kio\\tobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\"></constructor-arg>
+    </bean>
+	
+	<!-- Bean 등록 -->
+	<context:component-scan base-package="tobe.project.dao"></context:component-scan>
+	<context:component-scan base-package="tobe.project.service"></context:component-scan>
+	<context:component-scan base-package="tobe.project.controller"></context:component-scan>
+	<context:component-scan base-package="tobe.project.domain"></context:component-scan>
+	<context:component-scan base-package="tobe.project.util"></context:component-scan>
+	<context:component-scan base-package="tobe.project.dto"></context:component-scan>
+
+</beans>
