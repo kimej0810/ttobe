@@ -19,7 +19,7 @@ public interface MemberService {
 	public List<MemberVO> searchMember(MemberVO vo)throws Exception;
 	//부서전체 검색
 	public List<MemberVO> searchMember2(String t_name)throws Exception;
-	//가람
+	//----------------가람 시작!
 	//로그인
 	public MemberVO login(LoginDTO dto) throws Exception;
 	//이메일 전송
@@ -29,6 +29,6 @@ public interface MemberService {
 	//사원정보 수정
 	public void modifyMember(MemberVO vo) throws Exception;
 	public MemberVO selectOneMember(String t_id) throws Exception;
-	//가람
+	//----------------------------------//
 	public List<MemberDTO> selectAllMember2()throws Exception;
 }

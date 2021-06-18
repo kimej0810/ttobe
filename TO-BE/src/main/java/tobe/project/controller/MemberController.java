@@ -101,7 +101,8 @@ public class MemberController {
 		model.addAttribute("searchMember",searchMember);
 		return searchMember;
 	}
-	//////////////////////////////////////////////////////////////
+	//----------------------가람 시작!
+	
 	//로그인
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public void loginGET(@ModelAttribute("dto") LoginDTO dto) {
@@ -116,42 +117,47 @@ public class MemberController {
 				System.out.println("로그인 성공");
 				return "/main/main";
 			}
-			return "/login";
+			return "/member/login";
 		}else {
 			System.out.println("비밀번호 오류");
-			return "/login";
+			return "/member/login";
 		}
 	}
+	
 	//비밀번호 찾기
 	@RequestMapping(value="/findPwd", method = RequestMethod.GET)
-	public void findPwdGET() throws Exception{
+	public String findPwdGET() throws Exception{
+		return "/member/findPwd";
 	}
 	@RequestMapping(value="/findPwd", method = RequestMethod.POST)
-	public void findPwdPOST(@ModelAttribute MemberVO vo, HttpServletResponse response) throws Exception{
+	public String findPwdPOST(@ModelAttribute MemberVO vo, HttpServletResponse response) throws Exception{
 		service.findPwd(response, vo);
+		return "/member/findPwd";
 	}
+	
 	//사원정보페이지
-		@RequestMapping(value="/mypage") 
-		public String mypage(Model model, String t_id,HttpSession session) throws Exception{ 
-			model.addAttribute("member", service.selectOneMember(t_id));
-			logger.info("mypage:"+ t_id);
-			return "mypage"; 
+	@RequestMapping(value="/mypage") 
+	public String mypage(Model model, String t_id,HttpSession session) throws Exception{ 
+		model.addAttribute("member", service.selectOneMember(t_id));
+		logger.info("mypage:"+ t_id);
+		return "/member/mypage"; 
+	}
+	
+	//사원정보 수정처리
+	@RequestMapping(value="/modifyMember", method = RequestMethod.POST)
+	public String modifyMember(@ModelAttribute MemberVO vo,HttpSession session,Model model) throws Exception{	
+		MemberVO ex = service.selectOneMember(vo.getT_id());
+		System.out.println("vo.getT_pwd>>"+vo.getT_pwd());
+		if(vo.getT_pwd() == "" || vo.getT_pwd() == null) {
+			vo.setT_pwd(ex.getT_pwd());
+		}else {
+			String repwd = pwdEncoder.encode(vo.getT_pwd());
+			vo.setT_pwd(repwd);
+			System.out.println("repwd>>"+repwd);
 		}
-		//사원정보 수정처리
-		@RequestMapping(value="/modifyMember", method = RequestMethod.POST)
-		public String modifyMember(@ModelAttribute MemberVO vo,HttpSession session,Model model) throws Exception{	
-			MemberVO ex = service.selectOneMember(vo.getT_id());
-			System.out.println("비번뭐야"+vo.getT_pwd());
-			if(vo.getT_pwd() == "" || vo.getT_pwd() == null) {
-				vo.setT_pwd(ex.getT_pwd());
-			}else {
-				String repwd = pwdEncoder.encode(vo.getT_pwd());
-				vo.setT_pwd(repwd);
-				System.out.println("??????"+repwd);
-			}
-			service.modifyMember(vo);
-			model.addAttribute("member", service.selectOneMember(vo.getT_id()));
-			return "/main/main";  
-		}
-	//////////////////////////////////////////////////////////////
+		service.modifyMember(vo);
+		model.addAttribute("member", service.selectOneMember(vo.getT_id()));
+		return "/main/main";  
+	}
+	//----------------------------------------------------------------//
 }

@@ -19,7 +19,7 @@
 					return;
 				}
 				
-				frm.action = "/loginPost";
+				frm.action = "/member/loginPost";
 				frm.method = "post";
 				frm.submit();
 			}
@@ -56,7 +56,7 @@
 					<button type="button" onclick="checkLogin();">LOGIN</button>
 				</div>
 				<div>
-					비밀번호를 잊으셨나요?<a href="/findPwd" onclick="window.open(this.href, '비밀번호찾기', 'width=500,height=500,top=200,left=100'); return false;">비밀번호 찾기</a>
+					비밀번호를 잊으셨나요?<a href="/member/findPwd" onclick="window.open(this.href, '비밀번호찾기', 'width=500,height=500,top=200,left=100'); return false;">비밀번호 찾기</a>
 				</div>
 			</form>
 		</section>
