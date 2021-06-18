@@ -28,14 +28,6 @@ import tobe.project.service.BoardService;
 import tobe.project.service.FileInfoService;
 import tobe.project.service.ReplyService;
 
-//깃
-//허
-//브
-//커
-//밋
-//테
-//스
-//트
 
 @Controller
 @RequestMapping(value = "/board")

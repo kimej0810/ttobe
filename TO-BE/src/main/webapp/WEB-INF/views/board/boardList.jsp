@@ -7,7 +7,7 @@
 
 <html>
 <head>
-	<title>Home</title>
+	<title>게시판</title>
 	<meta charset="UTF-8">
 	<script type="text/javascript" src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 	<style>
