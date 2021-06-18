@@ -195,8 +195,11 @@ public class FileUtils {
 				
 				file = new File(filePath + storedFileName);
 				multipartFile.transferTo(file);
+				
+				String extension = StringUtils.getFilenameExtension(originalFileName);
 				listMap = new HashMap<String, Object>();
 				listMap.put("tidx", tidx);
+				listMap.put("ftype", extension);
 				listMap.put("originalFileName", originalFileName);
 				listMap.put("storedFileName", storedFileName);
 				listMap.put("fileSize", multipartFile.getSize());

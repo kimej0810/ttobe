@@ -49,7 +49,7 @@
 		}
 		var result = confirm("정보를 수정하시겠습니까?");
 		if(result){
-			frm.action = "/modifyMember";
+			frm.action = "/member/modifyMember";
 			frm.method= "POST";
 			frm.submit();	
 		}else{
@@ -57,19 +57,11 @@
 		}
 	}
 	
-	function addProfile(e){
-		var reader = new FileReader();
-		
-		reader.onload = function(e){
-			var img = document.createElement("img");
-			img.setAttribute("src",e.target.result);
-			document.
-		}
-	}
+	
 </script>
 </head>
 <body>
-	<form name="frm">
+	<form name="frm" enctype="multipart/form-data">
 		<table border="1">
 			<tbody>
 				<tr>
@@ -125,7 +117,7 @@
 			<div class="img_wrap">
 			사원사진
 			<img id="profile_container">
-			<input type="file" id="addProfile"  name="file" accept="image/*">
+			<input type="file" name="file" accept="image/*">
 			</div>
 		<button type="button" onclick="modifyMember();">수정</button>
 		<button type="button" onclick="history.go(-1);">취소</button>

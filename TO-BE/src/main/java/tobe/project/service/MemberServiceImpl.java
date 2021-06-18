@@ -83,7 +83,7 @@ public class MemberServiceImpl implements MemberService{
 		String msg = "";
 		if(div.equals("findPwd")) {
 			subject = "TO-BE: 임시 비밀번호 입니다.";
-			msg += vo.getT_name() + "님의 임시 비밀번호입니다. 비밀번호를 변경하여 사용하세요.";
+			msg += vo.getT_id() + "님의 임시 비밀번호입니다. 비밀번호를 변경하여 사용하세요.";
 			msg += "임시 비밀번호 :";
 			msg += pwd;
 		}

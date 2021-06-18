@@ -19,7 +19,7 @@
             </div>
             <div class="profile">
                 <img src="<c:url value="/resources/static/img/profile.png"/>">
-                <div class="name">홍길동</div>
+             	<a href="/member/mypage?t_id=${member.t_id}"><div class="name">${member.t_name}</div></a>
                 <div class="saown_num">201668451</div>
                 <div class="dept_rank">퇴근부 / 대리</div>
                 <div class="logout">로그아웃</div>
