@@ -60,10 +60,10 @@
             </props>
         </property>
     </bean>
-    <!-- 첨부파일 경로 -->
+    <!-- 첨부파일 경로
     <bean id="uploadPath" class="java.lang.String">
     	<constructor-arg value="D:\\kio\\tobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\"></constructor-arg>
-    </bean>
+    </bean> -->
 	
 	<!-- Bean 등록 -->
 	<context:component-scan base-package="tobe.project.dao"></context:component-scan>

@@ -78,6 +78,16 @@
  		t_addr_detail = #{t_addr_detail}
  		where t_id = #{t_id}
  	</update>
+	<!-- 사원정보 사진 첨부 -->
+	 <update id="insertFile" parameterType="hashMap">
+	 	update FILE_INFOTEST set
+			F_TYPE = #{F_TYPE},
+			F_ORG_FILE_NAME = #{ORG_FILE_NAME},
+			F_STORED_FILE_NAME = #{STORED_FILE_NAME},
+			F_FILE_SIZE = #{FILE_SIZE},
+			where tidx = #{tidx}
+	 </update>
+ 	
  	<select id="selectAllMember2" resultType="memberDTO">
  	<![CDATA[
  		SELECT A.*,B.F_STORED_FILE_NAME,B.F_TYPE
