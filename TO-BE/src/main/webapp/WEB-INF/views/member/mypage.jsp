@@ -55,8 +55,16 @@
 		}else{
 			history.go(-1);
 		}
+	}
+	
+	function addProfile(e){
+		var reader = new FileReader();
 		
-		
+		reader.onload = function(e){
+			var img = document.createElement("img");
+			img.setAttribute("src",e.target.result);
+			document.
+		}
 	}
 </script>
 </head>
@@ -114,9 +122,11 @@
 				</tr>
 			</tbody>
 		</table>
-		
-			사원사진<input type="file">
-	
+			<div class="img_wrap">
+			사원사진
+			<img id="profile_container">
+			<input type="file" id="addProfile"  name="file" accept="image/*">
+			</div>
 		<button type="button" onclick="modifyMember();">수정</button>
 		<button type="button" onclick="history.go(-1);">취소</button>
 	</form>

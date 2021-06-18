@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import tobe.project.dto.LoginDTO;
 import tobe.project.dto.MemberDTO;
@@ -23,11 +24,11 @@ public interface MemberService {
 	//로그인
 	public MemberVO login(LoginDTO dto) throws Exception;
 	//이메일 전송
-	public void sendEmail(MemberVO vo, String div) throws Exception;
+	public void sendEmail(MemberVO vo, String div, String pwd) throws Exception;
 	//비밀번호 찾기
 	public void findPwd(HttpServletResponse response, MemberVO vo) throws Exception;
 	//사원정보 수정
-	public void modifyMember(MemberVO vo) throws Exception;
+	public void modifyMember(MemberVO vo, MultipartHttpServletRequest mpRequest) throws Exception;
 	public MemberVO selectOneMember(String t_id) throws Exception;
 	//----------------------------------//
 	public List<MemberDTO> selectAllMember2()throws Exception;

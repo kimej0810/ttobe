@@ -1,6 +1,7 @@
 package tobe.project.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import tobe.project.dto.LoginDTO;
 import tobe.project.dto.MemberDTO;
@@ -20,6 +21,8 @@ public interface MemberDAO {
 	public MemberVO login(LoginDTO dto) throws Exception;
 	//사원정보 수정
 	public void modifyMember(MemberVO vo) throws Exception;
+	//사진 업로드
+	public void insertFile(Map<String, Object> map) throws Exception;
 	//비밀번호 변경
 	public int modifyPwd(MemberVO vo) throws Exception;
 	//비밀번호찾기 아이디체크

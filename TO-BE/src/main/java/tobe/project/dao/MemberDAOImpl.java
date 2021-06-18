@@ -1,6 +1,7 @@
 package tobe.project.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -87,6 +88,12 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public void modifyMember(MemberVO vo) throws Exception {
 		sqlSession.update(Namespace+".modifyMember", vo);
+		
+	}
+	
+	@Override
+	public void insertFile(Map<String, Object> map) throws Exception {
+		sqlSession.insert(Namespace+".insetFile", map);
 		
 	}
 	///////////[가람]

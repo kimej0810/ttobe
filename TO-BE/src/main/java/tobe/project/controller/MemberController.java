@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import tobe.project.dto.LoginDTO;
 import tobe.project.dto.MemberDTO;
@@ -142,10 +143,10 @@ public class MemberController {
 		logger.info("mypage:"+ t_id);
 		return "/member/mypage"; 
 	}
-	
+	 
 	//사원정보 수정처리
 	@RequestMapping(value="/modifyMember", method = RequestMethod.POST)
-	public String modifyMember(@ModelAttribute MemberVO vo,HttpSession session,Model model) throws Exception{	
+	public String modifyMember(@ModelAttribute MemberVO vo,HttpSession session,Model model, MultipartHttpServletRequest mpRequest) throws Exception{	
 		MemberVO ex = service.selectOneMember(vo.getT_id());
 		System.out.println("vo.getT_pwd>>"+vo.getT_pwd());
 		if(vo.getT_pwd() == "" || vo.getT_pwd() == null) {
@@ -155,7 +156,7 @@ public class MemberController {
 			vo.setT_pwd(repwd);
 			System.out.println("repwd>>"+repwd);
 		}
-		service.modifyMember(vo);
+		service.modifyMember(vo, mpRequest);
 		model.addAttribute("member", service.selectOneMember(vo.getT_id()));
 		return "/main/main";  
 	}

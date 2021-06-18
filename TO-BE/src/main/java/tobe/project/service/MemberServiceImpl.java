@@ -2,22 +2,35 @@ package tobe.project.service;
 
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.mail.HtmlEmail;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import tobe.project.dao.MemberDAO;
 import tobe.project.dto.LoginDTO;
 import tobe.project.dto.MemberDTO;
 import tobe.project.dto.MemberVO;
+import tobe.project.util.FileUtils;
 
 @Repository
 public class MemberServiceImpl implements MemberService{
+	
+	@Resource(name="fileUtils")
+	private FileUtils fileUtils;
+	
 	@Inject
 	private MemberDAO dao;
+	
+	@Inject
+	BCryptPasswordEncoder pwdEncoder;
+	
 	@Override
 	public List<MemberVO> selectAllMember() throws Exception{
 		return dao.selectAllMember();
@@ -57,7 +70,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 	//비밀번호 찾기 이메일 전송
 	@Override
-	public void sendEmail(MemberVO vo, String div) throws Exception {
+	public void sendEmail(MemberVO vo, String div,String pwd) throws Exception {
 		//메일 서버 설정
 		String charSet = "UTF-8";
 		String hostSMTP = "smtp.gmail.com";
@@ -72,7 +85,7 @@ public class MemberServiceImpl implements MemberService{
 			subject = "TO-BE: 임시 비밀번호 입니다.";
 			msg += vo.getT_name() + "님의 임시 비밀번호입니다. 비밀번호를 변경하여 사용하세요.";
 			msg += "임시 비밀번호 :";
-			msg += vo.getT_pwd();
+			msg += pwd;
 		}
 		//받는사람 설정
 		String email = vo.getT_email();
@@ -111,8 +124,10 @@ public class MemberServiceImpl implements MemberService{
 			for(int i=0; i<12; i++) {
 				pwd += (char)((Math.random()*26)+97);
 			}
-			vo.setT_pwd(pwd);
-			dao.modifyPwd(vo); sendEmail(vo,"findPwd");
+			
+			String repwd = pwdEncoder.encode(pwd);
+			vo.setT_pwd(repwd);
+			dao.modifyPwd(vo); sendEmail(vo,"findPwd",pwd);
 			out.print("이메일로 임시 비밀번호를 발송하였습니다."); out.close();
 		}
 	}
@@ -123,8 +138,15 @@ public class MemberServiceImpl implements MemberService{
 	}
 	//사원정보 수정
 	@Override
-	public void modifyMember(MemberVO vo) throws Exception {
+	public void modifyMember(MemberVO vo, MultipartHttpServletRequest mpRequest) throws Exception {
 		dao.modifyMember(vo);
+		
+		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(vo, mpRequest);
+		int size = list.size();
+		for(int i=0; i<size; i++){
+			dao.insertFile(list.get(i));
+		}
+		
 	}
 	@Override
 	public List<MemberDTO> selectAllMember2() throws Exception {
