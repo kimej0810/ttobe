@@ -19,6 +19,8 @@
 	<a href="/admin/emaillist">페이징연습</a>
 	<a href="/member/login">로그인</a>
 	<a href="/member/findPwd">비밀번호찾기</a>
+	<a href="/board/list">통합게시판</a>
+	<a href="/data/list">자료실</a>
 </p>
 </body>
 </html>

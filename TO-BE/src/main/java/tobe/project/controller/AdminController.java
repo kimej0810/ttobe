@@ -62,8 +62,10 @@ public class AdminController{
 	BCryptPasswordEncoder pwdEncoder;
 	
 	//파일 저장 기본 경로 bean 등록
-	@Resource(name = "uploadPath")
-	private String uploadPath;
+	/*
+	 * @Resource(name = "uploadPath") private String uploadPath;
+	 */
+	private String uploadPath = "D:\\kio\\tobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\";;
 	
 	@RequestMapping(value="/add")
 	public String addMember(Locale locale, Model model) throws Exception {

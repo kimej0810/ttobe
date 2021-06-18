@@ -21,8 +21,8 @@ import tobe.project.dto.MemberVO;
 @Component("fileUtils")
 public class FileUtils {
 	//파일 저장될 경로
-	private static final String filePath = "D:\\kio\\tobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\";
-	//private static final String filePath = "C:\\api_dev\\to-be3\\TO-BE\\src\\main\\webapp\\resources\\static\\file\\"; // 파일이 저장될 위치 수진
+	//private static final String filePath = "D:\\kio\\tobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\";
+	private static final String filePath = "C:\\Users\\bakug\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\file\\"; // 파일이 저장될 위치 수진
 	
 	public List<Map<String, Object>> parseInsertFileInfoProfile(MemberVO memberVO, MultipartHttpServletRequest mpRequest) throws IllegalStateException, IOException{
 		Iterator<String> iterator = mpRequest.getFileNames();
@@ -99,6 +99,8 @@ public class FileUtils {
 				System.out.println("ORG_FILE_NAME->"+originalFileName);
 				System.out.println("STORED_FILE_NAME->"+storedFileName);
 				System.out.println("FILE_SIZE->"+multipartFile.getSize());
+				
+				System.out.println("STORED_FILE_NAME->"+storedFileName);
 				
 				String extension = StringUtils.getFilenameExtension(originalFileName);
 				listMap = new HashMap<String, Object>();
