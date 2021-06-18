@@ -3,10 +3,7 @@
 <%@ page session="false" %>
 <html>
 <head>
-<<<<<<< HEAD
-	<title>Home33</title>
-=======
-	<title>Homettttt</title>
+<title>아 메인이냐고</title>
 
 </head>
 <body>
