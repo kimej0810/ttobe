@@ -56,7 +56,7 @@
 									<%
 										if(request.getAttribute("file")!=null){
 									%>
-									<img src="<c:url value="/resources/static/filefolder/${file.f_stored_file_name}"/>">
+									<img src="<c:url value="/resources/static/profile/${file.f_stored_file_name}"/>">
 									<%
 										}else{
 									%>

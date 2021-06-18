@@ -24,9 +24,9 @@
 							solist += "<div class='info'>";
 							solist += "<input type='hidden' id='tidx' name='tidx' value='"+searchDepartmentMember[i].tidx+"'>";
 							if(searchDepartmentMember[i].f_stored_file_name!=null){
-							solist += "<img src='<c:url value='/resources/static/filefolder/"+searchDepartmentMember[i].f_stored_file_name+"'/>'>";
+							solist += "<img src='<c:url value='/resources/static/profile/"+searchDepartmentMember[i].f_stored_file_name+"'/>'>";
 							}else{
-								solist += "<img src='<c:url value='/resources/static/img/profile.png'/>'>";
+								solist += "<img src='<c:url value='/resources/static/profile/notprofile.jpg'/>'>";
 							}
 							solist += " <span>";
 							solist += searchDepartmentMember[i].t_name;
@@ -63,7 +63,11 @@
 				success:function(selectOneMember){
 					var solist = "";
 					solist += "<tr><td rowspan='2'>";
-					solist += "<img src='<c:url value='/resources/static/filefolder/"+selectOneMember.f_stored_file_name+"'/>'></td>";
+					if(selectOneMember.f_stored_file_name!=null){
+						solist += "<img src='<c:url value='/resources/static/profile/"+selectOneMember.f_stored_file_name+"'/>'></td>";	
+					}else{
+						solist += "<img src='<c:url value='/resources/static/profile/notprofile.jpg'/>'></td>";	
+					}
 					solist += "<td>이름</td><td>";
 					solist += selectOneMember.t_name;
 					solist += "</td></tr><tr><td>부서</td><td>";
@@ -90,7 +94,11 @@
 						for(var i=0; i<searchMember.length;i++){
 							solist += "<div class='info'>";
 							solist += "<input type='hidden' id='tidx' name='tidx' value='"+searchMember[i].tidx+"'>";
-							solist += "<img src='<c:url value='/resources/static/img/logo3.png'/>'>";
+							if(searchMember[i].f_stored_file_name!=null){
+								solist += "<img src='<c:url value='/resources/static/profile/"+searchMember[i].f_stored_file_name+"'/>'>";	
+							}else{
+								solist += "<img src='<c:url value='/resources/static/profile/notprofile.jpg'/>'>";
+							}
 							solist += " <span>";
 							solist += searchMember[i].t_name;
 							solist += "</span>";
@@ -148,7 +156,15 @@
 			<c:forEach items="${selectAllMember}" var="member">
 				<div class="info">
 					<input type="hidden" id="tidx" name="tidx" value="${member.tidx}">
-					<img src="<c:url value="/resources/static/filefolder/${member.f_stored_file_name}"/>" alt="프로필이미지">
+					<c:set var="profile" value="${member.f_stored_file_name}"/>
+					<c:choose>
+						<c:when test="${profile == null }">
+							<img src="<c:url value="/resources/static/profile/notprofile.jpg"/>" alt="프로필이미지">		
+						</c:when>
+						<c:otherwise>
+							<img src="<c:url value="/resources/static/profile/${member.f_stored_file_name}"/>" alt="프로필이미지">
+						</c:otherwise>
+					</c:choose>
 					<span>${member.t_name}</span>
 					<span>${member.t_department}</span>
 					<span>${member.t_position}</span>
@@ -165,7 +181,6 @@
 						<col width="60%"></col>
 					</colgroup>
 					<tbody id="tbodyx">
-						
 					</tbody>
 				</table>
 			</div>
