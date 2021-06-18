@@ -3,7 +3,7 @@
 <%@ page session="false" %>
 <html>
 <head>
-<title>아 메인이냐고</title>
+<title>ㅓㅏㅓㅓ</title>
 
 </head>
 <body>
