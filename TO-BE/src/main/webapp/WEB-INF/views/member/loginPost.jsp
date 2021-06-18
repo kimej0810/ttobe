@@ -8,7 +8,7 @@
 </head>
 <body>
 	<script type="text/javascript">
-		self.location = "/main";
+		self.location = "/main/main";
 	</script>
 </body>
 </html>

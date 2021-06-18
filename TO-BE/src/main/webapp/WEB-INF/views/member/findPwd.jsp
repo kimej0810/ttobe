@@ -8,7 +8,7 @@
 <title>find password page</title>
 </head>
 <body>	
-	<form action="/findPwd" method="POST">
+	<form action="/member/findPwd" method="POST">
 		<div>
 			<label for="t_id">ID</label>
 			<input type="text" name="t_id" id="t_id" placeholder="회원가입한 아이디를 입력해주세요." required="required">

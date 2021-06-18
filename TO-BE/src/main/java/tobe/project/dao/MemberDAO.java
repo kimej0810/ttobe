@@ -15,7 +15,7 @@ public interface MemberDAO {
 	public MemberDTO selectOneMemberIdx(int tidx) throws Exception;
 	public List<MemberVO> searchMember(MemberVO vo)throws Exception;
 	public List<MemberVO> searchMember2(String t_name)throws Exception;
-	/////////////가람////////////////////////////////////////////
+	//----------------가람 시작!
 	//로그인
 	public MemberVO login(LoginDTO dto) throws Exception;
 	//사원정보 수정
@@ -27,6 +27,6 @@ public interface MemberDAO {
 	public MemberVO selectOneEmail(String t_email) throws Exception;
 	public MemberVO selectOneMemberId(String t_id) throws Exception;
 	public MemberVO selectOneMember(String t_id) throws Exception;
-	///////////////가람끝////////////////////////////////////////////
+	//--------------------------------------------------//
 	public List<MemberDTO> selectAllMember2()throws Exception;
 }
