@@ -3,7 +3,11 @@
 <%@ page session="false" %>
 <html>
 <head>
+<<<<<<< HEAD
 	<title>Home33</title>
+=======
+	<title>Home3333</title>
+
 </head>
 <body>
 <p>
@@ -11,12 +15,8 @@
 	
 	<a href="/member/list">일반사원리스트</a>
 	<a href="/admin/memberlist">관리자사원리스트</a>
-	<a href="/admin/add2">관리자사원리스트2</a>
-	<a href="/admin/email">메일발송</a>
 	<a href="/admin/emaillist">발송함</a>
-	<a href="/admin/sendlist2">발송함연습</a>
 	<a href="/schedule/fullcalendar">륜광</a>
-	<a href="/admin/emaillist">페이징연습</a>
 	<a href="/member/login">로그인</a>
 	<a href="/member/findPwd">비밀번호찾기</a>
 </p>
