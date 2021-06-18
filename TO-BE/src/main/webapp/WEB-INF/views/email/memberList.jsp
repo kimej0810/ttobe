@@ -23,7 +23,7 @@
 						for(var i=0; i<searchDepartmentMember.length;i++){
 							solist += "<div class='info'>";
 							solist += "<input type='hidden' id='tidx' name='tidx' value='"+searchDepartmentMember[i].tidx+"'>";
-							solist += "<img src='<c:url value='/resources/static/img/logo3.png'/>'>";
+							solist += "<img src='<c:url value='/resources/static/profile/"+searchDepartmentMember[i].f_stored_file_name+"'/>'>";
 							solist += " <span>";
 							solist += searchDepartmentMember[i].t_name;
 							solist += "</span>";
@@ -74,7 +74,7 @@
 						for(var i=0; i<searchMember.length;i++){
 							solist += "<div class='info'>";
 							solist += "<input type='hidden' id='tidx' name='tidx' value='"+searchMember[i].tidx+"'>";
-							solist += "<img src='<c:url value='/resources/static/img/logo3.png'/>'>";
+							solist += "<img src='<c:url value='/resources/static/profile/"+searchMember[i].f_stored_file_name+"'/>'>";
 							solist += " <span>";
 							solist += searchMember[i].t_name;
 							solist += "</span>";
