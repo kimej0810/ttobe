@@ -150,7 +150,7 @@
 			<input type="text" id="searchType" name="searchType">
 			<input type="button" id="nameSearchBtn" value="검색">
 		</div>
-	</div>
+	</div> 
 	<div class="content">
 		<div class="saone">
 			<c:forEach items="${selectAllMember}" var="member">
