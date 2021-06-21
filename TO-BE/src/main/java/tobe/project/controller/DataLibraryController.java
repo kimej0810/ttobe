@@ -49,7 +49,7 @@ public class DataLibraryController extends HttpServlet {
 		 
 		 System.out.println(vo.toString());
 		 service.addData(vo, mpRequest);
-		 return "redirect:/board/list";
+		 return "redirect:/data/dataListss";
 	}
 	
 	//첨부파일 다운로드 테스트
@@ -67,7 +67,7 @@ public class DataLibraryController extends HttpServlet {
 		
 		System.out.println("storedFileName->"+storedFileName+" originalFileName->"+originalFileName);
 		
-		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("C:\\api_dev\\to-be3\\TO-BE\\src\\main\\webapp\\resources\\static\\file\\"+storedFileName));
+		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("C:\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\file\\"+storedFileName));
 		
 		response.setContentType("application/octet-stream");
 		response.setContentLength(fileByte.length);

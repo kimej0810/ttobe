@@ -41,7 +41,7 @@
 			<c:forEach var="file" items="${file}">
 				<td>
 					<c:if test="${file.F_TYPE eq 'png'||file.F_TYPE eq 'jpg'||file.F_TYPE eq 'gif'}">
-					<img src="<c:url value="/resources/static/file/${file.F_STORED_FILE_NAME}"/>" style="width:100px;">
+					<img src="<c:url value="/resources/static/file/7da59adb0d484b4998bc2872c91578b8.gif"/>" style="width:100px;">
 					</c:if>
 					<a href="#" onclick="fn_fileDown('${file.FIDX}'); return false;">${file.F_ORG_FILE_NAME}</a>(${file.F_FILE_SIZE}kb)<br>
 				</td>
