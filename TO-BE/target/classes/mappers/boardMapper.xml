@@ -45,7 +45,7 @@
     <!-- 페이징 -->
     <select id="totalCount" resultType="int">
 		SELECT COUNT(BIDX)
-			FROM BOARD
+			FROM BOARD, TOBE_MEMBER
 			WHERE 1=1
 		 <include refid="search"></include>
 		 	AND BIDX > 0 AND DELYN='N'
@@ -53,7 +53,8 @@
     
     <sql id="search">
     	<if test="searchType != null">
-    		<if test="searchType == 'w'.toString()">AND BOARD.TIDX LIKE '%' || #{keyword} || '%'</if>
+    		<if test="searchType == 'w'.toString()">AND TOBE_MEMBER.T_NAME LIKE '%' || #{keyword} || '%'</if>
+    		<if test="searchType == 't'.toString()">AND B_TITLE LIKE '%' || #{keyword} || '%'</if>
     		<if test="searchType == 'c'.toString()">AND B_CONTENT LIKE '%' || #{keyword} || '%'</if>
     		<if test="searchType == 'n'.toString()">AND B_TYPE = 'N'</if>
     		<if test="searchType == 'g'.toString()">AND B_TYPE = 'G'</if>

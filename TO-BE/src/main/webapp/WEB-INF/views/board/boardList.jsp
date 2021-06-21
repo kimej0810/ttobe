@@ -28,6 +28,7 @@
 		<div class="search">
 		    <select name="searchType">
 		      <option value="w"<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>
+		      <option value="t"<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
 		      <option value="c"<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
 		    </select>
 		
@@ -78,7 +79,7 @@
 	</form>
 	<%
 		String flag = (String) request.getAttribute("flag");
-		if("g".equals(flag)||"".equals(flag)||flag==null||"w".equals(flag)||"c".equals(flag)){
+		if("g".equals(flag)||"".equals(flag)||flag==null||"w".equals(flag)||"c".equals(flag)||"t".equals(flag)){
 	%>
 	<button type="button" id="writeBtn" onclick="location.href='/board/write'">글쓰기</button>
 	<%
