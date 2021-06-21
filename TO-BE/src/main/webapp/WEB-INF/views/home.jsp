@@ -4,7 +4,7 @@
 <%@ page session="false" %>
 <html>
 <head>
-<title>home</title>
+<title>되는거야마는거야</title>
 
 </head>
 <body>

@@ -9,12 +9,14 @@
 <meta charset="UTF-8">
 <title>메일 발송함</title>
 <script type="text/javascript" src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
+<link href="<c:url value="/resources/static/css/bootstrap.css"/>" rel='stylesheet' />
 <script>
 	
 	$(document).ready(function(){
 		$(".searBtn").on("click",function(event){
 			self.location = "/admin/emaillist${pageMaker.makeQuery(1)}&searchType="+$("select option:selected").val()
 			+ "&keyword="+encodeURIComponent($(".searInput").val());
+			
 		});
 	});
 	function sendFn(){
@@ -42,7 +44,7 @@
     .saoneGo:hover{
     	background-color: #ffd4006e;
     }
-    a{
+    .pageDiv a{
     	text-decoration: none;
     	color:black;
     }
@@ -79,21 +81,32 @@
     }
     .searBtn{
     	width:80px;
-    	height:30px;
+    	height:31px;
 	    border-radius: 5px;
-	    background-color: #ffd4006e;
+	    //background-color: #ffd4006e;
+	    padding:0;
+	    margin:-8px;
+	    color:black;
     }
     .searInput{
     	width:140px;
     	height:22px;
  	    border: 2px solid lightgray;
     	border-radius: 5px;
+    	display:inline;
     }
     thead{
     	font-size:20px;
     }
     tbody{
     	text-align:center;
+    }
+    #searchType{
+    	display:inline;
+    	width:120px;
+    }
+    .active{
+    	background-color: #ffd4006e;
     }
 </style>
 </head>
@@ -105,14 +118,14 @@
 		<form>
 			<div class="searDiv">
 				<!-- 없음n 제목t, 내용c, 작성자w, -->
-				<select name="searchType" id="searchType">
+				<select name="searchType" id="searchType" class="form-select form-select-sm">
 					<option value="n" <c:out value="${searchCriteria.searchType == null ? 'selected' : '' }"/>>:::::선택:::::</option>
 					<option value="t" <c:out value="${searchCriteria.searchType eq 't' ? 'selected' : '' }"/>>제목</option>
 					<option value="c" <c:out value="${searchCriteria.searchType eq 'c' ? 'selected' : '' }"/>>내용</option>
 					<option value="w" <c:out value="${searchCriteria.searchType eq 'w' ? 'selected' : '' }"/>>수신인</option>
 				</select>
-				<input type="text" class="searInput" name="keyword" value="${searchCriteria.keyword}" placeholder="검색">
-				<input type="button" class="searBtn" value="검색">
+				<input type="text" class="searInput form-control form-control-sm" name="keyword" value="${searchCriteria.keyword}" placeholder="검색">
+				<input type="button" class="searBtn btn btn-outline-warning" value="검색">
 			</div>
 			<table>
 				<colgroup>
