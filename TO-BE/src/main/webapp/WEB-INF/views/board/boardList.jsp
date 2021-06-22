@@ -11,21 +11,22 @@
 	<meta charset="UTF-8">
 	<script type="text/javascript" src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 	<style>
-		.content{
-			display:grid;
-			grid-template-rows: 1fr 1fr 6fr 1fr;
-		}
+
 		.category{
-			grid-row:1/2;
+			background-color:red;
 		}
 		.search{
-			grid-row:2/3;
+			background-color:yellow;
 		}
 		.board{
-			grid-row:3/4;
+			background-color:pink;
+			height:100%;
+			width:100%;
 		}
 		.paging{
-			grid-row:4/5;s
+			background-color:black;
+			display:grid;
+			grid-template-rows: 1fr 1fr 6fr 1fr;
 		}
 		li{
 			list-style:none;
@@ -51,6 +52,13 @@
 		
 		    <button id="searchBtn" type="button">검색</button>
 		</div>
+
+		<div class="board">
+		dsafsdfasdfdsasdfsdfsdfs
+		</div>
+		<div class="paging">
+		  <ul style="-webkit-padding-start:">
+
 		<table class="board" border="1" style="text-align:center;">
 			<thead>
 				<tr>
@@ -81,25 +89,16 @@
 		    <c:if test="${pageMaker.prev}">
 		    	<li><a href="list${pageMaker.makeSearch(pageMaker.startPage - 1)}">이전</a></li>
 		    </c:if> 
-		
 		    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 		    	<li><a href="list${pageMaker.makeSearch(idx)}">${idx}</a></li>
 		    </c:forEach>
-		
 		    <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 		    	<li><a href="list${pageMaker.makeSearch(pageMaker.endPage + 1)}">다음</a></li>
 		    </c:if> 
 		  </ul>
 		</div>
 	</form>
-	<%
-		String flag = (String) request.getAttribute("flag");
-		if("g".equals(flag)||"".equals(flag)||flag==null||"w".equals(flag)||"c".equals(flag)||"t".equals(flag)){
-	%>
-	<button type="button" id="writeBtn" onclick="location.href='/board/write'">글쓰기</button>
-	<%
-		}
-	%>
+	
 	<script>
       $(function(){	  
     	$('#noticeBtn').click(function(){
