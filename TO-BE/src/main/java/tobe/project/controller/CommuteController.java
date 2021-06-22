@@ -36,7 +36,8 @@ public class CommuteController {
 				
 	}
 	
-	//근태관리 처리 페이지
+	//근태관리 출근 등록 처리
+	/*
 	@RequestMapping(value="/commute/commuteAction")
 	public String commute2(CommuteVO vo) throws Exception{
 		logger.info(">>>>>commuteAction");
@@ -44,6 +45,28 @@ public class CommuteController {
 		service.addStartWork(vo);
 		
 		return "/commute/commute";
+	}
+	*/
+	///*
+	@RequestMapping(value="/commute/startCommute")
+	public List<CommuteVO> startCommute(CommuteVO vo) throws Exception{
+		logger.info(">>>>>startCommute");
+		
+		service.addStartWork(vo);
+		List<CommuteVO> list = service.selectAllCommute(vo.getTidx());
+		return list;
+		
+	}
+	//*/
+	
+	//근태관리 퇴근 등록 처리
+	@RequestMapping(value="/commute/endCommute")
+	public List<CommuteVO> endCommute(CommuteVO vo) throws Exception{
+		logger.info(">>>>>endCommute");
+		
+		service.addEndWork(vo);
+		List<CommuteVO> list = service.selectAllCommute(vo.getTidx());
+		return list;
 	}
 	
 	
