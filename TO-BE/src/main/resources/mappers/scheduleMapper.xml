@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tobe.project.mapper.scheduleMapper">
+
+	<!-- 캘린더 맵퍼 -->
+	
+	<!-- 전체일정조회-->
+ 	<select id="showSchedule" resultType="scheduleVO">
+ 		select * from SCHEDULE_MANAGEMENT where delyn='N' order by sidx desc
+ 	</select>
+ 	
+ 	
+ 	<!-- 일정추가 -->
+ 	<insert id="addSchedule" parameterType="scheduleVO">
+		INSERT INTO
+			SCHEDULE_MANAGEMENT(SIDX, S_TYPE, S_TITLE, S_STARTDATE, S_ENDDATE, S_CONTENT)
+		VALUES
+			(sidx_seq.nextval,#{s_type},#{s_title},#{s_startDate},#{s_endDate},#{s_content})
+	</insert>
+    
+    <!-- 일정 상세보기 -->
+    <select id="contentsSchedule" parameterType="scheduleVO" resultType="scheduleVO">
+    	select A.*,B.t_id from schedule_management A left join tobe_member B on A.tidx = B.tidx where A.sidx= #{sidx}
+    </select>
+    <select id="contentmemberSchedule" parameterType="MemberVO" resultType="MemberVO">
+ 	  	select *
+ 		from tobe_member
+ 		where tidx = #{tidx}
+    </select>
+    
+    <!-- 일정 수정 -->
+    <update id="updateSchedule" parameterType="scheduleVO">
+    	update 
+    		SCHEDULE_MANAGEMENT
+    	set 
+    		S_TYPE = #{s_type}, S_TITLE = #{s_title}, S_STARTDATE = #{s_startDate}, S_ENDDATE = #{s_endDate}, S_CONTENT = #{s_content}
+    	where 
+    		SIDX = #{sidx}
+    </update>
+    
+    <!-- 일정 삭제 -->
+    <update id="deleteSchedule" parameterType="scheduleVO">
+    	update 
+    		SCHEDULE_MANAGEMENT
+    	set 
+    		DELYN = 'Y'
+    	where 
+    		SIDX = #{sidx}
+    </update>
+    
+    <!-- 게시판 맵퍼 -->
+    
+    <!-- 총 게시글 개수 조회 -->
+ 	<select id="countSchedule" parameterType="tobe.project.domain.SearchCriteria" resultType="int">
+	 		select count(sidx) from SCHEDULE_MANAGEMENT
+	 			where 1=1 <include refid="search"/> 
+	 				and sidx > 0 and delyn = 'N'
+	
+ 	</select>
+ 	
+ 	<!-- 페이징 처리 게시글 조회 -->
+ 	<select id="selectSchedule" resultType="ScheduleVO" parameterType="tobe.project.domain.SearchCriteria">
+ 		select SIDX, S_TYPE, S_TITLE, S_STARTDATE, S_ENDDATE, S_CONTENT, DELYN
+ 			from (
+ 				select SIDX, S_TYPE, S_TITLE, S_STARTDATE, S_ENDDATE, S_CONTENT, DELYN, ROW_NUMBER() OVER(ORDER BY SIDX DESC) AS RNUM
+ 				FROM SCHEDULE_MANAGEMENT WHERE 1=1 <include refid="search"/>
+ 					) WHERE delyn ='N' and RNUM BETWEEN #{rowStart} and #{rowEnd}
+ 	</select>
+ 	
+ 	
+ 	<!-- sql code 조각 -->
+ 	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == '유형'.toString()">AND S_TYPE LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == '제목'.toString()">AND S_TITLE LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == '내용'.toString()">AND S_CONTENT	 LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == '제목+내용'.toString()">AND (S_TITLE LIKE '%' || #{keyword} || '%') or (S_CONTENT LIKE '%' || #{keyword} || '%')</if>
+		</if>
+	</sql>
+</mapper>

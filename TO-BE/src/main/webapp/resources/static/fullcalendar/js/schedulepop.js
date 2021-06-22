@@ -1,5 +1,5 @@
 //datepicker
-$(function() {
+/*$(function() {
 	$.datepicker.setDefaults({
 		dateFormat : 'yy-mm-dd',
 		showOtherMonths : true,
@@ -12,12 +12,13 @@ $(function() {
        dayNamesMin: ['일','월','화','수','목','금','토'],
        dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일']
 	});
-	$("#startDate").datepicker();
-	$("#endDate").datepicker();
+	$("#s_startDate").datepicker();
+	$("#s_endDate").datepicker();
 	
-	$("#startDate").datepicker('setDate', 'today');
-	$("#endDate").datepicker('setDate', 'today');
+	$("#s_startDate").datepicker('setDate', 'today');
+	$("#s_endDate").datepicker('setDate', '+1d');
 });
+*/
 
 //add schedule
 $.fn.serializeObject = function(){
@@ -55,3 +56,4 @@ function click_ok(){
 		}
 	});
 };
+

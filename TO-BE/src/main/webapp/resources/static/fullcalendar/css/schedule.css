@@ -39,6 +39,7 @@ ul {
 }
 
 .group-head {
+	text-align:center;
 	height : 50px;
 	border-bottom : 1px solid #34aadc;
 	position : relative;
@@ -57,21 +58,21 @@ ul {
 	border-radius: 6px;
 }
 
-.ok-button {
+button {
 	width: 70px;
 	height: 27px;
 	float: right;
-    margin-right: 20px;
+    margin-right: 33px;
     border: 0;
     background: #34aadc;
-    margin-top: 30px;
-    font-size: 15px;
+    margin-top: 9px;
+    font-size: 14px;
     cursor: pointer;
     color: white;
     border-radius: 6px;
 }
 .group-body {
-	height :515px;
+	height :575px;
 	position : relative;
 	background-color : white;
 	margin-left: 40px;
@@ -82,7 +83,7 @@ ul {
 	margin-top: 20px;
 }
 
-.subject {
+.s_title {
 	border: 1px solid #34aadc;
 	border-radius: 5px;
     width: 500px;
@@ -102,9 +103,20 @@ ul {
     height: 25px;
 }
 
-.memo {
+.s_content {
 	width : 500px;
 	resize : none;
 	border-radius : 5px;
 	border : 1px solid #34aadc;
+}
+.btngroup{
+	height: 42px;
+    width: 527px;
+}
+
+.t_id {
+	border: 1px solid #34aadc;
+	border-radius: 5px;
+    width: 500px;
+    height: 30px;
 }

@@ -10,6 +10,7 @@
 <p>
 	<button type="button" onclick="location.href='/main'">메인페이지</button>
 	
+	<a href="approval/documentListMain">전자결재</a>
 	<a href="/member/list">일반사원리스트</a>
 	<a href="/admin/memberlist">관리자사원리스트</a>
 	<a href="/admin/emaillist">발송함</a>
