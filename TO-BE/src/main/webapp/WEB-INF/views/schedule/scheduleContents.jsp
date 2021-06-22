@@ -19,11 +19,11 @@
 		<script>
 		function click_modify(){
 			// Modify schedule open
-			location.href="scheduleModify?sidx="+<%=vo.getSidx()%>;
+			location.href="scheduleModify?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>";
 		};
 		function click_delete(){
 			alert("정말 삭제하시겠습니까?");
-			location.href="scheduleDelete?sidx="+<%=vo.getSidx()%>;
+			location.href="scheduleDelete?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>";
 			opener.parent.location.reload();
 			window.close();
 		}
@@ -54,12 +54,12 @@
 					<c:choose>
 						<c:when test="${mo.getT_id() != null }">
 							<div class="domain">
-								<input type = "text" class="t_id"  name = "t_id" id = "t_id" value="<%=mo.getT_id()%>"autocomplete="off">
+								<input type = "text" class="t_id"  name = "t_id" id = "t_id" value="<%=mo.getT_id()%>"autocomplete="off" readonly>
 							</div>
 						</c:when>
 						<c:otherwise>
 							<div class="domain">
-								<input type = "text" class="t_id"  name = "t_id" id = "t_id" value="아이디가 없습니다"autocomplete="off">
+								<input type = "text" class="t_id"  name = "t_id" id = "t_id" value="아이디가 없습니다"autocomplete="off" readonly>
 							</div>
 						</c:otherwise>
 					</c:choose>

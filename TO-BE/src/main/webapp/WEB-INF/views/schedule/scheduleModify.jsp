@@ -1,10 +1,14 @@
+<%@page import="tobe.project.dto.MemberVO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="tobe.project.dto.ScheduleVO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<% ScheduleVO vo = (ScheduleVO)request.getAttribute("vo"); %>
+<% 
+	ScheduleVO vo = (ScheduleVO)request.getAttribute("vo");
+	MemberVO mo = (MemberVO)request.getAttribute("mo");
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -22,13 +26,13 @@
 				
 				$.ajax({
 					data : scheduleData,
-					url : "/schedule/updateSchedule?sidx="+"<%=vo.getSidx()%>",
+					url : "/schedule/updateSchedule?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
 					type : "POST",
 					dataType : "json",
 					contentType : "application/json; charset=UTF-8",
 					success : function(data) {
 						opener.parent.location.reload();
-						location.href="scheduleContents?sidx="+<%=vo.getSidx()%>;
+						location.href="scheduleContents?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>";
 					}
 				});
 			}
@@ -48,9 +52,28 @@
 			<div class="group-body">
 				<form id="scheduleData">
 				<input type="hidden" name="sidx" id="sidx" value="<%=vo.getSidx()%>">
+				<input type="hidden" name="tidx" id="tidx" value="<%=vo.getTidx()%>">
+					<div class="domain">
+						<h3 class="zTree-h3">제목</h3>
+					</div>
 					<div class="top">
 						<input type="text" class="s_title" id="s_title" name="s_title" placeholder="제목을 입력하세요" value="<%=vo.getS_title()%>">
 					</div>
+					<div class="domain">
+						<h3 class="zTree-h3">사원번호</h3>
+					</div>
+					<c:choose>
+						<c:when test="${mo.getT_id() != null }">
+							<div class="domain">
+								<input type = "text" class="t_id"  name = "t_id" id = "t_id" value="<%=mo.getT_id()%>"autocomplete="off" readonly>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="domain">
+								<input type = "text" class="t_id"  name = "t_id" id = "t_id" value="아이디가 없습니다"autocomplete="off" readonly>
+							</div>
+						</c:otherwise>
+					</c:choose>
 					<div  class="domain">
 						<h3 class="zTree-h3">일정 유형</h3>
 						<select class="s_type" id="s_type" name="s_type" value="<%=vo.getS_type()%>">
@@ -59,6 +82,7 @@
 							<option value="출장">출장</option>
 						</select>
 					</div>
+					
 					<div class="domain">
 						<h3 class="zTree-h3">시작</h3>
 					</div>
@@ -77,7 +101,7 @@
 					<div class="domain">
 						<textarea class="s_content" id="s_content" name="s_content" rows="5" cols="20" placeholder="100글자까지 입력 가능합니다"><%=vo.getS_content()%></textarea>
 					</div>
-					<div class="btngroup" style="margin-top: 19px;">
+					<div class="btngroup">
 						<button type="button" class="ok-button" onclick="click_up()">확인</button>
 						<button type="reset" class="set-button">다시쓰기</button>
 					</div>
