@@ -24,10 +24,10 @@
 				c_list += data[i].c_starttime;
 				c_list += "</td>";
 				c_list += "<td>";
-				c_list += data[i].c_endtime;
+				c_list += "data[i].c_endtime";
 				c_list += "</td>";
 				c_list += "<td>";
-				c_list += data[i].c_time;
+				c_list += "data[i].c_time";
 				c_list += "</td>";		
 				c_list += "</tr>";
 			}
@@ -67,7 +67,7 @@ $(document).ready(function(){
 		
 		$.ajax({
 			//type: 
-			url:"/commute/commuteAction",
+			url:"/commute/startCommute",
 			data: form,
 			dataType:"json",
 			error:function(request,status,error){
@@ -83,12 +83,13 @@ $(document).ready(function(){
 	$("#endWork").on("click", function(){
 		var today = new Date();
 		var tidx = $("#tidx").val();
+		var cidx = $("#cidx").val();
 		
 		var hours = today.getHours(); //시간
 		var minutes = today.getMinutes(); //분
 		var endTime = hours+":"+minutes;
 		
-		var c_time = 
+		//var c_time = 
 		
 			
 			
@@ -96,9 +97,22 @@ $(document).ready(function(){
 		
 		var form = {
 			    c_endtime: endTime,
-			    tidx: tidx
+			    tdix: tidx,
+			    cidx: cidx
 			}
 		
+		$.ajax({
+			//type: 
+			url:"/commute/endCommute",
+			data: form,
+			dataType:"json",
+			error:function(request,status,error){
+			    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			},
+			success:function(data){
+				selectAllCommute(data);		
+			}
+		});
 		
 	});
 	
@@ -149,6 +163,7 @@ $(document).ready(function(){
 	<form name="frm">
 		<button type="button" name="startWork" id="startWork">출근</button>
 		<button type="button" name="endWork" id="endWork">퇴근</button>
+		<input type="hidden" id="tidx" name="tidx" value="${member.tidx}" />
 	</form>
 	
 </body>
