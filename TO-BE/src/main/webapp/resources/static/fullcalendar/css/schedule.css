@@ -72,7 +72,7 @@ button {
     border-radius: 6px;
 }
 .group-body {
-	height :575px;
+	height :625px;
 	position : relative;
 	background-color : white;
 	margin-left: 40px;
@@ -110,8 +110,9 @@ button {
 	border : 1px solid #34aadc;
 }
 .btngroup{
+	margin-top:10px;
 	height: 42px;
-    width: 527px;
+    width: 539px;
 }
 
 .t_id {
