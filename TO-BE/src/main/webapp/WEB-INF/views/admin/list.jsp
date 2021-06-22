@@ -77,6 +77,13 @@
     .saoneGoTag{
     	display:none;
     }
+	.active{
+    	background-color: #ffd4006e;
+    }
+    .pageDiv a{
+    	text-decoration: none;
+    	color:black;
+    }
 </style>
 </head>
 <body>

@@ -93,7 +93,7 @@ public class MemberDAOImpl implements MemberDAO{
 	
 	@Override
 	public void insertFile(Map<String, Object> map) throws Exception {
-		sqlSession.insert(Namespace+".insetFile", map);
+		sqlSession.insert(Namespace+".insertFile", map);
 		
 	}
 	///////////[가람]

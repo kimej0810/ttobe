@@ -23,4 +23,6 @@ public interface BoardDAO {
 	public void deleteBoard(int bidx) throws Exception;
 	//첨부파일
 	public void insertFile(Map<String, Object> map) throws Exception;
+	//첨부파일 수정
+	public void modifyFile(Map<String, Object> map) throws Exception;
 }

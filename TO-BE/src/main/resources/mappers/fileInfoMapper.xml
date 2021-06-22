@@ -14,6 +14,7 @@
     		F_STORED_FILE_NAME
     	FROM FILE_INFOTEST
     	WHERE BIDX = #{bidx} AND DELYN = 'N'
+    	ORDER BY FIDX ASC
     </select>
     
     <!-- didx를 통한 파일 조회 -->
@@ -35,4 +36,10 @@
     	FROM FILE_INFOTEST
     	WHERE FIDX = #{FIDX}
     </select>
+    
+    <update id="modifyFile" parameterType="hashMap">
+    	UPDATE FILE_INFOTEST
+    	SET DELYN = 'Y'
+    	WHERE FIDX = #{FIDX}
+    </update>
 </mapper>

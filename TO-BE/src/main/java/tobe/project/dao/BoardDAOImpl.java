@@ -58,4 +58,9 @@ public class BoardDAOImpl implements BoardDAO{
 		sqlSession.insert(Namespace+".insertFile", map);
 		
 	}
+
+	@Override
+	public void modifyFile(Map<String, Object> map) throws Exception {
+		sqlSession.update(Namespace+".modifyFile", map);
+	}
 }

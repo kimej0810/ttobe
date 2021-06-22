@@ -4,13 +4,29 @@
 <%@ page session="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
-
+<%@ include file="/WEB-INF/views/include/new_main.jsp" %>
 <html>
 <head>
 	<title>게시판</title>
 	<meta charset="UTF-8">
 	<script type="text/javascript" src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 	<style>
+		.content{
+			display:grid;
+			grid-template-rows: 1fr 1fr 6fr 1fr;
+		}
+		.category{
+			grid-row:1/2;
+		}
+		.search{
+			grid-row:2/3;
+		}
+		.board{
+			grid-row:3/4;
+		}
+		.paging{
+			grid-row:4/5;s
+		}
 		li{
 			list-style:none;
 			float:left;
@@ -19,7 +35,6 @@
 	</style>
 </head>
 <body>
-	<h1>통합게시판</h1>
 	<form role="form" method="get">
 		<div class="category">
 			<button id="noticeBtn" type="button" >공지사항</button>
@@ -36,7 +51,7 @@
 		
 		    <button id="searchBtn" type="button">검색</button>
 		</div>
-		<table border="1" style="text-align:center;">
+		<table class="board" border="1" style="text-align:center;">
 			<thead>
 				<tr>
 					<th>번호</th>
@@ -61,7 +76,7 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<div>
+		<div class="paging">
 		  <ul>
 		    <c:if test="${pageMaker.prev}">
 		    	<li><a href="list${pageMaker.makeSearch(pageMaker.startPage - 1)}">이전</a></li>

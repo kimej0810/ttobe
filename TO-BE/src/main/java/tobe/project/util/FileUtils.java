@@ -20,11 +20,13 @@ import tobe.project.dto.MemberVO;
 
 @Component("fileUtils")
 public class FileUtils {
-	//파일 저장될 경로
+	//�뙆�씪 ���옣�맆 寃쎈줈
 	//private static final String filePath = "D:\\kio\\tobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\";
-	private static final String filePath = "C:\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\file\\"; // 파일이 저장될 위치 수진
+	//private static final String filePath = "C:\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\file\\"; // �뙆�씪�씠 ���옣�맆 �쐞移� �닔吏�
 	//private static final String filePath = "D:\\kio\\tobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\";
-	//private static final String filePath = "C:\\api_dev\\to-be3\\TO-BE\\src\\main\\webapp\\resources\\static\\file\\"; // 파일이 저장될 위치 수진
+	//private static final String filePath = "C:\\api_dev\\to-be3\\TO-BE\\src\\main\\webapp\\resources\\static\\file\\"; // �뙆�씪�씠 ���옣�맆 �쐞移� �닔吏�
+	private static final String filePath = "C:\\Users\\750\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\";
+	
 	
 	public List<Map<String, Object>> parseInsertFileInfoProfile(MemberVO memberVO, MultipartHttpServletRequest mpRequest) throws IllegalStateException, IOException{
 		Iterator<String> iterator = mpRequest.getFileNames();
@@ -65,9 +67,9 @@ public class FileUtils {
 			MultipartHttpServletRequest mpRequest) throws Exception{
 		
 		/*
-			Iterator은 데이터들의 집합체? 에서 컬렉션으로부터 정보를 얻어올 수 있는 인터페이스입니다.
-			List나 배열은 순차적으로 데이터의 접근이 가능하지만, Map등의 클래스들은 순차적으로 접근할 수가 없습니다.
-			Iterator을 이용하여 Map에 있는 데이터들을 while문을 이용하여 순차적으로 접근합니다.
+			Iterator�� �뜲�씠�꽣�뱾�쓽 吏묓빀泥�? �뿉�꽌 而щ젆�뀡�쑝濡쒕��꽣 �젙蹂대�� �뼸�뼱�삱 �닔 �엳�뒗 �씤�꽣�럹�씠�뒪�엯�땲�떎.
+			List�굹 諛곗뿴�� �닚李⑥쟻�쑝濡� �뜲�씠�꽣�쓽 �젒洹쇱씠 媛��뒫�븯吏�留�, Map�벑�쓽 �겢�옒�뒪�뱾�� �닚李⑥쟻�쑝濡� �젒洹쇳븷 �닔媛� �뾾�뒿�땲�떎.
+			Iterator�쓣 �씠�슜�븯�뿬 Map�뿉 �엳�뒗 �뜲�씠�꽣�뱾�쓣 while臾몄쓣 �씠�슜�븯�뿬 �닚李⑥쟻�쑝濡� �젒洹쇳빀�땲�떎.
 		*/
 		
 		Iterator<String> iterator = mpRequest.getFileNames();
@@ -119,9 +121,9 @@ public class FileUtils {
 			MultipartHttpServletRequest mpRequest) throws Exception{
 		
 		/*
-			Iterator은 데이터들의 집합체? 에서 컬렉션으로부터 정보를 얻어올 수 있는 인터페이스입니다.
-			List나 배열은 순차적으로 데이터의 접근이 가능하지만, Map등의 클래스들은 순차적으로 접근할 수가 없습니다.
-			Iterator을 이용하여 Map에 있는 데이터들을 while문을 이용하여 순차적으로 접근합니다.
+			Iterator�� �뜲�씠�꽣�뱾�쓽 吏묓빀泥�? �뿉�꽌 而щ젆�뀡�쑝濡쒕��꽣 �젙蹂대�� �뼸�뼱�삱 �닔 �엳�뒗 �씤�꽣�럹�씠�뒪�엯�땲�떎.
+			List�굹 諛곗뿴�� �닚李⑥쟻�쑝濡� �뜲�씠�꽣�쓽 �젒洹쇱씠 媛��뒫�븯吏�留�, Map�벑�쓽 �겢�옒�뒪�뱾�� �닚李⑥쟻�쑝濡� �젒洹쇳븷 �닔媛� �뾾�뒿�땲�떎.
+			Iterator�쓣 �씠�슜�븯�뿬 Map�뿉 �엳�뒗 �뜲�씠�꽣�뱾�쓣 while臾몄쓣 �씠�슜�븯�뿬 �닚李⑥쟻�쑝濡� �젒洹쇳빀�땲�떎.
 		*/
 		
 		Iterator<String> iterator = mpRequest.getFileNames();
@@ -201,15 +203,56 @@ public class FileUtils {
 				String extension = StringUtils.getFilenameExtension(originalFileName);
 				listMap = new HashMap<String, Object>();
 				listMap.put("tidx", tidx);
-				listMap.put("ftype", extension);
-				listMap.put("originalFileName", originalFileName);
-				listMap.put("storedFileName", storedFileName);
-				listMap.put("fileSize", multipartFile.getSize());
+				listMap.put("F_TYPE", extension);
+				listMap.put("ORG_FILE_NAME", originalFileName);
+				listMap.put("STORED_FILE_NAME", storedFileName);
+				listMap.put("FILE_SIZE", multipartFile.getSize());
 				list.add(listMap);
 			}
 		}
 		return list;
 	}
+	
+	//寃뚯떆�뙋 泥⑤��뙆�씪 �닔�젙
+	public List<Map<String, Object>> parseUpdateFileInfo(BoardVO boardVO, String[] files, String[] fileNames, MultipartHttpServletRequest mpRequest) throws Exception{ 
+		Iterator<String> iterator = mpRequest.getFileNames();
+		MultipartFile multipartFile = null; 
+		String originalFileName = null; 
+		String originalFileExtension = null; 
+		String storedFileName = null; 
+		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
+		Map<String, Object> listMap = null; 
+		int bidx = boardVO.getBidx();
+		while(iterator.hasNext()){ 
+			multipartFile = mpRequest.getFile(iterator.next()); 
+			//�깉濡쒖슫 泥⑤��뙆�씪�씠 �벑濡앸릺�뿀�쓣 �븣
+			if(multipartFile.isEmpty() == false){
+				originalFileName = multipartFile.getOriginalFilename(); 
+				originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf(".")); 
+				storedFileName = getRandomString() + originalFileExtension; 
+				multipartFile.transferTo(new File(filePath + storedFileName)); 
+				listMap = new HashMap<String,Object>();
+				listMap.put("IS_NEW", "Y");
+				listMap.put("BIDX", bidx); 
+				listMap.put("ORG_FILE_NAME", originalFileName);
+				listMap.put("STORED_FILE_NAME", storedFileName); 
+				listMap.put("FILE_SIZE", multipartFile.getSize()); 
+				list.add(listMap); 
+			} 
+		}
+		//�궘�젣�븷 �뙆�씪�쓽 �뙆�씪踰덊샇�� �씠由꾩쓣 諛쏆쓬
+		if(files != null && fileNames != null){ 
+			for(int i = 0; i<fileNames.length; i++) {
+					listMap = new HashMap<String,Object>();
+                    listMap.put("IS_NEW", "N");
+					listMap.put("FIDX", files[i]); 
+					list.add(listMap); 
+			}
+		}
+		return list; 
+	}
+
+	
 	
 	public static String getRandomString() {
 		return UUID.randomUUID().toString().replaceAll("-","");

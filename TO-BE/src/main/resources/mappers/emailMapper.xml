@@ -19,7 +19,7 @@
 	</select> -->
 	<select id="searchEmailList" resultType="emailVO">
 		select * from (select row_number() over (order by midx desc)num,
-		A.* from manager_email A where 1=1
+		A.*,B.T_NAME from manager_email A LEFT JOIN TOBE_MEMBER B ON A.TIDX = B.TIDX where 1=1
 		<include refid="search"/>
 		order by midx desc)
 		where delyn = 'N' and num between #{rowStart} and #{rowEnd}
@@ -27,8 +27,8 @@
 	<select id="totalCountsearchEmail" resultType="int">
 		<![CDATA[
 			select count(midx)
-			from manager_email
-			where delyn = 'N'
+			from manager_email A LEFT JOIN TOBE_MEMBER B ON A.TIDX = B.TIDX
+			where A.delyn = 'N'
 		]]>
 		<include refid="search"/>
 	</select>
@@ -39,13 +39,13 @@
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 't'.toString()">
-				and m_title like '%'||#{keyword}||'%'
+				and A.m_title like '%'||#{keyword}||'%'
 			</if>
 			<if test="searchType == 'c'.toString()">
-				and m_content like '%'||#{keyword}||'%'
+				and A.m_content like '%'||#{keyword}||'%'
 			</if>
 			<if test="searchType == 'w'.toString()">
-				and tidx like '%'||#{keyword}||'%'
+			  AND B.T_NAME LIKE '%'||#{keyword}||'%'
 			</if>
 		</if>
 	</sql>

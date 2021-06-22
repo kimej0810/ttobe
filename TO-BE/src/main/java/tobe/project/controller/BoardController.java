@@ -1,6 +1,6 @@
 package tobe.project.controller;
 
-import java.io.File;
+import java.io.File; 
 import java.net.URLEncoder;
 import java.util.List;
 import java.util.Locale;
@@ -27,6 +27,7 @@ import tobe.project.dto.ReplyVO;
 import tobe.project.service.BoardService;
 import tobe.project.service.FileInfoService;
 import tobe.project.service.ReplyService;
+
 
 
 @Controller
@@ -129,9 +130,15 @@ public class BoardController{
 	
 	//게시판 수정
 	@RequestMapping(value = "/modifyAction")
-	public String modifyAction(BoardVO vo, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes rttr) throws Exception {
+	public String modifyAction(BoardVO vo, 
+								@ModelAttribute("scri") SearchCriteria scri, 
+								RedirectAttributes rttr,
+								@RequestParam(value="fileNoDel[]") String[] files,
+								@RequestParam(value="fileNameDel[]") String[] fileNames,
+								MultipartHttpServletRequest mpRequest) throws Exception {
+		
 		logger.info("BoardModifyAction");
-	    service.modifyBoard(vo);
+	    service.modifyBoard(vo, files, fileNames, mpRequest);
 	    rttr.addAttribute("page", scri.getPage());
 	    rttr.addAttribute("perPageNum", scri.getPerPageNum());
 	    rttr.addAttribute("searchType", scri.getSearchType());
