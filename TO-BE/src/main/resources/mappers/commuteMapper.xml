@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis/org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tobe.project.mapper.commuteMapper">
+	
+	<!-- 출근시간 등록 -->
+	<insert id="addStartWork">
+		insert into commute_management (
+			cidx,
+			c_type,
+			c_date,
+			c_starttime,
+			tidx
+		)values(
+			cidx_seq.nextval,
+			#{c_type},
+			#{c_date},
+			#{c_starttime},
+			#{tidx}
+		)
+	</insert>
+	
+	<!-- 퇴근시간 등록 -->
+	<update id="addEndWork">
+		<!-- UPDATE COMMUTE_MANAGEMENT SET C_ENDTIME = #{C_ENDTIME}, C_WORKTIME = #{C_WORKTIME}, C_TOTLALWORKTIME = #{C_TOTLALWORKTIME}
+		WHERE CIDX = #{CIDX} -->
+		UPDATE COMMUTE_MANAGEMENT SET C_ENDTIME = #{C_ENDTIME}
+		WHERE CIDX = #{CIDX}
+	</update>
+	
+	<!-- 근태목록 조회 -->
+	<select id="selectAllCommute" resultType="commuteVO">
+		SELECT * FROM COMMUTE_MANAGEMENT WHERE TIDX = #{TIDX} ORDER BY CIDX DESC
+	</select>
+</mapper>	
