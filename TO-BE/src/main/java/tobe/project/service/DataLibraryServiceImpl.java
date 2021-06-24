@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import tobe.project.dao.DataLibraryDAO;
+import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.DataLibraryVO;
 import tobe.project.util.FileUtils;
 
@@ -22,8 +23,14 @@ public class DataLibraryServiceImpl implements DataLibraryService{
     private DataLibraryDAO dao;
 	
 	@Override
-	public List<DataLibraryVO> selectAllData() throws Exception {
-		return dao.selectAllData();
+	public List<DataLibraryVO> selectAllData(SearchCriteria scri) throws Exception {
+		return dao.selectAllData(scri);
+	}
+	
+	@Override
+	public int dataCount(SearchCriteria scri) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.dataCount(scri);
 	}
 	
 	@Override
@@ -36,4 +43,6 @@ public class DataLibraryServiceImpl implements DataLibraryService{
 			dao.insertFile(list.get(i)); //FileInfo 추가
 		}
 	}
+
+	
 }

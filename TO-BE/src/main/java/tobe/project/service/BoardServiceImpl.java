@@ -34,19 +34,19 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public void writeBoard(BoardVO vo, MultipartHttpServletRequest mpRequest) throws Exception {
-		dao.writeBoard(vo);
+		dao.writeBoard(vo); //게시글
 		
 		System.out.println("----------------------------------");
 		System.out.println("vo의 bidx->"+vo.getBidx());
 		System.out.println("----------------------------------");
 		
-		List<Map<String, Object>> list = fileUtils.parseInsertFileInfoBoard(vo, mpRequest);
+		List<Map<String, Object>> list = fileUtils.parseInsertFileInfoBoard(vo, mpRequest); 
 		int size = list.size();
 		for(int i=0; i<size; i++) {
 			System.out.println("----------------------------------");
 			System.out.println("list의 bidx->"+list.get(i).get("bidx"));
 			System.out.println("----------------------------------");
-			dao.insertFile(list.get(i));
+			dao.insertFile(list.get(i)); //파일넣기
 		}
 	}
 

@@ -15,6 +15,7 @@
     <div class="wrapper">
         <nav id="sidebar" class="sidebar">
             <div class="sidebar-content-wrappper">
+            	<img id="sideLogo" src="<c:url value="/resources/static/img/side_logo.png"/>">
                 <ul class="sidebar-menu">
                     <li class="sidebar-menu-item">일정관리</li>
                     <li class="sidebar-menu-item">근태관리</li>

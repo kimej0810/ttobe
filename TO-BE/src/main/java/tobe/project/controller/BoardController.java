@@ -70,7 +70,7 @@ public class BoardController{
 		 logger.info("BoardWrite");
 		 
 		 BoardVO vo = service.selectOneBoard(bidx);
-		 
+		 vo.setB_content(vo.getB_content().replace("\r\n", "<br>"));
 		 model.addAttribute("boardVO", vo);
 		 model.addAttribute("scri", scri);
 		 

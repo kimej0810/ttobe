@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.DataLibraryVO;
 
 @Repository
@@ -19,10 +20,11 @@ public class DataLibraryDAOImpl implements DataLibraryDAO{
 	
 	//자료실 목록
 	@Override
-	public List<DataLibraryVO> selectAllData() throws Exception {
-		return sqlSession.selectList(Namespace+".selectAllData");
+	public List<DataLibraryVO> selectAllData(SearchCriteria scri) throws Exception {
+		return sqlSession.selectList(Namespace+".selectAllData", scri);
 	}
-
+	
+	
 	//자료실 업로드
 	@Override
 	public void addData(DataLibraryVO vo) throws Exception {
@@ -35,6 +37,13 @@ public class DataLibraryDAOImpl implements DataLibraryDAO{
 	public void insertFile(Map<String, Object> map) throws Exception {
 		sqlSession.insert(Namespace+".insertFile", map);
 		
+	}
+
+
+	@Override
+	public int dataCount(SearchCriteria scri) throws Exception {
+		
+		return sqlSession.selectOne(Namespace+".dataCount", scri);
 	}
 
 }

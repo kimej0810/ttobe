@@ -17,7 +17,15 @@ public class ReplyServiceImpl implements ReplyService {
 	
 	@Override
 	public List<ReplyVO> listReply(int bidx) throws Exception {
-		return dao.list(bidx);
+		
+		List<ReplyVO> listReply = dao.list(bidx);
+		
+		for(int i=0; i<listReply.size(); i++) {;
+			listReply.get(i).setR_content(listReply.get(i).getR_content().replace("\n", "<br>"));
+			//엔터 먹이는중
+		}
+		
+		return listReply;
 	}
 
 	@Override

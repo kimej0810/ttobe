@@ -8,6 +8,15 @@ public class DataLibraryVO {
 	private String delyn;
 	private int tidx;
 	
+	//resultMap 실험
+	private MemberVO memberVO;
+	public MemberVO getMemberVO() {
+		return memberVO;
+	}
+	public void setMemberVO(MemberVO memberVO) {
+		this.memberVO = memberVO;
+	}
+	
 	public int getTidx() {
 		return tidx;
 	}
