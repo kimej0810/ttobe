@@ -14,8 +14,22 @@ public class ApprovalVO {
 	private String e_textContent;
 	private String delyn;
 	private String e_status;
+	private int tidx;
+	private MemberVO memberVO;
 	
 	
+	public int getTidx() {
+		return tidx;
+	}
+	public void setTidx(int tidx) {
+		this.tidx = tidx;
+	}
+	public MemberVO getMemberVO() {
+		return memberVO;
+	}
+	public void setMemberVO(MemberVO memberVO) {
+		this.memberVO = memberVO;
+	}
 	public String getE_status() {
 		return e_status;
 	}

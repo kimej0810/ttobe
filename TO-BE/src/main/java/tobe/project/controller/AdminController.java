@@ -3,7 +3,9 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Locale;
+
 import javax.inject.Inject;
+
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import tobe.project.domain.PageMaker;
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.EmailVO;
@@ -25,7 +28,6 @@ import tobe.project.dto.FileVO;
 import tobe.project.dto.MemberVO;
 import tobe.project.service.AdminService;
 import tobe.project.service.EmailService;
-import tobe.project.service.MemberFileService;
 import tobe.project.service.MemberService;
 import tobe.project.util.MediaUtils;
 import tobe.project.util.UploadFileUtils;

@@ -1,3 +1,4 @@
+<%@page import="tobe.project.dto.MemberVO"%>
 <%@page import="tobe.project.domain.PageMaker"%>
 <%@page import="tobe.project.dto.ApprovalVO"%>
 <%@page import="java.util.List"%>
@@ -15,6 +16,8 @@
 		<meta charset="UTF-8">
 		<title>결재대기문서</title>
 		<script src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
+		<script type="text/javascript">
+		</script>
 		<style type="text/css">
 			#moveBtnGroup{
 				width:995px;
@@ -115,13 +118,14 @@
 		</style>
 		<script type="text/javascript">
 			function waiting(){
-				location.href="documentWaitingList"
+				location.href="documentWaitingList";
+				document.frm.submit();
 			}
 			function progress(){	
-				location.href="documentInProgress"
+				location.href="documentInProgress";
 			}
 			function completed(){ 
-				location.href="documentPaymentCompleted"
+				location.href="documentPaymentCompleted";
 			}
 			
 			function documentWite(){ //기안서 팝업창
@@ -133,11 +137,15 @@
 		</script>
 	</head>
 	<body>
-		<div id="moveBtnGroup">
-			<button type="button" class="moveBtn" onclick="waiting()">결재대기문서</button>
-			<button type="button" class="moveBtn" onclick="progress()">결재진행문서</button>
-			<button type="button" class="moveBtn" onclick="completed()">결재완료문서</button>
-		</div>
+		<form name="frm" id="frm" method="post">
+			<div id="moveBtnGroup">
+				<button type="button" class="moveBtn" onclick="waiting()">결재대기문서</button>
+				<button type="button" class="moveBtn" onclick="progress()">결재진행문서</button>
+				<button type="button" class="moveBtn" onclick="completed()">결재완료문서</button>
+				<div style="float: right;">
+				</div>
+			</div>
+		</form>
 		<div id="statusGroup">
 			<table id="statusTable">
 				<colgroup>
@@ -230,7 +238,7 @@
 				}
 				if(paging.isNext() && paging.getEndPage()>0){
 			%>
-					<a href="/approval/documentListMain<%= paging.makeSearch(paging.getEndPage()+1) %>">&gt;</a>
+					<a href="/approval/documentListMain?<%= paging.makeSearch(paging.getEndPage()+1) %>">&gt;</a>
 			<%
 				}
 			%>

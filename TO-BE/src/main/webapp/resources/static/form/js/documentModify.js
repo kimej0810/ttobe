@@ -12,10 +12,10 @@ $(function() {
        dayNamesMin: ['일','월','화','수','목','금','토'],
        dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일']
 	});
-	$("#e_dueDate").datepicker();
+	$("#e_draftDate").datepicker();
 	$("#e_startDay").datepicker();
 	
-	$("#e_dueDate").datepicker('setDate', 'today');
+	$("#e_draftDate").datepicker('setDate', 'today');
 	$("#e_startDay").datepicker('setDate', '+1d');
 });
 

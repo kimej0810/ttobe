@@ -32,6 +32,8 @@
 			window.close();
 		}
 		</script>
+		<style type="text/css">
+		</style>
 	</head>
 	<body>
 		<div class="group" id="popupGroup">
@@ -83,7 +85,7 @@
 						<h3 class="zTree-h3">내용</h3>
 					</div>
 					<div class="domain">
-						<textarea class="s_content" id="s_content" name="s_content" rows="5" cols="20" placeholder="100글자까지 입력 가능합니다" readonly><%=vo.getS_content()%></textarea>
+						<textarea class="s_content target" id="s_content" name="s_content" rows="5" cols="20" placeholder="100글자까지 입력 가능합니다" readonly><%=vo.getS_content()%></textarea>
 					</div>
 				</form>
 				<div class="btngroup">

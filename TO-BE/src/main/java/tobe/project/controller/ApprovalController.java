@@ -1,10 +1,12 @@
 package tobe.project.controller;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import tobe.project.domain.PageMaker;
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.ApprovalVO;
+import tobe.project.dto.LoginDTO;
+import tobe.project.dto.MemberVO;
 import tobe.project.service.ApprovalService;
+import tobe.project.service.MemberService;
 
 /**
  * Handles requests for the application home page.
@@ -32,25 +37,34 @@ public class ApprovalController {
 	
 	@Inject
 	private ApprovalService service;
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 * @throws Exception 
-	 */
+	
+	@Inject
+	private MemberService mservice;
+	
+	//전자결재 메인(대기목록)
 	@RequestMapping(value = "/documentListMain")
-	public String documentMain(Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception{
-		
+	public String documentMain(HttpServletRequest request, LoginDTO dto, Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception{
+		System.out.println("ApprovalController");
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(service.totalCountApprovalWaitingDocument(scri));
 		
 		model.addAttribute("paging",pageMaker);
 		model.addAttribute("elist", service.selectAllApprovalWaitingDocumentList(scri));
+
+		//로그인 정보
+		System.out.println(dto);
+		MemberVO vo = mservice.login(dto);
+		System.out.println(vo);
+		
+		
+		
 		return "/approval/documentListMain";
 	} 	
 	
-	//���ڰ��� ��⸮��Ʈ
+	//전자결재 대기리스트
 	@RequestMapping(value = "/documentWaitingList")
-	public String documentWaiting(Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception{
+	public String documentWaiting(LoginDTO dto, String t_id,Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception{
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
@@ -59,13 +73,17 @@ public class ApprovalController {
 		model.addAttribute("paging", pageMaker);
 		model.addAttribute("waiting", service.selectAllApprovalWaitingDocumentList(scri));
 		
+		//로그인정보
+		MemberVO vo = mservice.login(dto);
+		model.addAttribute("info",vo);
+		System.out.println(t_id);
 		
 		return "/approval/documentWaitingList";
 	}
 	
-	//���ڰ��� �����߸���Ʈ
+	//전자결재 진행중 리스트
 	@RequestMapping(value = "/documentInProgress")
-	public String documentInProgress(Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception{
+	public String documentInProgress(LoginDTO dto, String t_id, Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception{
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
@@ -73,12 +91,18 @@ public class ApprovalController {
 		
 		model.addAttribute("paging", pageMaker);
 		model.addAttribute("progress", service.selectAllApprovalProgressDocumentList(scri));
+		
+		//로그인정보
+		MemberVO vo = mservice.login(dto);
+		model.addAttribute("info",vo);
+		System.out.println(t_id);
+		
 		return "/approval/documentInProgress";
 	}
 	
-	//���ڰ��� �ϷḮ��Ʈ
+	//전자결재 완료리스트
 	@RequestMapping(value = "/documentPaymentCompleted")
-	public String documentPaymentCompleted(Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception{
+	public String documentPaymentCompleted(LoginDTO dto, String t_id, Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception{
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
@@ -86,10 +110,26 @@ public class ApprovalController {
 		
 		model.addAttribute("paging",pageMaker);
 		model.addAttribute("completed", service.selectAllApprovalPaymentCompletedDocumentList(scri));
+		
+		//로그인정보
+		MemberVO vo = mservice.login(dto);
+		model.addAttribute("info",vo);
+		System.out.println(t_id);
+		
 		return "/approval/documentPaymentCompleted";
 	}
 	
-	//��ȼ� �ۼ� 
+	//기안서 작성페이지
+	@RequestMapping(value = "/documentWite")
+	public String documentWite(LoginDTO dto,String t_id,Locale locale) throws Exception {
+		logger.info("Welcome home! addDocumentWite", locale);
+		MemberVO vo = mservice.login(dto);
+		System.out.println(vo);
+		System.out.println(t_id);
+		return "/approval/documentWite";
+	}
+	
+	//기안서 작성 ajax호출
 	@ResponseBody
 	@RequestMapping(value = "/addDocumentWite", method = RequestMethod.POST)
 	public Map<Object,Object> addDocumentWite(@RequestBody ApprovalVO vo,Locale locale) throws Exception {
@@ -100,7 +140,7 @@ public class ApprovalController {
 				
 	}
 	
-	//�������� �󼼺���
+	//결재문서 상세보기
 	@RequestMapping(value = "/documentContents")
 	public ApprovalVO documentContents(Model model,int e_documentNum) throws Exception{
 		
@@ -109,7 +149,7 @@ public class ApprovalController {
 		model.addAttribute("contents",vo);
 		return vo;
 	}
-	//�������� ����
+	//결재문서 수제
 	@RequestMapping(value = "/documentModify")
 	public ApprovalVO documentModify(Model model,int e_documentNum) throws Exception{
 		ApprovalVO vo = service.selectOneApprovalDocumentContents(e_documentNum);
@@ -117,6 +157,7 @@ public class ApprovalController {
 		return vo;
 	}
 	
+	//결재문서 수정 ajax
 	@ResponseBody
 	@RequestMapping(value = "/ModifyDocumentWite", method = RequestMethod.POST)
 	public Map<Object,Object> modifyApprovalDocument(@RequestBody ApprovalVO vo) throws Exception {
@@ -125,58 +166,10 @@ public class ApprovalController {
 		return map;
 				
 	}
-	//�������� ����
+	//결재문서 삭제
 	@RequestMapping(value = "/documentDelete")
 	public String documentDelete(int eidx) throws Exception{
 		service.deleteApprovalDocument(eidx);
 		return "redirect:/documentContents";
-	}
-	
-	//��ȼ� ������
-	@RequestMapping(value = "/documentWrite")
-	public String documentWite(Locale locale) throws Exception {
-		logger.info("Welcome home! addDocumentWite", locale);
-		return "/approval/documentWrite";
-	}
-	
-	
-	
-	
-	//��ȼ���
-	@RequestMapping(value = "/remainder/gianWrite")
-	public String gianWrite(Locale locale, Model model) throws Exception {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		return "approval/gianWrite";
-	}
-	
-	//������Ǽ� ������
-	@RequestMapping(value = "/remainder/Expense")
-	public String Expense(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		return "/approval/remainder/Expense";
-	}
-	
-	//�ް� ��û��
-	@RequestMapping(value = "/remainder/leave")
-	public String leave(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		return "/approval/remainder/leave";
-	}
-	
-	//���� ��û��
-	@RequestMapping(value = "/remainder/businessTripApplication")
-	public String businessTripApplication(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		return "/approval/remainder/businessTripApplication";
-	}
-	@RequestMapping(value = "/remainder/businessTripExpensesBill")
-	public String businessTripExpensesBil(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		return "/approval/remainder/businessTripExpensesBill";
 	}
 }

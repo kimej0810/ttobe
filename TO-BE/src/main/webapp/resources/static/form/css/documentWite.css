@@ -1936,7 +1936,7 @@ div{
 	margin-left: 5px;
 	margin-top: 5px;
 }
-#e_documentNum, #e_rule, #e_dueDate, #e_startDay, #e_con, #e_member, #e_buseo, #e_send{
+#e_documentNum, #e_rule, #e_draftDate, #e_startDay, #e_con, #e_member, #e_buseo, #e_send{
 	width: 98%;
 	height: 28px;
 	border: none;
