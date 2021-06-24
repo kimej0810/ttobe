@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<% Object userName = session.getAttribute("userName");%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -61,7 +62,7 @@
 						<h3 class="zTree-h3">메모</h3>
 					</div>
 					<div class="domain">
-						<textarea class="s_content" id="s_content" name="s_content" rows="5" cols="20" placeholder="100글자까지 입력 가능합니다" autocomplete="off"></textarea>
+						<textarea class="s_content target" id="s_content" name="s_content" rows="5" cols="20" placeholder="100글자까지 입력 가능합니다" autocomplete="off"></textarea>
 					</div>
 				</form>
 				<button type="button" class="ok-button" onclick="click_ok();">확인</button>

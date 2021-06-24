@@ -3,12 +3,28 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="tobe.project.mapper.scheduleMapper">
-
+	<resultMap type="scheduleVO" id="ScheduleResultMap">
+		<id column="SIDX" property="sidx"/>
+	    <result column="S_TYPE" property="s_type"/>
+	    <result column="S_TITLE" property="s_title"/>
+	    <result column="S_STARTDATE" property="s_startDate"/>
+	    <result column="S_ENDDATE" property="s_endDate"/>
+	    <result column="S_CONTENT" property="s_content"/>
+	    <result column="DELYN" property="delYn"/>
+	    <result column="TIDX" property="tidx"/>
+	    <collection property="memberVO" resultMap="MemberResultMap"/>
+	</resultMap>
+	
+	<resultMap type="memberVO" id="MemberResultMap">
+	    <id column="TIDX" property="tidx"/>
+	    <result column="T_NAME" property="t_name"/>
+	</resultMap>
+	
 	<!-- 캘린더 맵퍼 -->
 	
 	<!-- 전체일정조회-->
- 	<select id="showSchedule" resultType="scheduleVO">
- 		select A.*,B.T_id from schedule_management A left join tobe_member B on A.tidx = B.tidx where A.delyn = 'N' order by A.sidx desc
+ 	<select id="showSchedule" resultType="scheduleVO" resultMap="ScheduleResultMap">
+ 		select A.*,B.T_NAME from schedule_management A left join tobe_member B on A.tidx = B.tidx where A.delyn = 'N' order by A.s_startDate asc
  	</select>
  	
  	
@@ -22,7 +38,7 @@
     
     <!-- 일정 상세보기 -->
     <select id="contentsSchedule" parameterType="scheduleVO" resultType="scheduleVO">
-    	select A.*,B.t_id from schedule_management A left join tobe_member B on A.tidx = B.tidx where A.sidx= #{sidx}
+    	select A.*,B.T_ID from schedule_management A left join tobe_member B on A.tidx = B.tidx where A.sidx= #{sidx}
     </select>
     <select id="contentmemberSchedule" parameterType="MemberVO" resultType="MemberVO">
  	  	select *
@@ -59,14 +75,14 @@
 	 				and sidx > 0 and delyn = 'N'
 	
  	</select>
- 	
+	
  	<!-- 페이징 처리 게시글 조회 -->
- 	<select id="selectSchedule" resultType="ScheduleVO" parameterType="tobe.project.domain.SearchCriteria">
- 		select *
+ 	<select id="selectSchedule" resultMap="ScheduleResultMap" parameterType="tobe.project.domain.SearchCriteria">
+ 		select SIDX, S_TYPE, S_TITLE, S_STARTDATE, S_ENDDATE, S_CONTENT, DELYN, TIDX, T_NAME
  			from (
- 				select A.*,B.T_id, ROW_NUMBER() OVER(ORDER BY SIDX DESC) AS RNUM
- 				FROM SCHEDULE_MANAGEMENT A left join tobe_member B on A.tidx = B.tidx WHERE 1=1 <include refid="search"/> 
- 					and A.delyn = 'N' order by A.sidx desc ) WHERE delyn ='N' and RNUM BETWEEN #{rowStart} and #{rowEnd}
+ 				select A.*,B.T_NAME, ROW_NUMBER() OVER(ORDER BY SIDX DESC) AS RNUM
+ 				FROM SCHEDULE_MANAGEMENT A left join tobe_member B on A.TIDX = B.TIDX WHERE 1=1 <include refid="search"/> 
+ 					and A.DELYN = 'N') WHERE DELYN ='N' and RNUM BETWEEN #{rowStart} and #{rowEnd}
  	</select>
  	
  	

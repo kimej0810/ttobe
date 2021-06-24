@@ -30,6 +30,10 @@ public class AdminServiceImpl implements AdminService{
 		return dao.addMember(vo);
 	}
 	@Override
+	public int deleteMember(int tidx) throws Exception {
+		return dao.deleteMember(tidx);
+	}
+	@Override
 	public MemberVO selectOneMember(int tidx) throws Exception {
 		return dao.selectOneMember(tidx);
 	}

@@ -3,7 +3,30 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="tobe.project.mappers.approvalMapper">
- 
+ 	<resultMap type="ApprovalVO" id="approvalResultMap">
+		<id column="EIDX" property="eidx"/>
+	    <result column="E_DOCUMENTNUM" property="e_documentNum"/>
+	    <result column="E_RULE" property="e_rule"/>
+	    <result column="E_DRAFTDATE" property="e_draftDate"/>
+	    <result column="E_STARTDAY" property="e_startDay"/>
+	    <result column="E_CON" property="e_con"/>
+	    <result column="E_MEMBER" property="e_member"/>
+	    <result column="E_SEND" property="e_send"/>
+	    <result column="E_BUSEO" property="e_buseo"/>
+	    <result column="E_TEXTTITLE" property="e_textTitle"/>
+	    <result column="E_TEXTCONTENT" property="e_textContent"/>
+	    <result column="E_STATUS" property="e_status"/>
+	    <result column="DELYN" property="delyn"/>
+	    <result column="TIDX" property="tidx"/>
+	    <collection property="memberVO" resultMap="MemberResultMap"/>
+	</resultMap>
+	
+	<resultMap type="memberVO" id="MemberResultMap">
+	    <id column="TIDX" property="tidx"/>
+	    <result column="T_NAME" property="t_name"/>
+	    <result column="T_DEPARTMENT" property="t_department"/>
+	</resultMap>
+	
  	<insert id="writeApprovalDocument" parameterType="ApprovalVO">
  		INSERT INTO 
  			electronic_approval(EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_MEMBER, E_SEND, E_BUSEO, E_TEXTTITLE, E_TEXTCONTENT)
@@ -59,30 +82,36 @@
  	<!-- 종 개수 end -->
  	
  	<!-- 페이징 -->
- 	<select id="selectAllApprovalWaitingDocumentList" resultType="ApprovalVO" parameterType="tobe.project.domain.SearchCriteria">
- 		select EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_MEMBER, E_SEND, E_BUSEO, E_TEXTTITLE, E_TEXTCONTENT, DELYN, E_STATUS, TIDX
+ 	<select id="selectAllApprovalWaitingDocumentList" resultMap="approvalResultMap" parameterType="tobe.project.domain.SearchCriteria">
+ 		 		select EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_MEMBER, E_SEND, E_BUSEO, E_TEXTTITLE, E_TEXTCONTENT, DELYN, E_STATUS, TIDX, T_NAME, T_DEPARTMENT
  			from (
- 				select EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_MEMBER, E_SEND, E_BUSEO, E_TEXTTITLE, E_TEXTCONTENT, DELYN, E_STATUS, TIDX, ROW_NUMBER() OVER(ORDER BY eidx DESC) AS RNUM
- 				FROM ELECTRONIC_APPROVAL WHERE 1=1 <include refid="search"/>  and e_status= '0'
- 				) WHERE delyn ='N' and RNUM BETWEEN #{rowStart} and #{rowEnd}
- 	</select>
- 	
- 	<select id="selectAllApprovalProgressDocumentList" resultType="ApprovalVO" parameterType="tobe.project.domain.SearchCriteria">
- 		select EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_MEMBER, E_SEND, E_BUSEO, E_TEXTTITLE, E_TEXTCONTENT, DELYN, E_STATUS, TIDX
- 			from (
- 				select EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_MEMBER, E_SEND, E_BUSEO, E_TEXTTITLE, E_TEXTCONTENT, DELYN, E_STATUS, TIDX, ROW_NUMBER() OVER(ORDER BY eidx DESC) AS RNUM
- 				FROM ELECTRONIC_APPROVAL WHERE 1=1 <include refid="search"/>  and e_status= '1'
+ 				select A.*,B.T_NAME, T_DEPARTMENT, ROW_NUMBER() OVER(ORDER BY EIDX DESC) AS RNUM
+ 				FROM ELECTRONIC_APPROVAL A left join tobe_member B on A.TIDX = B.TIDX WHERE 1=1 <include refid="search"/>  and A.e_status= '0' and A.DELYN = 'N'
  					) WHERE delyn ='N' and RNUM BETWEEN #{rowStart} and #{rowEnd}
  	</select>
  	
- 	<select id="selectAllApprovalPaymentCompletedDocumentList" resultType="ApprovalVO" parameterType="tobe.project.domain.SearchCriteria">
- 		select EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_MEMBER, E_SEND, E_BUSEO, E_TEXTTITLE, E_TEXTCONTENT, DELYN, E_STATUS, TIDX
+ 	<select id="selectAllApprovalProgressDocumentList" resultMap="approvalResultMap" parameterType="tobe.project.domain.SearchCriteria">
+ 		select EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_MEMBER, E_SEND, E_BUSEO, E_TEXTTITLE, E_TEXTCONTENT, DELYN, E_STATUS, TIDX, T_NAME, T_DEPARTMENT
  			from (
- 				select EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_MEMBER, E_SEND, E_BUSEO, E_TEXTTITLE, E_TEXTCONTENT, DELYN, E_STATUS, TIDX, ROW_NUMBER() OVER(ORDER BY eidx DESC) AS RNUM
- 				FROM ELECTRONIC_APPROVAL WHERE 1=1 <include refid="search"/> and e_status= '2'
+ 				select A.*,B.T_NAME, T_DEPARTMENT, ROW_NUMBER() OVER(ORDER BY EIDX DESC) AS RNUM
+ 				FROM ELECTRONIC_APPROVAL A left join tobe_member B on A.TIDX = B.TIDX WHERE 1=1 <include refid="search"/>  and A.e_status= '1' and A.DELYN = 'N'
+ 					) WHERE delyn ='N' and RNUM BETWEEN #{rowStart} and #{rowEnd}
+ 	</select>
+ 	
+ 	<select id="selectAllApprovalPaymentCompletedDocumentList" resultMap="approvalResultMap" parameterType="tobe.project.domain.SearchCriteria">
+ 		select EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_MEMBER, E_SEND, E_BUSEO, E_TEXTTITLE, E_TEXTCONTENT, DELYN, E_STATUS, TIDX, T_NAME, T_DEPARTMENT
+ 			from (
+ 				select A.*,B.T_NAME, T_DEPARTMENT, ROW_NUMBER() OVER(ORDER BY EIDX DESC) AS RNUM
+ 				FROM ELECTRONIC_APPROVAL A left join tobe_member B on A.TIDX = B.TIDX WHERE 1=1 <include refid="search"/>  and A.e_status= '2' and A.DELYN = 'N'
  					) WHERE delyn ='N' and RNUM BETWEEN #{rowStart} and #{rowEnd}
  	</select>
  	<!-- 페이징 end -->
+ 	
+	<select id="selectOneMember" parameterType="MemberVO" resultType="MemberVO">
+ 	  	select *
+ 		from tobe_member
+ 		where tidx = #{tidx}
+    </select>
  	
  	<!-- sql code 조각 -->
  	<sql id="search">

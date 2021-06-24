@@ -22,7 +22,7 @@
 		window.open(
 			"/admin/memberList",
 			"memberList",
-			"width=600,height=500,location=no,status=no"
+			"width=600,height=550,location=no,status=no,toolbar=no,scrollbars=no"
 		);
 	}
 </script>
@@ -110,7 +110,17 @@
 </style>
 </head>
 <body>
-
+<%
+	if(session.getAttribute("userName")!=null){
+		String uName = (String)session.getAttribute("userName");
+		String uGrade = (String)session.getAttribute("userGrade");
+		if(!uGrade.equals("A")){
+			out.println("<script>alert('접근 권한이 없습니다.');history.back();</script>");
+		}
+	}/* else{
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+	} */
+%>
 <div class="sub">
 	<div class="headerT"><h1>메일 발송함</h1></div>
 	<div class="tableDiv">

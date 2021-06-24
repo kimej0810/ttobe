@@ -9,6 +9,7 @@
 	List<ScheduleVO> list = (List<ScheduleVO>)request.getAttribute("schedule"); 
 	PageMaker paging = (PageMaker)request.getAttribute("paging");
 	List<ScheduleVO> view = (List<ScheduleVO>)request.getAttribute("viewAll");
+	Object userName = session.getAttribute("userName");
 %>
 <!DOCTYPE html>
 <html id="html">
@@ -45,7 +46,7 @@
 			    	headerToolbar: {
 			    		left: 'prev,next today boardCustomButton',
 				        center: 'title',
-				        right: 'myCustomButton,dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+				        right: 'myCustomButton'
 					},
 //					initialDate: '2020-09-12',  삭제시 현재날짜 focus!!
 					locale : "ko", //한글로 출력하는 속성 추가
@@ -63,7 +64,7 @@
 					%>	
 			        {
 
-			        	url:"scheduleContents?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
+			        	url:"scheduleContents?sidx="+"<%=vo.getSidx()%>",
 			        	title: "<%=vo.getS_title()%>",
 			        	start: "<%=vo.getS_startDate()%>",
 			        	end: "<%=vo.getS_endDate()%>"
@@ -99,6 +100,9 @@
 			});
 		</script>
 		<style>
+			.fc-myCustomButton-button{
+				width: 270px;
+			}
 			body{
 			  margin: 40px 10px;
 			  padding: 0;
@@ -107,30 +111,19 @@
 			  overflow: hidden;
 			  }
 			#calendar {
-			  
 			  max-width: 1100px;
 			  margin: 0 auto;
 			}
 			#centerContents{
 				height: 1000px;
 			}
-			#boardImg{
-				width: 40px;
-				height: 40px;
-			}
 			#calendarImg{
-				width: 40px;
-				height: 40px;
-			}
-			#boardButton{
-				padding: 0px;
-			    float: right;
-			    border: none;
-			    z-index: 3;
+				width: 130px;
+				height: 75px;
 			}
 			#calendarButton{
 				width:40px;
-				margin-left:27%;
+				margin-left:23%;
 				padding: 0px;
 			    border: none;
 			    position: absolute;
@@ -155,18 +148,28 @@
 				height: 650px;
 			}
 			.row{
-				height: 100%;
+				height: 113%;
 				flex-wrap: inherit;
 			}
 			.panel{
-				height: 100%;
+				height: 90%;
 			}
 			#searchbox{
-				margin-top:5px;
-				text-align: center;
+				text-align: right;
+				height: 40px;
 			}
 			.fc-scrollgrid-sync-table{
 				height: 587px;
+			}
+			#frm{
+				width: 70%;
+    			margin: 0px auto;
+			}
+			td:not(.scheduleDate){
+				text-align: center;
+			}
+			td, th{
+				border: 1px solid black;
 			}
 		</style>
 	</head>
@@ -188,7 +191,7 @@
 			        	<header class="panel-heading" id="table">
 			          		<h2>일정 게시판</h2>
 			        	</header>
-			        	<form role="form" method="get">
+			        	<form role="form" method="get" id="frm">
 			        	<div id="searchbox">
 								<select name="searchType" id="searchType"style="height: 27px;">
 									<option value="전체"<c:out value="${scri.searchType == null ? 'selected' : '' }"/>>-----</option>
@@ -208,47 +211,52 @@
 								});
 							</script>
 				        	<div class="panel-body">
+				        	<%=userName%>
 				          		<table class="boardSchedule">
-				          			<tr class="form-group">
-				          				<th width="50px">번호</th>
-				          				<th>사원이름</th>
-				          				<th width="200px">제목</th>
-				          				<th width="300px">내용</th>
-				          				<th width="220px">날짜</th>
+				          			<tr class="form-group" style="text-align: center;">
+				          				<th width="80px">유형</th>
+				          				<th width="180px">제목</th>
+				          				<th width="150px">시작일시</th>
+				          				<th width="150px">종료일시</th>
+				          				<th width="400px">내용</th>
+				          				<th width="80px">사원이름</th>
 				          			</tr>
-									<%
-										for(int i = 0; i < view.size(); i++) {
-											ScheduleVO vo = view.get(i);
-									%>
-				              		<tr class="form-group">
-				              			<td class="scheduleNum">
-				              				<%= vo.getSidx() %>
-				              			</td>
-				              			<td>
-				              				
-				              			</td>
-										<td class="control-label scheduletitle">
-											<input type="hidden" value="<%= vo.getSidx() %>">
-											<%= vo.getS_title() %> 
-										</td>
-										<td class="scheduleContents">
-									 		<label><%= vo.getS_content() %></label>
-										</td>
-									<%
-											if (vo.getS_startDate().equals(vo.getS_endDate())) {
-									%>
-										<td class="scheduleDate">
-											<%= vo.getS_startDate() %>
-										</td>
-									<%
-											} else{ 
-									%>
-									<td class="scheduleDate">
-										<%= vo.getS_startDate() %> ~ <%= vo.getS_endDate() %>
-									</td>
-										<%	}%>    
-									</tr>
-									<%	}%>                   
+				          			<c:forEach items="${viewAll}" var="viewAll">
+										<tr class="form-group">
+											<td>
+					              				${viewAll.s_type}
+					              			</td>
+					              			<td class="control-label scheduletitle">
+												<input type="hidden" value="${viewAll.sidx}">
+												${viewAll.s_title}
+											</td>
+											<c:choose>
+												<c:when test="${viewAll.s_startDate eq viewAll.s_endDate}">
+													<td class="scheduleDate">
+														${viewAll.s_startDate}
+													</td>
+													<td>
+													</td>
+												</c:when>
+												<c:otherwise>
+													<td class="scheduleDate">
+														${viewAll.s_startDate}
+													</td>
+													<td class="scheduleDate">
+														${viewAll.s_endDate}
+													</td>
+												</c:otherwise>
+											</c:choose>
+											<td class="scheduleContents">
+										 		<label>
+										 			<a href="scheduleContents?sidx=${viewAll.sidx}" onclick="window.open(this.href, '_blank', 'width=620, height=730'); return false;">${viewAll.s_content}</a>
+										 			</label>
+											</td>
+					              			<td>
+					             				${viewAll.memberVO.t_name}
+					              			</td>
+										</tr>
+									</c:forEach>
 								</table>
 							</div>					
 						</form>

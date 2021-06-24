@@ -1,5 +1,4 @@
 package tobe.project.controller;
-
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.List;
@@ -29,21 +28,13 @@ import tobe.project.dto.FileVO;
 import tobe.project.dto.MemberVO;
 import tobe.project.service.AdminService;
 import tobe.project.service.EmailService;
-import tobe.project.service.MemberFileService;
 import tobe.project.service.MemberService;
 import tobe.project.util.MediaUtils;
 import tobe.project.util.UploadFileUtils;
-
-/**
- * Servlet implementation class mainController
- */
-
 @Controller
 @RequestMapping(value="/admin")
 public class AdminController{
-	
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
-	
 	@Inject
 	private AdminService service;
 	
@@ -51,21 +42,15 @@ public class AdminController{
 	private EmailService emailService;
 	
 	@Inject
-	private MemberFileService fileService;
-	
-	@Inject
 	private MemberService memberService;
-	
 	//06-15 시큐리티
 	@Inject
 	BCryptPasswordEncoder pwdEncoder;
-	
 	//파일 저장 기본 경로 bean 등록
 	//@Resource(name = "uploadPath")
-	private String uploadPath = "D:\\kio\\tobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\";
-	
+	private String uploadPath = "D:\\kio\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\";
 	@RequestMapping(value="/add")
-	public String addMember(Locale locale, Model model) throws Exception {
+	public String addMember(Locale locale, Model model,MemberVO vo) throws Exception {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		String t_id = service.selectOneId();
 		String[] tid = t_id.split("-");
@@ -82,84 +67,24 @@ public class AdminController{
 		else if(length==1) {
 			hipen = "-000";
 		}
+		//MemberVO mvo = service.selectOneMember(nextTid);관리자 정보검색
 		model.addAttribute("tid",tid[0]+hipen+nextTid);
+		model.addAttribute("member");
 		return "/admin/add";
 	}
-	@RequestMapping(value="/add2")
-	public String addMember2(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		return "/admin/add2";
-	}
-
-	/*
-	 * @RequestMapping(value="/addAction") public String addMemberAction(Locale
-	 * locale, Model model, MemberVO vo) throws Exception { service.addMember(vo);
-	 * model.addAttribute("member",vo); System.out.println("가입완료"); return
-	 * "redirect:/admin/list"; }
-	 */
-	//파일 업로드 테스트
 	@RequestMapping(value="/addAction")
 	public String addMemberAction(Locale locale, Model model, MemberVO vo,MultipartHttpServletRequest mpRequest) throws Exception {
 		String tid = vo.getT_id();
-		System.out.println("tid>>>>>>>>"+tid);
 		String pwd = pwdEncoder.encode(tid);
-		System.out.println("암호화된 비번"+pwd);
 		vo.setT_pwd(pwd);
 		service.addMember2(vo,mpRequest);
-		System.out.println("가입완료");
 		return "redirect:/admin/memberlist";
 	}
-	
-	////////////////////파일테스트///////////////////////////////////////
-	//업로드파일 https://cameldev.tistory.com/68
-	@RequestMapping(value="/upload", produces = "text/pliain;charset=UTF-8")
-	public ResponseEntity<String> uploadFile(MultipartFile file) throws Exception{
-		logger.info("=================[ FILE UPLOAD ]=================");
-		logger.info("ORIGINAL FILE NAME : "+file.getOriginalFilename());
-		logger.info("FILE SIZE : "+ file.getSize());
-		logger.info("CONTENT TYPE : "+file.getContentType());
-		logger.info("=================[ FILE UPLOAD END ]=================");
-		return new ResponseEntity<String>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(),file.getBytes()),HttpStatus.CREATED);
+	@RequestMapping(value="/delete")
+	public String deleteMember(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Locale locale, Model model,int tidx)throws Exception{
+		service.deleteMember(tidx);
+		return "redirect:/admin/memberlist";
 	}
-	//업로드 파일 보여주기
-	@RequestMapping(value = "/display")
-	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception{
-		//InputStream 바이트 단위로 데이터를 읽는다. 외부로부터 읽어 들이는 기능관련 클래스
-		InputStream inputStream = null;
-		ResponseEntity<byte[]> entity = null;
-		logger.info("file name : "+fileName);
-		try {
-			//파일 확장자 추출
-			String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
-			//이미지 파일 여부 확인, 이미지 파일일 경우 이미지 MINEType 지정
-			MediaType mediaType = MediaUtils.getMediaType(formatName);
-			//HttpHeaders 객체 생성
-			HttpHeaders httpHeaders = new HttpHeaders();
-			//실제 경로의 파일을 읽어들이고 InputStream 객체 생성
-			inputStream = new FileInputStream(uploadPath+fileName);
-			//이미지 파일일 경우
-			if(mediaType != null) {
-				httpHeaders.setContentType(mediaType);
-				//이미지파일이 아닐 경우
-			}else {
-				//디렉토리+UUID 제거
-				fileName = fileName.substring(fileName.indexOf("_")+1);
-				//다운로트 MINE Type 지정
-				httpHeaders.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-				//한글이름의 파일 인코딩처리
-				httpHeaders.add("Content-Disposition","attachment; filename=\""+new String(fileName.getBytes("UTF-8"),"ISO-8859-1")+"\"");
-			}
-			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(inputStream),httpHeaders,HttpStatus.CREATED);
-		}catch(Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
-		}finally {
-			inputStream.close();
-		}
-		return entity;
-	}
-	
-	/////////////////////////////////////////////////////////////////////
 	@RequestMapping(value="/info")
 	public String selectOneMember(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Locale locale, Model model,int tidx) throws Exception {
 		PageMaker pageMaker = new PageMaker();
@@ -265,6 +190,52 @@ public class AdminController{
 		return "/email/read";
 	}
 	//test
-	
+	//업로드파일
+	@RequestMapping(value="/upload", produces = "text/pliain;charset=UTF-8")
+	public ResponseEntity<String> uploadFile(MultipartFile file) throws Exception{
+		logger.info("=================[ FILE UPLOAD ]=================");
+		logger.info("ORIGINAL FILE NAME : "+file.getOriginalFilename());
+		logger.info("FILE SIZE : "+ file.getSize());
+		logger.info("CONTENT TYPE : "+file.getContentType());
+		logger.info("=================[ FILE UPLOAD END ]=================");
+		return new ResponseEntity<String>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(),file.getBytes()),HttpStatus.CREATED);
+	}
+	//업로드 파일 보여주기
+	@RequestMapping(value = "/display")
+	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception{
+		//InputStream 바이트 단위로 데이터를 읽는다. 외부로부터 읽어 들이는 기능관련 클래스
+		InputStream inputStream = null;
+		ResponseEntity<byte[]> entity = null;
+		logger.info("file name : "+fileName);
+		try {
+			//파일 확장자 추출
+			String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+			//이미지 파일 여부 확인, 이미지 파일일 경우 이미지 MINEType 지정
+			MediaType mediaType = MediaUtils.getMediaType(formatName);
+			//HttpHeaders 객체 생성
+			HttpHeaders httpHeaders = new HttpHeaders();
+			//실제 경로의 파일을 읽어들이고 InputStream 객체 생성
+			inputStream = new FileInputStream(uploadPath+fileName);
+			//이미지 파일일 경우
+			if(mediaType != null) {
+				httpHeaders.setContentType(mediaType);
+				//이미지파일이 아닐 경우
+			}else {
+				//디렉토리+UUID 제거
+				fileName = fileName.substring(fileName.indexOf("_")+1);
+				//다운로트 MINE Type 지정
+				httpHeaders.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+				//한글이름의 파일 인코딩처리
+				httpHeaders.add("Content-Disposition","attachment; filename=\""+new String(fileName.getBytes("UTF-8"),"ISO-8859-1")+"\"");
+			}
+			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(inputStream),httpHeaders,HttpStatus.CREATED);
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+		}finally {
+			inputStream.close();
+		}
+		return entity;
+	}
 	
 }

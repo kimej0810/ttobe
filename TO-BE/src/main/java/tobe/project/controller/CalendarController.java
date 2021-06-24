@@ -20,6 +20,7 @@ import tobe.project.domain.PageMaker;
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.MemberVO;
 import tobe.project.dto.ScheduleVO;
+import tobe.project.service.MemberService;
 import tobe.project.service.ScheduleService;
 
 @Controller
@@ -28,22 +29,20 @@ public class CalendarController {
 	private static final Logger logger = LoggerFactory.getLogger(CalendarController.class);
 	@Inject
 	private ScheduleService service;
+	private MemberService mservice;
 
 	//캘린더
 	@RequestMapping(value = "/fullcalendar")
 	public String list(Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception {
 		logger.info("fullcalendar");
-		
-		
 		 //게시판 페이징처리 start
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(service.countSchedule(scri));
 		
-		model.addAttribute("viewAll",service.selectSchedule(scri));		 
+		model.addAttribute("viewAll",service.selectSchedule(scri));	
 		model.addAttribute("paging",pageMaker);
 		//게시판페이징처리 end
-				
 		List<ScheduleVO> schedule = service.showSchedule();
 		model.addAttribute("scri",scri);
 		model.addAttribute("schedule",schedule);
