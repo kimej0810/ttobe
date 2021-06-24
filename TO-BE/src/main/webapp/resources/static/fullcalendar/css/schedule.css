@@ -121,3 +121,11 @@ button {
     width: 500px;
     height: 30px;
 }
+.target {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+   
+}
+.target::-webkit-scrollbar {
+    display: none; 
+}

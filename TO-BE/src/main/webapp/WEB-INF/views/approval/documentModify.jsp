@@ -145,10 +145,10 @@
 					</tr>
 				</tbody>
 			</table>
+			<div>
+				<button type="button">확인</button>
+				<button type="reset">다시쓰기</button>
+			</div>
 		</form>
-		<div>
-			<button type="button">확인</button>
-			<button type="reset">다시쓰기</button>
-		</div>
 	</body>
 </html>

@@ -1,3 +1,4 @@
+<%@page import="tobe.project.dto.MemberVO"%>
 <%@page import="tobe.project.domain.PageMaker"%>
 <%@page import="tobe.project.dto.ApprovalVO"%>
 <%@page import="java.util.List"%>
@@ -7,6 +8,7 @@
 <% 
 	List<ApprovalVO> completed = (List<ApprovalVO>)request.getAttribute("completed");
 	PageMaker paging = (PageMaker)request.getAttribute("paging");
+	MemberVO mo = (MemberVO)request.getAttribute("info");
 %>
 <!DOCTYPE html>
 <html>
@@ -111,17 +113,17 @@
 		</style>
 		<script type="text/javascript">
 			function waiting(){
-				location.href="documentWaitingList"
+				location.href="documentWaitingList?t_id=<%=mo.getT_id()%>";
 			}
 			function progress(){	
-				location.href="documentInProgress"
+				location.href="documentInProgress?t_id=<%=mo.getT_id()%>";
 			}
 			function completed(){ 
-				location.href="documentPaymentCompleted"
+				location.href="documentPaymentCompleted?t_id=<%=mo.getT_id()%>";
 			}
 			
 			function documentWite(){ //기안서 팝업창
-				var url = "documentWite";
+				var url = "documentWite?t_id=<%=mo.getT_id()%>";
 				var name = "documentWite";
 				var option = "width = 660, height = 870 left = 100, top=50,location=no";
 				window.open(url,name,option)
@@ -133,6 +135,9 @@
 			<button type="button" class="moveBtn" onclick="waiting()">결재대기문서</button>
 			<button type="button" class="moveBtn" onclick="progress()">결재진행문서</button>
 			<button type="button" class="moveBtn" onclick="completed()">결재완료문서</button>
+			<div style="float: right;">
+				${info.t_name}
+			</div>
 		</div>
 		<div id="statusGroup">
 			<table id="statusTable">

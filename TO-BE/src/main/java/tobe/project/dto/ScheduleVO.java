@@ -1,5 +1,7 @@
 package tobe.project.dto;
 
+import java.util.List;
+
 public class ScheduleVO {
 	private int sidx;
 	private String s_type;
@@ -9,7 +11,9 @@ public class ScheduleVO {
 	private String s_content;
 	private String delYn;
 	private int tidx;
+	private MemberVO memberVO;
 	
+
 	public int getTidx() {
 		return tidx;
 	}
@@ -65,7 +69,14 @@ public class ScheduleVO {
 	public void setDelYn(String delYn) {
 		this.delYn = delYn;
 	}
-	
+	public MemberVO getMemberVO() {
+		return memberVO;
+	}
+	public void setMemberVO(MemberVO memberVO) {
+		this.memberVO = memberVO;
+	}
+
+
 	
 	
 }
