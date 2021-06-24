@@ -9,6 +9,7 @@
 	List<ScheduleVO> list = (List<ScheduleVO>)request.getAttribute("schedule"); 
 	PageMaker paging = (PageMaker)request.getAttribute("paging");
 	List<ScheduleVO> view = (List<ScheduleVO>)request.getAttribute("viewAll");
+	Object userName = session.getAttribute("userName");
 %>
 <!DOCTYPE html>
 <html id="html">
@@ -63,7 +64,7 @@
 					%>	
 			        {
 
-			        	url:"scheduleContents?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
+			        	url:"scheduleContents?sidx="+"<%=vo.getSidx()%>",
 			        	title: "<%=vo.getS_title()%>",
 			        	start: "<%=vo.getS_startDate()%>",
 			        	end: "<%=vo.getS_endDate()%>"
@@ -210,6 +211,7 @@
 								});
 							</script>
 				        	<div class="panel-body">
+				        	<%=userName%>
 				          		<table class="boardSchedule">
 				          			<tr class="form-group" style="text-align: center;">
 				          				<th width="80px">유형</th>
@@ -219,78 +221,42 @@
 				          				<th width="400px">내용</th>
 				          				<th width="80px">사원이름</th>
 				          			</tr>
-				          			<c:forEach items="${schedule}" var="schedule">
+				          			<c:forEach items="${viewAll}" var="viewAll">
 										<tr class="form-group">
 											<td>
-					              				${schedule.s_type}
+					              				${viewAll.s_type}
 					              			</td>
 					              			<td class="control-label scheduletitle">
-												<input type="hidden" value="${schedule.sidx}">
-												${schedule.s_title}
+												<input type="hidden" value="${viewAll.sidx}">
+												${viewAll.s_title}
 											</td>
 											<c:choose>
-												<c:when test="${schedule.s_startDate eq schedule.s_endDate}">
+												<c:when test="${viewAll.s_startDate eq viewAll.s_endDate}">
 													<td class="scheduleDate">
-														${schedule.s_startDate}
+														${viewAll.s_startDate}
 													</td>
 													<td>
 													</td>
 												</c:when>
 												<c:otherwise>
 													<td class="scheduleDate">
-														${schedule.s_startDate}
+														${viewAll.s_startDate}
 													</td>
 													<td class="scheduleDate">
-														${schedule.s_endDate}
+														${viewAll.s_endDate}
 													</td>
 												</c:otherwise>
 											</c:choose>
 											<td class="scheduleContents">
 										 		<label>
-										 			<a href="scheduleContents?sidx=${schedule.sidx}&tidx=${schedule.tidx}" onclick="window.open(this.href, '_blank', 'width=620, height=730'); return false;">${schedule.s_content}</a>
+										 			<a href="scheduleContents?sidx=${viewAll.sidx}" onclick="window.open(this.href, '_blank', 'width=620, height=730'); return false;">${viewAll.s_content}</a>
 										 			</label>
 											</td>
 					              			<td>
-					             				${schedule.memberVO.t_name}
+					             				${viewAll.memberVO.t_name}
 					              			</td>
 										</tr>
-									</c:forEach>    
-				          			<%-- 
-									<%
-										for(int i = 0; i < list.size(); i++) {
-											ScheduleVO vo = list.get(i);
-									%>
-				              		<tr class="form-group">
-				              			<td class="scheduleNum">
-				              				<%= vo.getSidx() %>
-				              			</td>
-				              			
-					              			<td>
-					             				${schedule.memberVO.t_name}
-					              			</td>
-				              			
-										<td class="control-label scheduletitle">
-											<input type="hidden" value="<%= vo.getSidx() %>">
-											<%= vo.getS_title() %> 
-										</td>
-										<td class="scheduleContents">
-									 		<label><%= vo.getS_content() %></label>
-										</td>
-									<%
-											if (vo.getS_startDate().equals(vo.getS_endDate())) {
-									%>
-										<td class="scheduleDate">
-											<%= vo.getS_startDate() %>
-										</td>
-									<%
-											} else{ 
-									%>
-									<td class="scheduleDate">
-										<%= vo.getS_startDate() %> ~ <%= vo.getS_endDate() %>
-									</td>
-										<%	}%>    
-									</tr>
-									<%	}%>   --%>    
+									</c:forEach>
 								</table>
 							</div>					
 						</form>

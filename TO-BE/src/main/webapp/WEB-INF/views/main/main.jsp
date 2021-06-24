@@ -36,10 +36,10 @@
         <div class="header">
             <div class="now">메인 페이지</div>
             <div class="menu">
-                <a href="/member/solist"><div>사원관리</div></a>
-                <div>일정관리</div>
+                <div><a href="/member/solist">사원관리</a></div>
+                <div><a href="/schedule/fullcalendar">일정관리</a></div>
                 <div>근태관리</div>
-                <div>전자결재</div>
+                <div><a href="/approval/documentListMain">전자결재</a></div>
                 <div>게시판</div>
                 <div>자료실</div>
                 <div>관리자</div>
