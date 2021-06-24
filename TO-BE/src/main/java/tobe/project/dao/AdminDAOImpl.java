@@ -33,6 +33,10 @@ public class AdminDAOImpl implements AdminDAO{
 		return sqlSession.insert(Namespace+".addMember", vo);
 	}
 	@Override
+	public int deleteMember(int tidx) throws Exception {
+		return sqlSession.update(Namespace+".deleteMember",tidx);
+	}
+	@Override
 	public MemberVO selectOneMember(int tidx) throws Exception {
 		return sqlSession.selectOne(Namespace+".selectOneMember", tidx);
 	}
@@ -64,5 +68,4 @@ public class AdminDAOImpl implements AdminDAO{
 	public String selectOneId() throws Exception {
 		return sqlSession.selectOne(Namespace+".selectOneId");
 	}
-
 }

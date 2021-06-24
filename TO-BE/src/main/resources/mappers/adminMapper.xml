@@ -19,6 +19,9 @@
 		values(tidx_seq.nextval,#{t_id},#{t_pwd},#{t_email},#{t_addr_zipcode},#{t_addr_general},#{t_addr_detail},#{t_phone},
 			#{t_name},#{t_birth},#{t_position},#{t_department},sysdate)
 	</insert>
+	<update id="deleteMember" parameterType="memberVO">
+		UPDATE TOBE_MEMBER SET DELYN = 'Y' WHERE TIDX = #{tidx}	
+	</update>
 	<select id="selectOneMember" resultType="memberVO">
     	select * from TOBE_MEMBER where tidx = #{tidx}
     </select>
@@ -61,7 +64,7 @@
     		A.* from TOBE_MEMBER A  where 1=1
     		<include refid="search"/>
     		order by tidx desc)
-    		where delyn = 'N' and num between #{rowStart} and #{rowEnd}
+    		<!-- where delyn = 'N' and -->where num between #{rowStart} and #{rowEnd}
     </select>
     <select id="totalCountsearchMember" resultType="int">
     	<![CDATA[

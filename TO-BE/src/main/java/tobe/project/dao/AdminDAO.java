@@ -10,6 +10,7 @@ import tobe.project.dto.MemberVO;
 public interface AdminDAO {
 	public List<MemberVO> selectAllMember() throws Exception;
 	public int addMember(MemberVO vo) throws Exception;
+	public int deleteMember(int tidx) throws Exception;
 	public MemberVO selectOneMember(int tidx) throws Exception;
 	public int modifyMember(MemberVO vo) throws Exception;
 	//마지막 사원번호 가져오기

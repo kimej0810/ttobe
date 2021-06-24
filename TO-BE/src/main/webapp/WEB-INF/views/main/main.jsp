@@ -19,6 +19,14 @@
             </div>
             <div class="profile">
                 <img src="<c:url value="/resources/static/img/profile.png"/>">
+                <%
+                	if(session.getAttribute("userName")!=null){
+                		String userName = (String)session.getAttribute("userName");
+            	%>
+            	<a href="/member/logout"><%=userName%></a>
+                <%
+                	}
+                %>
              	<a href="/member/mypage?t_id=${member.t_id}"><span class="name">${member.t_name}</span></a>
                 <div class="saown_num">201668451</div>
                 <div class="dept_rank"><a href="/commute/commute?t_id=${member.t_id}">출근</a></div>

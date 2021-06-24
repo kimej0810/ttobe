@@ -3,12 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@page import="tobe.project.dto.*"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>사원 리스트</title>
 <script type="text/javascript" src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/static/js/bootstrap.min.js"/>"></script>
 <style>
     .sub{
 	    width: 100%;
@@ -87,11 +89,21 @@
 </style>
 </head>
 <body>
-
+<%
+	if(session.getAttribute("userName")!=null){
+		String uName = (String)session.getAttribute("userName");
+		String uGrade = (String)session.getAttribute("userGrade");
+		if(!uGrade.equals("A")){
+			out.println("<script>alert('접근 권한이 없습니다.');history.back();</script>");
+		}
+	}/* else{
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+	} */
+%>
 <div class="sub">
 	<div class="headerT"><h1>사원관리</h1></div>
 	<div class="tableDiv">
-		<form>
+		<form name="frm" method="post">
 			<div class="searDiv">
 				<select name="searchType" id="searchType">
 					<option value="n" <c:out value="${searchCriteria.searchType == null ? 'selected' : '' }"/>>:::::선택:::::</option>
@@ -116,7 +128,6 @@
 				</colgroup>
 				<thead>
 					<tr>
-						<th><input type="checkbox"></th>
 						<th>사원이름</th>
 						<th>부서</th>
 						<th>직급</th>
@@ -130,7 +141,6 @@
 				<tbody>
 				<c:forEach items="${memberList}" var="member">
 					<tr class="saoneGo">
-						<td><input type="checkbox"></td>
 						<td>${member.t_name}</td>
 						<td>${member.t_department}</td>
 						<td>${member.t_position}</td>
@@ -142,13 +152,14 @@
 							${fn:substring(joinDate,0,10)}
 						</td>
 						<td>${member.delyn}</td>
-						<td><input type="hidden" value="${member.tidx}"></td>
 					</tr>
 					<tr>
 						<td colspan="9">
 							<div class="saoneGoTag">
 								<button type="button" class="saoneBtn" onclick="location.href='${path}/admin/info${pageMaker.makeSearch(pageMaker.cri.page)}&tidx=${member.tidx}'">정보보기</button>
 								<button type="button" class="saoneBtn" onclick="location.href='${path}/admin/email${pageMaker.makeSearch(pageMaker.cri.page)}&tidx=${member.tidx}'">메일전송</button>
+								<button type="button" id="deleteBtn" class="saoneBtn">사원 퇴사</button>
+								<input type="hidden" value="${member.tidx}">
 							</div>
 						</td>
 					</tr>
@@ -172,7 +183,6 @@
 			</div>
 			<div class="tableBtn">
 				<a href="/admin/add"><input type="button" class="saoneBtn" value="사원 등록"></a>
-				<input type="button" class="saoneBtn" value="삭제">
 			</div>
 		</form>
 	</div>
@@ -189,6 +199,15 @@
 				saoneGoTag.slideUp();
 			}else{
 				saoneGoTag.slideDown();
+			}
+		});
+		$(document).on("click","#deleteBtn", function(){
+			var tidx = $(this).next().val();
+			if(confirm('해당을 퇴사처리 하시겠습니까?')){
+				document.frm.action = "/admin/delete?tidx="+tidx;
+				document.frm.submit();
+			}else{
+				
 			}
 		});
 	});
