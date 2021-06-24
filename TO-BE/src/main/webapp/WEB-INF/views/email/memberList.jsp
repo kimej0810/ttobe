@@ -103,6 +103,17 @@
 </script>
 </head>
 <body>
+<%
+	if(session.getAttribute("userName")!=null){
+		String uName = (String)session.getAttribute("userName");
+		String uGrade = (String)session.getAttribute("userGrade");
+		if(!uGrade.equals("A")){
+			out.println("<script>alert('접근 권한이 없습니다.');history.back();</script>");
+		}
+	}else{
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+	}
+%>
 	<div class="contentheader">
 		<div class="mainLogo">
 			<img src="<c:url value="/resources/static/img/logo3.png"/>">

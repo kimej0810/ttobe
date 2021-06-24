@@ -126,6 +126,9 @@ public class MemberController {
 			if(check) {	//	"1234" , "$2a$10$NuKJxnN.O7W0xvhFZZedMeFPqZtmwYVOWABefqex62oIQv3ftbOyi"
 				session.setAttribute("userName", vo.getT_name());
 				session.setAttribute("userTidx", vo.getTidx());
+				session.setAttribute("userId", vo.getT_id());
+				session.setAttribute("userDep",vo.getT_department());
+				session.setAttribute("userPosition", vo.getT_position());
 				session.setAttribute("userGrade", vo.getT_grade());
 				model.addAttribute("member",vo);
 				System.out.println("로그인 성공");

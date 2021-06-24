@@ -129,6 +129,13 @@
 </script>
 </head>
 <body>
+<%
+	if(session.getAttribute("userName")!=null){
+		String uName = (String)session.getAttribute("userName");
+	}/* else{
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+	} */
+%>
 	<div class="contentheader">
 		<div class="mainLogo">
 			<img src="<c:url value="/resources/static/img/logo3.png"/>">
