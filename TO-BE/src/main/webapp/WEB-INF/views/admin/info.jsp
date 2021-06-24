@@ -6,8 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>사원 정보</title>
-<%@ include file="../include/main_top.jsp" %>
-<%@ include file="../include/main_left.jsp" %>
 </head>
 <style>
     .sub{

@@ -102,6 +102,16 @@ public class MemberController {
 		model.addAttribute("searchMember",searchMember);
 		return searchMember;
 	}
+	@RequestMapping(value="/logout")
+	public String logout(Model model,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if(session!=null) {
+			session.invalidate();
+			return "/member/login";
+		}
+		
+		return "";
+	}
 	//----------------------가람 시작!
 	
 	//로그인
@@ -109,11 +119,14 @@ public class MemberController {
 	public void loginGET(@ModelAttribute("dto") LoginDTO dto) {
 	}
 	@RequestMapping(value="/loginPost", method = RequestMethod.POST)
-	public String loginPost(LoginDTO dto,HttpServletRequest request, Model model) throws Exception{
+	public String loginPost(LoginDTO dto,HttpServletRequest request, Model model,HttpSession session) throws Exception{
 		MemberVO vo = service.login(dto);
 		if(vo!=null) {
 			boolean check = BCrypt.checkpw(dto.getT_pwd(), vo.getT_pwd());
 			if(check) {	//	"1234" , "$2a$10$NuKJxnN.O7W0xvhFZZedMeFPqZtmwYVOWABefqex62oIQv3ftbOyi"
+				session.setAttribute("userName", vo.getT_name());
+				session.setAttribute("userTidx", vo.getTidx());
+				session.setAttribute("userGrade", vo.getT_grade());
 				model.addAttribute("member",vo);
 				System.out.println("로그인 성공");
 				return "/main/main";
