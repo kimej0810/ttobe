@@ -3,19 +3,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ include file="/WEB-INF/views/include/main_modal.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="<c:url value="/resources/static/css/bootstrap.min.css"/>"
-	rel='stylesheet' />
-<script type="text/javascript"
-	src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
-<script type="text/javascript"
-	src="<c:url value="/resources/static/js/bootstrap.min.js"/>"></script>
 <style>
-#paging li {list-style: none; float: left; padding: 6px;}
+#paging li {
+	list-style: none;
+	float: left;
+	padding: 6px;
+}
+
 .upload-btn-wrapper {
 	position: relative;
 	overflow: hidden;
@@ -30,23 +30,42 @@
 	top: 0;
 	opacity: 0;
 }
+
+.search{
+			width:100%;
+			display:grid;
+			grid-template-columns:1fr minmax(70px, auto);
+		}
+		.input-group{
+			grid-column:2/3;
+			
+.page-item{
+			padding:0 !important;
+		}
 </style>
 </head>
 <body>
 	<button type="button" data-toggle="modal" data-target="#myModal">업로드</button>
-	<div class="search">
-		    <div class="input-group mb-3">
-			    <select name="searchType" class="form-control" style="height:30px; font-size:0.5rem;">
-			      <option value="w"<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>
-			      <option value="t"<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
-			      <option value="c"<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
-			    </select>
-				<input type="text" style="height:30px; width:40%; font-size:0.5rem;" name="keyword" value="${scri.keyword}" id="keywordInput" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+	<form role="form" method="get">
+		<div class="search">
+			<div class="input-group mb-3">
+				<select name="searchType" class="form-control"
+					style="height: 30px; font-size: 0.5rem;">
+					<option value="w"
+						<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>
+					<option value="t"
+						<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
+				</select> <input type="text"
+					style="height: 30px; width: 40%; font-size: 0.5rem;" name="keyword"
+					value="${scri.keyword}" id="keywordInput" class="form-control"
+					placeholder="" aria-label="" aria-describedby="basic-addon1">
 				<div class="input-group-prepend">
-					<button id="searchBtn" style="height:30px; font-size:0.5rem;" class="btn btn-outline-secondary" type="button">검색</button>
+					<button id="searchBtn" style="height: 30px; font-size: 0.5rem;"
+						class="btn btn-outline-secondary" type="button">검색</button>
 				</div>
 			</div>
 		</div>
+	</form>
 	<table class="table table-hover">
 		<tr>
 			<th>파일명</th>
@@ -65,55 +84,40 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<div id="paging">
-		<ul>
-			<c:if test="${pageMaker.prev}">
-				<li><a
-					href="list${pageMaker.makeSearch(pageMaker.startPage - 1)}">이전</a></li>
-			</c:if>
-
-			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}"
-				var="idx">
-				<li><a href="list${pageMaker.makeSearch(idx)}">${idx}</a></li>
-			</c:forEach>
-
-			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-				<li><a href="list${pageMaker.makeSearch(pageMaker.endPage + 1)}">다음</a></li>
-			</c:if>
-		</ul>
-	</div>
-	<!-- Modal -->
-	<div class="modal fade" id="myModal" role="dialog">
-		<div class="modal-dialog">
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">×</button>
-					<h4 class="modal-title">업로드</h4>
-				</div>
-				<div class="modal-body">
-					<form action="/data/transport" method="post"
-						enctype="multipart/form-data" style="height: 30px;">
-						<input type="text" name="d_title" placeholder="제목을 입력해주세요...">
-
-						<div class="upload-btn-wrapper">
-							<img src='<c:url value='/resources/static/img/plus.png'/>'
-								style="width: 15px;"> <input type="file" name="file">
-						</div>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<label for="fileFormBtn" class="btn btn-default">추가</label>
-				</div>
-			</div>
-		</div>
-	</div>
+	<nav aria-label="Page navigation example" id="paging">
+		  <ul class="pagination">
+		    <c:if test="${pageMaker.prev}">
+		    	<li class="page-item" style="color:black;">
+			      <a class="page-link" href="list${pageMaker.makeSearch(pageMaker.startPage - 1)}" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			        <span class="sr-only"></span>
+			      </a>
+			    </li>
+		    </c:if> 
+		    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+		    	<li class="page-item"><a class="page-link" href="list${pageMaker.makeSearch(idx)}">${idx}</a></li>
+		    </c:forEach>
+		    <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+		    	<li class="page-item">
+			      <a class="page-link" href="list${pageMaker.makeSearch(pageMaker.endPage + 1)}" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			        <span class="sr-only"></span>
+			      </a>
+			    </li>
+		    </c:if> 
+		  </ul>
+		</nav>
 	<script>
-	 $(function(){
-	        $('#searchBtn').click(function() {
-	          self.location = "list" + '${pageMaker.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
-	        });
-	      });   
+		$(function() {
+			$('#searchBtn').click(
+					function() {
+						self.location = "list" + '${pageMaker.makeQuery(1)}'
+								+ "&searchType="
+								+ $("select option:selected").val()
+								+ "&keyword="
+								+ encodeURIComponent($('#keywordInput').val());
+					});
+		});
 	</script>
 </body>
 </html>

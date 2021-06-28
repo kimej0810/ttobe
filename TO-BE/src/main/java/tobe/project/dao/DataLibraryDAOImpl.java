@@ -24,7 +24,6 @@ public class DataLibraryDAOImpl implements DataLibraryDAO{
 		return sqlSession.selectList(Namespace+".selectAllData", scri);
 	}
 	
-	
 	//자료실 업로드
 	@Override
 	public void addData(DataLibraryVO vo) throws Exception {
@@ -36,14 +35,17 @@ public class DataLibraryDAOImpl implements DataLibraryDAO{
 	@Override
 	public void insertFile(Map<String, Object> map) throws Exception {
 		sqlSession.insert(Namespace+".insertFile", map);
-		
 	}
-
 
 	@Override
 	public int dataCount(SearchCriteria scri) throws Exception {
-		
 		return sqlSession.selectOne(Namespace+".dataCount", scri);
+	}
+
+	//조회수 증가
+	@Override
+	public void hitData(int didx) throws Exception {
+		sqlSession.insert(Namespace+".hitData", didx);
 	}
 
 }

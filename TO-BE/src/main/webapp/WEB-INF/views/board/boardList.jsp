@@ -70,7 +70,7 @@
 			<tbody>
 				<c:forEach items="${boardList}" var="board">
 					<c:if test="${board.b_type eq 'N'}">
-						<tr class="table-warning">
+						<tr class="table-primary">
 					</c:if>
 					<c:if test="${board.b_type eq 'G'}">
 						<tr>
@@ -115,7 +115,7 @@
 	 		String flag = (String) request.getAttribute("flag");
 			if("g".equals(flag)||"".equals(flag)||flag==null||"w".equals(flag)||"c".equals(flag)||"t".equals(flag)){
 		%>
-			<button type="button" class="btn btn-warning btn-sm float-right" id="writeBtn" onclick="location.href='/board/write'">등록</button>
+			<button type="button" class="btn btn-primary btn-sm float-right" id="writeBtn" onclick="location.href='/board/write'">등록</button>
 		<%
 			}
 		%>

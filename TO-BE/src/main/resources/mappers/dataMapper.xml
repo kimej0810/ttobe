@@ -30,7 +30,7 @@
                         TOBE_MEMBER.T_NAME,
 		               ROW_NUMBER() OVER(ORDER BY DIDX DESC) AS RNUM
 		         FROM data_library, tobe_member
-		         WHERE 1=1 AND data_library.delyn='N' and data_library.tidx = tobe_member.tidx
+		         WHERE 1=1 <include refid="search"></include> AND data_library.delyn='N' and data_library.tidx = tobe_member.tidx
 		      )
 		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd} 
 		ORDER BY DIDX DESC	

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -38,6 +37,19 @@ pageContext.setAttribute("replace", "<br>");
 </style>
 </head>
 <body>
+<!-- 세션 -->
+<%
+	if(session.getAttribute("userName")!=null){
+		String uName = (String)session.getAttribute("userName");
+		
+		
+%>
+<input type="hidden" value="<%=uName%>">
+<%
+	}/* else{
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+	} */
+%>
 	<div class="category">
 		<input type="hidden" id="boardType" value="${boardVO.b_type}">
 		<button id="noticeBtn" class="btn btn-outline-secondary" type="button">공지사항</button>

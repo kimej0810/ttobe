@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import tobe.project.domain.PageMaker;
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.DataLibraryVO;
 import tobe.project.service.DataLibraryService;
@@ -41,7 +42,19 @@ public class DataLibraryController extends HttpServlet {
 		System.out.println(scri.toString());
 		
 		List<DataLibraryVO> list = service.selectAllData(scri);
-		model.addAttribute("");
+		
+		for(int i=0; i<list.size(); i++) {
+			System.out.println(list.get(i).getD_title());
+		}
+		
+		model.addAttribute("dataList", list);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(scri);
+		pageMaker.setTotalCount(service.dataCount(scri));
+		
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("scri", scri);
 		
 		return "/data/dataList";
 	}
@@ -56,11 +69,15 @@ public class DataLibraryController extends HttpServlet {
 		return "redirect:/data/list";
 	}
 
+	// 자료실 다운로드
 	@RequestMapping(value = "/fileDown")
 	@ResponseBody
 	public void fileDown(@RequestParam("didx") int didx, HttpServletResponse response) throws Exception {
 
 		System.out.println(didx);
+		//조회수 증가
+		service.hitData(didx);
+		
 		List<Map<String, Object>> fileList = fileInfoService.selectAllFile("didx", didx);
 		String storedFileName = (String) fileList.get(0).get("F_STORED_FILE_NAME");
 		String originalFileName = (String) fileList.get(0).get("F_ORG_FILE_NAME");
@@ -77,7 +94,6 @@ public class DataLibraryController extends HttpServlet {
 		response.getOutputStream().write(fileByte);
 		response.getOutputStream().flush();
 		response.getOutputStream().close();
-
 	}
 
 }

@@ -44,5 +44,10 @@ public class DataLibraryServiceImpl implements DataLibraryService{
 		}
 	}
 
+	@Override
+	public void hitData(int didx) throws Exception {
+		dao.hitData(didx);
+	}
+
 	
 }

@@ -15,7 +15,8 @@
     <div class="wrapper">
         <nav id="sidebar" class="sidebar">
             <div class="sidebar-content-wrappper">
-            	<img id="sideLogo" src="<c:url value="/resources/static/img/side_logo.png"/>">
+            	<img id="sideLogo" src="<c:url value="/resources/static/img/sideLogo.png"/>">
+                <div style="margin-top:23px; margin-left:15px;">A few persons</div>
                 <ul class="sidebar-menu">
                     <li class="sidebar-menu-item">일정관리</li>
                     <li class="sidebar-menu-item">근태관리</li>
@@ -31,10 +32,10 @@
                 <div class="navbar-wrapper">
                     <img src="/resources/static/img/toggle.png" class="navbar-toggle sidebar-collapse">
 
-                    <img src="/resources/static/img/logo3.png" class="navbar-logo">
+                    <h2 style="text-align:center; font-size:30px; margin-top:7spx;">AFPS</h2>
 
                     <div class="dropdown">
-                        <img src="/resources/static/img/profile.png" class="btn btn-secondary dropdown-toggle navbar-profile" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="padding:0px;">
+                        <img src="/resources/static/img/profile2.jpg" class="btn btn-secondary dropdown-toggle navbar-profile" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="padding:0px;">
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="width:150px; left: -120px;">
                             <li><a class="dropdown-item" href="#">홍길동님</a></li>
                             <li><a class="dropdown-item" href="#">LOGOUT</a></li>

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration 
     PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
@@ -17,24 +16,4 @@
             <typeAlias type="tobe.project.dto.ApprovalVO" alias="ApprovalVO"/>
             <typeAlias type="tobe.project.dto.CommuteVO" alias="commuteVO"/>
         </typeAliases>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE configuration 
-    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-config.dtd">
-    <configuration>
- 		<typeAliases>
-            <typeAlias type="tobe.project.dto.MemberVO" alias="memberVO"/>
-            <typeAlias type="tobe.project.dto.EmailVO" alias="emailVO"/>
-            <typeAlias type="tobe.project.dto.FileVO" alias="fileVO"/>
-            <typeAlias type="tobe.project.dto.MemberDTO" alias="memberDTO"/>
-            <typeAlias type="tobe.project.dto.LoginDTO" alias="loginDTO"/>
-            <typeAlias type="tobe.project.dto.BoardVO" alias="boardVO"/>
-            <typeAlias type="tobe.project.dto.DataLibraryVO" alias="dataVO"/>
-            <typeAlias type="tobe.project.dto.ReplyVO" alias="replyVO"/>
-            <typeAlias type="tobe.project.dto.ScheduleVO" alias="scheduleVO"/>
-            <typeAlias type="tobe.project.dto.ApprovalVO" alias="ApprovalVO"/>
-            <typeAlias type="tobe.project.dto.CommuteVO" alias="commuteVO"/>
-        </typeAliases>
->>>>>>> branch 'master' of https://github.com/kimej0810/ttobe.git
     </configuration>
