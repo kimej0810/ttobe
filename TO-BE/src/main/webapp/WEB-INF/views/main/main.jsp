@@ -27,7 +27,7 @@
                 <%
                 	}
                 %>
-             	<a href="/member/mypage?t_id=${member.t_id}"><span class="name">${member.t_name}</span></a>
+             	<a href="/member/mypage?tidx=${member.tidx}"><span class="name">${member.t_name}</span></a>
                 <div class="saown_num">201668451</div>
                 <div class="dept_rank"><a href="/commute/commute?t_id=${member.t_id}">출근</a></div>
                 <div class="logout">로그아웃</div>

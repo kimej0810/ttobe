@@ -146,7 +146,7 @@ public class MemberServiceImpl implements MemberService{
 	public void modifyMember(MemberVO vo, MultipartHttpServletRequest mpRequest) throws Exception {
 		dao.modifyMember(vo);
 		
-		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(vo, mpRequest);
+		List<Map<String, Object>> list = fileUtils.parseInsertFileInfoProfile(vo, mpRequest);
 		int size = list.size();
 		for(int i=0; i<size; i++){
 			dao.insertFile(list.get(i));

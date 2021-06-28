@@ -70,7 +70,6 @@
  	<!-- 사원정보 수정 -->
  	<update id="modifyMember">
  		update tobe_member set
- 		t_pwd = #{t_pwd},
  		t_email = #{t_email},
  		t_phone = #{t_phone},
  		t_addr_zipcode = #{t_addr_zipcode},
@@ -82,9 +81,9 @@
 	 <update id="insertFile" parameterType="hashMap">
 	 	update FILE_INFOTEST set
 			F_TYPE = #{F_TYPE},
-			F_ORG_FILE_NAME = #{ORG_FILE_NAME},
-			F_STORED_FILE_NAME = #{STORED_FILE_NAME},
-			F_FILE_SIZE = #{FILE_SIZE},
+			F_ORG_FILE_NAME = #{F_ORG_FILE_NAME},
+			F_STORED_FILE_NAME = #{F_STORED_FILE_NAME},
+			F_FILE_SIZE = #{F_FILE_SIZE}
 			where tidx = #{tidx}
 	 </update>
  	
