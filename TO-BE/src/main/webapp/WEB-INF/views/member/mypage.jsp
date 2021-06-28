@@ -4,21 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>my page</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-	/*
-	$(documnet).ready(function(){
-		$("#modifyMember").click(function({
-			
-				
-		});
-		
-	});
-	*/
-    function findZipcode() {
+	function findZipcode() {
         new daum.Postcode({
             oncomplete: function(data) {
                
@@ -40,20 +32,30 @@
 	
 	function modifyMember(){
 		
-		var ex = document.getElementById("newPwd").value;
-		
-		if(frm.t_pwd.value != ex){
-			alert("비밀번호 확인이 다릅니다.");
-			frm.newPwd.focus();
-			return;
-		}
 		var result = confirm("정보를 수정하시겠습니까?");
 		if(result){
 			frm.action = "/member/modifyMember";
-			frm.method= "POST";
+			frm.method = "POST";
 			frm.submit();	
 		}else{
 			history.go(-1);
+		}
+	}
+	
+	$(function(){
+		$("#inputImg").on('change',function(){
+			readURL(this);
+		});
+	});
+		
+	function readURL(input){
+		if(input.files && input.files[0]){
+			var reader = new FileReader();
+			
+			reader.onload = function(e){
+				$("#previewImg").attr('src',e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
 		}
 	}
 	
@@ -65,13 +67,8 @@
 		<table border="1">
 			<tbody>
 				<tr>
-					<td>비밀번호 변경</td>
-				</tr>
-				<tr>
-					<td>새 비밀번호</td>
-					<td><input type="password" name="t_pwd" id="t_pwd" placeholder="새 비밀번호 입력"></td>
-					<td>새 비밀번호 확인</td>	
-					<td><input type="password" id="newPwd" placeholder="새 비밀번호 입력 확인"></td>
+					<td>비밀번호</td>
+					<td><a href="/member/modifyPwd?t_id=${member.t_id}" onclick="window.open(this.href, '비밀번호변경', 'width=500,height=500,top=200,left=100'); return false;">변경하기</a></td>
 				</tr>
 				<tr>
 					<td>직장정보</td>
@@ -115,9 +112,9 @@
 			</tbody>
 		</table>
 			<div class="img_wrap">
-			사원사진
-			<img id="profile_container">
-			<input type="file" name="file" accept="image/*">
+				<img id="previewImg" src="<c:url value="/resources/static/profile/${member.f_stored_file_name}"/>" alt="your image" style="width:200px;height:150px;"/>
+				<input type="file" id="inputImg" name="file" accept="image/*"/>
+				<input type="hidden" id="tidx" name="tidx" value="${member.tidx}"/>
 			</div>
 		<button type="button" onclick="modifyMember();">수정</button>
 		<button type="button" onclick="history.go(-1);">취소</button>

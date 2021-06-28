@@ -68,6 +68,11 @@ public class MemberServiceImpl implements MemberService{
 	public MemberVO login(LoginDTO dto) throws Exception {
 		return dao.login(dto);
 	}
+	//비밀번호 변경
+	@Override
+	public int modifyPwd(MemberVO vo) throws Exception {
+		return dao.modifyPwd(vo);
+	}
 	//비밀번호 찾기 이메일 전송
 	@Override
 	public void sendEmail(MemberVO vo, String div,String pwd) throws Exception {
