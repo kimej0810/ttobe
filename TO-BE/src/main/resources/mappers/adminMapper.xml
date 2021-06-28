@@ -76,15 +76,16 @@
     </select>
     <sql id="search">
     	<if test="searchType != null">
- 	    	<if test="searchType == 'a'.toString()">
-    			AND T_ADDR_GENERAL LIKE '%'||#{keyword}||'%'
-    		</if>
-    		<if test="searchType == 'b'.toString()">
-    			AND T_ADDR_DETAIL LIKE '%'||#{keyword}||'%'
-    		</if>
     		<if test="searchType == 'u'.toString()">
     			AND T_NAME LIKE '%'||#{keyword}||'%'
     		</if>
+ 	    	<if test="searchType == 'd'.toString()">
+    			AND T_DEPARTMENT LIKE '%'||#{keyword}||'%'
+    		</if>
+    		<if test="searchType == 'p'.toString()">
+    			AND T_POSITION LIKE '%'||#{keyword}||'%'
+    		</if>
+    		
     	</if>
     </sql>
 </mapper>

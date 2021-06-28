@@ -153,9 +153,11 @@ public class AdminController{
 		return "/email/memberList";
 	}
 	@RequestMapping(value="/email")
-	public String adminEmail(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,int tidx,Locale locale, Model model) throws Exception{
-		MemberVO vo = service.selectOneMember(tidx);
-		model.addAttribute("member",vo);
+	public String adminEmail(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Integer tidx,Locale locale, Model model) throws Exception{
+		if(tidx!=null) {
+			MemberVO vo = service.selectOneMember(tidx);
+			model.addAttribute("member",vo);
+		}
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(searchCriteria);
 		pageMaker.setTotalCount(emailService.totalCountsearchEmail(searchCriteria));

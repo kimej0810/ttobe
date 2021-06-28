@@ -9,6 +9,14 @@
 <head>
 <meta charset="UTF-8">
 <title>메일 상세보기</title>
+<style>
+	table th{
+		text-align:center;
+	}
+	.headerT{
+		margin-bottom:45px;
+	}
+</style>
 </head>
 <body>
 <%
@@ -22,31 +30,40 @@
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
 	} */
 %>
-	<table>
-		<tr>
-			<th>제목</th>
-			<td>${emailRead.m_title}</td>
-			<th>발송일</th>
-			<td>
-				<c:set var="sendDate" value="${emailRead.m_senddate}"/>
-				${fn:substring(sendDate,0,16)}
-			</td>
-		</tr>
-		<tr>
-			<th>수신인</th>
-			<th>부서</th>
-			<th>직급</th>
-		</tr>
-		<tr>
-			<td>홍</td>
-			<td>부서</td>
-			<td>직급</td>
-		</tr>
-		<tr>
-			<th>내용</th>
-			<td>${emailRead.m_content }</td>
-		</tr>
+	<div class="headerT">
+		<button id="noticeBtn" class="btn btn-outline-secondary" type="button" onclick="history.back();">메일 발송함</button>
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>부서</th>
+				<td>부서</td>
+				<th>수신인</th>
+				<td>수신인</td>
+				<th>직급</th>
+				<td>직급</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th>제목</th>
+				<td colspan="3">${emailRead.m_title}</td>
+				<th>발송일</th>
+				<td>
+					<c:set var="sendDate" value="${emailRead.m_senddate}"/>
+					${fn:substring(sendDate,0,16)}
+				</td>
+			</tr>
+			<tr style="height:300px;">
+				<th style="border-right: 1px solid #dee2e6;">내용</th>
+				<td colspan="5">${emailRead.m_content }</td>
+			</tr>
+		</tbody>
 	</table>
-	<a href="${path}/admin/emaillist${pageMaker.makeSearch(pageMaker.cri.page)}&midx=${emailRead.midx}"><button>목록</button></a>
+	<div style="float:right;">
+		<a href="${path}/admin/emaillist${pageMaker.makeSearch(pageMaker.cri.page)}&midx=${emailRead.midx}">
+			<button class="saoneBtn btn btn-primary btn-sm">목록</button>
+		</a>
+	</div>
 </body>
 </html>
