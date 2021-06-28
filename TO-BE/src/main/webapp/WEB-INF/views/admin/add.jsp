@@ -3,13 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="tobe.project.dto.*"%>
 <%@page import="java.util.*"%>
+<%@ include file="/WEB-INF/views/include/new_main.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>사원 등록</title>
-<%@ include file="../include/main_top.jsp" %>
-<%@ include file="../include/main_left.jsp" %>
 </head>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>

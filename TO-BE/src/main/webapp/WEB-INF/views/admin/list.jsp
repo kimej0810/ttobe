@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@page import="tobe.project.dto.*"%>
+<%@ include file="/WEB-INF/views/include/new_main.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
