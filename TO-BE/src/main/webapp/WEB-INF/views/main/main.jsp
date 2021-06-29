@@ -38,7 +38,7 @@
             <div class="menu">
                 <div><a href="/member/solist">사원관리</a></div>
                 <div><a href="/schedule/fullcalendar">일정관리</a></div>
-                <div>근태관리</div>
+                <div><a href="/commute/commute?t_id=${member.t_id}">근태관리</div>
                 <div><a href="/approval/documentListMain">전자결재</a></div>
                 <div>게시판</div>
                 <div>자료실</div>

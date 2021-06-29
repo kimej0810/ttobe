@@ -1,6 +1,7 @@
 package tobe.project.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -27,10 +28,15 @@ public class CommuteServiceImpl implements CommuteService{
 		dao.addEndWork(vo);
 	}
 	
-	//근태목록 조회
+	
 	@Override
 	public List<CommuteVO> selectAllCommute(int tidx) throws Exception {
 		return dao.selectAllCommute(tidx);
 	}
 	
+	//근태목록 조회테스트
+	@Override
+	public List<CommuteVO> selectAllCommute2(Map<String, Object> map) throws Exception {
+		return dao.selectAllCommute2(map);
+	}
 }
