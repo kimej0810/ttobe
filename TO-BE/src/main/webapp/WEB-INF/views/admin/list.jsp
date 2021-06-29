@@ -94,8 +94,8 @@
 		<form name="frm" method="post">
 			<div class="searDiv">
 				<div class="input-group mb-3">
-					<select name="searchType" id="searchType" class="form-control" style="height:30px; font-size:0.5rem;">
-						<option value="n" <c:out value="${searchCriteria.searchType == null ? 'selected' : '' }"/>>:::::선택:::::</option>
+					<select name="searchType" id="searchType" class="form-select" style="height:30px; font-size:0.5rem;">
+						<option value="n" <c:out value="${searchCriteria.searchType == null ? 'selected' : '' }"/>>::선택::</option>
 						<option value="u" <c:out value="${searchCriteria.searchType eq 'u' ? 'selected' : '' }"/>>이름</option>
 						<option value="d" <c:out value="${searchCriteria.searchType eq 'd' ? 'selected' : '' }"/>>부서</option>
 						<option value="p" <c:out value="${searchCriteria.searchType eq 'p' ? 'selected' : '' }"/>>직급</option>

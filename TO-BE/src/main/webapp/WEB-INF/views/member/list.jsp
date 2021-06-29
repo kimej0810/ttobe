@@ -9,6 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scal=1.0">
 <link href="<c:url value="/resources/static/css/saone.css"/>" rel='stylesheet' />
 <script type="text/javascript" src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
+<link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>"/>
 <script>
 	$(document).ready(function(){
 		
@@ -127,6 +128,20 @@
 		});
 	});
 </script>
+<style>
+	#search{
+		width:100%;
+		display:grid;
+		grid-template-columns:1fr minmax(70px, auto);
+	}
+	.input-group{
+		grid-column:2/3;
+		margin-top:15px;
+	}
+	.contentheader{
+		grid-template-columns:1fr 2fr 0.1fr;
+	}
+</style>
 </head>
 <body>
 <%
@@ -136,28 +151,26 @@
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
 	} */
 %>
-	<div class="contentheader">
-		<div class="mainLogo">
-			<img src="<c:url value="/resources/static/img/logo3.png"/>">
+	<div class="contentheader" style="box-shadow:0 2px 5px lightgrey;background-color:white;">
+		<div class="mainLogo" >
+			<img src="<c:url value="/resources/static/img/sideLogo.png"/>" style="width:50px;margin:8px 0 0 15px;">
 		</div>
-		<div class="buseoSearch">
-			<span>부서</span>
-			<select class="selectBuseo" id="t_department" name="t_department">
-				<option value="all">부서 선택</option>
-				<option value="마케팅">마케팅</option>
-				<option value="판매">판매</option>
-				<option value="디자인">디자인</option>
-				<option value="인사">인사</option>
-				<option value="재정">재정</option>
-				<option value="회계">회계</option>
-			</select>
+		<div class="search">
+			<div class="input-group mb-3">
+				<select id="t_department" name="t_department" class="selectBuseo form-select" style="height:30px; font-size:0.5rem;">
+					<option value="all">::부서::</option>
+					<option value="마케팅">마케팅</option>
+					<option value="판매">판매</option>
+					<option value="디자인">디자인</option>
+					<option value="인사">인사</option>
+					<option value="재정">재정</option>
+					<option value="회계">회계</option>
+				</select>
+				<input type="text" style="height:30px; width:40%; font-size:0.5rem;" id="searchType" name="searchType" class="form-control">
+				<input type="button" id="nameSearchBtn"  style="height:30px; font-size:0.5rem;" class="btn btn-outline-secondary" value="검색">
+			</div>
 		</div>
-		<div class="nameSearch">
-			<span>사원</span>
-			<input type="text" id="searchType" name="searchType">
-			<input type="button" id="nameSearchBtn" value="검색">
-		</div>
-	</div> 
+	</div>
 	<div class="content">
 		<div class="saone">
 			<c:forEach items="${selectAllMember}" var="member">

@@ -57,17 +57,96 @@
             }
         }).open();
     }
+    var fileArr;
+    var fileInfoArr=[];
+    //썸네일 클릭시 삭제.
+    function fileRemove(index){
+    	fileInfoArr.splice(index,1);
+    	var imgId="#img_id_"+index;
+    	$(imgId).remove();
+    }
+    //썸네일 미리보기
+	function previewImage(targetObj, View_area){
+		var files = targetObj.files;
+		fileArr = Array.prototype.slice.call(files);
+		var preview = document.getElementById(View_area);
+		var ua = window.navigator.userAgent;
+		//ie일때
+		if(ua.indexOf("MSIE")>-1){
+			targetObj.select();
+			try {
+	            var src = document.selection.createRange().text; // get file full path(IE9, IE10에서 사용 불가)
+	            var ie_preview_error = document.getElementById("ie_preview_error_" + View_area);
+	            if (ie_preview_error) {
+	                preview.removeChild(ie_preview_error); //error가 있으면 delete
+	            }
+	            var img = document.getElementById(View_area); //이미지가 뿌려질 곳
+	            //이미지 로딩, sizingMethod는 div에 맞춰서 사이즈를 자동조절 하는 역할
+	            img.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"+src+"', sizingMethod='scale')";
+	        } catch (e) {
+	            if (!document.getElementById("ie_preview_error_" + View_area)) {
+	                var info = document.createElement("<p>");
+	                info.id = "ie_preview_error_" + View_area;
+	                info.innerHTML = e.name;
+	                preview.insertBefore(info, null);
+	            }
+	        }
+	        //ie가 아닐때(크롬,사파리,FF)
+		}else{
+			var files = targetObj.files;
+	        for ( var i = 0; i < files.length; i++) {
+	            var file = files[i];
+	            fileInfoArr.push(file);
+	 
+	            var imageType = /image.*/; //이미지 파일일경우만.. 뿌려준다.
+	            if (!file.type.match(imageType))
+	                continue;
+	            var prevImg = document.getElementById("img_id_"+i); //이전에 미리보기가 있다면 삭제
+	            if (prevImg) {
+	            	preview.removeChild(prevImg);
+	            }
+	            var span = document.createElement('span');
+	            span.id="img_id_" +i;
+	            span.style.width = '170px';
+	            span.style.height = '200px';
+	            preview.appendChild(span);
+	 
+	            var img = document.createElement("img");
+	            img.className="addImg";
+	            img.classList.add("obj");
+	            img.file = file;
+	            img.style.width='inherit';
+	            img.style.height='inherit';
+	            img.style.cursor='pointer';
+	            const idx=i;
+	            img.onclick=function(){
+	            	fileRemove(idx);
+	            }
+	            span.appendChild(img);
+	 
+	            if (window.FileReader) { // FireFox, Chrome, Opera 확인.
+	                var reader = new FileReader();
+	                reader.onloadend = (function(aImg) {
+	                    return function(e) {
+	                        aImg.src = e.target.result;
+	                    };
+	                })(img);
+	                reader.readAsDataURL(file);
+	            } else { // safari is not supported FileReader
+	                //alert('not supported FileReader');
+	                if (!document.getElementById("sfr_preview_error_"
+	                    + View_area)) {
+	                    var info = document.createElement("p");
+	                    info.id = "sfr_preview_error_" + View_area;
+	                    info.innerHTML = "not supported FileReader";
+	                    preview.insertBefore(info, null);
+	                }
+	            }
+	        }
+		}
+	}
 </script>
 <style>
-    .sub{
-	    width: 100%;
-	    height: 98vh;
-	    padding:1%;
-    }
-    .infoImg{
-    	width:100px;
-    	height:150px;
-    }
     .infoImg img{
     	width:100px;
     	height:150px;
@@ -77,18 +156,42 @@
     	margin-top:20px;
     	margin-right:1%;
     }
-    .saoneBtn{
-    	width:100px;
-    	height:30px;
-	    border-radius: 5px;
-	    background-color: #ffd4006e;
+    #address, #detailAddress{
+    	width:71%;
     }
-    #address{
-    	width:350px;
+    .headerT{
+    	margin-bottom:45px;
     }
-    .selectJk, .selectBuseo{
-    	width:180px;
+    table th{
+    	text-align:center;
     }
+    .fileLabel{
+		padding:.5em .75em;
+		color:#999;
+		font-size:inherit;
+		line-height:normal;
+		vertical-align:middle;
+		background-color:#fdfdfd;
+		cursor:pointer;
+		border:1px solid #ebebeb;
+		border-bottom-color:#e2e2e2;
+		border-radius:.25em;
+		display:block;
+	}
+	input[type="file"]{
+		position:absolute;
+		width:1px;
+		height:1px;
+		padding:0;
+		margin:-1px;
+		overflow:hidden;
+		clip:rect(0,0,0,0);
+		border:0;
+	}
+	.fileLabel:hover{
+		background-color:lightgray;
+		color:white;
+	}
 </style>
 <body>
 <%
@@ -102,138 +205,121 @@
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
 	} */
 %>
-	<div class="sub">
-		<div class="headerT"><h1>사원정보 수정</h1></div>
-		<div class="formDiv">
-			<form action="${path}/admin/modifyAction${pageMaker.makeSearch(pageMaker.cri.page)}&tidx=${member.tidx}" method="post">
-				<table>
-					<colgroup>
-						<col width="20%"></col>
-						<col width="80%"></col>
-					</colgroup>
-					<tbody>
-						<tr>
-							<td rowspan="6">
-								<div class="infoImg">
-									<img src="<c:url value="/resources/static/img/profile.png"/>">
-									<input type="file" value="사진 등록">
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label><h2>사원 번호</h2></label>
-							</td>
-							<td>
-								<input type="text" value="${member.t_id}" readonly="readonly">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label><h2>이름</h2></label>
-							</td>
-							<td>
-								<input type="text" value="${member.t_name}" readonly="readonly">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label><h2>생년월일</h2></label>
-							</td>
-							<td>
-								<input type="text" value="${member.t_birth}" readonly="readonly">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label><h2>현재 부서</h2></label>
-							</td>
-							<td>${member.t_department}</td>
-						</tr>
-						<tr>
-							<td>
-								<label><h2>부서</h2></label>
-							</td>
-							<td>
-								<select class="selectBuseo" name="t_department">
-									<option value="부서없음">부서 선택</option>
-									<option value="마케팅">마케팅</option>
-									<option value="판매">판매</option>
-									<option value="디자인">디자인</option>
-									<option value="인사">인사</option>
-									<option value="재정">재정</option>
-									<option value="회계">회계</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label><h2>현재 직급</h2></label>
-							</td>
-							<td>${member.t_position}</td>
-						</tr>
-						<tr>
-							<td>
-								<label><h2>직급</h2></label>
-							</td>
-							<td>
-								<select class="selectJk" name="t_position">
-									<option value="levelNull">직책</option>
-									<option value="회장">회장</option>
-									<option value="부회장">부회장</option>
-									<option value="사장">사장</option>
-									<option value="부사장">부사장</option>
-									<option value="전무">전무</option>
-									<option value="상무">상무</option>
-									<option value="이사">이사</option>
-									<option value="본부장">본부장</option>
-									<option value="실장">실장</option>
-									<option value="팀장">팀장</option>
-									<option value="부장">부장</option>
-									<option value="차장">차장</option>
-									<option value="과장">과장</option>
-									<option value="대리">대리</option>
-									<option value="주임">주임</option>
-									<option value="사원">사원</option>
-									<option value="인턴">인턴</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td><h2>이메일</h2></td>
-							<td colspan="2" align="left"><input type="text" value="${member.t_email}"></td>
-						</tr>
-						<tr>
-							<td><h2>연락처</h2></td>
-							<td colspan="2" align="left"><input type="text" value="${member.t_phone}"></td>
-						</tr>
-						<tr>
-							<td><h2>우편번호</h2></td>
-							<td colspan="2" align="left">
-								<input type="text" id="postcode" value="${member.t_addr_zipcode}">
-								<input type="button" onclick="execDaumPostcode()" value="주소지 변경">
-							</td>
-						</tr>
-						<tr>
-							<td rowspan="2"><h2>주소</h2></td>
-							<td colspan="2" align="left">
-								<input type="text" value="${member.t_addr_general}" id="address">
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2" align="left">
-								<input type="text" value="${member.t_addr_detail}" id="detailAddress">
-								<input type="hidden" name="tidx" value="${member.tidx}">
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="tableBtn">
-					<input type="submit" class="saoneBtn" value="정보 수정">
-					<input type="button" class="saoneBtn" onclick="location.href='${path}/admin/memberlist${pageMaker.makeSearch(pageMaker.cri.page)}&tidx=${member.tidx}'" value="취소">
-				</div>
-			</form>
-		</div>
+	<div class="headerT">
+		<button id="noticeBtn" class="btn btn-outline-secondary" type="button">사원 정보 수정</button>
 	</div>
+	<form action="${path}/admin/modifyAction${pageMaker.makeSearch(pageMaker.cri.page)}&tidx=${member.tidx}" method="post">
+		<table class="table">
+			<tbody>
+				<tr>
+					<td rowspan="6" scope="col" width="30%" style="text-align:center;">
+						<div class="infoImg">
+							<span id="View_area"></span>
+							<label for="file" class="fileLabel">프로필 변경</label>
+							<input type="file" name="file" id="file" onchange="previewImage(this,'View_area')" value="사진 등록">
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>사원 번호</th>
+					<td>
+						<input type="text" value="${member.t_id}" class="form-control" readonly="readonly">
+					</td>
+				</tr>
+				<tr>
+					<th>이름</th>
+					<td>
+						<input type="text" value="${member.t_name}" class="form-control" readonly="readonly">
+					</td>
+				</tr>
+				<tr>
+					<th>생년월일</th>
+					<td>
+						<input type="text" value="${member.t_birth}" class="form-control" readonly="readonly">
+					</td>
+				</tr>
+				<tr>
+					<th>현재 부서</th>
+					<td><input type="text" class="form-control" value="${member.t_department}" readonly="readonly"></td>
+				</tr>
+				<tr>
+					<th>부서</th>
+					<td>
+						<select class="selectBuseo form-select" name="t_department">
+							<option value="부서없음">부서 선택</option>
+							<option value="마케팅">마케팅</option>
+							<option value="판매">판매</option>
+							<option value="디자인">디자인</option>
+							<option value="인사">인사</option>
+							<option value="재정">재정</option>
+							<option value="회계">회계</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>현재 직급</th>
+					<td colspan="2"><input type="text" class="form-control" value="${member.t_position}" readonly="readonly"></td>
+				</tr>
+				<tr>
+					<th>직급</th>
+					<td colspan="2">
+						<select class="selectJk form-select" name="t_position">
+							<option value="levelNull">직급 선택</option>
+							<option value="회장">회장</option>
+							<option value="부회장">부회장</option>
+							<option value="사장">사장</option>
+							<option value="부사장">부사장</option>
+							<option value="전무">전무</option>
+							<option value="상무">상무</option>
+							<option value="이사">이사</option>
+							<option value="본부장">본부장</option>
+							<option value="실장">실장</option>
+							<option value="팀장">팀장</option>
+							<option value="부장">부장</option>
+							<option value="차장">차장</option>
+							<option value="과장">과장</option>
+							<option value="대리">대리</option>
+							<option value="주임">주임</option>
+							<option value="사원">사원</option>
+							<option value="인턴">인턴</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>이메일</th>
+					<td colspan="2" align="left"><input type="text" class="form-control" value="${member.t_email}"></td>
+				</tr>
+				<tr>
+					<th>연락처</th>
+					<td colspan="2" align="left"><input type="text" class="form-control" value="${member.t_phone}"></td>
+				</tr>
+				<tr>
+					<th>우편번호</th>
+					<td colspan="2" align="left">
+						<input type="text" id="postcode" class="form-control" value="${member.t_addr_zipcode}" style="width:50%;display:inline;">
+						<input type="button" class="btn btn-primary btn-sm" onclick="execDaumPostcode()" value="주소지 변경" style="width:20%;height:35px;">
+					</td>
+				</tr>
+				<tr>
+					<th>일반주소</th>
+					<td colspan="2" align="left">
+						<input type="text" class="form-control" value="${member.t_addr_general}" id="address">
+					</td>
+				</tr>
+				<tr>
+					<th>상세주소</th>
+					<td colspan="2" align="left">
+						<input type="text" class="form-control" value="${member.t_addr_detail}" id="detailAddress">
+						
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="tableBtn">
+			<input type="submit" class="btn btn-primary btn-sm" value="정보 수정">
+			<input type="button" class="btn btn-danger btn-sm" onclick="history.back();" value="취소">
+			<input type="hidden" name="tidx" value="${member.tidx}">
+		</div>
+	</form>
 </body>
 </html>

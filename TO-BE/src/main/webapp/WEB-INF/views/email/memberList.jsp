@@ -136,7 +136,7 @@
 		</div>
 		<div class="search">
 			<div class="input-group mb-3">
-				<select id="t_department" name="t_department" class="selectBuseo form-control" style="height:30px; font-size:0.5rem;">
+				<select id="t_department" name="t_department" class="selectBuseo form-select" style="height:30px; font-size:0.5rem;">
 					<option value="all">::부서::</option>
 					<option value="마케팅">마케팅</option>
 					<option value="판매">판매</option>

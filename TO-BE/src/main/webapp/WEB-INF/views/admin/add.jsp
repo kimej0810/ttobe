@@ -109,7 +109,7 @@
 	            }
 	            var span = document.createElement('span');
 	            span.id="img_id_" +i;
-	            span.style.width = '170px';
+	            span.style.width = '150px';
 	            span.style.height = '200px';
 	            preview.appendChild(span);
 	 
@@ -150,11 +150,6 @@
     
 </script>
 <style>
-    .sub{
-	    width: 100%;
-	    height: 98vh;
-	    padding:1%;
-    }
     .infoImg img{
     	width:150px;
     	height:200px;
@@ -164,19 +159,10 @@
     	margin-top:20px;
     	margin-right:1%;
     }
-    .saoneBtn{
-    	width:100px;
-    	height:30px;
-	    border-radius: 5px;
-	    background-color: #ffd4006e;
+    #address, #detailAddress{
+    	width:71%;
     }
-    #address{
-    	width:350px;
-    }
-    .selectJk, .selectBuseo{
-    	width:180px;
-    }
-    	.fileLabel{
+   	.fileLabel{
 		padding:.5em .75em;
 		color:#999;
 		font-size:inherit;
@@ -187,6 +173,7 @@
 		border:1px solid #ebebeb;
 		border-bottom-color:#e2e2e2;
 		border-radius:.25em;
+		display:block;
 	}
 	input[type="file"]{
 		position:absolute;
@@ -198,6 +185,12 @@
 		clip:rect(0,0,0,0);
 		border:0;
 	}
+	.headerT{
+    	margin-bottom:45px;
+    }
+    table th{
+    	text-align:center;
+    }
 </style>
 <body>
 <%
@@ -211,128 +204,110 @@
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
 	} */
 %>
-	<div class="sub">
-		<div class="headerT"><h1>사원 등록</h1></div>
-		<div class="formDiv">
-			<form action="/admin/addAction" method="post" enctype="multipart/form-data">
-				<table border="1">
-					<colgroup>
-						<col width="40%"></col>
-						<col width="30%"></col>
-						<col width="30%"></col>
-					</colgroup>
-					<tbody>
-						<tr>
-							<td rowspan="4" style="text-align:center;">
-								<div class="infoImg">
-									<span id="View_area"></span>
-								</div>
-							</td>
-							<td>
-								<label><h2>사원 번호</h2></label>
-							</td>
-							<td>
-								<input type="text" name="t_id" value="${tid}" readonly>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label><h2>이름</h2></label>
-							</td>
-							<td>
-								<input type="text" placeholder="이름 작성" name="t_name">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label><h2>생년월일</h2></label>
-							</td>
-							<td>
-								<input type="text" name="t_birth">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label><h2>부서</h2></label>
-							</td>
-							<td>
-								<select class="selectBuseo" name="t_department">
-									<option value="부서없음">부서 선택</option>
-									<option value="마케팅">마케팅</option>
-									<option value="판매">판매</option>
-									<option value="디자인">디자인</option>
-									<option value="인사">인사</option>
-									<option value="재정">재정</option>
-									<option value="회계">회계</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td style="text-align:center;">
-								<label for="file" class="fileLabel">프로필 등록</label>
-								<input type="file" name="file" id="file" onchange="previewImage(this,'View_area')" value="사진 등록">
-							</td>
-							<td>
-								<label><h2>직책</h2></label>
-							</td>
-							<td>
-								<select class="selectJk" name="t_position">
-									<option value="levelNull">직책</option>
-									<option value="회장">회장</option>
-									<option value="부회장">부회장</option>
-									<option value="사장">사장</option>
-									<option value="부사장">부사장</option>
-									<option value="전무">전무</option>
-									<option value="상무">상무</option>
-									<option value="이사">이사</option>
-									<option value="본부장">본부장</option>
-									<option value="실장">실장</option>
-									<option value="팀장">팀장</option>
-									<option value="부장">부장</option>
-									<option value="차장">차장</option>
-									<option value="과장">과장</option>
-									<option value="대리">대리</option>
-									<option value="주임">주임</option>
-									<option value="사원">사원</option>
-									<option value="인턴">인턴</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td><h2>이메일</h2></td>
-							<td colspan="2" align="left"><input type="text" name="t_email"></td>
-						</tr>
-						<tr>
-							<td><h2>연락처</h2></td>
-							<td colspan="2" align="left"><input type="text" name="t_phone"></td>
-						</tr>
-						<tr>
-							<td><h2>우편번호</h2></td>
-							<td colspan="2" align="left">
-								<input type="text" id="postcode" placeholder="우편번호" name="t_addr_zipcode">
-								<input type="button" onclick="execDaumPostcode()" value="주소 검색">
-							</td>
-						</tr>
-						<tr>
-							<td rowspan="2"><h2>주소</h2></td>
-							<td colspan="2" align="left">
-								<input type="text" placeholder="주소" id="address" name="t_addr_general">
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2" align="left">
-								<input type="text" placeholder="상세주소" id="detailAddress" name="t_addr_detail">
-								<input type="hidden" placeholder="참고" id="extraAddress" name="addr3">
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="tableBtn">
-					<input type="submit" class="saoneBtn" value="사원 등록">
-					<input type="button" class="saoneBtn" onclick="history.go(-1)" value="취소">
-				</div>
-			</form>
-		</div>
+	<div class="headerT">
+		<button id="noticeBtn" class="btn btn-outline-secondary" type="button">사원 등록</button>
 	</div>
+	<form action="/admin/addAction" method="post" enctype="multipart/form-data">
+		<table class="table">
+			<tbody>
+				<tr>
+					<td rowspan="6" scope="col" width="30%" style="text-align:center;">
+						<div class="infoImg">
+							<span id="View_area"></span>
+							<label for="file" class="fileLabel">프로필 등록</label>
+							<input type="file" name="file" id="file" onchange="previewImage(this,'View_area')" value="사진 등록">
+						</div>
+					</td>
+					<th>사원 번호</th>
+					<td>
+						<input type="text" name="t_id" value="${tid}" readonly="readonly" class="form-control">
+					</td>
+				</tr>
+				<tr>
+					<th>이름</th>
+					<td>
+						<input type="text" placeholder="이름 작성" name="t_name" class="form-control">
+					</td>
+				</tr>
+				<tr>
+					<th>생년월일</th>
+					<td>
+						<input type="text" name="t_birth" class="form-control">
+					</td>
+				</tr>
+				<tr>
+					<th>부서</th>
+					<td>
+						<select class="selectBuseo form-select" name="t_department">
+							<option value="부서없음">부서 선택</option>
+							<option value="마케팅">마케팅</option>
+							<option value="판매">판매</option>
+							<option value="디자인">디자인</option>
+							<option value="인사">인사</option>
+							<option value="재정">재정</option>
+							<option value="회계">회계</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>직급</th>
+					<td>
+						<select class="selectJk form-select" name="t_position">
+							<option value="levelNull">직급 선택</option>
+							<option value="회장">회장</option>
+							<option value="부회장">부회장</option>
+							<option value="사장">사장</option>
+							<option value="부사장">부사장</option>
+							<option value="전무">전무</option>
+							<option value="상무">상무</option>
+							<option value="이사">이사</option>
+							<option value="본부장">본부장</option>
+							<option value="실장">실장</option>
+							<option value="팀장">팀장</option>
+							<option value="부장">부장</option>
+							<option value="차장">차장</option>
+							<option value="과장">과장</option>
+							<option value="대리">대리</option>
+							<option value="주임">주임</option>
+							<option value="사원">사원</option>
+							<option value="인턴">인턴</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>이메일</th>
+					<td colspan="2" align="left"><input type="text" name="t_email" class="form-control"></td>
+				</tr>
+				<tr>
+					<th>연락처</th>
+					<td colspan="2" align="left"><input type="text" name="t_phone" class="form-control"></td>
+				</tr>
+				<tr>
+					<th>우편번호</th>
+					<td colspan="2" align="left">
+						<input type="text" id="postcode" placeholder="우편번호" name="t_addr_zipcode" class="form-control" style="width:50%;display:inline;">
+						<input type="button" class="btn btn-primary btn-sm" onclick="execDaumPostcode()" value="주소 검색" style="width:20%;height:35px;">
+					</td>
+				</tr>
+				<tr>
+					<th>일반주소</th>
+					<td colspan="2" align="left">
+						<input type="text" placeholder="일반주소" id="address" name="t_addr_general" class="form-control">
+					</td>
+				</tr>
+				<tr>
+					<th>상세주소</th>
+					<td colspan="2" align="left">
+						<input type="text" placeholder="상세주소" id="detailAddress" name="t_addr_detail" class="form-control">
+						<input type="hidden" placeholder="참고" id="extraAddress" name="addr3" class="form-control">
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="tableBtn">
+			<input type="submit" class="btn btn-primary btn-sm" value="사원 등록">
+			<input type="button" class="btn btn-danger btn-sm" onclick="history.go(-1)" value="취소">
+		</div>
+	</form>
 </body>
 </html>

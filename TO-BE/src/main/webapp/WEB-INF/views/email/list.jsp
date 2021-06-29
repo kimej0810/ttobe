@@ -83,8 +83,8 @@
 	<div id="search">
 		<div class="input-group mb-3">
 			<!-- 없음n 제목t, 내용c, 작성자w, -->
-			<select name="searchType" id="searchType" class="form-control" style="height:30px; font-size:0.5rem;">
-				<option value="n" <c:out value="${searchCriteria.searchType == null ? 'selected' : '' }"/>>:::::선택:::::</option>
+			<select name="searchType" id="searchType" class="form-select" style="height:30px; font-size:0.5rem;">
+				<option value="n" <c:out value="${searchCriteria.searchType == null ? 'selected' : '' }"/>>::선택::</option>
 				<option value="t" <c:out value="${searchCriteria.searchType eq 't' ? 'selected' : '' }"/>>제목</option>
 				<option value="c" <c:out value="${searchCriteria.searchType eq 'c' ? 'selected' : '' }"/>>내용</option>
 				<option value="w" <c:out value="${searchCriteria.searchType eq 'w' ? 'selected' : '' }"/>>수신인</option>
