@@ -50,7 +50,7 @@
 </style>
 </head>
 <body>
-	<%
+	<!--<%
 	
 	String userTidx="";
 	String userId="";
@@ -60,7 +60,7 @@
 		userId = (String) session.getAttribute("userId");
 		userName = (String) session.getAttribute("userName");
 	}
-	%>
+	%>-->
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar">
 			<div class="sidebar-content-wrappper">
