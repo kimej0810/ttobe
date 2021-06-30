@@ -33,12 +33,33 @@
 
 .search{
 			width:100%;
+			height:45px;
 			display:grid;
-			grid-template-columns:1fr minmax(70px, auto);
+			grid-template-columns:1fr minmax(400px, auto);
 		}
 		.input-group{
 			grid-column:2/3;
-			
+			position:relative !important;
+			display:flex !important;
+			flex-wrap:wrap !important;
+			align-items:stretch !important;
+			width:100% !important;
+		}
+		.input-group > .form-control, .input-group > .form-select{
+			position:relative;
+			flex:1 1 auto;
+			width:1%;
+			min-width:0;
+		}
+		
+#paging ul{
+	justify-content:center !important;
+}	
+.pagination{
+	display:flex !important;
+	padding-left:0 important;
+	list-style:none !important;
+}
 .page-item{
 			padding:0 !important;
 		}

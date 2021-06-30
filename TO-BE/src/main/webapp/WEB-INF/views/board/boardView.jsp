@@ -137,9 +137,9 @@ pageContext.setAttribute("replace", "<br>");
 			name="FIDX" value="">
 	</form>
 	<div id="btnArea" style="text-align:right; margin-top:30px;">
-		<button type="button" class="btn btn-warning btn-sm float-right" onclick="location.href='modify?bidx=${boardVO.bidx}'">수정</button>
-		<button type="button" class="btn btn-warning btn-sm float-right" onclick="location.href='delete?bidx=${boardVO.bidx}'">삭제</button>
-		<button type="submit" class="btn btn-warning btn-sm float-right list_btn">목록</button>
+		<button type="button" class="btn btn-primary btn-sm float-right" onclick="location.href='modify?bidx=${boardVO.bidx}'">수정</button>
+		<button type="button" class="btn btn-primary btn-sm float-right" onclick="location.href='delete?bidx=${boardVO.bidx}'">삭제</button>
+		<button type="submit" class="btn btn-primary btn-sm float-right list_btn">목록</button>
 	</div>
 	<script>
 		//댓글 출력

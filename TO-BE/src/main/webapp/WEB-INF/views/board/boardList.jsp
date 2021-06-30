@@ -20,7 +20,7 @@
 		.search{
 			width:100%;
 			display:grid;
-			grid-template-columns:1fr minmax(70px, auto);
+			grid-template-columns:1fr minmax(400px, auto);
 		}
 		.input-group{
 			grid-column:2/3;

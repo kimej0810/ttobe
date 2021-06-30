@@ -19,6 +19,7 @@
 	<a href="/member/findPwd">비밀번호찾기</a>
 	<a href="/board/list">통합게시판</a>
 	<a href="/data/list">자료실</a>
+	<a href="/main/mainPage">진짜메인</a>
 </p>
 </body>
 </html>

@@ -28,8 +28,6 @@ import tobe.project.service.BoardService;
 import tobe.project.service.FileInfoService;
 import tobe.project.service.ReplyService;
 
-
-
 @Controller
 @RequestMapping(value = "/board")
 public class BoardController{
@@ -113,7 +111,7 @@ public class BoardController{
 	@RequestMapping(value = "/writeAction")
 	public String writeAction(BoardVO vo, MultipartHttpServletRequest mpRequest) throws Exception {
 		 logger.info("BoardWriteAction");
-		 
+
 		 service.writeBoard(vo, mpRequest);
 		 return "redirect:/board/list";
 	}
@@ -125,6 +123,10 @@ public class BoardController{
 		 BoardVO vo = service.selectOneBoard(bidx);
 		 model.addAttribute("boardVO", vo);
 		 model.addAttribute("scri", scri);
+		 
+		 List<Map<String, Object>> fileList = fileInfoService.selectAllFile("bidx", bidx);
+		 model.addAttribute("file", fileList);
+		 
 		 return "/board/boardModify";
 	}
 	

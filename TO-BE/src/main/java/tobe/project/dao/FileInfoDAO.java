@@ -8,5 +8,6 @@ public interface FileInfoDAO {
 	public List<Map<String, Object>> selectAllFile(String str, int idx) throws Exception;
 	//파일 다운로드
 	public Map<String, Object> selectOneFile(Map<String, Object> map) throws Exception;
+	//파일 수정
 	
 }

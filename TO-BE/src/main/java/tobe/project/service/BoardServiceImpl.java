@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import tobe.project.dao.BoardDAO;
+import tobe.project.dao.FileInfoDAO;
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.BoardVO;
 import tobe.project.util.FileUtils;
@@ -21,6 +22,9 @@ public class BoardServiceImpl implements BoardService{
 	
 	@Inject
     private BoardDAO dao;
+	
+	@Inject
+	private FileInfoDAO fdao;
 	
 	@Override
 	public List<BoardVO> selectAllBoard(SearchCriteria scri) throws Exception {
@@ -44,7 +48,6 @@ public class BoardServiceImpl implements BoardService{
 		int size = list.size();
 		for(int i=0; i<size; i++) {
 			System.out.println("----------------------------------");
-			System.out.println("list의 bidx->"+list.get(i).get("bidx"));
 			System.out.println("----------------------------------");
 			dao.insertFile(list.get(i)); //파일넣기
 		}
@@ -66,8 +69,11 @@ public class BoardServiceImpl implements BoardService{
 		for(int i = 0; i<size; i++) {
 			tempMap = list.get(i);
 			if(tempMap.get("IS_NEW").equals("Y")) {
+				
+				//기존에 등록된 첨부파일이 없음
 				dao.insertFile(tempMap);
 			}else {
+				//기존에 등록된 첨부파일이 있음
 				dao.modifyFile(tempMap);
 			}
 		}

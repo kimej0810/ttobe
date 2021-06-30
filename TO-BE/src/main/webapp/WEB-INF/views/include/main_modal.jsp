@@ -8,7 +8,7 @@
 <title>메인메인메인메인</title>
 <script type="text/javascript" src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
     <script type="text/javascript" src="<c:url value="/resources/static/js/bootstrap.js"/>"></script>
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>"></script>
+    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.min.css"/>"></script>
     <link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/newMain.css"/>"></script>
 </head>
 <body>

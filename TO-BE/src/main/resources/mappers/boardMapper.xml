@@ -147,6 +147,10 @@
 	    	B_CONTENT = #{b_content}
 	    WHERE BIDX = #{bidx}
     </update>
+    <update id="modifyFile">
+    	UPDATE BOARD SET
+    		
+    </update>
     
     <update id="deleteBoard">
     	UPDATE BOARD SET
