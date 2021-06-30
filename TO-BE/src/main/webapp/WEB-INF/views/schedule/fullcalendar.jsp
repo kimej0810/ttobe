@@ -21,7 +21,6 @@
 		<script src="<c:url value="/resources/static/fullcalendar/js/jquery-3.6.0.min.js"/>"></script>
 		<link href="<c:url value="/resources/static/fullcalendar/css/calendarMain.css"/>" rel='stylesheet' />
 		<script src="<c:url value="/resources/static/fullcalendar/js/calendarMain.js"/>"></script>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 		<script>
 			document.addEventListener('DOMContentLoaded', function() {
 				var calendarEl = document.getElementById('calendar');
@@ -118,7 +117,7 @@
 				overflow: hidden;
 			}
 			#calendar {
-				max-width: 1150px;
+				max-width: 1500px;
 				margin: 0 auto;
 			}
 			#centerContents{
@@ -150,8 +149,8 @@
 			}
 			.row{
 				margin:0px auto;
-				height: 105%;
-				max-width: 1150px;
+				height: 135%;
+				max-width: 1500px;
 				flex-wrap: inherit;
 			}
 			.panel{
