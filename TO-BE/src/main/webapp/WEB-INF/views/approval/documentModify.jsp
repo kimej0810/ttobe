@@ -9,7 +9,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>결제문서 상세보기</title>
+		<title>결제문서 수정페이지</title>
 		<script src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 		
 		<!-- datepicker -->
@@ -19,10 +19,30 @@
 		
 		<link href="<c:url value="/resources/static/form/css/documentModify.css"/>" rel='stylesheet' />
 		<script src="<c:url value="/resources/static/form/js/documentModify.js"/>"></script>
+		<script type="text/javascript">
+			function click_up(){
+				var draftLetterData = JSON.stringify($('form#draftLetterData').serializeObject());
+				
+				$.ajax({
+					type:'POST',
+					url:"/approval/ModifyDocumentWite?e_documentNum="+"<%=contents.getE_documentNum()%>&tidx=<%=contents.getTidx()%>",
+					dataType:'JSON',
+					data: draftLetterData,
+					contentType : "application/json; charset=UTF-8",
+					success: function(data){
+						alert("수정이 완료되었습니다.");
+						opener.parent.location.reload();
+						window.close();
+					}
+				});
+			};
+		</script>
 	</head>
 	<body>
-		<form id="documentWiteData" name="documentWiteData">
+		<form id="draftLetterData" name="draftLetterData">
 		<input type="hidden" name="e_status" id="e_status" value="<%=contents.getE_status()%>">
+		<input type="hidden" name="eidx" id="eidx" value="<%=contents.getEidx() %>">
+		<input type="hidden" name="tidx" id="tidx" value="<%=contents.getTidx() %>">
 			<table id="sheet0" class="sheet0">
 				<col class="col0">
 				<col class="col1">
@@ -68,7 +88,7 @@
 						<td></td>
 						<td class="style2">기 안 일 자</td>
 						<td class="style34 style34" colspan="2">
-							<input type="text" id="e_draftDate" name="e_draftDate" class="date" value="<%=contents.getE_draftDate()%>" autocomplete="off">
+							<input type="text" id="e_draftDate" name="e_draftDate" class="date" value="<%=contents.getE_draftDate()%>" autocomplete="off" readonly>
 						</td>
 						<td class="style33 style33" rowspan="3">결<br><br>재</td>
 						<td class="style35 style36" colspan="2">담당</td>
@@ -112,7 +132,7 @@
 						</td>
 						<td class="style38 style42" colspan="3" rowspan="2">기 안 자</td>
 						<td class="style38 style57" colspan="8" rowspan="2">
-							<input type="text" id="e_member" name="e_member" value="<%=contents.getE_member()%>">
+							<input type="text" id="e_member" name="e_member" value="${mo.t_name }" readonly>
 						</td>
 					</tr>
 					<tr class="row10">
@@ -126,7 +146,7 @@
 						</td>
 						<td class="style44 style45" colspan="3">기 안 부 서</td>
 						<td class="style44 style63" colspan="8">
-							<input type="text" id="e_buseo" name="e_buseo" value="<%=contents.getE_buseo()%>">
+							<input type="text" id="e_buseo" name="e_buseo" value="${mo.t_department }" readonly>
 						</td>
 					</tr>
 					<tr class="row12">
@@ -146,7 +166,7 @@
 				</tbody>
 			</table>
 			<div>
-				<button type="button">확인</button>
+				<button type="button" onclick="click_up();">확인</button>
 				<button type="reset">다시쓰기</button>
 			</div>
 		</form>

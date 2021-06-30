@@ -41,13 +41,14 @@ function click_ok(){
 	var documentWiteData = JSON.stringify($("form#documentWiteData").serializeObject());
 	
 	$.ajax({
-		type:'POST',
-		url:"addDocumentWite",
-		dataType:'JSON',
 		data: documentWiteData,
+		url:"addDocumentWite",
+		type:'POST',
+		dataType:'JSON',
 		contentType : "application/json; charset=UTF-8",
 		success: function(data){
 			alert("결제요청이 완료되었습니다.");
+			opener.parent.location.reload();
 			window.close();
 		}
 	});

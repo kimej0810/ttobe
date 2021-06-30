@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dao.ApprovalDAO;
 import tobe.project.dto.ApprovalVO;
+import tobe.project.dto.MemberVO;
 
 @Repository
 public class ApprovalServiceImpl implements ApprovalService{
@@ -36,34 +37,17 @@ public class ApprovalServiceImpl implements ApprovalService{
 	}
 	
 	@Override
-	public List<ApprovalVO> selectAllApprovalWaitingDocumentList(SearchCriteria scri) throws Exception {
-		return dao.selectAllApprovalWaitingDocumentList(scri);
+	public List<ApprovalVO> selectAllApprovalDocumentList(SearchCriteria scri) throws Exception {
+		return dao.selectAllApprovalDocumentList(scri);
+	}
+	@Override
+	public int totalCountApprovalDocument(SearchCriteria scri) throws Exception {
+		return dao.totalCountApprovalDocument(scri);
 	}
 
 	@Override
-	public List<ApprovalVO> selectAllApprovalProgressDocumentList(SearchCriteria scri) throws Exception {
-		return dao.selectAllApprovalProgressDocumentList(scri);
+	public MemberVO selectOneMember(int tidx) throws Exception {
+		return dao.selectOneMember(tidx);
 	}
-
-	@Override
-	public List<ApprovalVO> selectAllApprovalPaymentCompletedDocumentList(SearchCriteria scri) throws Exception {
-		return dao.selectAllApprovalPaymentCompletedDocumentList(scri);
-	}
-
-	@Override
-	public int totalCountApprovalWaitingDocument(SearchCriteria scri) throws Exception {
-		return dao.totalCountApprovalWaitingDocument(scri);
-	}
-
-	@Override
-	public int totalCountApprovalProgressDocument(SearchCriteria scri) throws Exception {
-		return dao.totalCountApprovalProgressDocument(scri);
-	}
-
-	@Override
-	public int totalCountApprovalPaymentCompletedDocument(SearchCriteria scri) throws Exception {
-		return dao.totalCountApprovalPaymentCompletedDocument(scri);
-	}
-
 	
 }

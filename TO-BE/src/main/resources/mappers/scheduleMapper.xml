@@ -31,9 +31,9 @@
  	<!-- 일정추가 -->
  	<insert id="addSchedule" parameterType="scheduleVO">
 		INSERT INTO
-			SCHEDULE_MANAGEMENT(SIDX, S_TYPE, S_TITLE, S_STARTDATE, S_ENDDATE, S_CONTENT)
+			SCHEDULE_MANAGEMENT(SIDX, S_TYPE, S_TITLE, S_STARTDATE, S_ENDDATE, S_CONTENT , tidx)
 		VALUES
-			(sidx_seq.nextval,#{s_type},#{s_title},#{s_startDate},#{s_endDate},#{s_content})
+			(sidx_seq.nextval,#{s_type},#{s_title},#{s_startDate},#{s_endDate},#{s_content} ,#{tidx})
 	</insert>
     
     <!-- 일정 상세보기 -->

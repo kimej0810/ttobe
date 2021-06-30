@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<% Object userName = session.getAttribute("userName");%>
+<% 
+	Object userId = session.getAttribute("userId");
+	Object userTidx = session.getAttribute("userTidx");
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -28,7 +31,7 @@
 			</div>
 			<div class="group-body">
 				<form id="scheduleData">
-					<input type="hidden" class="tidx" name="tidx" id="tidx">
+					<input type="hidden" class="tidx" name="tidx" id="tidx" value="<%=userTidx%>">
 					<div class="top">
 						<input type="text" class="s_title" id="s_title" name="s_title" placeholder="제목을 입력하세요" autocomplete="off">
 					</div>
@@ -36,7 +39,7 @@
 						<h3 class="zTree-h3">사원번호</h3>
 					</div>
 					<div class="domain">
-						<input type = "text" class="t_id"  name = "t_id" id = "t_id" autocomplete="off">
+						<input type = "text" class="t_id"  name = "t_id" id = "t_id" value=<%=userId%> readonly>
 					</div>
 					<div  class="domain">
 						<h3 class="zTree-h3">일정 유형</h3>

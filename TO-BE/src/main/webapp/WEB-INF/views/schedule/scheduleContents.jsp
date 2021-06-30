@@ -24,6 +24,7 @@
 		function click_delete(){
 			alert("정말 삭제하시겠습니까?");
 			location.href="scheduleDelete?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>";
+			alert("일정이 삭제되었습니다.");
 			opener.parent.location.reload();
 			window.close();
 		}

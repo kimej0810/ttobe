@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.ApprovalVO;
+import tobe.project.dto.MemberVO;
 
 @Repository
 public class ApprovalDAOImpl implements ApprovalDAO{
@@ -38,33 +39,18 @@ public class ApprovalDAOImpl implements ApprovalDAO{
 	}
 	
 	@Override
-	public List<ApprovalVO> selectAllApprovalWaitingDocumentList(SearchCriteria scri) throws Exception {
-		return sqlSession.selectList(Namespace+".selectAllApprovalWaitingDocumentList",scri);
+	public List<ApprovalVO> selectAllApprovalDocumentList(SearchCriteria scri) throws Exception {
+		return sqlSession.selectList(Namespace+".selectAllApprovalDocumentList",scri);
 	}
 
 	@Override
-	public List<ApprovalVO> selectAllApprovalProgressDocumentList(SearchCriteria scri) throws Exception {
-		return sqlSession.selectList(Namespace+".selectAllApprovalProgressDocumentList",scri);
+	public int totalCountApprovalDocument(SearchCriteria scri) throws Exception {
+		return sqlSession.selectOne(Namespace+".totalCountApprovalDocument",scri);
 	}
 
 	@Override
-	public List<ApprovalVO> selectAllApprovalPaymentCompletedDocumentList(SearchCriteria scri) throws Exception {
-		return sqlSession.selectList(Namespace+".selectAllApprovalPaymentCompletedDocumentList",scri);
-	}
-
-	@Override
-	public int totalCountApprovalWaitingDocument(SearchCriteria scri) throws Exception {
-		return sqlSession.selectOne(Namespace+".totalCountApprovalWaitingDocument",scri);
-	}
-
-	@Override
-	public int totalCountApprovalProgressDocument(SearchCriteria scri) throws Exception {
-		return sqlSession.selectOne(Namespace+".totalCountApprovalProgressDocument",scri);
-	}
-
-	@Override
-	public int totalCountApprovalPaymentCompletedDocument(SearchCriteria scri) throws Exception {
-		return sqlSession.selectOne(Namespace+".totalCountApprovalPaymentCompletedDocument",scri);
+	public MemberVO selectOneMember(int tidx) throws Exception {
+		return sqlSession.selectOne(Namespace+".selectOneMember",tidx);
 	}
 
 	

@@ -21,10 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import tobe.project.domain.PageMaker;
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.ApprovalVO;
-import tobe.project.dto.LoginDTO;
 import tobe.project.dto.MemberVO;
 import tobe.project.service.ApprovalService;
-import tobe.project.service.MemberService;
 
 /**
  * Handles requests for the application home page.
@@ -38,94 +36,24 @@ public class ApprovalController {
 	@Inject
 	private ApprovalService service;
 	
-	@Inject
-	private MemberService mservice;
-	
-	//전자결재 메인(대기목록)
+	//전자결재 메인
 	@RequestMapping(value = "/documentListMain")
-	public String documentMain(HttpServletRequest request, LoginDTO dto, Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception{
+	public String documentMain(Model model, @ModelAttribute("scri")SearchCriteria scri, String searchType) throws Exception{
 		System.out.println("ApprovalController");
+		System.out.println("searchType->"+searchType);
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
-		pageMaker.setTotalCount(service.totalCountApprovalWaitingDocument(scri));
+		pageMaker.setTotalCount(service.totalCountApprovalDocument(scri));
 		
 		model.addAttribute("paging",pageMaker);
-		model.addAttribute("elist", service.selectAllApprovalWaitingDocumentList(scri));
-
-		//로그인 정보
-		System.out.println(dto);
-		MemberVO vo = mservice.login(dto);
-		System.out.println(vo);
-		
-		
+		model.addAttribute("elist", service.selectAllApprovalDocumentList(scri));
 		
 		return "/approval/documentListMain";
-	} 	
-	
-	//전자결재 대기리스트
-	@RequestMapping(value = "/documentWaitingList")
-	public String documentWaiting(LoginDTO dto, String t_id,Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception{
-		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(scri);
-		pageMaker.setTotalCount(service.totalCountApprovalWaitingDocument(scri));
-		
-		model.addAttribute("paging", pageMaker);
-		model.addAttribute("waiting", service.selectAllApprovalWaitingDocumentList(scri));
-		
-		//로그인정보
-		MemberVO vo = mservice.login(dto);
-		model.addAttribute("info",vo);
-		System.out.println(t_id);
-		
-		return "/approval/documentWaitingList";
 	}
-	
-	//전자결재 진행중 리스트
-	@RequestMapping(value = "/documentInProgress")
-	public String documentInProgress(LoginDTO dto, String t_id, Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception{
-		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(scri);
-		pageMaker.setTotalCount(service.totalCountApprovalProgressDocument(scri));
-		
-		model.addAttribute("paging", pageMaker);
-		model.addAttribute("progress", service.selectAllApprovalProgressDocumentList(scri));
-		
-		//로그인정보
-		MemberVO vo = mservice.login(dto);
-		model.addAttribute("info",vo);
-		System.out.println(t_id);
-		
-		return "/approval/documentInProgress";
-	}
-	
-	//전자결재 완료리스트
-	@RequestMapping(value = "/documentPaymentCompleted")
-	public String documentPaymentCompleted(LoginDTO dto, String t_id, Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception{
-		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(scri);
-		pageMaker.setTotalCount(service.totalCountApprovalPaymentCompletedDocument(scri));
-		
-		model.addAttribute("paging",pageMaker);
-		model.addAttribute("completed", service.selectAllApprovalPaymentCompletedDocumentList(scri));
-		
-		//로그인정보
-		MemberVO vo = mservice.login(dto);
-		model.addAttribute("info",vo);
-		System.out.println(t_id);
-		
-		return "/approval/documentPaymentCompleted";
-	}
-	
 	//기안서 작성페이지
 	@RequestMapping(value = "/documentWite")
-	public String documentWite(LoginDTO dto,String t_id,Locale locale) throws Exception {
+	public String documentWite(Locale locale) throws Exception {
 		logger.info("Welcome home! addDocumentWite", locale);
-		MemberVO vo = mservice.login(dto);
-		System.out.println(vo);
-		System.out.println(t_id);
 		return "/approval/documentWite";
 	}
 	
@@ -142,17 +70,21 @@ public class ApprovalController {
 	
 	//결재문서 상세보기
 	@RequestMapping(value = "/documentContents")
-	public ApprovalVO documentContents(Model model,int e_documentNum) throws Exception{
-		
+	public ApprovalVO documentContents(Model model,int e_documentNum, int tidx) throws Exception{
 		ApprovalVO vo = service.selectOneApprovalDocumentContents(e_documentNum);
-		
+		MemberVO mo = service.selectOneMember(tidx);
+		model.addAttribute("mo",mo);
 		model.addAttribute("contents",vo);
 		return vo;
 	}
 	//결재문서 수제
 	@RequestMapping(value = "/documentModify")
-	public ApprovalVO documentModify(Model model,int e_documentNum) throws Exception{
+	public ApprovalVO documentModify(Model model,int e_documentNum,int tidx) throws Exception{
 		ApprovalVO vo = service.selectOneApprovalDocumentContents(e_documentNum);
+		MemberVO mo = service.selectOneMember(tidx);
+		System.out.println("문서번호"+e_documentNum);
+		System.out.println("member"+mo);
+		model.addAttribute("mo",mo);
 		model.addAttribute("contents",vo);
 		return vo;
 	}

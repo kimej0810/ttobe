@@ -1,11 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%
+	Object userName = session.getAttribute("userName");
+	Object userDep = session.getAttribute("userDep");
+	Object userTidx = session.getAttribute("userTidx");
+%>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>기안서</title>
+		<title>기안서 작성페이지</title>
 		<script src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 		
 		<!-- datepicker -->
@@ -18,6 +23,7 @@
 	</head>
 	<body>
 		<form id="documentWiteData" name="documentWiteData">
+			<input type="hidden" name="tidx" id="tidx" value="<%=userTidx%>">
 			<table id="sheet0" class="sheet0">
 				<col class="col0">
 				<col class="col1">
@@ -52,7 +58,7 @@
 						<td></td>
 						<td class="style2">문 서 번 호</td>
 						<td class="style44 style46" colspan="2">
-							21-<input type="text" id="e_documentNum" name="e_documentNum">
+							21-<input type="text" id="e_documentNum" name="e_documentNum" readonly>
 						</td>
 						<td class="style44 style46" colspan="3">전 결 규 정</td>
 						<td class="style44 style63" colspan="8">
@@ -107,7 +113,7 @@
 						</td>
 						<td class="style38 style42" colspan="3" rowspan="2">기 안 자</td>
 						<td class="style38 style57" colspan="8" rowspan="2">
-							<input type="text" id="e_member" name="e_member" autocomplete="off">
+							<input type="text" id="e_member" name="e_member" value="<%=userName%>" readonly>
 						</td>
 					</tr>
 					<tr class="row10">
@@ -121,7 +127,7 @@
 						</td>
 						<td class="style44 style45" colspan="3">기 안 부 서</td>
 						<td class="style44 style63" colspan="8">
-							<input type="text" id="e_buseo" name="e_buseo" autocomplete="off">
+							<input type="text" id="e_buseo" name="e_buseo" value="<%=userDep%>"readonly>
 						</td>
 					</tr>
 					<tr class="row12">

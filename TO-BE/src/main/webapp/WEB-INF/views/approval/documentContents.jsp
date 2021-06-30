@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	ApprovalVO contents = (ApprovalVO)request.getAttribute("contents");
+	Object userTidx = session.getAttribute("userTidx");
 %>
 <!DOCTYPE html>
 <html>
@@ -24,26 +25,26 @@
 			function click_modify(){
 				var e_status = $('#e_status').val();
 				
-				if(e_status == 0){
-					location.href="documentModify?e_documentNum="+<%=contents.getE_documentNum()%>
+				if(e_status == 0 || <%=contents.getTidx()%> == <%=userTidx%>){
+					location.href="documentModify?e_documentNum="+"<%=contents.getE_documentNum()%>&tidx=<%=contents.getTidx()%>";
 				}else{
-					alert("수정을 할 수 있는 상태가 아닙니다.");
+					alert("이 문서의 기안자가 아니거나 수정 할 수 없는 상태입니다.");
 				}
 			};
 			function click_delete(){
 				var e_status = $('#e_status').val();
 				
-				if(e_status == 0){
+				if(e_status == 0 || <%=contents.getTidx()%> == <%=userTidx%>){
 					alert("정말 삭제하시겠습니까?");
 					location.href="documentDelete?eidx="+<%=contents.getEidx()%>;
+					alert("결재문서가 삭제되었습니다.");
 					opener.parent.location.reload();
 					window.close();
 				}else{
-					alert("삭제를 할 수 있는 상태가 아닙니다.");
+					alert("이 문서의 기안자가 아니거나 삭제 할 수 없는 상태입니다.");
 				}
 			}
 			function click_ok(){
-				opener.parent.location.reload();
 				window.close();
 			}
 		</script>
@@ -141,7 +142,7 @@
 						</td>
 						<td class="style38 style42" colspan="3" rowspan="2">기 안 자</td>
 						<td class="style38 style57" colspan="8" rowspan="2">
-							<input type="text" id="e_member" name="e_member" value="<%=contents.getE_member()%>" readonly>
+							<input type="text" id="e_member" name="e_member" value="${mo.t_name }" readonly>
 						</td>
 					</tr>
 					<tr class="row10">
@@ -155,7 +156,7 @@
 						</td>
 						<td class="style44 style45" colspan="3">기 안 부 서</td>
 						<td class="style44 style63" colspan="8">
-							<input type="text" id="e_buseo" name="e_buseo" value="<%=contents.getE_buseo()%>" readonly>
+							<input type="text" id="e_buseo" name="e_buseo" value="${mo.t_department }" readonly>
 						</td>
 					</tr>
 					<tr class="row12">

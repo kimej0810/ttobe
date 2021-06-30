@@ -3,8 +3,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@page import="tobe.project.dto.*"%>
 <%@page import="java.util.*"%>
+<%@ include file="/WEB-INF/views/include/new_main.jsp" %>
 <%	
 	List<ScheduleVO> list = (List<ScheduleVO>)request.getAttribute("schedule"); 
 	PageMaker paging = (PageMaker)request.getAttribute("paging");
@@ -20,6 +22,7 @@
 		<link href="<c:url value="/resources/static/fullcalendar/css/calendarMain.css"/>" rel='stylesheet' />
 		<script src="<c:url value="/resources/static/fullcalendar/js/calendarMain.js"/>"></script>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="/resources/static/css/bootstrap.css">
 		<script>
 			document.addEventListener('DOMContentLoaded', function() {
 				var calendarEl = document.getElementById('calendar');
@@ -32,14 +35,15 @@
 							click: function() {
 								var url = "schedulePopup";
 								var name = "schedulePopup";
-								var option = "width = 620, height = 680 left = 100, top=50,location=no";
+								var option = "width = 620, height = 730 left = 100, top=50,location=no";
 								window.open(url,name,option)
 							}
 						},
 						boardCustomButton:{
 							text: '게시판으로 보기',
 							click: function() {
-								location.href="#table";
+								 var offset = $(".row").offset();
+							     $('.content').animate({scrollTop : offset.top}, 400);
 							}
 						}
 					},
@@ -56,6 +60,7 @@
 					selectable: false,
 					dayMaxEventRows: true,
 					dayMaxEvents: 3,
+					navLinks: false,
 					events: [
 					<%
 					  	  for (int i = 0; i < list.size(); i++) {
@@ -64,7 +69,7 @@
 					%>	
 			        {
 
-			        	url:"scheduleContents?sidx="+"<%=vo.getSidx()%>",
+			        	url:"scheduleContents?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
 			        	title: "<%=vo.getS_title()%>",
 			        	start: "<%=vo.getS_startDate()%>",
 			        	end: "<%=vo.getS_endDate()%>"
@@ -98,78 +103,64 @@
 
 			    calendar.render(); 
 			});
+			
+			
 		</script>
 		<style>
-			.fc-myCustomButton-button{
-				width: 270px;
+			.fc-toolbar-chunk:last-child{
+				width: 300px;
+		    	text-align: right;
 			}
-			body{
-			  margin: 40px 10px;
-			  padding: 0;
-			  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-			  font-size: 14px;
-			  overflow: hidden;
-			  }
+			.fc-myCustomButton-button{
+				width: 165px;
+			}
+			
+			.content{
+				padding: 0px;
+				overflow: hidden;
+			}
 			#calendar {
-			  max-width: 1100px;
+			  max-width: 1150px;
 			  margin: 0 auto;
 			}
 			#centerContents{
 				height: 1000px;
 			}
-			#calendarImg{
-				width: 130px;
-				height: 75px;
+			#board{
+				text-align:center;
 			}
-			#calendarButton{
-				width:40px;
-				margin-left:23%;
-				padding: 0px;
-			    border: none;
-			    position: absolute;
+			#paging ul{
+				justify-content:center;
 			}
-			.boardSchedule{
-				border:1px solid red; 
-				margin:0px auto;
-				border-spacing: 5px;
-				border-collapse: separate;
-			}
-			#table{
-				font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-				font-size: 1.75em;
-				width: 170px;
-				margin: 0px auto;
+			.search{
+				width:100%;
+				display:grid;
+				grid-template-columns:1fr minmax(70px, auto);
 			}
 			#paging{
 				text-align: center;
 				font-size: 20px;
 			}
+			.input-group{
+				grid-column:2/3;
+			}
+			.page-item{
+				padding:0;
+			}
 			#box{
 				height: 650px;
 			}
 			.row{
-				height: 113%;
+				margin:45px auto;
+				height: 105%;
+				max-width: 1150px;
 				flex-wrap: inherit;
 			}
 			.panel{
 				height: 90%;
 			}
-			#searchbox{
-				text-align: right;
-				height: 40px;
-			}
 			.fc-scrollgrid-sync-table{
 				height: 587px;
-			}
-			#frm{
-				width: 70%;
-    			margin: 0px auto;
-			}
-			td:not(.scheduleDate){
-				text-align: center;
-			}
-			td, th{
-				border: 1px solid black;
 			}
 		</style>
 	</head>
@@ -177,109 +168,131 @@
 		<div id='calendar' style="position: relative">
 		</div>
 		
-		<div id="centerContents">
-		</div>
 		<div id="box">
 			<div class="row">
 				<div class="col-lg-12">
 					<section class="panel">
-						<button id="calendarButton">
-							<a href="#html">
-								<img src="<c:url value="/resources/static/img/calendar.jpg"/>" id="calendarImg">
-							</a>
-						</button>
-			        	<header class="panel-heading" id="table">
-			          		<h2>일정 게시판</h2>
-			        	</header>
-			        	<form role="form" method="get" id="frm">
-			        	<div id="searchbox">
-								<select name="searchType" id="searchType"style="height: 27px;">
-									<option value="전체"<c:out value="${scri.searchType == null ? 'selected' : '' }"/>>-----</option>
-									<option value="유형"<c:out value="${scri.searchType eq '유형' ? 'selected' : '' }"/>>유형</option>
-									<option value="제목"<c:out value="${scri.searchType eq '제목' ? 'selected' : '' }"/>>제목</option>
-									<option value="내용"<c:out value="${scri.searchType eq '내용' ? 'selected' : '' }"/>>내용</option>
-									<option value="제목+내용"<c:out value="${scri.searchType eq '제목+내용' ? 'selected' : '' }"/>>제목+내용</option>
-								</select>
-								<input type="text" id="keyword" name="keyword" value="${scri.keyword }">
-								<button type="button" id="searchBtn">검색</button>
+			        	<form role="form" method="get">
+			        	<div class="category">
+							<button id="calendarButton" class="btn btn-outline-secondary" type="button">캘린더형</button>
+						</div>
+				        	<div class="search">
+					        	<div id="searchbox" class="input-group mb-3">
+									<select name="searchType"  class="form-control" id="searchType" style="height:30px; font-size:0.5rem;">
+										<option value="전체"<c:out value="${scri.searchType == null ? 'selected' : '' }"/>>-----</option>
+										<option value="유형"<c:out value="${scri.searchType eq '유형' ? 'selected' : '' }"/>>유형</option>
+										<option value="제목"<c:out value="${scri.searchType eq '제목' ? 'selected' : '' }"/>>제목</option>
+										<option value="내용"<c:out value="${scri.searchType eq '내용' ? 'selected' : '' }"/>>내용</option>
+										<option value="제목+내용"<c:out value="${scri.searchType eq '제목+내용' ? 'selected' : '' }"/>>제목+내용</option>
+									</select>
+									<input type="text" style="height:30px; width:40%; font-size:0.5rem;" id="keyword" class="form-control" name="keyword" value="${scri.keyword }">
+									<div class="input-group-prepend">	
+										<button type="button" id="searchBtn"  style="height:30px; font-size:0.5rem;" class="btn btn-outline-secondary">검색</button>
+									</div>
+								</div>
 							</div>
 							<script type="text/javascript">
 								 $(function(){
+									$('#calendarButton').click(function(){
+										 var offset = $("#calendar").offset();
+									        $('.content').animate({scrollTop : offset.top}, 600);
+									});
 									$('#searchBtn').click(function() {
-										self.location = "fullcalendar" + '${paging.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keyword').val())+ "#table";
+										self.location = "fullcalendar" + '${paging.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keyword').val())+ "#box";
 									});
 								});
 							</script>
 				        	<div class="panel-body">
-				        	<%=userName%>
-				          		<table class="boardSchedule">
-				          			<tr class="form-group" style="text-align: center;">
-				          				<th width="80px">유형</th>
-				          				<th width="180px">제목</th>
-				          				<th width="150px">시작일시</th>
-				          				<th width="150px">종료일시</th>
-				          				<th width="400px">내용</th>
-				          				<th width="80px">사원이름</th>
+				          		<table class="table table-hover" id="board">
+				          			<thead>
+				          			<tr style="text-align: center;">
+				          				<th width="20px">유형</th>
+				          				<th width="80px">제목</th>
+				          				<th width="60px">시작일시</th>
+				          				<th width="60px">종료일시</th>
+				          				<th width="200px">내용</th>
+				          				<th width="50px">사원이름</th>
 				          			</tr>
-				          			<c:forEach items="${viewAll}" var="viewAll">
-										<tr class="form-group">
-											<td>
-					              				${viewAll.s_type}
-					              			</td>
-					              			<td class="control-label scheduletitle">
-												<input type="hidden" value="${viewAll.sidx}">
-												${viewAll.s_title}
-											</td>
-											<c:choose>
-												<c:when test="${viewAll.s_startDate eq viewAll.s_endDate}">
-													<td class="scheduleDate">
-														${viewAll.s_startDate}
-													</td>
-													<td>
-													</td>
-												</c:when>
-												<c:otherwise>
-													<td class="scheduleDate">
-														${viewAll.s_startDate}
-													</td>
-													<td class="scheduleDate">
-														${viewAll.s_endDate}
-													</td>
-												</c:otherwise>
-											</c:choose>
-											<td class="scheduleContents">
-										 		<label>
-										 			<a href="scheduleContents?sidx=${viewAll.sidx}" onclick="window.open(this.href, '_blank', 'width=620, height=730'); return false;">${viewAll.s_content}</a>
-										 			</label>
-											</td>
-					              			<td>
-					             				${viewAll.memberVO.t_name}
-					              			</td>
-										</tr>
-									</c:forEach>
+				          			</thead>
+				          			<tbody>
+					          			<c:forEach items="${viewAll}" var="viewAll">
+											<tr>
+												<td scope="row">
+						              				${viewAll.s_type}
+						              			</td>
+						              			<td class="control-label scheduletitle">
+													<input type="hidden" value="${viewAll.sidx}">
+													<a href="scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=620, height=730'); return false;" style="text-decoration : none; color:black;">
+														<c:set var="content" value="${viewAll.s_title}"/>
+														<c:choose>
+															<c:when test="${fn:length(viewAll.s_title) > 10}">
+																<c:out value="${fn:substring(content,0,10)}"/>...
+															</c:when>
+															<c:otherwise>
+																<c:out value="${viewAll.s_title}"/>
+															</c:otherwise> 
+														</c:choose>
+													</a>
+												</td>
+												<c:choose>
+													<c:when test="${viewAll.s_startDate eq viewAll.s_endDate}">
+														<td class="scheduleDate">
+															${viewAll.s_startDate}
+														</td>
+														<td>\</td>
+													</c:when>
+													<c:otherwise>
+														<td class="scheduleDate">
+															${viewAll.s_startDate}
+														</td>
+														<td class="scheduleDate">
+															${viewAll.s_endDate}
+														</td>
+													</c:otherwise>
+												</c:choose>
+												<td class="scheduleContents">
+													<a href="scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=620, height=730'); return false;" style="text-decoration : none; color:black;">
+														<c:set var="content" value="${viewAll.s_content}"/>
+														${fn:substring(content,0,50)}
+													</a>
+												</td>
+						              			<td>
+						             				${viewAll.memberVO.t_name}
+						              			</td>
+											</tr>
+										</c:forEach>
+									</tbody>
 								</table>
 							</div>					
 						</form>
 					</section>
 					<!-- 페이징처리 -->
+					<nav aria-label="Page navigation example" id="paging">
+						<ul class="pagination">
+							<c:if test="${paging.prev}">
+								<li class="page-item" style="color:black;">
+									<a class="page-link" href="fullcalendar${paging.makeSearch(pageMaker.startPage - 1)}#box" aria-label="Previous">
+									    <span aria-hidden="true">&laquo;</span>
+									    <span class="sr-only"></span>
+									</a>
+								</li>
+							</c:if> 
+							<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="idx">
+								<li class="page-item">
+									<a class="page-link" href="fullcalendar${paging.makeSearch(idx)}#box">${idx}</a>
+								</li>
+							</c:forEach>
+							<c:if test="${paging.next && paging.endPage > 0}">
+								<li class="page-item">
+									<a class="page-link" href="fullcalendar${paging.makeSearch(pageMaker.endPage + 1)}#box" aria-label="Next">
+									    <span aria-hidden="true">&raquo;</span>
+									    <span class="sr-only"></span>
+									</a>
+								</li>
+							</c:if> 
+						</ul>
+		 			</nav>
 					<div id="paging">
-					<%
-						if(paging.isPrev() == true){
-					%>
-							<a href="/schedule/fullcalendar<%= paging.makeSearch(paging.getStartPage()-1)%>#table">&lt;</a>
-					<%		
-						}
-						for(int i=paging.getStartPage(); i<=paging.getEndPage(); i++){
-					%>
-								<a href="/schedule/fullcalendar<%= paging.makeSearch(i) %>#table"><%=i %></a>
-					<%			
-						}
-						if(paging.isNext() && paging.getEndPage()>0){
-					%>
-							<a href="/schedule/fullcalendar<%= paging.makeSearch(paging.getEndPage()+1) %>#table">&gt;</a>
-					<%			
-						}
-					%>
 					</div>
 				</div>
 			</div>

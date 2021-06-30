@@ -37,19 +37,3 @@ jQuery.fn.serializeObject = function(){
 	});
 	return o;
 };
-function click_ok(){
-	var draftLetterData = JSON.stringify($("form#draftLetterData").serializeObject());
-	
-	$.ajax({
-		type:'POST',
-		url:"modifyDocument",
-		dataType:'JSON',
-		data: draftLetterData,
-		contentType : "application/json; charset=UTF-8",
-		success: function(data){
-			alert("결제요청이 완료되었습니다.");
-			window.close();
-		}
-	});
-	
-};
