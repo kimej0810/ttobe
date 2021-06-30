@@ -4,6 +4,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	ApprovalVO contents = (ApprovalVO)request.getAttribute("contents");
+
+	if(session.getAttribute("userTidx") != null){
+		Object userTidx = session.getAttribute("userTidx");
+	}else{
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+	}
 %>
 <!DOCTYPE html>
 <html>

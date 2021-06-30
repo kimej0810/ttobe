@@ -10,6 +10,11 @@
 	List<ApprovalVO> elist = (List<ApprovalVO>)request.getAttribute("elist");
 	PageMaker paging = (PageMaker)request.getAttribute("paging");
 	
+	if(session.getAttribute("userTidx") != null){
+		Object userTidx = session.getAttribute("userTidx");
+	}else{
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -21,6 +26,7 @@
 		</script>
 		<style type="text/css">
 			#statusTable{
+				width:70%;
 				margin:30px auto;
 			}
 			.search{
@@ -38,7 +44,6 @@
 				font-size: 20px;
 			}
 			.content{
-				padding: 5px 45px;
 				overflow: hidden;
 			}
 			#paging ul{
@@ -59,16 +64,21 @@
 				grid-column:2/3;
 			}
 			#approvalContent{
-			 max-width: 1196px;
+			 max-width: 1522px;
 			 margin:0px auto;
 			}
 			#documentTable{
 				height: 400px;
 				text-align: center;
 			}
+			#count{
+				text-align:center;
+				font-size:20px;
+			}
 		</style>
 	</head>
 	<body>
+		
 		<div id="approvalContent">
 			<form name="frm" id="frm" method="post">
 				<div id="category">
@@ -88,11 +98,11 @@
 						</colgroup>
 						<tr>
 							<th id="waiting">결제대기문서</th>
-							<th></th>
+							<th id="count">${wa}</th>
 							<th id="progress">결제진행문서</th>
-							<th></th>
+							<th id="count">${pr }</th>
 							<th id="complete">결제완료문서</th>
-							<th></th>
+							<th id="count">${co }</th>
 						</tr>
 					</table>
 				</div>
@@ -177,7 +187,7 @@
 								</td>
 								<td>${elist.e_draftDate }</td>
 								<td>${elist.e_status }</td>
-							</tr>
+								</tr>
 							</c:forEach>
 						</tbody>
 					</table>

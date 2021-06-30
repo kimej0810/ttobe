@@ -11,7 +11,12 @@
 	List<ScheduleVO> list = (List<ScheduleVO>)request.getAttribute("schedule"); 
 	PageMaker paging = (PageMaker)request.getAttribute("paging");
 	List<ScheduleVO> view = (List<ScheduleVO>)request.getAttribute("viewAll");
-	Object userName = session.getAttribute("userName");
+	
+	if(session.getAttribute("userTidx") != null){
+		Object userTidx = session.getAttribute("userTidx");
+	}else{
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+	}
 %>
 <!DOCTYPE html>
 <html id="html">
@@ -26,7 +31,7 @@
 				var calendarEl = document.getElementById('calendar');
 			
 			    var calendar = new FullCalendar.Calendar(calendarEl, {
-			    	contentHeight: 800,
+			    	contentHeight: 760,
 					customButtons: {
 						myCustomButton: {
 							text: '일정 추가',
@@ -40,8 +45,8 @@
 						boardCustomButton:{
 							text: '게시판으로 보기',
 							click: function() {
-								 var offset = $(".row").offset();
-							     $('.content').animate({scrollTop : offset.top}, 400);
+								$("#calendar").css("display","none");
+								$("#box").css("display","block");
 							}
 						}
 					},
@@ -117,11 +122,9 @@
 				overflow: hidden;
 			}
 			#calendar {
-				max-width: 1500px;
+				max-width: 1500px;   
+				max-height: 100%;
 				margin: 0 auto;
-			}
-			#centerContents{
-				height: 1000px;
 			}
 			#board{
 				text-align:center;
@@ -146,12 +149,15 @@
 			}
 			#box{
 				height: 650px;
+				display: none;
+				
 			}
 			.row{
 				margin:0px auto;
-				height: 135%;
-				max-width: 1500px;
+				height: 134%;
+				max-width: 1522px;
 				flex-wrap: inherit;
+				background-color:white;
 			}
 			.panel{
 				height: 90%;
@@ -159,17 +165,12 @@
 			.fc-scrollgrid-sync-table{
 				height: 587px;
 			}
-			#blankBeauty{
-				height:1000px;
-			}
 		</style>
 	</head>
 	<body>		
 		<div id='calendar' style="position: relative">
+		
 		</div>
-		
-		<div id="blankBeauty"></div>
-		
 		<div id="box">
 			<div class="row">
 				<div class="col-lg-12">
@@ -196,8 +197,8 @@
 							<script type="text/javascript">
 								 $(function(){
 									$('#calendarButton').click(function(){
-										 var offset = $("#calendar").offset();
-									        $('.content').animate({scrollTop : offset.top}, 600);
+										$("#box").css("display","none");
+										$("#calendar").css("display","block");
 									});
 									$('#searchBtn').click(function() {
 										self.location = "fullcalendar" + '${paging.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keyword').val())+ "#box";

@@ -5,6 +5,10 @@
 <%
 	ApprovalVO contents = (ApprovalVO)request.getAttribute("contents");
 	Object userTidx = session.getAttribute("userTidx");
+	
+	if(userTidx == null){
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -21,14 +25,13 @@
 		<link href="<c:url value="/resources/static/form/css/documentWite.css"/>" rel='stylesheet' />
 		<script src="<c:url value="/resources/static/form/js/documentWite.js"/>"></script>
 		<script type="text/javascript">
-		
 			function click_modify(){
 				var e_status = $('#e_status').val();
 				
 				if(e_status == 0 || <%=contents.getTidx()%> == <%=userTidx%>){
 					location.href="documentModify?e_documentNum="+"<%=contents.getE_documentNum()%>&tidx=<%=contents.getTidx()%>";
 				}else{
-					alert("이 문서의 기안자가 아니거나 수정 할 수 없는 상태입니다.");
+					alert("문서의 기안자가 아니거나 수정할 수 없는 상태입니다.");
 				}
 			};
 			function click_delete(){
@@ -41,7 +44,7 @@
 					opener.parent.location.reload();
 					window.close();
 				}else{
-					alert("이 문서의 기안자가 아니거나 삭제 할 수 없는 상태입니다.");
+					alert("문서의 기안자가 아니거나 삭제할 수 없는 상태입니다.");
 				}
 			}
 			function click_ok(){

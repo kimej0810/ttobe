@@ -49,5 +49,20 @@ public class ApprovalServiceImpl implements ApprovalService{
 	public MemberVO selectOneMember(int tidx) throws Exception {
 		return dao.selectOneMember(tidx);
 	}
+
+	@Override
+	public int totalCountWaiting() throws Exception {
+		return dao.totalCountWaiting();
+	}
+
+	@Override
+	public int totalCountProgress() throws Exception {
+		return dao.totalCountProgress();
+	}
+
+	@Override
+	public int totalCountComplete() throws Exception {
+		return dao.totalCountComplete();
+	}
 	
 }

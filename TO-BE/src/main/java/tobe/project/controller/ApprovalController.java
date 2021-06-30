@@ -1,12 +1,10 @@
 package tobe.project.controller;
 
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +34,7 @@ public class ApprovalController {
 	@Inject
 	private ApprovalService service;
 	
-	//전자결재 메인
+	//�쟾�옄寃곗옱 硫붿씤
 	@RequestMapping(value = "/documentListMain")
 	public String documentMain(Model model, @ModelAttribute("scri")SearchCriteria scri, String searchType) throws Exception{
 		System.out.println("ApprovalController");
@@ -48,16 +46,26 @@ public class ApprovalController {
 		model.addAttribute("paging",pageMaker);
 		model.addAttribute("elist", service.selectAllApprovalDocumentList(scri));
 		
+		model.addAttribute("wa",service.totalCountWaiting());
+		model.addAttribute("pr",service.totalCountProgress());
+		model.addAttribute("co",service.totalCountComplete());
+		
 		return "/approval/documentListMain";
 	}
-	//기안서 작성페이지
+	
+	@RequestMapping(value = "/documentApprovalLine")
+	public String documentApprovalLine() {
+		
+		return "/approval/documentApprovalLine";
+	}
+	//湲곗븞�꽌 �옉�꽦�럹�씠吏�
 	@RequestMapping(value = "/documentWite")
 	public String documentWite(Locale locale) throws Exception {
 		logger.info("Welcome home! addDocumentWite", locale);
 		return "/approval/documentWite";
 	}
 	
-	//기안서 작성 ajax호출
+	//湲곗븞�꽌 �옉�꽦 ajax�샇異�
 	@ResponseBody
 	@RequestMapping(value = "/addDocumentWite", method = RequestMethod.POST)
 	public Map<Object,Object> addDocumentWite(@RequestBody ApprovalVO vo,Locale locale) throws Exception {
@@ -68,7 +76,7 @@ public class ApprovalController {
 				
 	}
 	
-	//결재문서 상세보기
+	//寃곗옱臾몄꽌 �긽�꽭蹂닿린
 	@RequestMapping(value = "/documentContents")
 	public ApprovalVO documentContents(Model model,int e_documentNum, int tidx) throws Exception{
 		ApprovalVO vo = service.selectOneApprovalDocumentContents(e_documentNum);
@@ -77,19 +85,19 @@ public class ApprovalController {
 		model.addAttribute("contents",vo);
 		return vo;
 	}
-	//결재문서 수제
+	//寃곗옱臾몄꽌 �닔�젣
 	@RequestMapping(value = "/documentModify")
 	public ApprovalVO documentModify(Model model,int e_documentNum,int tidx) throws Exception{
 		ApprovalVO vo = service.selectOneApprovalDocumentContents(e_documentNum);
 		MemberVO mo = service.selectOneMember(tidx);
-		System.out.println("문서번호"+e_documentNum);
+		System.out.println("臾몄꽌踰덊샇"+e_documentNum);
 		System.out.println("member"+mo);
 		model.addAttribute("mo",mo);
 		model.addAttribute("contents",vo);
 		return vo;
 	}
 	
-	//결재문서 수정 ajax
+	//寃곗옱臾몄꽌 �닔�젙 ajax
 	@ResponseBody
 	@RequestMapping(value = "/ModifyDocumentWite", method = RequestMethod.POST)
 	public Map<Object,Object> modifyApprovalDocument(@RequestBody ApprovalVO vo) throws Exception {
@@ -98,7 +106,7 @@ public class ApprovalController {
 		return map;
 				
 	}
-	//결재문서 삭제
+	//寃곗옱臾몄꽌 �궘�젣
 	@RequestMapping(value = "/documentDelete")
 	public String documentDelete(int eidx) throws Exception{
 		service.deleteApprovalDocument(eidx);

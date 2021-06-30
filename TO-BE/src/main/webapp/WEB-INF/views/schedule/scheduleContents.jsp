@@ -8,6 +8,11 @@
 <% 
 	ScheduleVO vo = (ScheduleVO)request.getAttribute("vo"); 
 	MemberVO mo = (MemberVO)request.getAttribute("mo");
+	Object userTidx = session.getAttribute("userTidx");
+	
+	if(userTidx == null){
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -18,15 +23,23 @@
 		<link href="<c:url value="/resources/static/fullcalendar/css/schedule.css"/>" rel='stylesheet' />
 		<script>
 		function click_modify(){
-			// Modify schedule open
-			location.href="scheduleModify?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>";
+			if(<%=vo.getTidx()%> == <%=userTidx%>){
+				location.href="scheduleModify?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>";
+			}else{
+				alert("수정할 수 있는 권한이 없습니다.");
+			}
 		};
 		function click_delete(){
-			alert("정말 삭제하시겠습니까?");
-			location.href="scheduleDelete?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>";
-			alert("일정이 삭제되었습니다.");
-			opener.parent.location.reload();
-			window.close();
+			if(<%=vo.getTidx()%> == <%=userTidx%>){
+				alert("정말 삭제하시겠습니까?");
+				location.href="scheduleDelete?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>";
+				alert("일정이 삭제되었습니다.");
+				opener.parent.location.reload();
+				window.close();
+			}else{
+				alert("삭제할 수 있는 권한이 없습니다.");
+			}
+			
 		}
 		function click_ok(){
 			opener.parent.location.reload();

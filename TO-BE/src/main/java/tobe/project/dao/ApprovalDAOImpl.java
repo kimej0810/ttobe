@@ -53,6 +53,21 @@ public class ApprovalDAOImpl implements ApprovalDAO{
 		return sqlSession.selectOne(Namespace+".selectOneMember",tidx);
 	}
 
+	@Override
+	public int totalCountWaiting() throws Exception {
+		return sqlSession.selectOne(Namespace+".totalCountWaiting");
+	}
+
+	@Override
+	public int totalCountProgress() throws Exception {
+		return sqlSession.selectOne(Namespace+".totalCountProgress");
+	}
+
+	@Override
+	public int totalCountComplete() throws Exception {
+		return sqlSession.selectOne(Namespace+".totalCountComplete");
+	}
+
 	
 	
 	

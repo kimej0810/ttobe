@@ -15,6 +15,9 @@ public interface ApprovalService {
 	public MemberVO selectOneMember(int tidx) throws Exception;
 	
 	public List<ApprovalVO> selectAllApprovalDocumentList(SearchCriteria scri) throws Exception;
-	
 	public int totalCountApprovalDocument(SearchCriteria scri) throws Exception;
+	
+	public int totalCountWaiting() throws Exception;
+	public int totalCountProgress() throws Exception;
+	public int totalCountComplete() throws Exception;
 }
