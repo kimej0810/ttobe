@@ -22,13 +22,12 @@
 		<link href="<c:url value="/resources/static/fullcalendar/css/calendarMain.css"/>" rel='stylesheet' />
 		<script src="<c:url value="/resources/static/fullcalendar/js/calendarMain.js"/>"></script>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-		<link type="text/css" rel="stylesheet" href="/resources/static/css/bootstrap.css">
 		<script>
 			document.addEventListener('DOMContentLoaded', function() {
 				var calendarEl = document.getElementById('calendar');
 			
 			    var calendar = new FullCalendar.Calendar(calendarEl, {
-			    	contentHeight: 620,
+			    	contentHeight: 800,
 					customButtons: {
 						myCustomButton: {
 							text: '일정 추가',
@@ -116,12 +115,11 @@
 			}
 			
 			.content{
-				padding: 0px;
 				overflow: hidden;
 			}
 			#calendar {
-			  max-width: 1150px;
-			  margin: 0 auto;
+				max-width: 1150px;
+				margin: 0 auto;
 			}
 			#centerContents{
 				height: 1000px;
