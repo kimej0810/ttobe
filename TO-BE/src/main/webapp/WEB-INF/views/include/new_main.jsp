@@ -17,44 +17,61 @@
 	href="<c:url value="/resources/static/css/newMain.css"/>">
 </script>
 <style>
-
-.sidebar-menu-item:hover { 
-	color:rgb(95, 129, 228); 
-	transition:all .3s ease; 
+.sidebar-menu-item:hover {
+	color: rgb(95, 129, 228);
+	transition: all .3s ease;
 	background-color: rgba(95, 129, 228, 0.1);
 }
 
 .sidebar-menu-item::after {
-  content: '';
-  width: 0%;
-  left: 50%;
-  height: 1px;
-  display: block;
-  position: absolute;
-  margin-top: 3px;
-  border-bottom: 3px solid rgb(95, 129, 228);
-  background-color: black;
-  transition:all .3s ease;
+	content: '';
+	width: 0%;
+	left: 50%;
+	height: 1px;
+	display: block;
+	position: absolute;
+	margin-top: 3px;
+	border-bottom: 3px solid rgb(95, 129, 228);
+	background-color: black;
+	transition: all .3s ease;
 }
-.sidebar-menu-item:hover::after{
-  content: '';
-  width: 100%;
-  left: 0px;
-  height: 1px;
-  display: block;
-  position: absolute;
-  margin-top: 3px;
-  border-bottom: 3px solid rgb(95, 129, 228);
-  background-color: black;
-  background-color:gray;
-  transition:all .3s ease;
+
+.sidebar-menu-item:hover::after {
+	content: '';
+	width: 100%;
+	left: 0px;
+	height: 1px;
+	display: block;
+	position: absolute;
+	margin-top: 3px;
+	border-bottom: 3px solid rgb(95, 129, 228);
+	background-color: black;
+	background-color: gray;
+	transition: all .3s ease;
 }
 </style>
 </head>
 <body>
-	<% String userTidx = (String) session.getAttribute("userTidx"); 
-	   String userId = (String) session.getAttribute("userId");
-	   String userName = (String) session.getAttribute("userName");
+	<%
+	
+	String userTidx="";
+	String userId="";
+	String userName="";
+	if (session.getAttribute("userTidx") != null) {
+		userTidx = (String) session.getAttribute("userTidx");
+	} else {
+	}
+	if (session.getAttribute("userId") != null) {
+		userId = (String) session.getAttribute("userId");
+
+	} else {
+	}
+	if (session.getAttribute("userName") != null) {
+		userName = (String) session.getAttribute("userName");
+	} else {
+	}
+	
+	
 	%>
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar">
@@ -91,22 +108,21 @@
 			<nav class="navbar">
 				<div class="navbar-wrapper">
 					<img src="/resources/static/img/toggle.png"
-						class="navbar-toggle sidebar-collapse"> 
-					<img
+						class="navbar-toggle sidebar-collapse"> <img
 						src="/resources/static/img/realLogo.png"
 						onclick="location.href='/main/mainPage'"
-						style="width: 70px; grid-column: 2/3; text-align: center; margin: auto; cursor:pointer;">
+						style="width: 70px; grid-column: 2/3; text-align: center; margin: auto; cursor: pointer;">
 					<div>
 						<img src="/resources/static/img/profile2.jpg" type="button"
 							id="profile"
 							style="padding: 0px; width: 50px; border-radius: 70%;">
-						<div id="dropDown" class="list-group" style="width:100px; height:50px; position:absolute; right:25px;">
-							<a href="#" class="list-group-item list-group-item-action" onclick="location.href='/member/mypage?tidx=<%=userTidx%>'">
+						<div id="dropDown" class="list-group"
+							style="width: 100px; height: 50px; position: absolute; right: 25px;">
+							<a href="#" class="list-group-item list-group-item-action"
+								onclick="location.href='/member/mypage?tidx=<%=userTidx%>'">
 								<%=userName%>님
-							</a> 
-							<a href="#" class="list-group-item list-group-item-action" onclick="location.href='/member/logout'">
-								로그아웃
-							</a>
+							</a> <a href="#" class="list-group-item list-group-item-action"
+								onclick="location.href='/member/logout'"> 로그아웃 </a>
 						</div>
 					</div>
 
