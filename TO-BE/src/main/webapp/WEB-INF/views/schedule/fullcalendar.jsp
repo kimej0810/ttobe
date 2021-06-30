@@ -151,7 +151,7 @@
 				height: 650px;
 			}
 			.row{
-				margin:100px auto;
+				margin:0px auto;
 				height: 105%;
 				max-width: 1150px;
 				flex-wrap: inherit;
@@ -162,11 +162,16 @@
 			.fc-scrollgrid-sync-table{
 				height: 587px;
 			}
+			#blankBeauty{
+				height:1000px;
+			}
 		</style>
 	</head>
 	<body>		
 		<div id='calendar' style="position: relative">
 		</div>
+		
+		<div id="blankBeauty"></div>
 		
 		<div id="box">
 			<div class="row">
