@@ -1,21 +1,15 @@
 package tobe.project.controller;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import tobe.project.domain.PageMaker;
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.BoardVO;
 import tobe.project.service.BoardService;
@@ -33,9 +27,8 @@ public class RealMainController extends HttpServlet {
 	public String list(Locale locale, Model model, SearchCriteria scri, String searchType) throws Exception {
 		System.out.println("와 메인페이지다!");
 		
-		
-		
-		
+		List<BoardVO> boardList = boardService.selectNotice();
+		model.addAttribute("boardList", boardList);
 		return "/main/realMain";
 	}
 }

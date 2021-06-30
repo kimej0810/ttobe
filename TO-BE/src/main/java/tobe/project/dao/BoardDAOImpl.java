@@ -63,4 +63,9 @@ public class BoardDAOImpl implements BoardDAO{
 	public void modifyFile(Map<String, Object> map) throws Exception {
 		sqlSession.update(Namespace+".modifyFile", map);
 	}
+
+	@Override
+	public List<BoardVO> selectNotice() throws Exception {
+		return sqlSession.selectList(Namespace+".selectNotice");
+	}
 }

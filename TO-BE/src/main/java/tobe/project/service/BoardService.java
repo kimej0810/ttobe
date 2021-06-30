@@ -15,4 +15,5 @@ public interface BoardService {
 	public void modifyBoard(BoardVO vo, String[] files, String[] fileNames, MultipartHttpServletRequest mpRequest) throws Exception;
 	public String buttonState(String searchType) throws Exception;
 	public void deleteBoard(int bidx) throws Exception;
+	public List<BoardVO> selectNotice() throws Exception; 
 }

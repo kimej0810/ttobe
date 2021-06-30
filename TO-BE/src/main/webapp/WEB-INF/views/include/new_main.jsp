@@ -12,10 +12,8 @@
 	src="<c:url value="/resources/static/js/bootstrap.js"/>"></script>
 <link type="text/css" rel="stylesheet"
 	href="<c:url value="/resources/static/css/bootstrap.css"/>">
-</script>
 <link type="text/css" rel="stylesheet"
 	href="<c:url value="/resources/static/css/newMain.css"/>">
-</script>
 <style>
 .sidebar-menu-item:hover {
 	color: rgb(95, 129, 228);
@@ -59,19 +57,9 @@
 	String userName="";
 	if (session.getAttribute("userTidx") != null) {
 		userTidx = (String) session.getAttribute("userTidx");
-	} else {
-	}
-	if (session.getAttribute("userId") != null) {
 		userId = (String) session.getAttribute("userId");
-
-	} else {
-	}
-	if (session.getAttribute("userName") != null) {
 		userName = (String) session.getAttribute("userName");
-	} else {
 	}
-	
-	
 	%>
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar">

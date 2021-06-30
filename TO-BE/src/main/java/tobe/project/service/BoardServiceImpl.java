@@ -89,4 +89,9 @@ public class BoardServiceImpl implements BoardService{
 
 		return null;
 	}
+
+	@Override
+	public List<BoardVO> selectNotice() throws Exception {
+		return dao.selectNotice();
+	}
 }

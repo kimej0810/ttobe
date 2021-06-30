@@ -11,6 +11,8 @@ public interface BoardDAO {
 	public List<BoardVO> selectAllBoard(SearchCriteria scri) throws Exception;
 	//게시글 총 갯수
 	public int totalCount(SearchCriteria scri) throws Exception;
+	//메인페이지 공지사항 조회
+	public List<BoardVO> selectNotice() throws Exception;
 	//조회수
 	public void hitBoard(int bidx) throws Exception;
 	//게시글 작성
