@@ -135,10 +135,12 @@ public class MemberController {
 				System.out.println("로그인 성공");
 				return "/main/main";
 			}
-			return "/member/login";
+			model.addAttribute("idnull", "pw_error");
+			System.out.println("비밀번호 오류"); //비밀번호가 다를경우
+			return "/member/checklogin"; 
 		}else {
-			System.out.println("비밀번호 오류");
-			return "/member/login";
+			model.addAttribute("idnull", "id_error");//아이디없음
+			return "/member/checklogin";
 		}
 	}
 	

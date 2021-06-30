@@ -1,11 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>login page</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>">
+<style type="text/css">
+	.login-form{
+		width: 60%;
+		height: 50%;
+		max-width: 400px;
+		max-height: 600px;
+		margin: 10vh auto;
+		
+	}
+	#logo{
+		width: 200px;
+	}
+	
+	.form-control{
+		margin: 10px 0px;
+	}
+	.error{
+		color: red;
+	}
+	.btn{
+		margin: 10px 0px;
+	}
+</style>
 <script language="javascript">
 	function checkLogin(){
 		
@@ -87,14 +112,14 @@
 </head>
 <body onkeydown="javascript:enterLogin();">
 	<section class="login-form">
-		<h1>TO-BE</h1>
+		<img id="logo" class="img-responsive w-100" src="<c:url value="/resources/static/img/loginlogo.png"/>" >
 		<form name="frm">
 			<div>
-				<input type="text" name="t_id" id="t_id" placeholder="아이디" aria-live="assertive">
+				<input type="text" name="t_id" id="t_id" placeholder="아이디" aria-live="assertive" class="form-control">
 			</div>
 			<div class="error" id="empty_id" style="display:none">아이디를 입력해주세요.</div>
 			<div>
-				<input type="password" name="t_pwd" id="t_pwd" placeholder="비밀번호">
+				<input type="password" name="t_pwd" id="t_pwd" placeholder="비밀번호" class="form-control">
 			</div>
 			<div class="error" id="empty_pwd" style="display:none" aria-live="assertive">비밀번호를 입력해주세요.</div>
 			<div>
@@ -102,10 +127,10 @@
 				<label for="useCookie">아이디 저장</label>
 			</div>
 			<div>
-				<button type="button" onclick="checkLogin();">LOGIN</button>
+				<button type="button" onclick="checkLogin();" class="btn btn-primary w-100">LOGIN</button>
 			</div>
 			<div>
-				비밀번호를 잊으셨나요?<a href="/member/findPwd" onclick="window.open(this.href, '비밀번호찾기', 'width=500,height=500,top=200,left=100'); return false;">비밀번호 찾기</a>
+				비밀번호를 잊으셨나요?&nbsp;&nbsp;<a href="/member/findPwd" onclick="window.open(this.href, '비밀번호찾기', 'width=500,height=500,top=200,left=100'); return false;">비밀번호 찾기</a>
 			</div>
 		</form>
 	</section>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="/WEB-INF/views/include/new_main.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -109,7 +110,8 @@
 </script>
 </head>
 <body>
-	<button type="button"><a href="/member/mypage?tidx=${member.tidx}">사원정보변경</button>
+
+	<button type="button"><a href="/member/mypage?tidx=${member.tidx}">사원정보변경</a></button>
 	<button type="button"><a href="/member/modifyPwd?t_id=${member.t_id}">비밀번호번경</a></button>
 	<form name="frm" enctype="multipart/form-data">
 		<table border="1">
