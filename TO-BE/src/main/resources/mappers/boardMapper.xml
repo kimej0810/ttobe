@@ -42,6 +42,10 @@
 		ORDER BY B_TYPE DESC, BIDX DESC
     </select>
     
+    <!-- 메인페이지 공지사항 목록 -->
+    
+    
+    
     <!-- 페이징 -->
     <select id="totalCount" resultType="int">
 		SELECT COUNT(BOARD.BIDX)
