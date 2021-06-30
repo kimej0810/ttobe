@@ -7,12 +7,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ include file="/WEB-INF/views/include/new_main.jsp" %>
 <% 
-	List<ApprovalVO> elist = (List<ApprovalVO>)request.getAttribute("elist");
+	List<ApprovalVO> elist = (List<ApprovalVO>)request.getAttribute("elist"); 
 	PageMaker paging = (PageMaker)request.getAttribute("paging");
 	
 	if(session.getAttribute("userTidx") != null){
-		Object userTidx = session.getAttribute("userTidx");
-	}else{
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
 	}
 %>

@@ -6,7 +6,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% 
-	ScheduleVO vo = (ScheduleVO)request.getAttribute("vo");
+	ScheduleVO vo = (ScheduleVO)request.getAttribute("vo"); 
 	MemberVO mo = (MemberVO)request.getAttribute("mo");
 	
 	if(session.getAttribute("userTidx") != null){

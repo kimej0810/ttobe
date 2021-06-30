@@ -29,7 +29,7 @@ public class ApprovalServiceImpl implements ApprovalService{
 
 	@Override
 	public void modifyApprovalDocument(ApprovalVO vo) throws Exception{
-		dao.modifyApprovalDocument(vo);
+		dao.modifyApprovalDocument(vo); 
 	}
 	@Override
 	public void deleteApprovalDocument(int eidx) throws Exception {

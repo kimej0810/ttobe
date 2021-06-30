@@ -10,7 +10,7 @@
 	    <result column="E_DRAFTDATE" property="e_draftDate"/>
 	    <result column="E_STARTDAY" property="e_startDay"/>
 	    <result column="E_CON" property="e_con"/>
-	    <result column="E_SEND" property="e_send"/>
+	    <result column="E_SEND" property="e_send"/> 
 	    <result column="E_TEXTTITLE" property="e_textTitle"/>
 	    <result column="E_TEXTCONTENT" property="e_textContent"/>
 	    <result column="E_STATUS" property="e_status"/>

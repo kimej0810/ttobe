@@ -10,7 +10,7 @@
 	    <result column="S_STARTDATE" property="s_startDate"/>
 	    <result column="S_ENDDATE" property="s_endDate"/>
 	    <result column="S_CONTENT" property="s_content"/>
-	    <result column="DELYN" property="delYn"/>
+	    <result column="DELYN" property="delYn"/> 
 	    <result column="TIDX" property="tidx"/>
 	    <collection property="memberVO" resultMap="MemberResultMap"/>
 	</resultMap>

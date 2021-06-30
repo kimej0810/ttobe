@@ -28,7 +28,7 @@ public class ApprovalDAOImpl implements ApprovalDAO{
 	public ApprovalVO selectOneApprovalDocumentContents(int e_documentNum) throws Exception {		//�󼼺���
 		return sqlSession.selectOne(Namespace+".selectOneApprovalDocumentContents",e_documentNum);
 	}
-	
+	 
 	@Override
 	public void modifyApprovalDocument(ApprovalVO vo) throws Exception{
 		sqlSession.update(Namespace+".modifyApprovalDocument",vo);

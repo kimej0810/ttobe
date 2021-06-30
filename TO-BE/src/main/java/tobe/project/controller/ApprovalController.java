@@ -30,7 +30,7 @@ import tobe.project.service.ApprovalService;
 public class ApprovalController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ApprovalController.class);
-	
+	 
 	@Inject
 	private ApprovalService service;
 	

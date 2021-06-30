@@ -72,8 +72,4 @@ public class ScheduleDAOImpl implements ScheduleDAO{
 		return sqlSession.selectOne(Namespace+".countSchedule", scri);
 	}
 
-	
-	
-	
-	
 }

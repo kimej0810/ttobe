@@ -8,7 +8,7 @@
 <% 
 	ScheduleVO vo = (ScheduleVO)request.getAttribute("vo"); 
 	MemberVO mo = (MemberVO)request.getAttribute("mo");
-	Object userTidx = session.getAttribute("userTidx");
+	Object userTidx = session.getAttribute("userTidx"); 
 	
 	if(userTidx == null){
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");

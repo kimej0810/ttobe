@@ -8,21 +8,21 @@ import tobe.project.dto.ScheduleVO;
 
 public interface ScheduleDAO {
 	
-	//--------------------Ķ������! -------------------------
-	public List<ScheduleVO> showSchedule() throws Exception; 			//���� ��ü ��ȸ
+	//--------------------캘占쏙옙占쏙옙占쏙옙! -------------------------
+	public List<ScheduleVO> showSchedule() throws Exception; 			//占쏙옙占쏙옙 占쏙옙체 占쏙옙회
 	
-	public void addSchedule(ScheduleVO vo) throws Exception;			//���� ���
+	public void addSchedule(ScheduleVO vo) throws Exception;			//占쏙옙占쏙옙 占쏙옙占�
 	
-	public ScheduleVO ContentsSchedule(int sidx) throws Exception;		//���� ��	
+	public ScheduleVO ContentsSchedule(int sidx) throws Exception;		//占쏙옙占쏙옙 占쏙옙	
 	
-	public void updateSchedule(ScheduleVO vo) throws Exception;			//���� ����
+	public void updateSchedule(ScheduleVO vo) throws Exception;			//占쏙옙占쏙옙 占쏙옙占쏙옙
 	
-	public void deleteSchedule(int sidx) throws Exception;				//���� ����
+	public void deleteSchedule(int sidx) throws Exception;				//占쏙옙占쏙옙 占쏙옙占쏙옙
 	
 	public MemberVO contentmemberSchedule(int tidx) throws Exception;
-	//----------------------- �Խñ���!! ------------------------
+	//----------------------- 占쌉시깍옙占쏙옙!! ------------------------
+	 
+	public List<ScheduleVO> selectSchedule(SearchCriteria scri) throws Exception;		//占쌉시깍옙 占쏙옙占� 占쏙옙회
 	
-	public List<ScheduleVO> selectSchedule(SearchCriteria scri) throws Exception;		//�Խñ� ��� ��ȸ
-	
-	public int countSchedule(SearchCriteria scri) throws Exception;								//�Խñ� �� ����
+	public int countSchedule(SearchCriteria scri) throws Exception;								//占쌉시깍옙 占쏙옙 占쏙옙占쏙옙
 }

@@ -20,7 +20,6 @@ import tobe.project.domain.PageMaker;
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.MemberVO;
 import tobe.project.dto.ScheduleVO;
-import tobe.project.service.MemberService;
 import tobe.project.service.ScheduleService;
 
 @Controller
@@ -29,32 +28,31 @@ public class CalendarController {
 	private static final Logger logger = LoggerFactory.getLogger(CalendarController.class);
 	@Inject
 	private ScheduleService service;
-	private MemberService mservice;
-
-	//캘린더
+ 
+	//罹섎┛�뜑
 	@RequestMapping(value = "/fullcalendar")
 	public String list(Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception {
 		logger.info("fullcalendar");
-		 //게시판 페이징처리 start
+		 //寃뚯떆�뙋 �럹�씠吏뺤쿂由� start
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(service.countSchedule(scri));
 		
 		model.addAttribute("viewAll",service.selectSchedule(scri));	
 		model.addAttribute("paging",pageMaker);
-		//게시판페이징처리 end
+		//寃뚯떆�뙋�럹�씠吏뺤쿂由� end
 		List<ScheduleVO> schedule = service.showSchedule();
 		model.addAttribute("scri",scri);
 		model.addAttribute("schedule",schedule);
 		return "/schedule/fullcalendar";
 	}
 	
-	// 일정추가 팝업
+	// �씪�젙異붽� �뙘�뾽
 	@RequestMapping(value = "/schedulePopup")
 	public String schedulePopup() throws Exception {
 		return "/schedule/schedulePopup";
 	}
-	//일정 추가 ajax 호출
+	//�씪�젙 異붽� ajax �샇異�
 	@ResponseBody
 	@RequestMapping(value = "/addSchedule", method = RequestMethod.POST) 
 	public Map<Object,Object> addSchedule(@RequestBody ScheduleVO vo) throws Exception{
@@ -63,7 +61,7 @@ public class CalendarController {
 		 return map; 
 	}
 	 
-	//일정 전체 
+	//�씪�젙 �쟾泥� 
 	@ResponseBody
 	@RequestMapping(value = "/showSchedule")
 	public List<ScheduleVO> show() throws Exception {
@@ -71,7 +69,7 @@ public class CalendarController {
 		return list;
 	}
 	
-	//일정 상세
+	//�씪�젙 �긽�꽭
 	@RequestMapping(value = "/scheduleContents")
 	public ScheduleVO Contents(Model model, int sidx, int tidx) throws Exception {
 		System.out.println(sidx);
@@ -85,7 +83,7 @@ public class CalendarController {
 		return vo;
 	}
 	
-	//일정 수정
+	//�씪�젙 �닔�젙
 	@RequestMapping(value = "/scheduleModify")
 	public ScheduleVO modifyPopup(Model model,int sidx, int tidx) throws Exception{
 		ScheduleVO vo = service.contentsSchedule(sidx);
@@ -95,7 +93,7 @@ public class CalendarController {
 		return vo;
 	}
 	
-	//일정 수정 ajax 호출
+	//�씪�젙 �닔�젙 ajax �샇異�
 	@ResponseBody
 	@RequestMapping(value = "/updateSchedule") 
 	public Map<Object,Object> updateSchedule(@RequestBody ScheduleVO vo) throws Exception{ 
@@ -104,7 +102,7 @@ public class CalendarController {
 		return map;
 	 }
 	
-	//일정 삭제
+	//�씪�젙 �궘�젣
 	@RequestMapping(value = "/scheduleDelete")
 	public String deleteSchedule(int sidx) throws Exception{ 
 		service.deleteSchedule(sidx);
