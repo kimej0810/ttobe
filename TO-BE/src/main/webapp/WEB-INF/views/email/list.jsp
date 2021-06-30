@@ -16,6 +16,13 @@
 			self.location = "/admin/emaillist${pageMaker.makeQuery(1)}&searchType="+$("select option:selected").val()
 			+ "&keyword="+encodeURIComponent($(".searInput").val());
 		});
+		$("#checkAll").click(function(){
+			if($(this).prop("checked")){
+				$(".btn").prop("checked",true);
+			}else{
+				$(".btn").prop("checked",false);
+			}
+		});
 	});
 	function sendFn(){
 		window.open(
@@ -98,7 +105,7 @@
 	<table class="emailtable table table-hover" style="text-align:center;">
 		<thead>
 			<tr>
-				<th scope="col" width="3%"><input type="checkbox" class="btn""></th>
+				<th scope="col" width="3%"><input type="checkbox" class="btn" id="checkAll"></th>
 				<th scope="col" width="5%">번호</th>
 				<th scope="col" width="10%">수신인</th>
 				<th scope="col" width="7%">부서</th>
