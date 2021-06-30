@@ -151,7 +151,7 @@
 				height: 650px;
 			}
 			.row{
-				margin:45px auto;
+				margin:100px auto;
 				height: 105%;
 				max-width: 1150px;
 				flex-wrap: inherit;
