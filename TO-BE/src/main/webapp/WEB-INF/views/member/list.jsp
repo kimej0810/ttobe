@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>사원 정보</title>
 <meta name="viewport" content="width=device-width, initial-scal=1.0">
 <link href="<c:url value="/resources/static/css/saone.css"/>" rel='stylesheet' />
 <script type="text/javascript" src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
@@ -63,21 +63,23 @@
 				dataType:"json",
 				success:function(selectOneMember){
 					var solist = "";
-					solist += "<tr><td rowspan='2'>";
+					solist += "<tr><td rowspan='4' scope='col' width='30%' style='text-align:center;'>";
 					if(selectOneMember.f_stored_file_name!=null){
-						solist += "<img src='<c:url value='/resources/static/profile/"+selectOneMember.f_stored_file_name+"'/>'></td>";	
+						solist += "<img style='width:150px;' src='<c:url value='/resources/static/profile/"+selectOneMember.f_stored_file_name+"'/>'></td>";	
 					}else{
-						solist += "<img src='<c:url value='/resources/static/profile/notprofile.jpg'/>'></td>";	
+						solist += "<img style='width:150px;' src='<c:url value='/resources/static/profile/notprofile.jpg'/>'></td>";	
 					}
-					solist += "<td>이름</td><td>";
+					solist += "<th width='20%' style='text-align:center;'>이름</th><td>";
 					solist += selectOneMember.t_name;
-					solist += "</td></tr><tr><td>부서</td><td>";
+					solist += "</td></tr><tr><th style='text-align:center;'>부서</th><td>";
 					solist += selectOneMember.t_department;
-					solist += "</td></tr><tr><td>이메일</td><td>";
+					solist += "</td></tr><tr><th style='text-align:center;'>직급</th><td>";
+					solist += selectOneMember.t_position;
+					solist += "</td></tr><tr><th style='text-align:center;'>이메일</th><td>";
 					solist += selectOneMember.t_email;
-					solist += "</td></tr><tr><th>주소</th></tr><tr><td>일반주소</td><td>";
+					solist += "</td></tr><tr><th style='text-align:center;'>일반주소</th><td colspan='2'>";
 					solist += selectOneMember.t_addr_general;
-					solist += "</td><td>상세주소<td>";
+					solist += "</td></tr><tr><th style='text-align:center;'>상세주소</th><td colspan='2'>";
 					solist += selectOneMember.t_addr_detail;
 					solist += "</td></tr>";
 					$("#tbodyx").html(solist);
@@ -194,12 +196,7 @@
 		</div>
 		<div class="content2">
 			<div class="userinfo">
-				<table>
-					<colgroup>
-						<col width="10%"></col>
-						<col width="30%"></col>
-						<col width="60%"></col>
-					</colgroup>
+				<table class="table" style="margin-top:45px;">
 					<tbody id="tbodyx">
 					</tbody>
 				</table>
