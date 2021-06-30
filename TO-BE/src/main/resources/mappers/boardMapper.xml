@@ -75,6 +75,7 @@
 
 	<!-- 메인 페이지용 공지사항 -->
 	<select id="selectFiveNotice" resultMap="selectAllBoardVO">
+		<![CDATA[
 		SELECT *
 		FROM(
 		SELECT BOARD.BIDX,
@@ -94,6 +95,7 @@
 		)
 		WHERE RNUM<=5
 		ORDER BY B_TYPE DESC, BIDX DESC
+		]]>
 	</select>
 
 	<!-- 게시글 상세 조회 -->
