@@ -112,7 +112,12 @@
 		<div id="writeBtnBox">
 		<%
 	 		String flag = (String) request.getAttribute("flag");
+			String grade = (String)session.getAttribute("userGrade");
 			if("g".equals(flag)||"".equals(flag)||flag==null||"w".equals(flag)||"c".equals(flag)||"t".equals(flag)){
+		%>
+			<button type="button" class="btn btn-primary btn-sm float-right" id="writeBtn" onclick="location.href='/board/write'">등록</button>
+		<%
+			}else if("n".equals(flag)&&grade.equals("A")){
 		%>
 			<button type="button" class="btn btn-primary btn-sm float-right" id="writeBtn" onclick="location.href='/board/write'">등록</button>
 		<%

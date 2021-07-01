@@ -28,7 +28,12 @@
 </head>
 <body>
 	<form action="writeAction" method="post" enctype="multipart/form-data">
-		<input type="hidden" value="G" name="b_type">
+		<%
+			Integer tidx = (Integer)session.getAttribute("userTidx");
+			String grade = (String)session.getAttribute("userGrade"); 
+		%>
+		<input type="hidden" name="grade" value="<%=grade%>">
+		<input type="hidden" name="tidx" value="<%=tidx%>">
 		<table id="write" class="table">
 			<tr>
 				<th style="width:25%;">글제목</th>

@@ -7,10 +7,12 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -109,11 +111,22 @@ public class BoardController{
 	
 	//게시판 글쓰기
 	@RequestMapping(value = "/writeAction")
-	public String writeAction(BoardVO vo, MultipartHttpServletRequest mpRequest) throws Exception {
+	public String writeAction(BoardVO vo,String grade,HttpServletRequest request, MultipartHttpServletRequest mpRequest) throws Exception {
 		 logger.info("BoardWriteAction");
-
-		 service.writeBoard(vo, mpRequest);
-		 return "redirect:/board/list";
+		 BoardVO bvo = vo;
+		 if(grade.equals("Z")) {
+			bvo.setB_type("G");
+			System.out.println("일반글 등록");
+			service.writeBoard(bvo, mpRequest);
+			return "redirect:/board/list";
+		 }else if(grade.equals("A")) {
+			bvo.setB_type("N");
+			System.out.println("공지글 등록");
+			service.writeBoard(bvo, mpRequest);
+			return "redirect:/board/list";
+		 }
+		 String referer = request.getHeader("Referer");
+		 return "redirect:"+referer;
 	}
 	
 	//게시판 수정뷰

@@ -8,6 +8,7 @@
 pageContext.setAttribute("replace", "<br>");
 %>
 <%@ include file="/WEB-INF/views/include/new_main.jsp"%>
+<%@ page import="tobe.project.dto.BoardVO"  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -137,9 +138,26 @@ pageContext.setAttribute("replace", "<br>");
 			name="FIDX" value="">
 	</form>
 	<div id="btnArea" style="text-align:right; margin-top:30px;">
+	
+	<% 
+		Integer loginTidx = (Integer)session.getAttribute("userTidx");
+		String loginGrade = (String)session.getAttribute("userGrade");
+		BoardVO vo = (BoardVO)request.getAttribute("boardVO");
+		Integer boardTidx = vo.getTidx();
+		if(loginTidx!=boardTidx & !loginGrade.equals("A")){
+	%>
+		<button type="submit" class="btn btn-primary btn-sm float-right list_btn">목록</button>
+	<%
+				
+		}else{
+				
+	%>
 		<button type="button" class="btn btn-primary btn-sm float-right" onclick="location.href='modify?bidx=${boardVO.bidx}'">수정</button>
 		<button type="button" class="btn btn-primary btn-sm float-right" onclick="location.href='delete?bidx=${boardVO.bidx}'">삭제</button>
-		<button type="submit" class="btn btn-primary btn-sm float-right list_btn">목록</button>
+		<button type="submit" class="btn btn-primary btn-sm float-right list_btn">목록</button>			
+	<%
+		}
+	%>
 	</div>
 	<script>
 		//댓글 출력
