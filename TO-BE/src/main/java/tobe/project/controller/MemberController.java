@@ -133,7 +133,7 @@ public class MemberController {
 				session.setAttribute("userGrade", vo.getT_grade());
 				model.addAttribute("member",vo);
 				System.out.println("로그인 성공");
-				return "/main/mainPage";
+				return "/main/realMain";
 			}
 			model.addAttribute("idnull", "pw_error");
 			System.out.println("비밀번호 오류"); //비밀번호가 다를경우
