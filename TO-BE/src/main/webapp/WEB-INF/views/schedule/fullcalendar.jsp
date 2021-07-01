@@ -215,7 +215,7 @@
 									$(".page-link").click(function(){
 										$("#calendar").css("display","none");
 										$("#box").css("display","block");
-									})
+									}) 
 								});
 							</script>
 				        	<div class="panel-body">

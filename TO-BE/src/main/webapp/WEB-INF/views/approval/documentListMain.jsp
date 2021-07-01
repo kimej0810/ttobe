@@ -73,7 +73,7 @@
 			}
 			#count{
 				text-align:center;
-				font-size:20px;
+				font-size:20px; 
 			}
 		</style>
 	</head>

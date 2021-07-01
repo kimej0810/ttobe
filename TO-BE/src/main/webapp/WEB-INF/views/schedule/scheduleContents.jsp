@@ -15,7 +15,7 @@
 	}
 %>
 <!DOCTYPE html>
-<html>
+<html> 
 	<head>
 		<meta charset="UTF-8">
 		<title>일정 상세</title>
