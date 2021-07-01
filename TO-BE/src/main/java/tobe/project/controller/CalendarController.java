@@ -29,30 +29,30 @@ public class CalendarController {
 	@Inject
 	private ScheduleService service;
  
-	//罹섎┛�뜑
+	//筌��꼶�뵛占쎈쐭
 	@RequestMapping(value = "/fullcalendar")
 	public String list(Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception {
 		logger.info("fullcalendar");
-		 //寃뚯떆�뙋 �럹�씠吏뺤쿂由� start
+		 //野껊슣�뻻占쎈솇 占쎈읂占쎌뵠筌욌벡荑귞뵳占� start
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(service.countSchedule(scri));
-		
+		 
 		model.addAttribute("viewAll",service.selectSchedule(scri));	
 		model.addAttribute("paging",pageMaker);
-		//寃뚯떆�뙋�럹�씠吏뺤쿂由� end
+		//野껊슣�뻻占쎈솇占쎈읂占쎌뵠筌욌벡荑귞뵳占� end
 		List<ScheduleVO> schedule = service.showSchedule();
 		model.addAttribute("scri",scri);
 		model.addAttribute("schedule",schedule);
 		return "/schedule/fullcalendar";
 	}
 	
-	// �씪�젙異붽� �뙘�뾽
+	// 占쎌뵬占쎌젟�빊遺쏙옙 占쎈솚占쎈씜
 	@RequestMapping(value = "/schedulePopup")
 	public String schedulePopup() throws Exception {
 		return "/schedule/schedulePopup";
 	}
-	//�씪�젙 異붽� ajax �샇異�
+	//占쎌뵬占쎌젟 �빊遺쏙옙 ajax 占쎌깈�빊占�
 	@ResponseBody
 	@RequestMapping(value = "/addSchedule", method = RequestMethod.POST) 
 	public Map<Object,Object> addSchedule(@RequestBody ScheduleVO vo) throws Exception{
@@ -61,7 +61,7 @@ public class CalendarController {
 		 return map; 
 	}
 	 
-	//�씪�젙 �쟾泥� 
+	//占쎌뵬占쎌젟 占쎌읈筌ｏ옙 
 	@ResponseBody
 	@RequestMapping(value = "/showSchedule")
 	public List<ScheduleVO> show() throws Exception {
@@ -69,7 +69,7 @@ public class CalendarController {
 		return list;
 	}
 	
-	//�씪�젙 �긽�꽭
+	//占쎌뵬占쎌젟 占쎄맒占쎄쉭
 	@RequestMapping(value = "/scheduleContents")
 	public ScheduleVO Contents(Model model, int sidx, int tidx) throws Exception {
 		System.out.println(sidx);
@@ -83,7 +83,7 @@ public class CalendarController {
 		return vo;
 	}
 	
-	//�씪�젙 �닔�젙
+	//占쎌뵬占쎌젟 占쎈땾占쎌젟
 	@RequestMapping(value = "/scheduleModify")
 	public ScheduleVO modifyPopup(Model model,int sidx, int tidx) throws Exception{
 		ScheduleVO vo = service.contentsSchedule(sidx);
@@ -93,7 +93,7 @@ public class CalendarController {
 		return vo;
 	}
 	
-	//�씪�젙 �닔�젙 ajax �샇異�
+	//占쎌뵬占쎌젟 占쎈땾占쎌젟 ajax 占쎌깈�빊占�
 	@ResponseBody
 	@RequestMapping(value = "/updateSchedule") 
 	public Map<Object,Object> updateSchedule(@RequestBody ScheduleVO vo) throws Exception{ 
@@ -102,7 +102,7 @@ public class CalendarController {
 		return map;
 	 }
 	
-	//�씪�젙 �궘�젣
+	//占쎌뵬占쎌젟 占쎄텣占쎌젫
 	@RequestMapping(value = "/scheduleDelete")
 	public String deleteSchedule(int sidx) throws Exception{ 
 		service.deleteSchedule(sidx);

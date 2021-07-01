@@ -9,7 +9,7 @@
 	<body>
 		<form name="frm" id="frm" method="post">
 			<table>
-				<tr>
+				<tr> 
 					<th>팀장</th>
 					<th>부장</th>
 					<th>과장</th>

@@ -78,7 +78,6 @@
 		</style>
 	</head>
 	<body>
-		
 		<div id="approvalContent">
 			<form name="frm" id="frm" method="post">
 				<div id="category">

@@ -66,7 +66,7 @@
 						</td>
 						<td class="style44 style46" colspan="3">전 결 규 정</td>
 						<td class="style44 style63" colspan="8">
-							<input type="text" id="e_rule" name="e_rule" autocomplete="off">
+					 		<input type="text" id="e_rule" name="e_rule" autocomplete="off">
 						</td>
 					</tr> 
 					<tr class="row6">

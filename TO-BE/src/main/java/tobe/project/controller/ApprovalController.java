@@ -64,7 +64,7 @@ public class ApprovalController {
 		
 		logger.info("Welcome home! addDocumentWite", locale);
 		return "/approval/documentWite";
-	}
+	} 
 	
 	//疫꿸퀣釉욑옙苑� 占쎌삂占쎄쉐 ajax占쎌깈�빊占�
 	@ResponseBody

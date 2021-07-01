@@ -190,7 +190,7 @@
 					        	<div id="searchbox" class="input-group mb-3">
 									<select name="searchType"  class="form-control" id="searchType" style="height:30px; font-size:0.5rem;">
 										<option value="전체"<c:out value="${scri.searchType == null ? 'selected' : '' }"/>>-----</option>
-										<option value="유형"<c:out value="${scri.searchType eq '유형' ? 'selected' : '' }"/>>유형</option>
+						 				<option value="유형"<c:out value="${scri.searchType eq '유형' ? 'selected' : '' }"/>>유형</option>
 										<option value="제목"<c:out value="${scri.searchType eq '제목' ? 'selected' : '' }"/>>제목</option>
 										<option value="내용"<c:out value="${scri.searchType eq '내용' ? 'selected' : '' }"/>>내용</option>
 										<option value="제목+내용"<c:out value="${scri.searchType eq '제목+내용' ? 'selected' : '' }"/>>제목+내용</option>

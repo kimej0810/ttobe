@@ -110,5 +110,5 @@
 			<if test="searchType == '문서번호'.toString()">AND E_DOCUMENTNUM LIKE '%' || #{keyword} || '%'</if>
 			<if test="searchType == '기안제목'.toString()">AND E_TEXTTITLE LIKE '%' || #{keyword} || '%'</if>
 		</if>
-	</sql>
+	</sql> 
  </mapper>
