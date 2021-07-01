@@ -69,14 +69,14 @@
 						<p class="menu-name">일정관리</p>
 					</li>
 					<li class="sidebar-menu-item"
-						onclick="location.href='/commute/commute?=tidx<%=userId%>'">
+						onclick="location.href='/commute/commute?t_id=<%=userId%>'">
 						<p class="menu-name">근태관리</p>
 					</li>
 					<li class="sidebar-menu-item" onclick="location.href='/board/list'">
 						<p class="menu-name">게시판</p>
 					</li>
 					<li class="sidebar-menu-item"
-						onclick="location.href='/approval/documentListMain'">
+						onclick="location.href='approval/documentListMain'">
 						<p class="menu-name">전자결재</p>
 					</li>
 					<li class="sidebar-menu-item" onclick="location.href='/data/list'">
