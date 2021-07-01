@@ -22,10 +22,10 @@ import tobe.project.dto.MemberVO;
 public class FileUtils {
 	//�뙆�씪 ���옣�맆 寃쎈줈
 	//private static final String filePath = "D:\\kio\\tobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\";
-	//private static final String filePath = "C:\\Users\\bakug\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\file\\"; // �뙆�씪�씠 ���옣�맆 �쐞移� �닔吏�
+	private static final String filePath = "C:\\Users\\bakug\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\"; // �뙆�씪�씠 ���옣�맆 �쐞移� �닔吏�
 	//private static final String filePath = "D:\\kio\\tobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\";
 	//private static final String filePath = "C:\\api_dev\\to-be3\\TO-BE\\src\\main\\webapp\\resources\\static\\file\\"; // �뙆�씪�씠 ���옣�맆 �쐞移� �닔吏�
-	private static final String filePath = "E:\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\";
+	//private static final String filePath = "E:\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\";
 	
 	
 	public List<Map<String, Object>> parseInsertFileInfoProfile(MemberVO memberVO, MultipartHttpServletRequest mpRequest) throws IllegalStateException, IOException{
