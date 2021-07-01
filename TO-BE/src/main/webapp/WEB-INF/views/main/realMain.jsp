@@ -116,7 +116,7 @@
 				<c:forEach items="${boardList}" var="board">
 					<tr>
 						<td>${board.bidx}</td>
-						<td>${board.b_title}</td>
+						<td><a href="view?bidx=${board.bidx}&page=&perPageNum=&searchType=&keyword=" style="text-decoration : none; color:black;">${board.b_title}</a></td>
 						<td>${board.memberVO.t_name}</td>
 						<td>
 							<fmt:parseDate var="writedate" value="${board.b_writedate}" pattern="yyyy-MM-dd"/>
