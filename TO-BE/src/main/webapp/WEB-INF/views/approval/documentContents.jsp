@@ -13,7 +13,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8"> 
+		<meta charset="UTF-8">
 		<title>결제문서 상세보기</title>
 		<script src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 		

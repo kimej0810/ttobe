@@ -11,7 +11,7 @@
 			<table>
 				<tr>
 					<th>팀장</th>
-					<th>부장</th> 
+					<th>부장</th>
 					<th>과장</th>
 					<th>대표</th>
 				</tr>

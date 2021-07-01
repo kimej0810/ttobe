@@ -42,7 +42,7 @@ public class ApprovalController {
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(service.totalCountApprovalDocument(scri));
-		 
+		
 		model.addAttribute("paging",pageMaker);
 		model.addAttribute("elist", service.selectAllApprovalDocumentList(scri));
 		
