@@ -93,10 +93,11 @@
 			<nav class="navbar">
 				<div class="navbar-wrapper">
 					<img src="/resources/static/img/toggle.png"
-						class="navbar-toggle sidebar-collapse"> <img
+						class="navbar-toggle sidebar-collapse"> 
+					<img
 						src="/resources/static/img/realLogo.png"
 						onclick="location.href='/main/mainPage'"
-						style="width: 70px; grid-column: 2/3; text-align: center; margin: auto; cursor: pointer;">
+						style="width: 90px; grid-column: 2/3; text-align: center; margin: auto; cursor: pointer;">
 					<div>
 						<img src="/resources/static/img/profile2.jpg" type="button"
 							id="profile"

@@ -107,10 +107,9 @@
 		ROW_NUMBER() OVER(ORDER BY BOARD.B_TYPE DESC, BIDX DESC) AS RNUM
 		FROM BOARD,
 		TOBE_MEMBER
-		WHERE 1=1 AND BOARD.B_TYPE='N' AND BOARD.DELYN='N' AND BOARD.TIDX =
-		TOBE_MEMBER.TIDX
+		WHERE 1=1 AND BOARD.DELYN='N' AND BOARD.TIDX = TOBE_MEMBER.TIDX
 		)
-		WHERE RNUM &lt;= 5
+		WHERE RNUM &lt;= 10
 		ORDER BY B_TYPE DESC, BIDX DESC
 	</select>
 
@@ -146,7 +145,7 @@
 		sysdate,
 		0,
 		'N',
-		1
+		#{tidx}
 		)
 	</insert>
 	<insert id="insertFile" parameterType="hashMap">

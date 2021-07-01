@@ -15,5 +15,6 @@
             <typeAlias type="tobe.project.dto.ScheduleVO" alias="scheduleVO"/>
             <typeAlias type="tobe.project.dto.ApprovalVO" alias="ApprovalVO"/>
             <typeAlias type="tobe.project.dto.CommuteVO" alias="commuteVO"/>
+            <typeAlias type="tobe.project.dto.LeaveVO" alias="leaveVO"/>
         </typeAliases>
     </configuration>
