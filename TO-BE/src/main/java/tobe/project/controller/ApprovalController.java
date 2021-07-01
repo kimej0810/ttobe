@@ -34,7 +34,7 @@ public class ApprovalController {
 	@Inject
 	private ApprovalService service;
 	
-	//�쟾�옄寃곗옱 硫붿씤
+	//占쎌읈占쎌쁽野껉퀣�삺 筌롫뗄�뵥
 	@RequestMapping(value = "/documentListMain")
 	public String documentMain(Model model, @ModelAttribute("scri")SearchCriteria scri, String searchType) throws Exception{
 		System.out.println("ApprovalController");
@@ -58,14 +58,15 @@ public class ApprovalController {
 		
 		return "/approval/documentApprovalLine";
 	}
-	//湲곗븞�꽌 �옉�꽦�럹�씠吏�
+	//疫꿸퀣釉욑옙苑� 占쎌삂占쎄쉐占쎈읂占쎌뵠筌욑옙
 	@RequestMapping(value = "/documentWite")
 	public String documentWite(Locale locale) throws Exception {
+		
 		logger.info("Welcome home! addDocumentWite", locale);
 		return "/approval/documentWite";
 	}
 	
-	//湲곗븞�꽌 �옉�꽦 ajax�샇異�
+	//疫꿸퀣釉욑옙苑� 占쎌삂占쎄쉐 ajax占쎌깈�빊占�
 	@ResponseBody
 	@RequestMapping(value = "/addDocumentWite", method = RequestMethod.POST)
 	public Map<Object,Object> addDocumentWite(@RequestBody ApprovalVO vo,Locale locale) throws Exception {
@@ -76,7 +77,7 @@ public class ApprovalController {
 				
 	}
 	
-	//寃곗옱臾몄꽌 �긽�꽭蹂닿린
+	//野껉퀣�삺�눧紐꾧퐣 占쎄맒占쎄쉭癰귣떯由�
 	@RequestMapping(value = "/documentContents")
 	public ApprovalVO documentContents(Model model,int e_documentNum, int tidx) throws Exception{
 		ApprovalVO vo = service.selectOneApprovalDocumentContents(e_documentNum);
@@ -85,19 +86,19 @@ public class ApprovalController {
 		model.addAttribute("contents",vo);
 		return vo;
 	}
-	//寃곗옱臾몄꽌 �닔�젣
+	//野껉퀣�삺�눧紐꾧퐣 占쎈땾占쎌젫
 	@RequestMapping(value = "/documentModify")
 	public ApprovalVO documentModify(Model model,int e_documentNum,int tidx) throws Exception{
 		ApprovalVO vo = service.selectOneApprovalDocumentContents(e_documentNum);
 		MemberVO mo = service.selectOneMember(tidx);
-		System.out.println("臾몄꽌踰덊샇"+e_documentNum);
+		System.out.println("�눧紐꾧퐣甕곕뜇�깈"+e_documentNum);
 		System.out.println("member"+mo);
 		model.addAttribute("mo",mo);
 		model.addAttribute("contents",vo);
 		return vo;
 	}
 	
-	//寃곗옱臾몄꽌 �닔�젙 ajax
+	//野껉퀣�삺�눧紐꾧퐣 占쎈땾占쎌젟 ajax
 	@ResponseBody
 	@RequestMapping(value = "/ModifyDocumentWite", method = RequestMethod.POST)
 	public Map<Object,Object> modifyApprovalDocument(@RequestBody ApprovalVO vo) throws Exception {
@@ -106,7 +107,7 @@ public class ApprovalController {
 		return map;
 				
 	}
-	//寃곗옱臾몄꽌 �궘�젣
+	//野껉퀣�삺�눧紐꾧퐣 占쎄텣占쎌젫
 	@RequestMapping(value = "/documentDelete")
 	public String documentDelete(int eidx) throws Exception{
 		service.deleteApprovalDocument(eidx);

@@ -65,6 +65,11 @@
  		from tobe_member
  		where tidx = #{tidx}
     </select>
+    <select id = "">
+    	select *
+ 		from tobe_member
+ 		where T_POSITION = #{t_id}
+    </select>
     <!-- 각각 게시글 개수 -->
     <select id="totalCountWaiting" parameterType="ApprovalVO" resultType="int">
     	select count(eidx) from ELECTRONIC_APPROVAL

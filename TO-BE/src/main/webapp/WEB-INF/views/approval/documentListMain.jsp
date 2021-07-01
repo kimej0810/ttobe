@@ -10,7 +10,7 @@
 	List<ApprovalVO> elist = (List<ApprovalVO>)request.getAttribute("elist"); 
 	PageMaker paging = (PageMaker)request.getAttribute("paging");
 	
-	if(session.getAttribute("userTidx") != null){
+	if(session.getAttribute("userTidx") == null){
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
 	}
 %>
@@ -62,12 +62,14 @@
 				grid-column:2/3;
 			}
 			#approvalContent{
-			 max-width: 1522px;
+			 max-width: 100%;
+			 width:100%;
 			 margin:0px auto;
 			}
 			#documentTable{
-				height: 400px;
-				text-align: center;
+				 height: 625px;
+			    text-align: center;
+			    max-height: 625px;
 			}
 			#count{
 				text-align:center;
@@ -192,6 +194,7 @@
 					<div id="writeBtnBox">
 						<button type="button" id="writeBtn" class="btn btn-primary btn-sm float-right" onclick="documentWite()">기안 작성</button>
 					</div>
+					</div>
 					<div id="paging">
 						<nav aria-label="Page navigation example" id="paging">
 							<ul class="pagination">
@@ -219,7 +222,6 @@
 							</ul>
 			 			</nav>
 					</div>
-				</div>
 			</form>
 		</div>
 	</body>

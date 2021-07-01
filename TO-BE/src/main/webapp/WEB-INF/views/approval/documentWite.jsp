@@ -68,7 +68,7 @@
 						<td class="style44 style63" colspan="8">
 							<input type="text" id="e_rule" name="e_rule" autocomplete="off">
 						</td>
-					</tr>
+					</tr> 
 					<tr class="row6">
 						<td></td>
 						<td class="style2">기 안 일 자</td>

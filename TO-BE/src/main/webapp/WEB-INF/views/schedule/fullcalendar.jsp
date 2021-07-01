@@ -12,10 +12,8 @@
 	PageMaker paging = (PageMaker)request.getAttribute("paging");
 	List<ScheduleVO> view = (List<ScheduleVO>)request.getAttribute("viewAll"); 
 	
-	if(userTidx != null){
+	if(userTidx == null){
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
-	}else{
-		
 	}
 %>
 <!DOCTYPE html>
@@ -31,7 +29,8 @@
 				var calendarEl = document.getElementById('calendar');
 			
 			    var calendar = new FullCalendar.Calendar(calendarEl, {
-			    	contentHeight: 760,
+			    	contentHeight: 700,
+			    	contentWidth:2000,
 					customButtons: {
 						myCustomButton: {
 							text: '일정 추가',
@@ -122,9 +121,10 @@
 				overflow: hidden;
 			}
 			#calendar {
-				max-width: 1500px;   
+				max-width: 100%;   
 				max-height: 100%;
-				margin: 0 auto;
+				margin: 0px auto;
+				width: 100%;
 			}
 			#board{
 				text-align:center;
@@ -155,7 +155,7 @@
 			.row{
 				margin:0px auto;
 				height: 134%;
-				max-width: 1522px;
+				max-width: 100%;
 				flex-wrap: inherit;
 				background-color:white;
 			}
@@ -164,6 +164,13 @@
 			}
 			.fc-scrollgrid-sync-table{
 				height: 587px;
+			}
+			#calendarButton{
+				margin-left: 9%;
+   				width: 120px;
+			}
+			#scheduleBtn{
+				text-align: right;
 			}
 		</style>
 	</head>
@@ -198,11 +205,17 @@
 								 $(function(){
 									$('#calendarButton').click(function(){
 										$("#box").css("display","none");
-										$("#calendar").css("display","block");
+										$("#calendar").css("display","flex");
 									});
 									$('#searchBtn').click(function() {
-										self.location = "fullcalendar" + '${paging.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keyword').val())+ "#box";
+										$("#calendar").css("display","none");
+										$("#box").css("display","block");
+										self.location = "fullcalendar" + '${paging.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keyword').val());
 									});
+									$(".page-link").click(function(){
+										$("#calendar").css("display","none");
+										$("#box").css("display","block");
+									})
 								});
 							</script>
 				        	<div class="panel-body">
@@ -266,6 +279,9 @@
 										</c:forEach>
 									</tbody>
 								</table>
+								<div id="scheduleBtn">
+									<button type="button" class="btn btn-primary btn-sm float-right"> 일정 추가</button>
+								</div>
 							</div>					
 						</form>
 					</section>
