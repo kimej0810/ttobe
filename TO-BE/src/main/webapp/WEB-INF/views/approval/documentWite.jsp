@@ -7,7 +7,7 @@
 	Object userTidx = session.getAttribute("userTidx");
 	
 	if(userName == null && userDep == null && userTidx == null){
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');window.close();</script>");
 	}
 %>
 <!DOCTYPE html>
@@ -89,19 +89,29 @@
 							<input type="text" id="e_startDay" name="e_startDay" class="date" autocomplete="off">
 						</td>
 						<td class="style38  style43" colspan="2" rowspan="2">
-							<input type="text" id="charge">
+							<input type="text" id="charge" value="<%=userName%>">
 						</td>
 						<td class="style38 style43" colspan="2" rowspan="2">
-							<input type="text" id="teamLeader">
+							<select id="teamLeader">
+								<option value="얌">얌</option>
+							</select>
 						</td>
 						<td class="style38 style43" colspan="3" rowspan="2">
-							<input type="text" id="departmentHead">
+							<select id="departmentHead">
+								<option value="못찾네">못찾네</option>
+								<option value="코딩단">코딩단</option>
+							</select>
 						</td>
 						<td class="style38 style43" colspan="2" rowspan="2">
-							<input type="text" id="sectionHead">
+							<select id="sectionHead">
+								<option value="김선호">김선호</option>
+								<option value="홍홍홍">홍홍홍</option>
+							</select>
 						</td>
 						<td class="style58 style59" rowspan="2">
-							<input type="text" id="leader">
+							<select id="leader">
+								<option value="제이슨">제이슨</option>
+							</select>
 						</td>
 					</tr>
 					<tr class="row8">
