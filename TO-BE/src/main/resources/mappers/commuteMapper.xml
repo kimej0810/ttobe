@@ -41,10 +41,38 @@ PUBLIC "-//mybatis/org//DTD Config 3.0//EN"
 	
 	<!-- 연차 목록 -->
 	<resultMap type="leaveVO" id="selectAllLeaveVO">
-	
+		<id column="AIDX" property="aidx"/>
+		<result column="A_TYPE" property="a_type"/>
+		<result column="A_STARTDATE" property="a_startdate"/>
+		<result column="A_ENDDATE" property="a_enddate"/>
+		<result column="A_STATUS" property="a_status"/>
+		<result column="A_CONTENT" property="a_content"/>
+		<result column="A_USEDDAYS" property="a_useddays"/>
+		<result column="TIDX" property="tidx"/>
+		<association property="memberVO" resultMap="memberResultMap"/>
 	</resultMap>
+	<resultMap type="memberVO" id="memberResultMap">
+		<id column="TIDX" property="tidx"/>
+		<result column="T_LEAVE_GET" property="t_leave_get"/>
+		<result column="T_DEPARTMENT" property="t_department"/>
+		<result column="T_ID" property="t_id"/>
+		<result column="T_NAME" property="t_name"/>
+	</resultMap>
+	<select id="selectAllLeave" resultMap="selectAllLeaveVO">
+	SELECT * FROM (
+		SELECT ANNUAL_LEAVE.AIDX,
+		ANNUAL_LEAVE.A_TYPE,
+		ANNUAL_LEAVE.A_STARTDATE,
+		ANNUAL_LEAVE.A_ENDDATE,
+		ANNUAL_LEAVE.A_STATUS,
+		ANNUAL_LEAVE.A_CONTENT,
+		ANNUAL_LEAVE.A_USEDDAYS,
+		ANNUAL_LEAVE.TIDX,
+		TOBE_MEMBER.T_LEAVE_GET,
+		TOBE_MEMBER.T_DEPARTMENT,
+		TOBE_MEMBER.T_ID,
+		TOBE_MEMBER.T_NAME
+		FROM ANNUAL_LEAVE, TOBE_MEMBER WHERE TOBE_MEMBER.TIDX = #{tidx}) ORDER BY AIDX DESC
+	</select> 
 	
-	<select id="selectAllLeave" resultType="selectAllLeaveVO">
-		select * from () from ANNUAL_LEAVE, TOBE_MEMBER
-	</select>
 </mapper>	

@@ -118,7 +118,7 @@ public class CommuteController {
 		logger.info(">>>>leaveManagementList");
 		
 		List<LeaveVO> list = service.selectAllLeave(vo.getTidx());
-		
+		model.addAttribute("list",list);
 		return "/leave/leaveManagement";
 	}
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,15 +35,16 @@
 			</tr>
 		</thead>
 		<tbody>
+			<c:forEach items=""></c:forEach>
 			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td>${list.a_status}</td>
+				<td>${list.memberVO.t_department}</td>
+				<td>${list.memberVO.t_id}</td>
+				<td>${list.memberVO.t_name}</td>
+				<td>${list.a_type}</td>
+				<td>${list.a_usedays}</td>
+				<td>${list.a_startdate}</td>
+				<td>${list.a_enddate}</td>
 			</tr>
 		</tbody>
 	</table>
