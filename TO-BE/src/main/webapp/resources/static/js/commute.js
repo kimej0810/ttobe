@@ -56,7 +56,7 @@ $(document).ready(function(){
 		var c_time = "";
 		var endBtn = $("#c_list").children("tr").children("td").children("#cidx").first().val();
 		var startTime = $("#starttime").text();
-		alert(startTime);
+		//alert(startTime);
 		var btime = startTime.split(":");
 		var endtime = eval((hours*60)+minutes);
 		var bbtime = eval(btime[0]*60);
@@ -87,7 +87,8 @@ $(document).ready(function(){
 			    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			},
 			success:function(list){
-				selectAllCommute(list);		
+				selectAllCommute(list);
+				
 			}
 		});
 	});

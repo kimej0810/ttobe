@@ -6,6 +6,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	.content{
+		display:block;
+	}
+	.btnwrap{
+		text-align: center;
+		margin: 10px;
+	}
+	table{
+		margin-top: 70px;
+		border-spacing: 10px;
+		border-collapse: separate;
+	}
+</style>
 <script type="text/javascript">
 	function modifyPwd(){
 	
@@ -34,22 +48,24 @@
 </script>
 </head>
 <body>
-<button type="button"><a href="/member/mypage?tidx=${member.tidx}">사원정보변경</button>
-<button type="button"><a href="/member/modifyPwd?t_id=${member.t_id}">비밀번호번경</a></button>
+<button type="button" class="btn btn-outline-secondary" onclick="location.href='/member/mypage?tidx=${member.tidx}'">사원정보변경</button>
+<button type="button" class="btn btn-outline-secondary" onclick="location.href='/member/modifyPwd?t_id=${member.t_id}'">비밀번호변경</button>
 <form name="frm">
-	<table>
+	<table align="center">
 		<tr>
 			<td>새 비밀번호</td>
 			<td><input type="password" name="t_pwd" id="t_pwd" placeholder="새 비밀번호 입력"></td>
 		</tr>
 		<tr>
-			<td>새 비밀번호 확인</td>	
+			<td>새 비밀번호 확인</td>
 			<td><input type="password" id="newPwd" placeholder="새 비밀번호 입력 확인"></td>
 		</tr>
 	</table>
-	<button type="button" onclick="modifyPwd();">수정</button>
-	<button type="button" onclick="history.go(-2);">취소</button>
-	<input type="hidden" name="t_id" value="${member.t_id}"/>
+	<div class="btnwrap">
+		<button type="button" onclick="modifyPwd();" class="btn btn-outline-primary btn-sm">수정</button>
+		<button type="button" onclick="history.go(-2);" class="btn btn-outline-danger btn-sm">취소</button>
+		<input type="hidden" name="t_id" value="${member.t_id}"/>
+	</div>
 </form>
 
 					

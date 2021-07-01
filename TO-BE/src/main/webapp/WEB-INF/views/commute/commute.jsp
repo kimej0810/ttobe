@@ -10,6 +10,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	table{
+		text-align: center;
+	}
+</style>
 <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/resources/static/js/commute.js"></script>
 <script>
@@ -228,7 +233,6 @@ $(document).ready(function(){
 </head>
 	<div>
 		<span><a href="?tidx=3">근태현황</a></span>
-		<span><a href="">연차일정</a></span>
 		<span><a href="">연차관리</a></span>
 	</div>
 	<div style="text-align:center;">
