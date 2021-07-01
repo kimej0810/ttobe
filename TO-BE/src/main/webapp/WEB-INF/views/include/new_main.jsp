@@ -50,17 +50,14 @@
 </style>
 </head>
 <body>
-	<!--<%
-	
-	String userTidx="";
-	String userId="";
-	String userName="";
-	if (session.getAttribute("userTidx") != null) {
-		userTidx = (String) session.getAttribute("userTidx");
-		userId = (String) session.getAttribute("userId");
-		userName = (String) session.getAttribute("userName");
+	<%
+	Integer userTidx = (Integer) session.getAttribute("userTidx");
+	String userId = (String) session.getAttribute("userId");
+	String userName = (String) session.getAttribute("userName");
+	if (session.getAttribute("userTidx") == null) {
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
 	}
-	%>-->
+	%>
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar">
 			<div class="sidebar-content-wrappper">
