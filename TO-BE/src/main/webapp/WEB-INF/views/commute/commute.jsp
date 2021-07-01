@@ -232,8 +232,8 @@ $(document).ready(function(){
 </script>
 </head>
 	<div>
-		<span><a href="?tidx=3">근태현황</a></span>
-		<span><a href="">연차관리</a></span>
+		<button type="button" class="btn btn-outline-secondary" onclick="location.href='/commute/commute?tidx=${member.tidx}'">근태현황</button>
+		<button type="button" class="btn btn-outline-secondary" onclick="location.href='/leave/leaveManagement'">연차관리</button>
 	</div>
 	<div style="text-align:center;">
 	<button type="button" id="prevMonth">&lt;</button><span id="test1"></span><button type="button" id="nextMonth">&gt;</button>

@@ -4,16 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>연차관리 페이지</title>
 </head>
 <body>
 	<div>
-		<span><a href="">근태현황</a></span>
-		<span><a href="">연차일정</a></span>
-		<span><a href="">연차관리</a></span>
-	</div>
-	<div>
-		<input type="button" value="연차등록" onclick="regLeave();">
+	<button type="button" class="btn btn-outline-secondary" onclick="location.href='/'">근태현황</button>
+	<button type="button" class="btn btn-outline-secondary" onclick="location.href='/'">연차관리</button>
 	</div>
 	<div>기간</div>
 	<div>
@@ -24,7 +20,7 @@
 		<span>잔여 연차</span>
 		<span>$</span>
 	</div>
-	<table border="1">
+	<table class="table" border="1">
 		<thead>
 			<tr>
 				<th>상태</th>
@@ -38,7 +34,20 @@
 			</tr>
 		</thead>
 		<tbody>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
 		</tbody>
 	</table>
+	<div>
+		<input type="button" value="연차등록" onclick="regLeave();">
+	</div>
 </body>
 </html>

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import tobe.project.dto.CommuteVO;
+import tobe.project.dto.LeaveVO;
 
 public interface CommuteDAO {
 	
@@ -18,5 +19,9 @@ public interface CommuteDAO {
 	
 	//근태목록 조회테스트
 	public List<CommuteVO> selectAllCommute2(Map<String, Object> map) throws Exception;
+	
+	
+	//연차 목록
+	public List<LeaveVO> selectAllLeave(int tidx) throws Exception;
 	
 }

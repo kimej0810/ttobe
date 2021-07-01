@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import tobe.project.dto.CommuteVO;
+import tobe.project.dto.LeaveVO;
 
 @Repository
 public class CommuteDAOImpl implements CommuteDAO{
@@ -37,9 +38,15 @@ public class CommuteDAOImpl implements CommuteDAO{
 	}
 	
 	//근태목록 조회테스트
-		@Override
-		public List<CommuteVO> selectAllCommute2(Map<String, Object> map) throws Exception {
-			return sqlSession.selectList(Namespace+".selectAllCommute2", map);
-		}
+	@Override
+	public List<CommuteVO> selectAllCommute2(Map<String, Object> map) throws Exception {
+		return sqlSession.selectList(Namespace+".selectAllCommute2", map);
+	}
+	
+	//연차 목록
+	@Override
+	public List<LeaveVO> selectAllLeave(int tidx) throws Exception {
+		return sqlSession.selectList(Namespace+".selectAllLeave", tidx);
+	}
 	
 }

@@ -77,7 +77,7 @@ $(document).ready(function(){
 			    c_worktime: result
 			}
 		
-		alert(endBtn);
+		//alert(endBtn);
 		$.ajax({
 			//type: 
 			url:"/commute/endCommute",

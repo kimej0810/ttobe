@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import tobe.project.dto.CommuteVO;
+import tobe.project.dto.LeaveVO;
 
 public interface CommuteService {
 	
@@ -18,4 +19,7 @@ public interface CommuteService {
 	
 	//근태목록 조회 테스트
 	public List<CommuteVO> selectAllCommute2(Map<String, Object> map) throws Exception;
+	
+	//연차 조회
+	public List<LeaveVO> selectAllLeave(int tidx) throws Exception;
 }

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import tobe.project.dto.CommuteVO;
+import tobe.project.dto.LeaveVO;
 import tobe.project.dto.MemberVO;
 import tobe.project.service.CommuteService;
 import tobe.project.service.MemberService;
@@ -111,21 +112,15 @@ public class CommuteController {
 		return list;
 	}
 	
-	
-	//연차일정 페이지
-		@RequestMapping(value="/leaveCalendar")
-		public String leaveCalendar(Locale locale, Model model) {
-			logger.info("post leaveCalendar");
-			
-			return "leaveCalendar";
-	}
-	
 	//연차관리 페이지
-	@RequestMapping(value="/leaveManagement")
-	public String leaveManagement(Locale locale, Model model) {
-		logger.info("post leaveManagement");
+	@RequestMapping(value="/leave/leaveManagement")
+	public String leaveManagementList(LeaveVO vo, Model model) throws Exception{
+		logger.info(">>>>leaveManagementList");
 		
-		return "leaveManagement";
-	}	
+		List<LeaveVO> list = service.selectAllLeave(vo.getTidx());
+		
+		return "/leave/leaveManagement";
+	}
+
 	
 }

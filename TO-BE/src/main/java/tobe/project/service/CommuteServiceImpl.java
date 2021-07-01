@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import tobe.project.dao.CommuteDAO;
 import tobe.project.dto.CommuteVO;
+import tobe.project.dto.LeaveVO;
 
 @Service
 public class CommuteServiceImpl implements CommuteService{
@@ -39,4 +40,12 @@ public class CommuteServiceImpl implements CommuteService{
 	public List<CommuteVO> selectAllCommute2(Map<String, Object> map) throws Exception {
 		return dao.selectAllCommute2(map);
 	}
+
+	//연차 목록
+	@Override
+	public List<LeaveVO> selectAllLeave(int tidx) throws Exception {
+		return dao.selectAllLeave(tidx);
+	}
+	
+	
 }
