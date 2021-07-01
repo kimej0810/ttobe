@@ -17,7 +17,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -239,5 +241,14 @@ public class AdminController{
 		}
 		return entity;
 	}
-	
+	//ajax test
+	@RequestMapping(value="/test")
+	@ResponseBody
+	public Object testAdmin(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Locale locale, Model model) throws Exception {
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(searchCriteria);
+		pageMaker.setTotalCount(service.totalCountsearchMember(searchCriteria));
+		List<MemberVO> mvo = service.searchMemberList(searchCriteria);
+		return mvo;
+	}
 }

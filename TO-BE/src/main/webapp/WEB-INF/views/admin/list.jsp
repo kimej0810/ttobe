@@ -164,5 +164,36 @@
 		</form>
 	</div>
 </div>
+<select name="searchType" id="xlawkd">
+	<option value="p" <c:out value="${searchCriteria.searchType eq 'p' ? 'selected' : '' }"/>>부장</option>
+</select>
+<button type="button" id="btbtn">큼</button>
+<script>
+	$("#xlawkd").on("click",function(){
+		var searchType = $(this).val();
+		var keyword = $.trim($(this).text());
+		//alert(keyword);
+		$.ajax({
+			url:"/admin/test",
+			data:"searchType="+searchType+"&keyword="+keyword,
+			dataType:"json",
+			success:function(mvo){
+				var timList = "";
+				
+				for(var i = 0 ; i < mvo.length; i++){
+					timList += "<option value='"+mvo[i].t_name+"'>"+mvo[i].t_name+mvo[i].t_department+"</option>";
+					//timList += "<option value='"+list[i].t_name+"'>"+list[i].t_name+"</option>";
+					//alert(mvo[i].t_name);
+					
+				}
+				$("#xlawkd").html(timList);
+				$("#xlawkd").attr("id","xladnjs");
+			}
+		});
+	});
+	$("#btbtn").on("click",function(){
+		alert($("#xladnjs").val());
+	});
+</script>
 </body>
 </html>
