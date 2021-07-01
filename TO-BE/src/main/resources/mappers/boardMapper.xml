@@ -73,9 +73,26 @@
 		</if>
 	</sql>
 
+	
+
+	<!-- 게시글 상세 조회 -->
+	<select id="selectOneBoard" resultMap="selectAllBoardVO">
+		SELECT
+		BOARD.BIDX,
+		BOARD.B_TYPE,
+		BOARD.B_TITLE,
+		BOARD.B_CONTENT,
+		BOARD.B_WRITEDATE,
+		BOARD.B_HIT,
+		BOARD.DELYN,
+		BOARD.TIDX,
+		TOBE_MEMBER.T_NAME
+		FROM BOARD, TOBE_MEMBER
+		WHERE BIDX=#{bidx} AND BOARD.TIDX=TOBE_MEMBER.TIDX
+	</select>
+	
 	<!-- 메인 페이지용 공지사항 -->
-	<select id="selectFiveNotice" resultMap="selectAllBoardVO">
-		<![CDATA[
+	<select id="selectNotice" resultMap="selectAllBoardVO">
 		SELECT *
 		FROM(
 		SELECT BOARD.BIDX,
@@ -93,25 +110,8 @@
 		WHERE 1=1 AND BOARD.B_TYPE='G' AND BOARD.DELYN='N' AND BOARD.TIDX =
 		TOBE_MEMBER.TIDX
 		)
-		WHERE RNUM<=5
+		WHERE RNUM &lt;= 5
 		ORDER BY B_TYPE DESC, BIDX DESC
-		]]>
-	</select>
-
-	<!-- 게시글 상세 조회 -->
-	<select id="selectOneBoard" resultMap="selectAllBoardVO">
-		SELECT
-		BOARD.BIDX,
-		BOARD.B_TYPE,
-		BOARD.B_TITLE,
-		BOARD.B_CONTENT,
-		BOARD.B_WRITEDATE,
-		BOARD.B_HIT,
-		BOARD.DELYN,
-		BOARD.TIDX,
-		TOBE_MEMBER.T_NAME
-		FROM BOARD, TOBE_MEMBER
-		WHERE BIDX=#{bidx} AND BOARD.TIDX=TOBE_MEMBER.TIDX
 	</select>
 
 	<!-- 조회수 업 -->

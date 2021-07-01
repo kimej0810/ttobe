@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
 <%@ include file="/WEB-INF/views/include/new_main.jsp"%>
 <html>
 <head>
@@ -113,41 +113,18 @@
 					<col width="20%">
 					<col width="10%">
 				</colgroup>
-				<tr>
-					<td>1</td>
-					<td>[공지] 공지사항입니다.</td>
-					<td>홍길동</td>
-					<td>2021.05.25</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>[공지] 공지사항입니다.</td>
-					<td>홍길동</td>
-					<td>2021.05.25</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>[공지] 공지사항입니다.</td>
-					<td>홍길동</td>
-					<td>2021.05.25</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>[공지] 공지사항입니다.</td>
-					<td>홍길동</td>
-					<td>2021.05.25</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td>[공지] 공지사항입니다.</td>
-					<td>홍길동</td>
-					<td>2021.05.25</td>
-					<td>0</td>
-				</tr>
+				<c:forEach items="${boardList}" var="board">
+					<tr>
+						<td>${board.bidx}</td>
+						<td>${board.b_title}</td>
+						<td>${board.memberVO.t_name}</td>
+						<td>
+							<fmt:parseDate var="writedate" value="${board.b_writedate}" pattern="yyyy-MM-dd"/>
+							<fmt:formatDate value="${writedate}" pattern="yyyy-MM-dd"/>
+						</td>
+						<td>${board.b_hit}</td>
+					</tr>
+				</c:forEach>
 			</table>
 		</div>
 	</div>
