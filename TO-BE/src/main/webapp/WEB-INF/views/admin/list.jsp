@@ -164,10 +164,10 @@
 		</form>
 	</div>
 </div>
-<select name="searchType" id="xlawkd">
+<%-- <select name="searchType" id="xlawkd">
 	<option value="p" <c:out value="${searchCriteria.searchType eq 'p' ? 'selected' : '' }"/>>부장</option>
 </select>
-<button type="button" id="btbtn">큼</button>
+<button type="button" id="btbtn">큼</button> --%>
 <script>
 	$("#xlawkd").on("click",function(){
 		var searchType = $(this).val();

@@ -22,8 +22,8 @@ import tobe.project.dto.MemberVO;
 public class FileUtils {
 	//�뙆�씪 ���옣�맆 寃쎈줈
 	//private static final String filePath = "D:\\kio\\tobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\";
-	private static final String filePath = "C:\\Users\\bakug\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\"; // �뙆�씪�씠 ���옣�맆 �쐞移� �닔吏�
-	//private static final String filePath = "D:\\kio\\tobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\";
+	//private static final String filePath = "C:\\Users\\bakug\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\"; // �뙆�씪�씠 ���옣�맆 �쐞移� �닔吏�
+	private static final String filePath = "D:\\kio\\tobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\";
 	//private static final String filePath = "C:\\api_dev\\to-be3\\TO-BE\\src\\main\\webapp\\resources\\static\\file\\"; // �뙆�씪�씠 ���옣�맆 �쐞移� �닔吏�
 	//private static final String filePath = "E:\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\";
 	
@@ -37,6 +37,7 @@ public class FileUtils {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		Map<String, Object> listMap = null;
 		int tidx = memberVO.getTidx();
+		System.out.println("파일유틸에서"+tidx);
 		String type = "profile";
 		File file = new File(filePath);
 		System.out.println("FileUtils  file>>>>>>>>>>>>>>"+file);

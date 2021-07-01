@@ -23,6 +23,13 @@
 				$(".btn").prop("checked",false);
 			}
 		});
+		$("#deleteBtn").on("click",function(){
+			var chkArray = new Array();
+			$(".btn:checked").each(function(){
+				chkArray.push(this.value);				
+			});
+			//alert(chkArray);
+		});
 	});
 	function sendFn(){
 		window.open(
@@ -105,7 +112,7 @@
 	<table class="emailtable table table-hover" style="text-align:center;">
 		<thead>
 			<tr>
-				<th scope="col" width="3%"><input type="checkbox" class="btn" id="checkAll"></th>
+				<th scope="col" width="3%"><input type="checkbox" class="btnAll" id="checkAll"></th>
 				<th scope="col" width="5%">번호</th>
 				<th scope="col" width="10%">수신인</th>
 				<th scope="col" width="7%">부서</th>
@@ -153,7 +160,7 @@
 	</nav>
 	<div class="tableBtn">
 		<input type="button" class="saoneBtn btn btn-primary btn-sm float-right" onclick="sendFn()" value="메일 발송">
-		<input type="button" class="saoneBtn btn btn-danger btn-sm float-right" value="삭제">
+		<input type="button" id="deleteBtn" class="saoneBtn btn btn-danger btn-sm float-right" value="삭제">
 	</div>
 </form>
 </body>

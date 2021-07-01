@@ -56,6 +56,7 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public void addMember2(MemberVO memberVO, MultipartHttpServletRequest mpRequest) throws Exception {
 		dao.addMember(memberVO);
+		System.out.println("tidx는뭐야대체!"+memberVO.getTidx());
 		List<Map<String,Object>> list = fileUtils.parseInsertFileInfoProfile(memberVO,mpRequest);
 		int size = list.size();
 		for(int i=0;i<size;i++) {
