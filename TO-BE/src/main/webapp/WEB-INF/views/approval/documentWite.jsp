@@ -59,7 +59,7 @@
 					<tr class="row4">
 					</tr>
 					<tr class="row5">
-						<td></td>
+						<td></td> 
 						<td class="style2">문 서 번 호</td>
 						<td class="style44 style46" colspan="2">
 							21-<input type="text" id="e_documentNum" name="e_documentNum" readonly>
