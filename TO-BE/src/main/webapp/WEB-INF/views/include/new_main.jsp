@@ -54,6 +54,7 @@
 	Integer userTidx = (Integer) session.getAttribute("userTidx");
 	String userId = (String) session.getAttribute("userId");
 	String userName = (String) session.getAttribute("userName");
+	String userGrade = (String) session.getAttribute("userGrade");
 	if (session.getAttribute("userTidx") == null) {
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
 	}
@@ -82,10 +83,24 @@
 					<li class="sidebar-menu-item" onclick="location.href='/data/list'">
 						<p class="menu-name">자료실</p>
 					</li>
-					<li class="sidebar-menu-item"
+					<%
+						if(userGrade.equals("A")){
+					%>
+						<li class="sidebar-menu-item"
+							onclick="location.href='/admin/memberlist'">
+							<p class="menu-name">사원정보</p>
+						</li>
+					<%		
+						}else{
+					%>
+						<li class="sidebar-menu-item"
 						onclick="window.open('/member/list','사원정보','width=900,height=630,location=no,status=no');">
 						<p class="menu-name">사원정보</p>
 					</li>
+					<%		
+						}
+					 %>
+					
 				</ul>
 			</div>
 		</nav>

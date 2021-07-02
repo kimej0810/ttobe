@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ include file="/WEB-INF/views/include/new_main.jsp"%>
+<%@ page import="java.util.*,java.text.SimpleDateFormat" %>
 <html>
 <head>
 <title>진짜메인</title>
@@ -38,33 +39,47 @@
 	grid-row: span 2;
 }
 
-#box5{
-	background: linear-gradient(315deg, #F4BDFF, #BDC2FF, #A3FFD9);
-  animation: bg-hue 10s linear infinite;
+p {
+	margin: 0;
 }
 
-#box6{
-	display:none;
+#speaker {
+	font-size: 1.0rem;
+	text-align: right;
+	margin-right: 20px;
 }
 
-@keyframes bg-hue {
-  100% {
-    filter: hue-rotate(360deg);
-  }
+.quote {
+	max-width: 4%;
+	min-width: 3%;
 }
 
-p{
-margin:0;
+#sayingWrap {
+	margin: auto 0;
 }
 
-#speaker{
-	font-size:0.9rem;
-	text-align:right;
+#box6 {
+	display: none;
+}
+
+@
+keyframes bg-hue { 100% {
+	filter: hue-rotate(360deg);
+}
+
+}
+p {
+	margin: 0;
+}
+
+#speaker {
+	font-size: 0.9rem;
+	text-align: right;
 }
 
 .conTitle {
 	font-size: 1.8rem;
-	font-weight:bold;
+	font-weight: bold;
 	text-align: left;
 	grid-column: 2/3;
 	grid-row: 2/3;
@@ -109,15 +124,15 @@ margin:0;
 	#box5 {
 		grid-row: 5/6;
 	}
-	#box6{
-		display:block;
-		visibility:hidden;
+	#box6 {
+		display: block;
+		visibility: hidden;
 	}
 }
 
 @media ( max-width :520px) {
 	.content {
-		margin:0;
+		margin: 0;
 		height: calc(100vh - 58px);
 		display: grid;
 		grid-column-gap: 0px;
@@ -132,7 +147,7 @@ margin:0;
 		font-size: 0.6rem;
 	}
 	#box5 {
-		padding-bottom:20px;
+		padding-bottom: 20px;
 	}
 }
 </style>
@@ -175,8 +190,27 @@ margin:0;
 		style="width: 100%; height: 100%; font-size: 50px;">
 		<div class="conTitle">달력</div>
 		<div class="conCon">
-			<img src="<c:url value="/resources/static/img/calendar2.png"/>"
-				style="width: 100%;">
+			<table border="1">
+				<tr>
+					<th>일</th>
+					<th>월</th>
+					<th>화</th>
+					<th>수</th>
+					<th>목</th>
+					<th>금</th>
+					<th>토</th>
+				</tr>
+				<tr>
+					<%
+						Calendar cal = Calendar.getInstance();
+						int year = cal.get(Calendar.YEAR);
+						int month = cal.get(Calendar.MONTH);
+						int lastDay = cal.get(Calendar.DATE);
+				
+						
+					%>
+				</tr>
+			</table>
 		</div>
 	</div>
 	<div id="box3" class="inner_content"
@@ -247,21 +281,26 @@ margin:0;
 			</table>
 		</div>
 	</div>
+	<%
+	String author = (String) request.getAttribute("author");
+	String message = (String) request.getAttribute("message");
+	%>
 	<div id="box5" class="inner_content"
 		style="width: 100%; height: 100%; font-size: 50px;">
 		<div class="conTitle">오늘의명언</div>
-		<div class="conCon">
-			<p id="say">
-				올바로 작동하지 않는다고 걱정하지 마라.
-				만일 모든 게 잘 된다면, 굳이 당신이 일할 이유가 없다.
-			<p>
-			<p id="speaker">
-				Mosher’s Law of Software Engineering
-			<p>
+		<div class="conCon" style="display: flex; align-items: center;">
+			<div id="sayingWrap">
+				<img class="quote" style="margin-right: 7px;"
+					src="/resources/static/img/left-quote.png">
+				<%=message%>
+				<img class="quote" style="margin-left: 7px;"
+					src="/resources/static/img/right-quote.png">
+				<p id="speaker" style="text-align: right; margin-top: 15px;">
+					<%=author%>
+				</p>
+			</div>
 		</div>
 	</div>
-	<div id="box6" class="inner_content space">
-	&nbsp;
-	</div>
+	<div id="box6" class="inner_content space">&nbsp;</div>
 </body>
 </html>
