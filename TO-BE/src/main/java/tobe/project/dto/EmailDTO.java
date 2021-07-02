@@ -1,15 +1,16 @@
 package tobe.project.dto;
 
-import java.util.List;
-
-public class EmailVO {
+public class EmailDTO {
 	private int midx;
 	private String m_addressee;
 	private String m_senddate;
 	private String m_title;
 	private String m_content;
 	private String delyn;
-	private MemberVO member;
+	private int tidx;
+	private String t_name;
+	private String t_position;
+	private String t_department;
 	public int getMidx() {
 		return midx;
 	}
@@ -46,10 +47,29 @@ public class EmailVO {
 	public void setDelyn(String delyn) {
 		this.delyn = delyn;
 	}
-	public MemberVO getMember() {
-		return member;
+	public int getTidx() {
+		return tidx;
 	}
-	public void setMember(MemberVO member) {
-		this.member = member;
+	public void setTidx(int tidx) {
+		this.tidx = tidx;
 	}
+	public String getT_name() {
+		return t_name;
+	}
+	public void setT_name(String t_name) {
+		this.t_name = t_name;
+	}
+	public String getT_position() {
+		return t_position;
+	}
+	public void setT_position(String t_position) {
+		this.t_position = t_position;
+	}
+	public String getT_department() {
+		return t_department;
+	}
+	public void setT_department(String t_department) {
+		this.t_department = t_department;
+	}
+
 }

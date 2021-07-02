@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import tobe.project.dao.EmailDAO;
 import tobe.project.domain.SearchCriteria;
+import tobe.project.dto.EmailDTO;
 import tobe.project.dto.EmailVO;
 import tobe.project.util.MailHandler;
 
@@ -23,7 +24,7 @@ public class EmailServiceImpl implements EmailService{
 	private static final String FROM_ADDRESS = "tobe202105@gmail.com";
 	
 	@Override
-	public void sendEmail(EmailVO emailVO) {
+	public void sendEmail(EmailDTO emailVO) {
 		try {
 			MailHandler mailHandler = new MailHandler(mailSender);
 			//받는사람
@@ -46,7 +47,7 @@ public class EmailServiceImpl implements EmailService{
 		}
 	}
 	@Override
-	public int writeEmail(EmailVO emailVO) throws Exception {
+	public int writeEmail(EmailDTO emailVO) throws Exception {
 		return emailDAO.writeEmail(emailVO);
 	}
 	@Override
@@ -54,7 +55,7 @@ public class EmailServiceImpl implements EmailService{
 		return emailDAO.totalCountEmail(keyword);
 	}
 	@Override
-	public List<EmailVO> searchEmailList(SearchCriteria searchCriteria) throws Exception {
+	public List<EmailDTO> searchEmailList(SearchCriteria searchCriteria) throws Exception {
 		return emailDAO.searchEmailList(searchCriteria);
 	}
 	@Override
@@ -62,7 +63,15 @@ public class EmailServiceImpl implements EmailService{
 		return emailDAO.totalCountsearchEmail(searchCriteria);
 	}
 	@Override
-	public EmailVO selectOneEmail(int midx) throws Exception {
-		return emailDAO.selectOneEmail(midx);
+	public EmailDTO selectOneEmail(EmailDTO dto) throws Exception {
+		return emailDAO.selectOneEmail(dto);
+	}
+	@Override
+	public int searchMember(EmailDTO dto) throws Exception {
+		return emailDAO.searchMember(dto);
+	}
+	@Override
+	public int deleteEmail(int eidx) throws Exception {
+		return emailDAO.deleteEmail(eidx);
 	}
 }

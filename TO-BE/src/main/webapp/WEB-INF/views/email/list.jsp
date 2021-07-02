@@ -28,15 +28,36 @@
 			$(".btn:checked").each(function(){
 				chkArray.push(this.value);				
 			});
-			//alert(chkArray);
+			if(confirm('해당 글을 삭제하시겠습니까?')){
+			jQuery.ajaxSettings.traditional = true;
+			$.ajax({
+				url:"/admin/emailDelete",
+				data:{"eidxList" : chkArray},
+				dataType:"json",
+				success:function(data){
+					if(data==0){
+						alert("삭제실패");
+					}else{
+						location.href = "/admin/emaillist";
+					}
+				}
+			});
+			}else{
+				$(".btn").prop("checked",false);
+			}
 		});
 	});
 	function sendFn(){
-		window.open(
-			"/admin/memberList",
-			"memberList",
-			"width=600,height=550,location=no,status=no,toolbar=no,scrollbars=no"
-		);
+		if(confirm('사원리스트를 보시겠습니까?')){
+			window.open(
+				"/admin/memberList",
+				"memberList",
+				"width=600,height=550,location=no,status=no,toolbar=no,scrollbars=no"
+			);	
+		}else{
+			location.href = "/admin/email";
+		}
+		
 	}
 </script>
 <style>
@@ -127,9 +148,9 @@
 			<tr class="saoneGo">
 				<td><input type="checkbox" value="${email.midx}" class="btn"></td>
 				<td>${email.midx}</td>
-				<td>받은사람</td>
-				<td>부서</td>
-				<td>직급</td>
+				<td>${email.t_name }</td>
+				<td>${email.t_department}</td>
+				<td>${email.t_position}</td>
 				<td>${email.m_addressee}</td>
 				<td>
 					<a href="${path}/admin/emailread${pageMaker.makeSearch(pageMaker.cri.page)}&midx=${email.midx}">${email.m_title}</a>

@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import tobe.project.domain.SearchCriteria;
+import tobe.project.dto.EmailDTO;
 import tobe.project.dto.EmailVO;
 
 @Repository
@@ -16,7 +17,7 @@ public class EmailDAOImpl implements EmailDAO{
 	private SqlSession sqlSession;
 	private static final String Namespace = "tobe.project.mapper.emailMapper";
 	@Override
-	public int writeEmail(EmailVO emailVO) throws Exception {
+	public int writeEmail(EmailDTO emailVO) throws Exception {
 		return sqlSession.insert(Namespace+".writeEmail", emailVO);
 	}
 	@Override
@@ -24,7 +25,7 @@ public class EmailDAOImpl implements EmailDAO{
 		return sqlSession.selectOne(Namespace+".totalCountEmail",keyword);
 	}
 	@Override
-	public List<EmailVO> searchEmailList(SearchCriteria searchCriteria) throws Exception {
+	public List<EmailDTO> searchEmailList(SearchCriteria searchCriteria) throws Exception {
 		return sqlSession.selectList(Namespace+".searchEmailList",searchCriteria);
 	}
 	@Override
@@ -32,7 +33,15 @@ public class EmailDAOImpl implements EmailDAO{
 		return sqlSession.selectOne(Namespace+".totalCountsearchEmail",searchCriteria);
 	}
 	@Override
-	public EmailVO selectOneEmail(int midx) throws Exception {
-		return sqlSession.selectOne(Namespace+".selectOneEmail",midx);
+	public EmailDTO selectOneEmail(EmailDTO dto) throws Exception {
+		return sqlSession.selectOne(Namespace+".selectOneEmail",dto);
+	}
+	@Override
+	public int searchMember(EmailDTO dto)throws Exception{
+		return sqlSession.selectOne(Namespace+".searchMember",dto);
+	}
+	@Override
+	public int deleteEmail(int eidx)throws Exception{
+		return sqlSession.update(Namespace+".deleteEmail",eidx);
 	}
 }

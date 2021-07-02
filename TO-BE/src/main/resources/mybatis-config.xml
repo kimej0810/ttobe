@@ -16,6 +16,6 @@
             <typeAlias type="tobe.project.dto.ApprovalVO" alias="ApprovalVO"/>
             <typeAlias type="tobe.project.dto.CommuteVO" alias="commuteVO"/>
             <typeAlias type="tobe.project.dto.LeaveVO" alias="leaveVO"/>
-
+			<typeAlias type="tobe.project.dto.EmailDTO" alias="emailDTO"/>
         </typeAliases>
     </configuration>

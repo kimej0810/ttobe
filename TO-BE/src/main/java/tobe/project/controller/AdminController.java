@@ -17,15 +17,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import tobe.project.domain.PageMaker;
 import tobe.project.domain.SearchCriteria;
-import tobe.project.dto.EmailVO;
+import tobe.project.dto.EmailDTO;
 import tobe.project.dto.FileVO;
 import tobe.project.dto.MemberVO;
 import tobe.project.service.AdminService;
@@ -168,13 +168,18 @@ public class AdminController{
 		return "/email/email";
 	}
 	@RequestMapping(value="/emailAction")
-	public String adminEmailAction(Locale locale, Model model,EmailVO evo) {
+	public String adminEmailAction(Locale locale, Model model,EmailDTO evo) {
 		try {
-			System.out.println("받는사람"+evo.getM_addressee());
-			System.out.println("제목"+evo.getM_title());
-			System.out.println("내용"+evo.getM_content());
-			emailService.sendEmail(evo);
-			emailService.writeEmail(evo);
+			if(evo.getTidx()==0) {
+				int tidx = emailService.searchMember(evo);
+				EmailDTO rto = evo;
+				rto.setTidx(tidx);
+				emailService.sendEmail(rto);
+				emailService.writeEmail(rto);
+			}else {
+				emailService.sendEmail(evo);
+				emailService.writeEmail(evo);
+			}
 			model.addAttribute("message","발송완료");
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -183,8 +188,8 @@ public class AdminController{
 		return "redirect:/admin/emaillist";
 	}
 	@RequestMapping(value="/emailread")
-	public String emailRead(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Locale locale, Model model,int midx) throws Exception {
-		EmailVO evo = emailService.selectOneEmail(midx);
+	public String emailRead(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Locale locale, Model model,EmailDTO dto) throws Exception {
+		EmailDTO evo = emailService.selectOneEmail(dto);
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(searchCriteria);
 		pageMaker.setTotalCount(emailService.totalCountsearchEmail(searchCriteria));
@@ -192,6 +197,19 @@ public class AdminController{
 		model.addAttribute("pageMaker",pageMaker);
 		model.addAttribute("emailRead",evo);
 		return "/email/read";
+	}
+	@RequestMapping(value="/emailDelete")
+	@ResponseBody
+	public int emailDelete(@RequestParam(value="eidxList")String eidxList) throws Exception {
+		String[] eidx = eidxList.split(",");
+		if(eidx.length>0) {
+			for(int i=0;i<eidx.length;i++) {
+				int result = Integer.parseInt(eidx[i]);
+				emailService.deleteEmail(result);
+			}
+			return 1;
+		}
+		return 0;
 	}
 	//test
 	//업로드파일

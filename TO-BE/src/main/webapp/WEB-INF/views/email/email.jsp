@@ -24,9 +24,7 @@
 		if(!uGrade.equals("A")){
 			out.println("<script>alert('접근 권한이 없습니다.');history.back();</script>");
 		}
-	}/* else{
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
-	} */
+	}
 %>
 	<div>
 		<button class="btn btn-outline-secondary" type="button" style="cursor:default;margin-bottom:45px;">메일 발송</button>
@@ -39,7 +37,15 @@
 					if(memberVO!=null){
 			%>
 			<tr>
-				<th>수신자 이메일</th>
+				<th>수신자</th>
+				<td><input type="text" name="m_addressee" class="form-control" value="${member.t_name}" readonly="readonly"></td>
+				<th>직급</th>
+				<td><input type="text" name="m_addressee" class="form-control" value="${member.t_position}" readonly="readonly"></td>
+			</tr>
+			<tr>
+				<th>부서</th>
+				<td><input type="text" name="m_addressee" class="form-control" value="${member.t_department}" readonly="readonly"></td>
+				<th>수신자 이메일<input type="hidden" name="tidx" value="${member.tidx }"></th>
 				<td><input type="text" name="m_addressee" class="form-control" value="${member.t_email}" readonly="readonly"></td>
 			</tr>
 			<%
@@ -47,7 +53,15 @@
 				}else{
 			%>
 			<tr>
-				<th>수신자 이메일</th>
+				<th>수신자</th>
+				<td><input type="text" name="t_name" class="form-control" required="required"></td>
+				<th>직급</th>
+				<td><input type="text" name="t_position" class="form-control" required="required"></td>
+			</tr>
+			<tr>
+				<th>부서</th>
+				<td><input type="text" name="t_department" class="form-control" required="required"></td>
+				<th>수신자 이메일<input type="hidden" name="tidx" value="0"></th>
 				<td><input type="text" name="m_addressee" class="form-control" required="required"></td>
 			</tr>
 			<%
@@ -55,11 +69,11 @@
 			%>
 			<tr>
 				<th>제목</th>
-				<td><input type="text" name="m_title" class="form-control" required="required"></td>
+				<td colspan="3"><input type="text" name="m_title" class="form-control" required="required"></td>
 			</tr>
 			<tr style="height:300px;">
 				<th>내용</th>
-				<td><textarea rows="12" cols="80" name="m_content" class="form-control" style="resize: none;" required="required"></textarea></td>
+				<td colspan="3"><textarea rows="12" cols="80" name="m_content" class="form-control" style="resize: none;" required="required"></textarea></td>
 			</tr>
 		</table>
 		<div style="float:right;">

@@ -37,11 +37,11 @@
 		<thead>
 			<tr>
 				<th>부서</th>
-				<td>부서</td>
+				<td>${emailRead.t_department }</td>
 				<th>수신인</th>
-				<td>수신인</td>
+				<td>${emailRead.t_name }</td>
 				<th>직급</th>
-				<td>직급</td>
+				<td>${emailRead.t_position }</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -60,9 +60,9 @@
 			</tr>
 		</tbody>
 	</table>
-	<div style="float:right;">
+	<div>
 		<a href="${path}/admin/emaillist${pageMaker.makeSearch(pageMaker.cri.page)}&midx=${emailRead.midx}">
-			<button class="saoneBtn btn btn-primary btn-sm">목록</button>
+			<button class="saoneBtn btn btn-primary btn-sm" style="float:right;">목록</button>
 		</a>
 	</div>
 </body>

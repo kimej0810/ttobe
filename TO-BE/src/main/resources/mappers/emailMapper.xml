@@ -4,8 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="tobe.project.mapper.emailMapper">
 	<insert id="writeEmail" parameterType="emailVO">
-		insert into manager_email(midx,m_addressee,m_senddate,m_title,m_content)
-		values(midx_seq.nextval,#{m_addressee},sysdate,#{m_title},#{m_content})
+		insert into manager_email(midx,m_addressee,m_senddate,m_title,m_content,tidx)
+		values(midx_seq.nextval,#{m_addressee},sysdate,#{m_title},#{m_content},#{tidx})
 	</insert>
 	<select id="totalCountEmail" parameterType="hashmap" resultType="int">
 		select count(*) as cnt from manager_email where delyn = 'N' and m_title like '%'||#{keyword}||'%'
@@ -17,9 +17,9 @@
 			where delyn = 'N' and num between #{pageStart} and #{perPageNum}
 		]]>
 	</select> -->
-	<select id="searchEmailList" resultType="emailVO">
-		select * from (select row_number() over (order by midx desc)num,
-		A.*,B.T_NAME from manager_email A LEFT JOIN TOBE_MEMBER B ON A.TIDX = B.TIDX where 1=1
+	<select id="searchEmailList" resultType="emailDTO">
+		select * from (select row_number() over (PARTITION BY A.DELYN order by midx desc)num,
+		A.*,B.T_NAME,B.T_DEPARTMENT,B.T_POSITION from manager_email A LEFT JOIN TOBE_MEMBER B ON A.TIDX = B.TIDX where 1=1
 		<include refid="search"/>
 		order by midx desc)
 		where delyn = 'N' and num between #{rowStart} and #{rowEnd}
@@ -32,9 +32,9 @@
 		]]>
 		<include refid="search"/>
 	</select>
-	<select id="selectOneEmail" resultType="emailVO">
-		SELECT * FROM MANAGER_EMAIL WHERE MIDX = #{midx}
-		AND DELYN = 'N'
+	<select id="selectOneEmail" resultType="emailDTO">
+		SELECT A.*,B.T_NAME,B.T_DEPARTMENT,B.T_POSITION FROM MANAGER_EMAIL A INNER JOIN TOBE_MEMBER B ON A.TIDX = B.TIDX
+		WHERE A.MIDX = #{midx} AND A.DELYN = 'N'
 	</select>
 	<sql id="search">
 		<if test="searchType != null">
@@ -49,4 +49,10 @@
 			</if>
 		</if>
 	</sql>
+	<select id="searchMember" resultType="int">
+		SELECT TIDX FROM TOBE_MEMBER WHERE T_NAME = #{t_name} AND T_EMAIL = #{m_addressee} AND T_DEPARTMENT = #{t_department} AND T_POSITION = #{t_position}
+	</select>
+	<update id="deleteEmail" parameterType="int">
+		UPDATE MANAGER_EMAIL SET DELYN = 'Y' WHERE MIDX = #{midx}
+	</update>
 </mapper>
