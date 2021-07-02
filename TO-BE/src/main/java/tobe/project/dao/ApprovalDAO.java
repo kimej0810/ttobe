@@ -4,11 +4,12 @@ package tobe.project.dao;
 import java.util.List;
 
 import tobe.project.domain.SearchCriteria;
+import tobe.project.dto.ApprovalDTO;
 import tobe.project.dto.ApprovalVO;
 import tobe.project.dto.MemberVO;
 
 public interface ApprovalDAO {
-	public void writeApprovalDocument(ApprovalVO vo) throws Exception;
+	public void writeApprovalDocument(ApprovalDTO dto) throws Exception;
 	public ApprovalVO selectOneApprovalDocumentContents(int e_documentNum) throws Exception;
 	public void deleteApprovalDocument(int eidx) throws Exception;
 	public void modifyApprovalDocument(ApprovalVO vo) throws Exception;

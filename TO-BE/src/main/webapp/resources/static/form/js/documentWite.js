@@ -42,11 +42,13 @@ function click_ok(){
 	
 	$.ajax({
 		data: documentWiteData,
-		url:"addDocumentWite",
+		url:"/approval/addDocumentWite",
 		type:'POST',
 		dataType:'JSON',
 		contentType : "application/json; charset=UTF-8",
 		success: function(data){
+			var teamLeader = $('#teamLeader').val();
+			alert(teamLeader);
 			alert("결제요청이 완료되었습니다.");
 			opener.parent.location.reload();
 			window.close();

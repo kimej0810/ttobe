@@ -24,9 +24,17 @@
 		
 		<link href="<c:url value="/resources/static/form/css/documentWite.css"/>" rel='stylesheet' />
 		<script src="<c:url value="/resources/static/form/js/documentWite.js"/>"></script>
+		<script type="text/javascript">
+		/* function click_ok(){
+			var teamLeader = $('#teamLeader').val();
+			alert(teamLeader);
+		} */
+		
+		
+		</script>
 	</head>
 	<body>
-		<form id="documentWiteData" name="documentWiteData">
+		<form id="documentWiteData" name="documentWiteData" method="POST">
 			<input type="hidden" name="tidx" id="tidx" value="<%=userTidx%>">
 			<table id="sheet0" class="sheet0">
 				<col class="col0">
@@ -92,25 +100,39 @@
 							<input type="text" id="charge" value="<%=userName%>">
 						</td>
 						<td class="style38 style43" colspan="2" rowspan="2">
-							<select id="teamLeader">
-								<option value="얌">얌</option>
+							<select id="teamLeader" name="teamLeader">
+								<c:forEach items="${allMember}" var="allMember" varStatus="status">
+									<c:if test="${userDep == allMember.t_department && allMember.t_position == '팀장'}">
+										<option value="${allMember.t_id}">${allMember.t_name}</option>
+									</c:if>
+								</c:forEach>
 							</select>
 						</td>
 						<td class="style38 style43" colspan="3" rowspan="2">
-							<select id="departmentHead">
-								<option value="못찾네">못찾네</option>
-								<option value="코딩단">코딩단</option>
+							<select id="departmentHead" name="departmentHead">
+								<c:forEach items="${allMember }" var="allMember" varStatus="status">
+									<c:if test="${userDep == allMember.t_department && allMember.t_position == '부장'}">
+										<option value="${allMember.t_id }">${allMember.t_name}</option>
+									</c:if>
+								</c:forEach>
 							</select>
 						</td>
 						<td class="style38 style43" colspan="2" rowspan="2">
-							<select id="sectionHead">
-								<option value="김선호">김선호</option>
-								<option value="홍홍홍">홍홍홍</option>
+							<select id="sectionHead" name="sectionHead">
+								<c:forEach items="${allMember }" var="allMember" varStatus="status">
+									<c:if test="${userDep == allMember.t_department && allMember.t_position == '과장'}">
+										<option value="${allMember.t_id }">${allMember.t_name}</option>
+									</c:if>
+								</c:forEach>
 							</select>
 						</td>
 						<td class="style58 style59" rowspan="2">
-							<select id="leader">
-								<option value="제이슨">제이슨</option>
+							<select id="leader" name="leader">
+								<c:forEach items="${allMember }" var="allMember" varStatus="status">
+									<c:if test="${allMember.t_position == '대표'}">
+										<option value="${allMember.t_id }">${allMember.t_name}</option>
+									</c:if>
+								</c:forEach>
 							</select>
 						</td>
 					</tr>

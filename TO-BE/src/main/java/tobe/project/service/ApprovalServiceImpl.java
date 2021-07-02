@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dao.ApprovalDAO;
+import tobe.project.dto.ApprovalDTO;
 import tobe.project.dto.ApprovalVO;
 import tobe.project.dto.MemberVO;
 
@@ -18,8 +19,8 @@ public class ApprovalServiceImpl implements ApprovalService{
 	private ApprovalDAO dao;
 
 	@Override
-	public void writeApprovalDocument(ApprovalVO vo) throws Exception {
-		dao.writeApprovalDocument(vo);
+	public void writeApprovalDocument(ApprovalDTO dto) throws Exception {
+		dao.writeApprovalDocument(dto);
 	}
 
 	@Override

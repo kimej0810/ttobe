@@ -16,7 +16,9 @@
 	    <result column="E_STATUS" property="e_status"/>
 	    <result column="DELYN" property="delyn"/>
 	    <result column="TIDX" property="tidx"/>
+	    <result column="LIDX" property="lidx"/>
 	    <collection property="memberVO" resultMap="MemberResultMap"/>
+	    <collection property="approvalLineVO" resultMap="ApprovalLineResultMap"/>
 	</resultMap>
 	
 	<resultMap type="memberVO" id="MemberResultMap">
@@ -25,11 +27,36 @@
 	    <result column="T_DEPARTMENT" property="t_department"/>
 	</resultMap>
 	
- 	<insert id="writeApprovalDocument" parameterType="ApprovalVO">
+	<resultMap type="approvalLineVO" id="ApprovalLineResultMap">
+		<id column="LIDX" property="lidx"/>
+		<result column="TEAMLEADER" property="teamLeader"/>
+		<result column="DEPARTMENTHEAD" property="departmentHead"/>
+		<result column="SECTIONHEAD" property="sectionHead"/>
+		<result column="LEADER" property="leader"/>
+		<result column="STATUS" property="status"/>
+	</resultMap>
+	
+	<select id="selectOneMember" parameterType="MemberVO" resultType="MemberVO">
+ 	  	select *
+ 		from tobe_member
+ 		where tidx = #{tidx}
+    </select>
+    
+ 	<insert id="writeApprovalDocument" parameterType="ApprovalDTO" keyProperty="eidx">
+ 		<selectKey keyProperty="eidx" resultType="int" order="BEFORE">
+				SELECT eidx_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
  		INSERT INTO 
  			electronic_approval(EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_SEND, E_TEXTTITLE, E_TEXTCONTENT, TIDX)
  		VALUES
- 			(eidx_seq.nextval,eidx_document_seq.nextval, #{e_rule}, #{e_draftDate}, #{e_startDay}, #{e_con}, #{e_send}, #{e_textTitle}, #{e_textContent},#{tidx})
+ 			(eidx_seq.nextval,eidx_document_seq.nextval, #{e_rule}, #{e_draftDate}, #{e_startDay}, #{e_con}, #{e_send}, #{e_textTitle}, #{e_textContent}, #{tidx})
+ 	</insert>
+ 	
+ 	<insert id="writeApprovalLine" parameterType="ApprovalDTO">
+ 		INSERT INTO 
+ 			APPROVAL_LINE(EIDX, TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, TIDX )
+ 		VALUES
+ 			(#{eidx}+1, #{teamLeader}, #{departmentHead}, #{sectionHead}, #{leader}, #{tidx})
  	</insert>
  	
  	<select id="selectOneApprovalDocumentContents" resultType="ApprovalVO" parameterType="ApprovalVO">
@@ -60,16 +87,7 @@
  			e_documentNum = #{e_documentNum} 			     
  	</update>
  	
- 	<select id="selectOneMember" parameterType="MemberVO" resultType="MemberVO">
- 	  	select *
- 		from tobe_member
- 		where tidx = #{tidx}
-    </select>
-    <select id = "">
-    	select *
- 		from tobe_member
- 		where T_POSITION = #{t_id}
-    </select>
+    
     <!-- 각각 게시글 개수 -->
     <select id="totalCountWaiting" parameterType="ApprovalVO" resultType="int">
     	select count(eidx) from ELECTRONIC_APPROVAL

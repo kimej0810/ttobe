@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import tobe.project.domain.SearchCriteria;
+import tobe.project.dto.ApprovalDTO;
 import tobe.project.dto.ApprovalVO;
 import tobe.project.dto.MemberVO;
 
@@ -20,8 +21,8 @@ public class ApprovalDAOImpl implements ApprovalDAO{
 	private static final String Namespace = "tobe.project.mappers.approvalMapper";
 	
 	@Override
-	public void writeApprovalDocument(ApprovalVO vo) throws Exception {				//��ȵ��
-		sqlSession.insert(Namespace+".writeApprovalDocument",vo);
+	public void writeApprovalDocument(ApprovalDTO dto) throws Exception {				//��ȵ��
+		sqlSession.insert(Namespace+".writeApprovalDocument",dto);
 	}
 	
 	@Override

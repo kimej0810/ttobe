@@ -13,9 +13,11 @@
             <typeAlias type="tobe.project.dto.DataLibraryVO" alias="dataVO"/>
             <typeAlias type="tobe.project.dto.ReplyVO" alias="replyVO"/>
             <typeAlias type="tobe.project.dto.ScheduleVO" alias="scheduleVO"/>
-            <typeAlias type="tobe.project.dto.ApprovalVO" alias="ApprovalVO"/>
             <typeAlias type="tobe.project.dto.CommuteVO" alias="commuteVO"/>
             <typeAlias type="tobe.project.dto.LeaveVO" alias="leaveVO"/>
 			<typeAlias type="tobe.project.dto.EmailDTO" alias="emailDTO"/>
+			<typeAlias type="tobe.project.dto.ApprovalVO" alias="approvalVO"/>
+            <typeAlias type="tobe.project.dto.ApprovalLineVO" alias="approvalLineVO"/>
+            <typeAlias type="tobe.project.dto.ApprovalDTO" alias="approvalDTO"/>
         </typeAliases>
     </configuration>

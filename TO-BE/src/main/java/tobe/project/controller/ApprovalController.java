@@ -1,6 +1,7 @@
 package tobe.project.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -18,8 +19,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import tobe.project.domain.PageMaker;
 import tobe.project.domain.SearchCriteria;
+import tobe.project.dto.ApprovalDTO;
+import tobe.project.dto.ApprovalLineVO;
 import tobe.project.dto.ApprovalVO;
 import tobe.project.dto.MemberVO;
+import tobe.project.service.AdminService;
+import tobe.project.service.ApprovalLineService;
 import tobe.project.service.ApprovalService;
 
 /**
@@ -34,7 +39,13 @@ public class ApprovalController {
 	@Inject
 	private ApprovalService service;
 	
-	//占쎌읈占쎌쁽野껉퀣�삺 筌롫뗄�뵥
+	@Inject
+	private AdminService aservice;
+	
+	@Inject
+	private ApprovalLineService lservice;
+	
+	
 	@RequestMapping(value = "/documentListMain")
 	public String documentMain(Model model, @ModelAttribute("scri")SearchCriteria scri, String searchType) throws Exception{
 		System.out.println("ApprovalController");
@@ -50,6 +61,7 @@ public class ApprovalController {
 		model.addAttribute("pr",service.totalCountProgress());
 		model.addAttribute("co",service.totalCountComplete());
 		
+		
 		return "/approval/documentListMain";
 	}
 	
@@ -58,26 +70,25 @@ public class ApprovalController {
 		
 		return "/approval/documentApprovalLine";
 	}
-	//疫꿸퀣釉욑옙苑� 占쎌삂占쎄쉐占쎈읂占쎌뵠筌욑옙
 	@RequestMapping(value = "/documentWite")
-	public String documentWite(Locale locale) throws Exception {
-		
-		logger.info("Welcome home! addDocumentWite", locale);
+	public String documentWite(Model model,Locale locale) throws Exception {
+		List<MemberVO> vo = aservice.selectAllMember();
+		model.addAttribute("allMember",vo);
+		logger.info("Welcome home! DocumentWite", locale);
 		return "/approval/documentWite";
 	} 
 	
-	//疫꿸퀣釉욑옙苑� 占쎌삂占쎄쉐 ajax占쎌깈�빊占�
 	@ResponseBody
 	@RequestMapping(value = "/addDocumentWite", method = RequestMethod.POST)
-	public Map<Object,Object> addDocumentWite(@RequestBody ApprovalVO vo,Locale locale) throws Exception {
+	public ApprovalDTO addDocumentWite(@RequestBody ApprovalDTO dto,Locale locale) throws Exception {
 		logger.info("Welcome home! addDocumentWite", locale);
-		Map<Object,Object> map = new HashMap<Object,Object>();
-		service.writeApprovalDocument(vo);
-		return map;
+		System.out.println("dto="+dto);
+		service.writeApprovalDocument(dto);
+		lservice.writeApprovalLine(dto);
+		return dto;
 				
 	}
 	
-	//野껉퀣�삺�눧紐꾧퐣 占쎄맒占쎄쉭癰귣떯由�
 	@RequestMapping(value = "/documentContents")
 	public ApprovalVO documentContents(Model model,int e_documentNum, int tidx) throws Exception{
 		ApprovalVO vo = service.selectOneApprovalDocumentContents(e_documentNum);
@@ -86,19 +97,17 @@ public class ApprovalController {
 		model.addAttribute("contents",vo);
 		return vo;
 	}
-	//野껉퀣�삺�눧紐꾧퐣 占쎈땾占쎌젫
+	
 	@RequestMapping(value = "/documentModify")
 	public ApprovalVO documentModify(Model model,int e_documentNum,int tidx) throws Exception{
 		ApprovalVO vo = service.selectOneApprovalDocumentContents(e_documentNum);
 		MemberVO mo = service.selectOneMember(tidx);
-		System.out.println("�눧紐꾧퐣甕곕뜇�깈"+e_documentNum);
 		System.out.println("member"+mo);
 		model.addAttribute("mo",mo);
 		model.addAttribute("contents",vo);
 		return vo;
 	}
 	
-	//野껉퀣�삺�눧紐꾧퐣 占쎈땾占쎌젟 ajax
 	@ResponseBody
 	@RequestMapping(value = "/ModifyDocumentWite", method = RequestMethod.POST)
 	public Map<Object,Object> modifyApprovalDocument(@RequestBody ApprovalVO vo) throws Exception {
@@ -107,7 +116,7 @@ public class ApprovalController {
 		return map;
 				
 	}
-	//野껉퀣�삺�눧紐꾧퐣 占쎄텣占쎌젫
+	
 	@RequestMapping(value = "/documentDelete")
 	public String documentDelete(int eidx) throws Exception{
 		service.deleteApprovalDocument(eidx);
