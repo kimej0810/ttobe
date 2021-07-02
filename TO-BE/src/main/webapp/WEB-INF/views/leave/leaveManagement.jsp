@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,12 +15,23 @@
 	</div>
 	<div>기간</div>
 	<div>
-		<span>발생 연차</span>
-		<span>$</span>
-		<span>사용 연차</span>
-		<span>$</span>
-		<span>잔여 연차</span>
-		<span>$</span>
+		<table class="table" border="1">
+			
+			<tr>
+				<c:forEach var="list" items="${list}" begin="1" end="1">
+				<th>발생 연차</th>
+				<td>${list.memberVO.t_leave_get}</td>
+				</c:forEach>
+				<th>사용 연차</th>
+				<c:forEach var="alist" items="${list}" varStatus="status">
+					<c:set var="sum" value="${sum+alist.a_useddays}"></c:set>
+				</c:forEach>
+				<td><c:out value="${sum}"/></td>
+				<th>잔여 연차</th>
+				
+				<td></td>
+			</tr>
+		</table>
 	</div>
 	<table class="table" border="1">
 		<thead>
@@ -35,21 +47,24 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items=""></c:forEach>
-			<tr>
-				<td>${list.a_status}</td>
-				<td>${list.memberVO.t_department}</td>
-				<td>${list.memberVO.t_id}</td>
-				<td>${list.memberVO.t_name}</td>
-				<td>${list.a_type}</td>
-				<td>${list.a_usedays}</td>
-				<td>${list.a_startdate}</td>
-				<td>${list.a_enddate}</td>
-			</tr>
+			<c:forEach items="${list}" var="alist">
+				<tr>
+					<td>${alist.a_status}</td>
+					<td>${alist.memberVO.t_department}</td>
+					<td>${alist.memberVO.t_id}</td>
+					<td>${alist.memberVO.t_name}</td>
+					<td>${alist.a_type}</td>
+					<td>${alist.a_useddays}</td>
+					<td>${alist.a_startdate}</td>
+					<td>${alist.a_enddate}</td>
+				</tr>
+				<input type="hidden" value="${alist.aidx}" id="aidx" name="aidx">
+			</c:forEach>
 		</tbody>
 	</table>
 	<div>
 		<input type="button" value="연차등록" onclick="regLeave();">
+		
 	</div>
 </body>
 </html>

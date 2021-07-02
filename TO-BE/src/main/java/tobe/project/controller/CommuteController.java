@@ -119,6 +119,9 @@ public class CommuteController {
 		
 		List<LeaveVO> list = service.selectAllLeave(vo.getTidx());
 		model.addAttribute("list",list);
+		
+		System.out.println(">>>>>>>>>>"+list.get(0).getA_enddate());
+		System.out.println(">>>>>>>>>>"+list.get(0).getMemberVO().getT_department());
 		return "/leave/leaveManagement";
 	}
 
