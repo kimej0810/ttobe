@@ -10,8 +10,11 @@
 </head>
 <body>
 	<div>
-	<button type="button" class="btn btn-outline-secondary" onclick="location.href='/'">근태현황</button>
-	<button type="button" class="btn btn-outline-secondary" onclick="location.href='/'">연차관리</button>
+		<c:forEach var="list" items="${list}" begin="1" end="1">
+			<button type="button" class="btn btn-outline-secondary" onclick="location.href='/commute/commute?t_id=${list.memberVO.t_id}'">근태현황</button>
+			<button type="button" class="btn btn-outline-secondary" onclick="location.href='/leave/leaveManagement?t_id=${list.memberVO.t_id}'">연차관리</button>
+		</c:forEach><!-- 그냥 리스트로 하면 안됨 왜안됨 ㅅㅄㅂ 버튼에 포이치를 쓰다니-->
+		
 	</div>
 	<div>기간</div>
 	<div>

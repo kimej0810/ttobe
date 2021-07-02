@@ -27,13 +27,13 @@ public class RealMainController extends HttpServlet {
 	@Inject
 	private BoardService boardService;
 	
-	//메인불러옴
+	//硫붿씤遺덈윭�샂
 	@RequestMapping(value = "/mainPage")
 	public String list(Locale locale, Model model, SearchCriteria scri, String searchType) throws Exception {
-		System.out.println("와 메인페이지다!");
+		System.out.println("�� 硫붿씤�럹�씠吏��떎!");
 		
-		//달력 
-		Calendar now = Calendar.getInstance(); //운영체제의 TimeZone을 기준
+		//�떖�젰 
+		Calendar now = Calendar.getInstance(); //�슫�쁺泥댁젣�쓽 TimeZone�쓣 湲곗�
 		
 		int year = now.get(Calendar.YEAR);
 		int month = now.get(Calendar.MONDAY)+1;
@@ -49,10 +49,10 @@ public class RealMainController extends HttpServlet {
 		
 	
 		
-		//오늘의 명언
+		//�삤�뒛�쓽 紐낆뼵
 		JSONParser parser = new JSONParser();
-		JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("C:\\Users\\bakug\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json"));
-
+		//JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("C:\\Users\\bakug\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json"));
+		JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("C:\\Users\\750\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json"));
 		int random = (int)(Math.random()*600-6);
 		JSONObject jsonObject = (JSONObject)jsonArray.get(random);
 				
