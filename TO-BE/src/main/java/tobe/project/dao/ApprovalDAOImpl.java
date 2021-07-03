@@ -26,8 +26,8 @@ public class ApprovalDAOImpl implements ApprovalDAO{
 	}
 	
 	@Override
-	public ApprovalVO selectOneApprovalDocumentContents(int e_documentNum) throws Exception {		//�󼼺���
-		return sqlSession.selectOne(Namespace+".selectOneApprovalDocumentContents",e_documentNum);
+	public ApprovalVO selectOneApprovalDocumentContents(int eidx) throws Exception {		//�󼼺���
+		return sqlSession.selectOne(Namespace+".selectOneApprovalDocumentContents",eidx);
 	}
 	 
 	@Override
@@ -67,6 +67,17 @@ public class ApprovalDAOImpl implements ApprovalDAO{
 	@Override
 	public int totalCountComplete() throws Exception {
 		return sqlSession.selectOne(Namespace+".totalCountComplete");
+	}
+
+	@Override
+	public void modifyApprovalStatusProgress(int eidx) throws Exception {
+		sqlSession.update(Namespace+".modifyApprovalStatusProgress",eidx);
+		
+	}
+
+	@Override
+	public void modifyApprovalStatusOk(int eidx) throws Exception {
+		sqlSession.update(Namespace+".modifyApprovalStatusOk",eidx);
 	}
 
 	

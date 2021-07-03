@@ -47,7 +47,7 @@ public class ApprovalController {
 	
 	
 	@RequestMapping(value = "/documentListMain")
-	public String documentMain(Model model, @ModelAttribute("scri")SearchCriteria scri, String searchType) throws Exception{
+	public String documentMain(Model model, @ModelAttribute("scri")SearchCriteria scri, String searchType,String t_id) throws Exception{
 		System.out.println("ApprovalController");
 		System.out.println("searchType->"+searchType);
 		PageMaker pageMaker = new PageMaker();
@@ -57,11 +57,11 @@ public class ApprovalController {
 		model.addAttribute("paging",pageMaker);
 		model.addAttribute("elist", service.selectAllApprovalDocumentList(scri));
 		
-		model.addAttribute("wa",service.totalCountWaiting());
+		model.addAttribute("re",service.totalCountWaiting());
 		model.addAttribute("pr",service.totalCountProgress());
 		model.addAttribute("co",service.totalCountComplete());
 		
-		
+		model.addAttribute("ma",lservice.totalCountMyApprovalToDo(t_id));
 		return "/approval/documentListMain";
 	}
 	
@@ -90,13 +90,37 @@ public class ApprovalController {
 	}
 	
 	@RequestMapping(value = "/documentContents")
-	public ApprovalVO documentContents(Model model,int e_documentNum, int tidx) throws Exception{
-		ApprovalVO vo = service.selectOneApprovalDocumentContents(e_documentNum);
+	public ApprovalDTO documentContents(Model model,int eidx, int tidx) throws Exception{
+		ApprovalVO vo = service.selectOneApprovalDocumentContents(eidx);
 		MemberVO mo = service.selectOneMember(tidx);
+		ApprovalDTO to = lservice.selectOneApprovalLine(eidx);
+		System.out.println("to="+ to);
+		
+		model.addAttribute("to",to);
 		model.addAttribute("mo",mo);
 		model.addAttribute("contents",vo);
-		return vo;
+		return to;
 	}
+	
+	@RequestMapping(value = "/documentOk")
+	public ApprovalDTO documentOK(Model model,int eidx) throws Exception{
+		System.out.println("마 이게 eidx다 ! "+eidx);
+		ApprovalDTO to = lservice.selectOneApprovalLine(eidx);
+		
+		if(to.getStatus().equals("3000")) {
+			lservice.modifyApprovalTeamLeader(eidx);
+			service.modifyApprovalStatusProgress(eidx);
+		}else if(to.getStatus().equals("0300")){
+			lservice.modifyApprovalDepartmentHead(eidx);
+		}else if(to.getStatus().equals("0030")){
+			lservice.modifyApprovalSectionHead(eidx);
+		}else{
+			lservice.modifyApprovalLeader(eidx);
+			service.modifyApprovalStatusOk(eidx);
+		}
+		return to;
+	}
+	
 	
 	@RequestMapping(value = "/documentModify")
 	public ApprovalVO documentModify(Model model,int e_documentNum,int tidx) throws Exception{

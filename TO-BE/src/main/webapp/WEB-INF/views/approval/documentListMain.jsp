@@ -32,7 +32,7 @@
 				display:grid;
 				grid-template-columns:1fr minmax(70px, auto);
 			}
-			#waiting, #progress, #complete{
+			#waiting, #progress, #complete, #myApprovalToDo, #myApprovalMust{
 				text-align:center;
 			    height: 35px;
 		   		background-color: lightgray;
@@ -69,7 +69,7 @@
 			#documentTable{
 				 height: 625px;
 			    text-align: center;
-			    max-height: 625px;
+			    max-height: 590px;
 			}
 			#count{
 				text-align:center;
@@ -80,6 +80,7 @@
 	<body>
 		<div id="approvalContent">
 			<form name="frm" id="frm" method="post">
+				<input type="hidden" id="userId" name="userId" value="<%=userId%>">
 				<div id="category">
 					<button type="button" class="btn btn-outline-secondary" id="waitingDocument">결재대기문서</button>
 					<button type="button" class="btn btn-outline-secondary" id="progressDocument">결재진행문서</button>
@@ -94,14 +95,22 @@
 							<col width="10%">
 							<col width="10%">
 							<col width="10%">
+							<col width="10%">
+							<col width="10%">
+							<col width="10%">
+							<col width="10%">
 						</colgroup>
 						<tr>
-							<th id="waiting">결제대기문서</th>
-							<th id="count">${wa}</th>
-							<th id="progress">결제진행문서</th>
+							<th id="waiting">결재요청문서</th>
+							<th id="count">${re}</th>
+							<th id="progress">결재진행문서</th>
 							<th id="count">${pr }</th>
-							<th id="complete">결제완료문서</th>
+							<th id="complete">결재완료문서</th>
 							<th id="count">${co }</th>
+							<th id="myApprovalToDo">결재예정문서</th>
+							<th id="count">${ma }</th>
+							<th id="myApprovalMust">결재대기문서</th>
+							<th id="count"></th>
 						</tr>
 					</table>
 				</div>
@@ -122,7 +131,7 @@
 					function documentWite(){ //기안서 팝업창
 						var url = "documentWite";
 						var name = "documentWite";
-						var option = "width = 660, height = 870 left = 100, top=50,location=no";
+						var option = "width = 665, height = 925 left = 100, top=50,location=no";
 						window.open(url,name,option)
 					}
 					$(function(){
@@ -168,11 +177,11 @@
 								</c:choose>
 								<td>${elist.eidx }</td>
 								<td>
-									<a href="documentContents?e_documentNum=${elist.e_documentNum }&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=660, height=870'); return false;" style="text-decoration : none; color:black;">${elist.e_documentNum }</a>
+									<a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=665, height=925'); return false;" style="text-decoration : none; color:black;">${elist.e_documentNum }</a>
 								</td>
 								<td>${elist.memberVO.t_department }</td>
 								<td>${elist.memberVO.t_name }</td>
-								<td><a href="documentContents?e_documentNum=${elist.e_documentNum }&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=660, height=870'); return false;" style="text-decoration : none; color:black;">
+								<td><a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=665, height=925'); return false;" style="text-decoration : none; color:black;">
 									<c:set var="content" value="${elist.e_textTitle}"/>
 									<c:choose>
 										<c:when test="${fn:length(elist.e_textTitle) > 50}">
@@ -199,7 +208,7 @@
 							<ul class="pagination">
 								<c:if test="${paging.prev}">
 									<li class="page-item" style="color:black;">
-										<a class="page-link" href="documentListMain${paging.makeSearch(pageMaker.startPage - 1)}" aria-label="Previous">
+										<a class="page-link" href="documentListMain${paging.makeSearch(pageMaker.startPage - 1)}&t_id=<%=userId%>" aria-label="Previous">
 										    <span aria-hidden="true">&laquo;</span>
 										    <span class="sr-only"></span>
 										</a>
@@ -207,12 +216,12 @@
 								</c:if> 
 								<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="idx">
 									<li class="page-item">
-										<a class="page-link" href="documentListMain${paging.makeSearch(idx)}">${idx}</a>
+										<a class="page-link" href="documentListMain${paging.makeSearch(idx)}&t_id=<%=userId%>">${idx}</a>
 									</li>
 								</c:forEach>
 								<c:if test="${paging.next && paging.endPage > 0}">
 									<li class="page-item">
-										<a class="page-link" href="documentListMain${paging.makeSearch(pageMaker.endPage + 1)}" aria-label="Next">
+										<a class="page-link" href="documentListMain${paging.makeSearch(pageMaker.endPage + 1)}&t_id=<%=userId%>" aria-label="Next">
 										    <span aria-hidden="true">&raquo;</span>
 										    <span class="sr-only"></span>
 										</a>

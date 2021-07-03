@@ -4,11 +4,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	ApprovalVO contents = (ApprovalVO)request.getAttribute("contents");
- 
-	if(session.getAttribute("userTidx") != null){ 
-		Object userTidx = session.getAttribute("userTidx");
-	}else{
+	int userTidx = (int)session.getAttribute("userTidx");
+	if(userTidx == 0){ 
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+	}else if(userTidx == 0 || userTidx != contents.getTidx()){
+		out.println("<script>alert('권한이 없습니다');history.back();</script>");
 	}
 %>
 <!DOCTYPE html>
@@ -25,6 +25,7 @@
 		
 		<link href="<c:url value="/resources/static/form/css/documentModify.css"/>" rel='stylesheet' />
 		<script src="<c:url value="/resources/static/form/js/documentModify.js"/>"></script>
+		<link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>">
 		<script type="text/javascript">
 			function click_up(){
 				var draftLetterData = JSON.stringify($('form#draftLetterData').serializeObject());
@@ -49,6 +50,7 @@
 		<input type="hidden" name="e_status" id="e_status" value="<%=contents.getE_status()%>">
 		<input type="hidden" name="eidx" id="eidx" value="<%=contents.getEidx() %>">
 		<input type="hidden" name="tidx" id="tidx" value="<%=contents.getTidx() %>">
+		<div>
 			<table id="sheet0" class="sheet0">
 				<col class="col0">
 				<col class="col1">
@@ -171,9 +173,10 @@
 					</tr>
 				</tbody>
 			</table>
-			<div>
-				<button type="button" onclick="click_up();">확인</button>
-				<button type="reset">다시쓰기</button>
+			<div id="documentBtn">
+				<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_up();">확인</button>
+				<button type="reset" class="btn btn-primary btn-sm float-right">다시쓰기</button>
+			</div>
 			</div>
 		</form>
 	</body>

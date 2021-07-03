@@ -52,20 +52,13 @@
  			(eidx_seq.nextval,eidx_document_seq.nextval, #{e_rule}, #{e_draftDate}, #{e_startDay}, #{e_con}, #{e_send}, #{e_textTitle}, #{e_textContent}, #{tidx})
  	</insert>
  	
- 	<insert id="writeApprovalLine" parameterType="ApprovalDTO">
- 		INSERT INTO 
- 			APPROVAL_LINE(EIDX, TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, TIDX )
- 		VALUES
- 			(#{eidx}+1, #{teamLeader}, #{departmentHead}, #{sectionHead}, #{leader}, #{tidx})
- 	</insert>
- 	
  	<select id="selectOneApprovalDocumentContents" resultType="ApprovalVO" parameterType="ApprovalVO">
  		SELECT
  			*
  		FROM
  			ELECTRONIC_APPROVAL
  		WHERE
- 			e_documentNum = #{e_documentNum}
+ 			eidx = #{eidx}
  	</select>
  	
  	<update id="deleteApprovalDocument" parameterType="ApprovalVO">
@@ -87,6 +80,24 @@
  			e_documentNum = #{e_documentNum} 			     
  	</update>
  	
+ 	<!-- 결재상태 업데이트 -->
+ 	<update id="modifyApprovalStatusProgress" parameterType="ApprovalDTO">
+ 		update 
+ 			ELECTRONIC_APPROVAL
+ 		set
+ 			E_STATUS = '결재진행'
+ 		where
+ 			eidx = #{eidx} 			     
+ 	</update>
+ 	<update id="modifyApprovalStatusOk" parameterType="ApprovalDTO">
+ 		update 
+ 			ELECTRONIC_APPROVAL
+ 		set
+ 			E_STATUS = '결재완료'
+ 		where
+ 			eidx = #{eidx} 			     
+ 	</update>
+    
     
     <!-- 각각 게시글 개수 -->
     <select id="totalCountWaiting" parameterType="ApprovalVO" resultType="int">
@@ -97,7 +108,7 @@
     	select count(eidx) from ELECTRONIC_APPROVAL
  			where eidx > 0 and delyn = 'N' and e_status = '결재진행'
     </select>
-     <select id="totalCountComplete" parameterType="ApprovalVO" resultType="int">
+    <select id="totalCountComplete" parameterType="ApprovalVO" resultType="int">
     	select count(eidx) from ELECTRONIC_APPROVAL
  			where eidx > 0 and delyn = 'N' and e_status = '결재완료'
     </select>
@@ -111,10 +122,11 @@
  	
  	<!-- 페이징 -->
  	<select id="selectAllApprovalDocumentList" resultMap="approvalResultMap" parameterType="tobe.project.domain.SearchCriteria">
- 		 select EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_SEND, E_TEXTTITLE, E_TEXTCONTENT, DELYN, E_STATUS, TIDX, T_NAME, T_DEPARTMENT
+ 		 select EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_SEND, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, TIDX, T_NAME, T_DEPARTMENT, STATUS, DELYN
  			from (
- 				select A.*,B.T_NAME, T_DEPARTMENT, ROW_NUMBER() OVER(ORDER BY EIDX DESC) AS RNUM
- 				FROM ELECTRONIC_APPROVAL A left join tobe_member B on A.TIDX = B.TIDX WHERE 1=1 <include refid="search"/>  and A.DELYN = 'N'
+ 				select A.*,B.T_NAME, T_DEPARTMENT,C.STATUS, ROW_NUMBER() OVER(ORDER BY A.EIDX DESC) AS RNUM
+ 				FROM ELECTRONIC_APPROVAL A left join TOBE_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX
+ 					WHERE 1=1 <include refid="search"/>  and A.DELYN = 'N'
  					) WHERE delyn ='N' and RNUM BETWEEN #{rowStart} and #{rowEnd}
  	</select>
  	<!-- 페이징 end -->

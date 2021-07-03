@@ -24,8 +24,8 @@ public class ApprovalServiceImpl implements ApprovalService{
 	}
 
 	@Override
-	public ApprovalVO selectOneApprovalDocumentContents(int e_documentNum) throws Exception {
-		return dao.selectOneApprovalDocumentContents(e_documentNum);
+	public ApprovalVO selectOneApprovalDocumentContents(int eidx) throws Exception {
+		return dao.selectOneApprovalDocumentContents(eidx);
 	}
 
 	@Override
@@ -64,6 +64,16 @@ public class ApprovalServiceImpl implements ApprovalService{
 	@Override
 	public int totalCountComplete() throws Exception {
 		return dao.totalCountComplete();
+	}
+
+	@Override
+	public void modifyApprovalStatusProgress(int eidx) throws Exception {
+		dao.modifyApprovalStatusProgress(eidx);
+	}
+
+	@Override
+	public void modifyApprovalStatusOk(int eidx) throws Exception {
+		dao.modifyApprovalStatusOk(eidx);
 	}
 	
 }

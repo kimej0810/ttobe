@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="tobe.project.mappers.approvalLineMapper">
+ 	<insert id="writeApprovalLine" parameterType="ApprovalDTO">
+ 		INSERT INTO 
+ 			APPROVAL_LINE(EIDX, TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER)
+ 		VALUES
+ 			(#{eidx}+1, #{teamLeader}, #{departmentHead}, #{sectionHead}, #{leader})
+ 	</insert>
+ 	
+ 	<select id="selectOneApprovalLine" resultType="ApprovalDTO" parameterType="ApprovalDTO">
+ 		select * from APPROVAL_LINE where EIDX = #{eidx}
+ 	</select>
+ 	
+ 	<select id="totalCountMyApprovalToDo" resultType="int" parameterType="ApprovalDTO">
+ 		select COUNT(EIDX) from APPROVAL_LINE WHERE TEAMLEADER = #{t_id}
+ 	</select>
+ 	
+ 	<update id="modifyApprovalTeamLeader" parameterType="ApprovalDTO">
+ 		UPDATE
+ 			APPROVAL_LINE
+ 		SET
+ 			STATUS = '0300'
+ 		WHERE 
+ 			EIDX = #{eidx}
+ 	</update>
+ 	<update id="modifyApprovalDepartmentHead" parameterType="ApprovalDTO">
+ 		UPDATE
+ 			APPROVAL_LINE
+ 		SET
+ 			STATUS = '0030'
+ 		WHERE 
+ 			EIDX = #{eidx}
+ 	</update>
+ 	<update id="modifyApprovalSectionHead" parameterType="ApprovalDTO">
+ 		UPDATE
+ 			APPROVAL_LINE
+ 		SET
+ 			STATUS = '0003'
+ 		WHERE 
+ 			EIDX = #{eidx}
+ 	</update>
+ 	<update id="modifyApprovalLeader" parameterType="ApprovalDTO">
+ 		UPDATE
+ 			APPROVAL_LINE
+ 		SET
+ 			STATUS = '0000'
+ 		WHERE 
+ 			EIDX = #{eidx}
+ 	</update>
+ </mapper>

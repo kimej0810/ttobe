@@ -1914,7 +1914,7 @@ table.sheet0 tr.row14 {
 
 
 .sheet0{
-	margin:0px auto;
+	margin:0px 6px auto;
 }
 #e_textTitle{
 	width: 99.5%;
@@ -1932,9 +1932,17 @@ table.sheet0 tr.row14 {
 	font-size: 15px;
 	margin-top:5px;
 }
-div{
+div:not(#documentBtn){
 	margin-left: 5px;
-	margin-top: 5px;
+	margin-top: 15px;
+	width: 647px;
+	text-align: right;
+}
+#documentBtn{
+	text-align: right;
+    width: 639px;
+    margin: 10px 2px auto;
+	
 }
 #e_documentNum, #e_rule, #e_draftDate, #e_startDay, #e_con, #e_member, #e_buseo, #e_send{
 	width: 98%;
@@ -1951,6 +1959,9 @@ div{
 	height:50px;
 	border:none;
 	text-align: center;
+}
+.btngroup{
+	margin-left:1px;
 }
 .target {
     -ms-overflow-style: none;
