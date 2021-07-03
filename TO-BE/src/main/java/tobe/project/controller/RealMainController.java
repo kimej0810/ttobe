@@ -57,7 +57,12 @@ public class RealMainController extends HttpServlet {
 		JSONParser parser = new JSONParser();
 		JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("C:\\Users\\bakug\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json"));
 		//JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("C:\\Users\\750\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json"));
-		int random = (int)(Math.random()*600-6);
+		
+		
+		int size = jsonArray.size();
+		System.out.println("size-------------->"+size);
+		
+		int random = (int)(Math.random()*60-8);
 		JSONObject jsonObject = (JSONObject)jsonArray.get(random);
 				
 		String author = (String) jsonObject.get("author");
