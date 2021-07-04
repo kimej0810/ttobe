@@ -9,14 +9,36 @@
  		VALUES
  			(#{eidx}+1, #{teamLeader}, #{departmentHead}, #{sectionHead}, #{leader})
  	</insert>
- 	
  	<select id="selectOneApprovalLine" resultType="ApprovalDTO" parameterType="ApprovalDTO">
  		select * from APPROVAL_LINE where EIDX = #{eidx}
  	</select>
  	
- 	<select id="totalCountMyApprovalToDo" resultType="int" parameterType="ApprovalDTO">
- 		select COUNT(EIDX) from APPROVAL_LINE WHERE TEAMLEADER = #{t_id}
+ 	<!-- 결제 대기 문서 및 예정 문서 -->
+ 	<select id="totalCountTeamLeaderApprovalToDo" resultType="int" parameterType="ApprovalDTO">
+ 		SELECT COUNT(EIDX) from APPROVAL_LINE WHERE TEAMLEADER = #{t_id} AND STATUS = '3000'
  	</select>
+ 	
+ 	<select id="totalCountDepartmentHeadApprovalToDo" resultType="int" parameterType="ApprovalDTO">
+ 		SELECT COUNT(EIDX) from APPROVAL_LINE WHERE DEPARTMENTHEAD = #{t_id} AND STATUS = '0300'
+ 	</select>
+ 	<select id="totalCountDepartmentHeadApprovalMust" resultType="int" parameterType="ApprovalDTO">
+ 		SELECT COUNT(EIDX) from APPROVAL_LINE WHERE DEPARTMENTHEAD = #{t_id} AND  STATUS = '3000'
+ 	</select>
+ 	
+ 	<select id="totalCountSectionHeadApprovalToDo" resultType="int" parameterType="ApprovalDTO">
+ 		SELECT COUNT(EIDX) from APPROVAL_LINE WHERE SECTIONHEAD = #{t_id} AND STATUS = '0030'
+ 	</select>
+ 	<select id="totalCountSectionHeadApprovalMust" resultType="int" parameterType="ApprovalDTO">
+ 		select COUNT(EIDX) from APPROVAL_LINE WHERE SECTIONHEAD = #{t_id} and  STATUS = '3000' or STATUS = '0300'
+ 	</select>
+ 	
+ 	<select id="totalCountLeaderApprovalToDo" resultType="int" parameterType="ApprovalDTO">
+ 		SELECT COUNT(EIDX) from APPROVAL_LINE WHERE LEADER = #{t_id} AND STATUS = '0003'
+ 	</select>
+ 	<select id="totalCountLeaderApprovalMust" resultType="int" parameterType="ApprovalDTO">
+ 		SELECT COUNT(EIDX) from APPROVAL_LINE WHERE LEADER = #{t_id} AND STATUS = '3000' OR STATUS = '0300' OR STATUS = '0030'
+ 	</select>
+ 	
  	
  	<update id="modifyApprovalTeamLeader" parameterType="ApprovalDTO">
  		UPDATE

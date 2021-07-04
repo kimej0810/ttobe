@@ -203,16 +203,16 @@
 							</div>
 							<script type="text/javascript">
 								 $(function(){
-									$('#calendarButton').click(function(){
+									$('#calendarButton').on("click",function(){
 										$("#box").css("display","none");
 										$("#calendar").css("display","flex");
 									});
-									$('#searchBtn').click(function() {
+									$('#searchBtn').on("click",function() {
 										$("#calendar").css("display","none");
 										$("#box").css("display","block");
 										self.location = "fullcalendar" + '${paging.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keyword').val());
 									});
-									$(".page-link").click(function(){
+									$(".page-link").on("click",function(){
 										$("#calendar").css("display","none");
 										$("#box").css("display","block");
 									})

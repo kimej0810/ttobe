@@ -9,6 +9,7 @@
 <% 
 	List<ApprovalVO> elist = (List<ApprovalVO>)request.getAttribute("elist"); 
 	PageMaker paging = (PageMaker)request.getAttribute("paging");
+	String userPosition = (String)session.getAttribute("userPosition");
 	
 	if(session.getAttribute("userTidx") == null){
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
@@ -71,7 +72,7 @@
 			    text-align: center;
 			    max-height: 590px;
 			}
-			#count{
+			#count, #clickCount, #clickCount1{
 				text-align:center;
 				font-size:20px;
 			}
@@ -95,10 +96,6 @@
 							<col width="10%">
 							<col width="10%">
 							<col width="10%">
-							<col width="10%">
-							<col width="10%">
-							<col width="10%">
-							<col width="10%">
 						</colgroup>
 						<tr>
 							<th id="waiting">결재요청문서</th>
@@ -107,10 +104,32 @@
 							<th id="count">${pr }</th>
 							<th id="complete">결재완료문서</th>
 							<th id="count">${co }</th>
-							<th id="myApprovalToDo">결재예정문서</th>
-							<th id="count">${ma }</th>
-							<th id="myApprovalMust">결재대기문서</th>
-							<th id="count"></th>
+							<c:choose>
+								<c:when test="${userPosition == '팀장' }">
+									<th id="myApprovalToDo"  width="10%">결재예정문서</th>
+									<th id="clickCount" width="10%">${tt }</th>
+									<th id="myApprovalMust" width="10%">결재대기문서</th>
+									<th id="clickCount1" width="10%">0</th>
+								</c:when>
+								<c:when test="${userPosition == '부장' }">
+									<th id="myApprovalToDo" width="10%">결재예정문서</th>
+									<th id="clickCount" width="10%">${dt }</th>
+									<th id="myApprovalMust" width="10%">결재대기문서</th>
+									<th id="clickCount1" width="10%">${dm }</th>
+								</c:when>
+								<c:when test="${userPosition == '과장' }">
+									<th id="myApprovalToDo" width="10%">결재예정문서</th>
+									<th id="clickCount" width="10%">${st }</th>
+									<th id="myApprovalMust" width="10%">결재대기문서</th>
+									<th id="clickCount1" width="10%">${sm }</th>
+								</c:when>
+								<c:when test="${userPosition == '대표' }">
+									<th id="myApprovalToDo" width="10%">결재예정문서</th>
+									<th id="clickCount" width="10%">${lto }</th>
+									<th id="myApprovalMust" width="10%">결재대기문서</th>
+									<th id="clickCount1" width="10%">${lm }</th>
+								</c:when>
+							</c:choose>
 						</tr>
 					</table>
 				</div>
@@ -135,17 +154,18 @@
 						window.open(url,name,option)
 					}
 					$(function(){
-						$('#searchBtn').click(function(){
-							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchType=" + $('select option:selected').val() + "&keyword=" + encodeURIComponent($('#keyword').val());
+						$('#searchBtn').on("click",function(){
+							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchType=" + $('select option:selected').val() 
+							+ "&keyword=" + encodeURIComponent($('#keyword').val()) + "&t_id=<%=userId%>";
 						});
-						$('#waitingDocument').click(function(){
-							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchType=결재대기";
+						$('#waitingDocument').on("click",function(){
+							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchType=결재대기"+"&t_id=<%=userId%>";
 						});
-						$('#progressDocument').click(function(){
-							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchType=결재진행";
+						$('#progressDocument').on("click",function(){
+							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchType=결재진행"+"&t_id=<%=userId%>";
 						});
-						$('#completedDocument').click(function(){
-							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchType=결재완료";
+						$('#completedDocument').on("click",function(){
+							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchType=결재완료"+"&t_id=<%=userId%>";
 						});
 					});
 				</script>

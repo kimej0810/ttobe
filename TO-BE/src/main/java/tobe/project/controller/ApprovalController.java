@@ -26,6 +26,7 @@ import tobe.project.dto.MemberVO;
 import tobe.project.service.AdminService;
 import tobe.project.service.ApprovalLineService;
 import tobe.project.service.ApprovalService;
+import tobe.project.service.MemberService;
 
 /**
  * Handles requests for the application home page.
@@ -45,6 +46,8 @@ public class ApprovalController {
 	@Inject
 	private ApprovalLineService lservice;
 	
+	@Inject
+	private MemberService mservice;
 	
 	@RequestMapping(value = "/documentListMain")
 	public String documentMain(Model model, @ModelAttribute("scri")SearchCriteria scri, String searchType,String t_id) throws Exception{
@@ -61,7 +64,19 @@ public class ApprovalController {
 		model.addAttribute("pr",service.totalCountProgress());
 		model.addAttribute("co",service.totalCountComplete());
 		
-		model.addAttribute("ma",lservice.totalCountMyApprovalToDo(t_id));
+		MemberVO vo = mservice.selectOneMember(t_id);
+		if(vo.getT_position().equals("팀장")) {
+			model.addAttribute("tt",lservice.totalCountTeamLeaderApprovalToDo(t_id));
+		}else if(vo.getT_position().equals("부장")) {
+			model.addAttribute("dt",lservice.totalCountDepartmentHeadApprovalToDo(t_id));
+			model.addAttribute("dm",lservice.totalCountDepartmentHeadApprovalMust(t_id));
+		}else if(vo.getT_position().equals("과장")) {
+			model.addAttribute("st",lservice.totalCountSectionHeadApprovalToDo(t_id));
+			model.addAttribute("sm",lservice.totalCountSectionHeadApprovalMust(t_id));
+		}else if(vo.getT_position().equals("대표")) {
+			model.addAttribute("lto",lservice.totalCountLeaderApprovalToDo(t_id));
+			model.addAttribute("lm",lservice.totalCountLeaderApprovalMust(t_id));
+		}
 		return "/approval/documentListMain";
 	}
 	
