@@ -65,9 +65,10 @@ public class AdminController{
 			hipen = "-00";
 		}else if(length==3) {
 			hipen = "-0";
-		}
-		else if(length==1) {
+		}else if(length==1) {
 			hipen = "-000";
+		}else if(length==4{
+			hipen = "-";
 		}
 		//MemberVO mvo = service.selectOneMember(nextTid);관리자 정보검색
 		model.addAttribute("tid",tid[0]+hipen+nextTid);
