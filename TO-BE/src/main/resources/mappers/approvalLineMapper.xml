@@ -72,4 +72,13 @@
  		WHERE 
  			EIDX = #{eidx}
  	</update>
+ 	
+ 	<update id="modifyApprovalNo" parameterType="ApprovalDTO">
+ 		UPDATE
+ 			APPROVAL_LINE
+ 		SET
+ 			STATUS = '3333'
+ 		WHERE 
+ 			EIDX = #{eidx}
+ 	</update>
  </mapper>
