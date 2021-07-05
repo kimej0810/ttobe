@@ -32,12 +32,12 @@ public class RealMainController extends HttpServlet {
 	@Inject
 	private ApprovalService approvalService;
 	
-	//메인 페이지
+	//메인페이지
 	@RequestMapping(value = "/mainPage")
 	public String list(Locale locale, Model model) throws Exception {
-		System.out.println("와 메인페이지다!");
+		System.out.println("�� 硫��명���댁���!");
 		
-		//달력(근데 뷰에서 뿌릴거라 필요없긴함)
+		//달력(근데 view에서 뿌릴거라 필요없긴함)
 		Calendar now = Calendar.getInstance();
 		
 		int year = now.get(Calendar.YEAR);
@@ -55,15 +55,15 @@ public class RealMainController extends HttpServlet {
 		
 		//오늘의 명언
 		JSONParser parser = new JSONParser();
-		//JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("C:\\Users\\bakug\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json"));
+		JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("C:\\Users\\bakug\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json"));
 		//JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("C:\\Users\\750\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json"));
-		JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("D:\\kio\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json"));
+		//JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("D:\\kio\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json"));
 		
 		
 		int size = jsonArray.size();
-		System.out.println("size-------------->"+size);
+		System.out.println("size-------------->"+size); //52
 		
-		int random = (int)(Math.random()*60-8);
+		int random = (int)(Math.random()*52+1); //1~52 난수생성
 		JSONObject jsonObject = (JSONObject)jsonArray.get(random);
 				
 		String author = (String) jsonObject.get("author");
@@ -73,7 +73,7 @@ public class RealMainController extends HttpServlet {
 		System.out.println("message->"+message);
 		
 		
-		//전자결재
+		//전자결제
 		SearchCriteria scri = new SearchCriteria();
 		scri.setPage(10);
 		List<ApprovalVO> alist = approvalService.selectAllApprovalDocumentList(scri);
