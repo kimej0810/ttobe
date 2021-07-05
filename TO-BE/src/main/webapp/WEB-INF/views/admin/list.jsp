@@ -72,6 +72,9 @@
     .page-item{
     	padding:0;
     }
+    #byeMember{
+  	background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><line x1="" y1="50%" x2="100%" y2="50%" stroke="gray" /></svg>');
+  }
 </style>
 </head>
 <body>
@@ -118,24 +121,42 @@
 				</thead>
 				<tbody>
 				<c:forEach items="${memberList}" var="member">
-					<tr class="saoneGo">
-						<td>${member.t_name}</td>
-						<td>${member.t_department}</td>
-						<td>${member.t_position}</td>
-						<td>${member.t_email}</td>
-						<td>${member.t_phone}</td>
-						<td>
-							<c:set var="joinDate" value="${member.t_join_date}"/>
-							${fn:substring(joinDate,0,10)}
-						</td>
-						<td>${member.delyn}</td>
-					</tr>
+					<c:if test="${member.delyn eq 'N' }">
+						<tr class="saoneGo">
+							<td>${member.t_name}</td>
+							<td>${member.t_department}</td>
+							<td>${member.t_position}</td>
+							<td>${member.t_email}</td>
+							<td>${member.t_phone}</td>
+							<td>
+								<c:set var="joinDate" value="${member.t_join_date}"/>
+								${fn:substring(joinDate,0,10)}
+							</td>
+							<td class="delyn">재직중</td>
+						</tr>
+					</c:if>
+					<c:if test="${member.delyn eq 'Y' }">
+						<tr class="saoneGo" id="byeMember">
+							<td>${member.t_name}</td>
+							<td>${member.t_department}</td>
+							<td>${member.t_position}</td>
+							<td>${member.t_email}</td>
+							<td>${member.t_phone}</td>
+							<td>
+								<c:set var="joinDate" value="${member.t_join_date}"/>
+								${fn:substring(joinDate,0,10)}
+							</td>
+							<td class="delyn">퇴사</td>
+						</tr>
+					</c:if>
 					<tr>
 						<td colspan="9" style="padding:0;text-align:center;">
 							<div class="saoneGoTag">
 								<button type="button" class="saoneBtn btn btn-outline-primary btn-sm" onclick="location.href='${path}/admin/info${pageMaker.makeSearch(pageMaker.cri.page)}&tidx=${member.tidx}'">정보보기</button>
 								<button type="button" class="saoneBtn btn btn-outline-primary btn-sm" onclick="location.href='${path}/admin/email${pageMaker.makeSearch(pageMaker.cri.page)}&tidx=${member.tidx}'">메일전송</button>
+								<c:if test="${member.delyn eq 'N' }">
 								<button type="button" id="deleteBtn" class="saoneBtn btn btn-outline-danger btn-sm">사원 퇴사</button>
+								</c:if>
 								<input type="hidden" value="${member.tidx}">
 							</div>
 						</td>

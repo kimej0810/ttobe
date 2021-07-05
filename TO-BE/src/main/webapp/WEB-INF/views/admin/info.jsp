@@ -10,6 +10,10 @@
 <script type="text/javascript" src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 <script>
 	$(document).ready(function(){
+		var del = $("#delyn").val();
+		if(del=="Y"){
+			$(".table").attr("id","byeMember");
+		}
 		//name
 		$(document).on("click","#reName",function(){
 			var name = $("#userName").text();
@@ -159,6 +163,9 @@
     table th{
     	text-align:center;
     }
+    #byeMember{
+  	background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="100%" x2="100%" y2="0" stroke="gray" /></svg>');
+  }
 </style>
 <body>
 <%
@@ -195,6 +202,7 @@
 								}
 							%>
 						</div>
+						<input type="hidden" id="delyn" value="${member.delyn}">
 					</td>
 				</tr>
 				<tr>
@@ -243,8 +251,10 @@
 		</table>
 		<div class="tableBtn">
 			<a href="${path}/admin/memberlist${pageMaker.makeSearch(pageMaker.cri.page)}&tidx=${member.tidx}"><input type="button" class="btn btn-primary btn-sm" value="목록"></a>
-			<a href="${path}/admin/delete?tidx=${member.tidx}"><input type="button" class="saoneBtn btn btn-danger btn-sm" value="퇴사"></a>
-			
+			<c:set var="del" value="${member.delyn}"/>
+			<c:if test="del eq 'N'">
+				<a href="${path}/admin/delete?tidx=${member.tidx}"><input type="button" class="saoneBtn btn btn-danger btn-sm" value="퇴사"></a>
+			</c:if>
 		</div>
 	</form>
 </body>

@@ -28,22 +28,26 @@
 			$(".btn:checked").each(function(){
 				chkArray.push(this.value);				
 			});
+			if($(".btn").is(":checked")==true){
 			if(confirm('해당 글을 삭제하시겠습니까?')){
-			jQuery.ajaxSettings.traditional = true;
-			$.ajax({
-				url:"/admin/emailDelete",
-				data:{"eidxList" : chkArray},
-				dataType:"json",
-				success:function(data){
-					if(data==0){
-						alert("삭제실패");
-					}else{
-						location.href = "/admin/emaillist";
+				jQuery.ajaxSettings.traditional = true;
+				$.ajax({
+					url:"/admin/emailDelete",
+					data:{"eidxList" : chkArray},
+					dataType:"json",
+					success:function(data){
+						if(data==0){
+							alert("삭제실패");
+						}else{
+							location.href = "/admin/emaillist";
+						}
 					}
+				});
+				}else{
+					$(".btn").prop("checked",false);
 				}
-			});
 			}else{
-				$(".btn").prop("checked",false);
+				alert("선택된 글이 없습니다.");
 			}
 		});
 	});
