@@ -33,19 +33,10 @@ public class MemberController {
 	@Inject
 	private MemberService service;
 	@Inject
-	private MemberFileService fileService;
-	
-	//06-15 시큐리티
-	@Inject
 	BCryptPasswordEncoder pwdEncoder;
 	
 	@RequestMapping(value = "/list")
 	public String selectListMember(Locale locale, Model model) throws Exception {
-		System.out.println("MemberController");
-		//List<FileVO> selectAllFile = fileService.selectAllFile();
-		//List<MemberVO> selectAllMember = service.selectAllMember();
-		//model.addAttribute("fileList",selectAllFile);
-		//model.addAttribute("selectAllMember",selectAllMember);
 		List<MemberDTO> selectAllMember = service.selectAllMember2();
 		model.addAttribute("selectAllMember",selectAllMember);
 		return "/member/list";
@@ -54,12 +45,10 @@ public class MemberController {
 	@ResponseBody
 	public Object searchDepartmentMember(Locale locale, Model model, String t_department) throws Exception {
 		if(t_department.equals("all")) {
-			//List<MemberVO> searchDepartmentMember = service.selectAllMember();
 			List<MemberDTO> searchDepartmentMember = service.selectAllMember2();
 			model.addAttribute("searchDepartmentMember",searchDepartmentMember);
 			return searchDepartmentMember;
 		}
-		//List<MemberVO> searchDepartmentMember = service.searchDepartmentMember(t_department);
 		List<MemberDTO> searchDepartmentMember = service.searchDepartmentMember(t_department);
 		model.addAttribute("searchDepartmentMember",searchDepartmentMember);
 		return searchDepartmentMember;
@@ -67,7 +56,6 @@ public class MemberController {
 	@RequestMapping(value = "/saoneinfo")
 	@ResponseBody
 	public Object selectOneMember(Locale locale, Model model, int tidx) throws Exception {
-		//MemberVO saoneInfo = service.selectOneMemberIdx(tidx);
 		MemberDTO saoneInfo = service.selectOneMemberIdx(tidx);
 		model.addAttribute("saoneinfo",saoneInfo);
 		return saoneInfo;
@@ -75,7 +63,6 @@ public class MemberController {
 	@RequestMapping(value = "/insertSaone")
 	@ResponseBody
 	public Object addMember(Locale locale, Model model, int tidx) throws Exception {
-		//MemberVO saoneInfo = service.selectOneMemberIdx(tidx);
 		MemberDTO saoneInfo = service.selectOneMemberIdx(tidx);
 		model.addAttribute("saoneinfo",saoneInfo);
 		return saoneInfo;
@@ -109,7 +96,6 @@ public class MemberController {
 			session.invalidate();
 			return "/member/login";
 		}
-		
 		return "";
 	}
 	//----------------------가람 시작!
@@ -199,5 +185,4 @@ public class MemberController {
 		//}
 		
 	}
-	//----------------------------------------------------------------//
 }

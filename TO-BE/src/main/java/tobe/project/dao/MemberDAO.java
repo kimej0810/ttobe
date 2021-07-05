@@ -27,7 +27,6 @@ public interface MemberDAO {
 	public int modifyPwd(MemberVO vo) throws Exception;
 	//비밀번호찾기 아이디체크
 	public int checkId(String id) throws Exception;
-	public MemberVO selectOneEmail(String t_email) throws Exception;
 	public MemberVO selectOneMemberId(String t_id) throws Exception;
 	public MemberVO selectOneMember(String t_id) throws Exception;
 	//--------------------------------------------------//
