@@ -24,13 +24,13 @@ public class ApprovalServiceImpl implements ApprovalService{
 	}
 
 	@Override
-	public ApprovalVO selectOneApprovalDocumentContents(int eidx) throws Exception {
+	public ApprovalDTO selectOneApprovalDocumentContents(int eidx) throws Exception {
 		return dao.selectOneApprovalDocumentContents(eidx);
 	}
 
 	@Override
-	public void modifyApprovalDocument(ApprovalVO vo) throws Exception{
-		dao.modifyApprovalDocument(vo); 
+	public void modifyApprovalDocument(ApprovalDTO dto) throws Exception{
+		dao.modifyApprovalDocument(dto); 
 	}
 	@Override
 	public void deleteApprovalDocument(int eidx) throws Exception {
@@ -74,6 +74,16 @@ public class ApprovalServiceImpl implements ApprovalService{
 	@Override
 	public void modifyApprovalStatusOk(int eidx) throws Exception {
 		dao.modifyApprovalStatusOk(eidx);
+	}
+
+	@Override
+	public void modifyApprovalStatusNo(ApprovalDTO dto) throws Exception {
+		dao.modifyApprovalStatusNo(dto);
+	}
+
+	@Override
+	public void modifyApprovalDocumentAgain(ApprovalDTO dto) throws Exception {
+		dao.modifyApprovalDocumentAgain(dto);
 	}
 	
 }

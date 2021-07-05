@@ -5,6 +5,8 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.mysql.cj.Session;
+
 import tobe.project.dto.ApprovalDTO;
 
 @Repository
@@ -22,6 +24,7 @@ public class ApprovalLineDAOImpl implements ApprovalLineDAO{
 	public ApprovalDTO selectOneApprovalLine(int eidx) throws Exception {
 		return sqlSession.selectOne(Namespace+".selectOneApprovalLine",eidx);
 	}
+	//승인
 	@Override
 	public void modifyApprovalTeamLeader(int eidx) throws Exception {
 		sqlSession.update(Namespace+".modifyApprovalTeamLeader",eidx);
@@ -37,6 +40,16 @@ public class ApprovalLineDAOImpl implements ApprovalLineDAO{
 	@Override
 	public void modifyApprovalLeader(int eidx) throws Exception {
 		sqlSession.update(Namespace+".modifyApprovalLeader",eidx);
+	}
+	//반려
+	@Override
+	public void modifyApprovalNo(int eidx) throws Exception {
+		sqlSession.update(Namespace+".modifyApprovalNo",eidx);
+	}
+	//재기안
+	@Override
+	public void modifyApprovalDocumentAgainLine(ApprovalDTO dto) throws Exception {
+		sqlSession.update(Namespace+".modifyApprovalDocumentAgainLine",dto);
 	}
 	//결제대기문서 (결재순서 도착)
 	@Override
@@ -71,4 +84,6 @@ public class ApprovalLineDAOImpl implements ApprovalLineDAO{
 		return sqlSession.selectOne(Namespace+".totalCountLeaderApprovalMust",t_id);
 	}
 	//결제예정문서 끝
+	
+	
 }

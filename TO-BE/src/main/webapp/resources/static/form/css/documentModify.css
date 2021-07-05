@@ -1914,8 +1914,7 @@ table.sheet0 tr.row14 {
 
 
 .sheet0{
-	margin:0px auto;
-	width: 101%;
+	margin:0px 6px auto;
 }
 #e_textTitle{
 	width: 99.5%;
@@ -1933,32 +1932,38 @@ table.sheet0 tr.row14 {
 	font-size: 15px;
 	margin-top:5px;
 }
-div:not(#documentBtn){
+div:not(#documentBtn,#ui-datepicker-div,.ui-datepicker-header,.ui-datepicker-title){
 	margin-left: 5px;
-    margin-top: 15px;
-    width: 634px;
-    text-align: right;
+	margin-top: 15px;
+	width: 647px;
+	text-align: right;
 }
 #documentBtn{
-    text-align: right;
-    width: 639px;
-    margin: 10px 2px auto;
+	text-align: right;
+    width: 640px;
+    margin: 10px 0px auto;
 }
-#e_documentNum, #e_rule, #e_draftDate, #e_startDay, #e_con, #e_member, #e_buseo, #e_send{
+#e_rule, #e_draftDate, #e_startDay, #e_con, #e_member, #e_buseo, #e_send{
 	width: 98%;
 	height: 28px;
 	border: none;
 	font-size: 15px;
 }
-#e_documentNum{
-	width:50px;
+#e_documentNum{ 
+	width:70px;
+	height: 28px;
+	border: none;
+	font-size: 15px;
 	text-align: center;
 }
 #charge, #teamLeader, #departmentHead, #sectionHead, #leader{
-	width: 45px;
+	width: 65px; 
 	height:50px;
 	border:none;
 	text-align: center;
+}
+.btngroup{
+	margin-left:1px;
 }
 .target {
     -ms-overflow-style: none;

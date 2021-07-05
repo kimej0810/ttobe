@@ -5,8 +5,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" trimDirectiveWhitespaces="true"%>
 <%
-	ApprovalVO contents = (ApprovalVO)request.getAttribute("contents");
+	ApprovalDTO contents = (ApprovalDTO)request.getAttribute("contents");
 	ApprovalDTO to = (ApprovalDTO)request.getAttribute("to");
 	MemberVO mo = (MemberVO)request.getAttribute("mo");
 	
@@ -38,7 +39,7 @@
 				var e_status = $('#e_status').val();
 				
 				if(e_status == 0 || <%=contents.getTidx()%> == <%=userTidx%>){
-					location.href="documentModify?e_documentNum="+"<%=contents.getE_documentNum()%>&tidx=<%=contents.getTidx()%>";
+					location.href="documentModify?eidx="+"<%=contents.getEidx()%>&tidx=<%=contents.getTidx()%>";
 				}else{
 					alert("문서의 기안자가 아니거나 수정할 수 없는 상태입니다.");
 				}
@@ -64,6 +65,30 @@
 				alert("승인처리 되었습니다.");
 				opener.parent.location.reload();
 				window.close();
+			}
+			function no(){
+				var returnValue = prompt("반려 사유 작성","");
+				if(returnValue != ""){
+					if(returnValue){
+						var result = confirm("반려 처리 하시겠습니까?");
+						if(result){
+							location.href = "documentNo?eidx="+"<%=contents.getEidx()%>"+"&e_reason="+returnValue;
+							alert("반려처리 되었습니다.");
+							window.close();
+						}else{
+							alert("반려처리 취소되었습니다.");
+						}
+					}
+				}else{
+					alert("반려 사유를 작성하세요.");
+				}
+			}
+			function approvalAgain(){
+				var result = confirm("재기안 하시겠습니까?");
+				if(result){
+					alert("기안서 작성페이지로 이동합니다");
+					location.href="documentApprovalAgain?eidx="+"<%=contents.getEidx()%>&tidx=<%=contents.getTidx()%>";
+				}
 			}
 		</script>
 	</head>
@@ -120,8 +145,8 @@
 								<%=contents.getE_draftDate()%>
 							</td>
 							<td class="style33 style33" rowspan="3">결<br><br>재</td>
-							<td class="style35 style36" colspan="2">담당</td>
-							<td class="style35 style36" colspan="2">팀장</td>
+							<td class="style35 style36" colspan="2">${to.teamLeader }</td>
+							<td class="style35 style36" colspan="2"></td>
 							<td class="style35 style36" colspan="3">부장</td>
 							<td class="style35 style36" colspan="2">과장</td>
 							<td class="style11 s">대 표</td>
@@ -195,7 +220,7 @@
 					</tbody>
 				</table>
 				<div id="documentBtn">
-				<%if(userTidx == mo.getTidx()){%>
+				<%if(userTidx == mo.getTidx() && contents.getE_status().trim().equals("결재대기")){%>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_ok()">확인</button>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_modify();">수정</button>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_delete();">삭제</button>
@@ -215,7 +240,10 @@
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">최종승인</button>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="no()">반려</button>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_ok()">확인</button>
-				<%}else{%>
+				<%}else if(userTidx == mo.getTidx() && to.getStatus().equals("3333") && contents.getE_status().trim().equals("결재반려")){%>
+					<button type="button" class="btn btn-primary btn-sm float-right" onclick="approvalAgain()">재기안</button>
+					<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_ok()">확인</button>
+				<%}else{ %>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_ok()">확인</button>
 				<%} %>
 				</div>

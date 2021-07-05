@@ -20,10 +20,24 @@ public class ApprovalDTO {
 	private String e_textContent;
 	private String delyn;
 	private String e_status;
+	private String e_approvalnoyn;
+	private String e_reason;
 	private MemberVO memberVO;
 	private ApprovalVO approvalVO;
 	private ApprovalLineVO approvalLineVO;
 	
+	public String getE_approvalnoyn() {
+		return e_approvalnoyn;
+	}
+	public void setE_approvalnoyn(String e_approvalnoyn) {
+		this.e_approvalnoyn = e_approvalnoyn;
+	}
+	public String getE_reason() {
+		return e_reason;
+	}
+	public void setE_reason(String e_reason) {
+		this.e_reason = e_reason;
+	}
 	public String getTeamLeader() {
 		return teamLeader;
 	}

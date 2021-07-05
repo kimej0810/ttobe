@@ -21,18 +21,18 @@ public class ApprovalDAOImpl implements ApprovalDAO{
 	private static final String Namespace = "tobe.project.mappers.approvalMapper";
 	
 	@Override
-	public void writeApprovalDocument(ApprovalDTO dto) throws Exception {				//��ȵ��
+	public void writeApprovalDocument(ApprovalDTO dto) throws Exception {				
 		sqlSession.insert(Namespace+".writeApprovalDocument",dto);
 	}
 	
 	@Override
-	public ApprovalVO selectOneApprovalDocumentContents(int eidx) throws Exception {		//�󼼺���
+	public ApprovalDTO selectOneApprovalDocumentContents(int eidx) throws Exception {		
 		return sqlSession.selectOne(Namespace+".selectOneApprovalDocumentContents",eidx);
 	}
 	 
 	@Override
-	public void modifyApprovalDocument(ApprovalVO vo) throws Exception{
-		sqlSession.update(Namespace+".modifyApprovalDocument",vo);
+	public void modifyApprovalDocument(ApprovalDTO dto) throws Exception{
+		sqlSession.update(Namespace+".modifyApprovalDocument",dto);
 	}
 	@Override
 	public void deleteApprovalDocument(int eidx) throws Exception {
@@ -80,7 +80,14 @@ public class ApprovalDAOImpl implements ApprovalDAO{
 		sqlSession.update(Namespace+".modifyApprovalStatusOk",eidx);
 	}
 
-	
-	
-	
+	@Override
+	public void modifyApprovalStatusNo(ApprovalDTO dto) throws Exception {
+		sqlSession.update(Namespace+".modifyApprovalStatusNo",dto);
+		
+	}
+
+	@Override
+	public void modifyApprovalDocumentAgain(ApprovalDTO dto) throws Exception {
+		sqlSession.update(Namespace+".modifyApprovalDocumentAgain",dto);		
+	}
 }

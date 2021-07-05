@@ -1932,7 +1932,7 @@ table.sheet0 tr.row14 {
 	font-size: 15px;
 	margin-top:5px;
 }
-div:not(#documentBtn){
+div:not(#documentBtn,#ui-datepicker-div,.ui-datepicker-header,.ui-datepicker-title){
 	margin-left: 5px;
 	margin-top: 15px;
 	width: 647px;
@@ -1944,14 +1944,17 @@ div:not(#documentBtn){
     margin: 10px 2px auto;
 	
 }
-#e_documentNum, #e_rule, #e_draftDate, #e_startDay, #e_con, #e_member, #e_buseo, #e_send{
+#e_rule, #e_draftDate, #e_startDay, #e_con, #e_member, #e_buseo, #e_send{
 	width: 98%;
 	height: 28px;
 	border: none;
 	font-size: 15px;
 }
 #e_documentNum{ 
-	width:50px;
+	width:0px;
+	height: 28px;
+	border: none;
+	font-size: 15px;
 	text-align: center;
 }
 #charge, #teamLeader, #departmentHead, #sectionHead, #leader{

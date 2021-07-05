@@ -4,7 +4,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
+	Object userName = session.getAttribute("userName");
+	Object userDep = session.getAttribute("userDep");
 	ApprovalDTO contents = (ApprovalDTO)request.getAttribute("contents");
+	
 	int userTidx = (int)session.getAttribute("userTidx");
 	if(userTidx == 0){ 
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
@@ -33,12 +36,12 @@
 				
 				$.ajax({
 					type:'POST',
-					url:"/approval/ModifyDocumentWite?eidx="+"<%=contents.getEidx()%>&tidx=<%=contents.getTidx()%>",
+					url:"/approval/documentApprovalAgainOk?eidx="+"<%=contents.getEidx()%>&tidx=<%=contents.getTidx()%>",
 					dataType:'JSON',
 					data: draftLetterData,
 					contentType : "application/json; charset=UTF-8",
 					success: function(data){
-						alert("수정이 완료되었습니다.");
+						alert("기안이 완료되었습니다.");
 						opener.parent.location.reload();
 						window.close();
 					}
@@ -106,27 +109,51 @@
 						<td class="style11 s">대 표</td>
 					</tr>
 					<tr class="row7">
-						<td></td>
-						<td class="style2">시 행 일 자</td>
-						<td class="style34 style34" colspan="2">
-							<input type="text" id="e_startDay" name="e_startDay" class="date" value="<%=contents.getE_startDay()%>" autocomplete="off">
-						</td>
-						<td class="style38  style43" colspan="2" rowspan="2">
-							<input type="text" id="charge" readonly>
-						</td>
-						<td class="style38 style43" colspan="2" rowspan="2">
-							<input type="text" id="teamLeader" readonly>
-						</td>
-						<td class="style38 style43" colspan="3" rowspan="2">
-							<input type="text" id="departmentHead" readonly>
-						</td>
-						<td class="style38 style43" colspan="2" rowspan="2">
-							<input type="text" id="sectionHead" readonly>
-						</td>
-						<td class="style58 style59" rowspan="2">
-							<input type="text" id="leader" readonly>
-						</td>
-					</tr>
+							<td></td>
+							<td class="style2">시 행 일 자</td>
+							<td class="style34 style34" colspan="2">
+								<input type="text" id="e_startDay" name="e_startDay" class="date" autocomplete="off">
+							</td>
+							<td class="style38  style43" colspan="2" rowspan="2">
+								<input type="text" id="charge" value="<%=userName%>">
+							</td>
+							<td class="style38 style43" colspan="2" rowspan="2">
+								<select id="teamLeader" name="teamLeader">
+									<c:forEach items="${allMember}" var="allMember" varStatus="status">
+										<c:if test="${userDep == allMember.t_department && allMember.t_position == '팀장'}">
+											<option value="${allMember.t_id}">${allMember.t_name}</option>
+										</c:if>
+									</c:forEach>
+								</select>
+							</td>
+							<td class="style38 style43" colspan="3" rowspan="2">
+								<select id="departmentHead" name="departmentHead">
+									<c:forEach items="${allMember }" var="allMember" varStatus="status">
+										<c:if test="${userDep == allMember.t_department && allMember.t_position == '부장'}">
+											<option value="${allMember.t_id }">${allMember.t_name}</option>
+										</c:if>
+									</c:forEach>
+								</select>
+							</td>
+							<td class="style38 style43" colspan="2" rowspan="2">
+								<select id="sectionHead" name="sectionHead">
+									<c:forEach items="${allMember }" var="allMember" varStatus="status">
+										<c:if test="${userDep == allMember.t_department && allMember.t_position == '과장'}">
+											<option value="${allMember.t_id }">${allMember.t_name}</option>
+										</c:if>
+									</c:forEach>
+								</select>
+							</td>
+							<td class="style58 style59" rowspan="2">
+								<select id="leader" name="leader">
+									<c:forEach items="${allMember }" var="allMember" varStatus="status">
+										<c:if test="${allMember.t_position == '대표'}">
+											<option value="${allMember.t_id }">${allMember.t_name}</option>
+										</c:if>
+									</c:forEach>
+								</select>
+							</td>
+						</tr>
 					<tr class="row8">
 						<td></td>
 						<td class="style2 s">보 존 기 한</td>

@@ -5,7 +5,6 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Repository;
 
 import tobe.project.dao.ApprovalLineDAO;
-import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.ApprovalDTO;
 
 @Repository
@@ -22,6 +21,8 @@ public class ApprovalLineServiceImpl implements ApprovalLineService{
 	public ApprovalDTO selectOneApprovalLine(int eidx) throws Exception {
 		return dao.selectOneApprovalLine(eidx);
 	}
+	
+	//결재승인
 	@Override
 	public void modifyApprovalTeamLeader(int eidx) throws Exception {
 		dao.modifyApprovalTeamLeader(eidx);
@@ -38,6 +39,17 @@ public class ApprovalLineServiceImpl implements ApprovalLineService{
 	public void modifyApprovalLeader(int eidx) throws Exception {
 		dao.modifyApprovalLeader(eidx);
 	}
+	//결재반려
+	@Override
+	public void modifyApprovalNo(int eidx) throws Exception {
+		dao.modifyApprovalNo(eidx);
+	}
+	//재기안
+	@Override
+	public void modifyApprovalDocumentAgainLine(ApprovalDTO dto) throws Exception {
+		dao.modifyApprovalDocumentAgainLine(dto);
+	}
+	
 	//결제대기문서 (결재순서 도착)
 	@Override
 	public int totalCountTeamLeaderApprovalToDo(String t_id) throws Exception {	
@@ -71,4 +83,6 @@ public class ApprovalLineServiceImpl implements ApprovalLineService{
 		return dao.totalCountLeaderApprovalMust(t_id);
 	}
 	//결제예정문서 끝
+	
+	
 }
