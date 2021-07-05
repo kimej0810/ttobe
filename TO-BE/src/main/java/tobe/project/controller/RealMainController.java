@@ -58,6 +58,7 @@ public class RealMainController extends HttpServlet {
 		JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("C:\\Users\\bakug\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json"));
 		//JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("C:\\Users\\750\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json"));
 		//JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("D:\\kio\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json"));
+		//JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("C:\\Users\\767\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json")); 륜광
 		
 		
 		int size = jsonArray.size();
