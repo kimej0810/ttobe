@@ -34,28 +34,28 @@ public class RealMainController extends HttpServlet {
 	@Inject
 	private ApprovalService approvalService;
 	
-	//¸ŞÀÎÆäÀÌÁö
+	//ë©”ì¸í˜ì´ì§€
 	@RequestMapping(value = "/mainPage")
 	public String list(Locale locale, Model model) throws Exception {
-		System.out.println("¿Í ¸ŞÀÎ ÄÁÆ®·Ñ·¯´Ù!");
+		System.out.println("ì™€ ë©”ì¸ ì»¨íŠ¸ë¡¤ëŸ¬ë‹¤!");
 		
 		
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH) + 1;
 		
-		//¿À´ÃÀÇ ¸í¾ğ
+		//ì˜¤ëŠ˜ì˜ ëª…ì–¸
 		JSONParser parser = new JSONParser();
-		JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("C:\\Users\\bakug\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json"));
-		//JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("C:\\Users\\750\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json"));
-		//JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("D:\\kio\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json"));
-		//JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("C:\\Users\\767\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json")); ·û±¤
+		String path = request.getSession().getServletContext().getRealPath("/resources/static/data/");
+		String path2 = "maxim.json";
+		String resultPath = path+path2;
+		JSONArray jsonArray = (JSONArray)parser.parse(new FileReader(resultPath));
 		
 		
 		int size = jsonArray.size();
 		System.out.println("size-------------->"+size); //52
 		
-		int random = (int)(Math.random()*52); //0~51 ³­¼ö»ı¼º
+		int random = (int)(Math.random()*52); //0~51 ë‚œìˆ˜ìƒì„±
 		JSONObject jsonObject = (JSONObject)jsonArray.get(random);
 				
 		String author = (String) jsonObject.get("author");
@@ -65,7 +65,7 @@ public class RealMainController extends HttpServlet {
 		System.out.println("message->"+message);
 		
 		
-		//ÀüÀÚ°áÁ¦
+		//ì „ìê²°ì œ
 		SearchCriteria scri = new SearchCriteria();
 		scri.setPage(10);
 		List<ApprovalVO> alist = approvalService.selectAllApprovalDocumentList(scri);
