@@ -90,7 +90,7 @@
 					<button type="button" class="btn btn-outline-secondary" id="progressDocument">결재진행문서</button>
 					<button type="button" class="btn btn-outline-secondary" id="completedDocument">결재완료문서</button>
 					<button type="button" class="btn btn-outline-secondary" id="NoDocument">결재반려문서</button>
-					<button type="button" class="btn btn-outline-secondary" onclick="location.href='/approval/documentListMy${paging.makeQuery(1)}&seachType=<%=userPosition %>&keyword=<%=userId %>&tidx=<%=userTidx %>'" id="my">결재반려문서</button>
+					<button type="button" class="btn btn-outline-secondary" onclick="location.href='/approval/documentListMy${paging.makeQuery(1)}&searchType=<%=userPosition %>&keyword=<%=userId %>&tidx=<%=userTidx %>'" id="my">결재반려문서</button>
 				</div>
 				<div id="statusGroup">
 					<table id="statusTable">
