@@ -12,7 +12,8 @@
  	</select>
     <select id="selectOneMemberIdx" resultType="memberDTO">
     	SELECT A.*,B.F_STORED_FILE_NAME,B.F_TYPE
- 		FROM TOBE_MEMBER A LEFT JOIN FILE_INFOTEST B ON A.TIDX = B.TIDX WHERE B.F_TYPE = 'profile' AND A.TIDX = #{tidx}
+ 		FROM TOBE_MEMBER A LEFT JOIN FILE_INFOTEST B ON A.TIDX = B.TIDX WHERE A.TIDX = #{tidx}
+ 		<!--AND B.F_TYPE = 'profile' -->
     </select>
     <select id="searchMember" resultType="memberVO">
     	SELECT * FROM TOBE_MEMBER WHERE DELYN = 'N'

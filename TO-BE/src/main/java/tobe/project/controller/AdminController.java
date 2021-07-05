@@ -91,8 +91,6 @@ public class AdminController{
 	public String selectOneMember(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Locale locale, Model model,int tidx) throws Exception {
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(searchCriteria);
-		pageMaker.setTotalCount(service.totalCountsearchMember(searchCriteria));
-		model.addAttribute("memberList",service.searchMemberList(searchCriteria));
 		model.addAttribute("pageMaker",pageMaker);
 		MemberVO vo = service.selectOneMember(tidx);
 		//파일조회

@@ -62,6 +62,7 @@
     <select id="selectOneFile" resultType="fileVO">
     	SELECT * FROM FILE_INFOTEST
     	WHERE TIDX = #{tidx}
+    	AND F_TYPE = 'profile'
     	AND DELYN = 'N'
     </select>
     <!-- file end -->
