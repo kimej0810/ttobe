@@ -212,9 +212,11 @@ p {
 			<table id="calendar" class="table w-100">
 				<%
 					Calendar cal = Calendar.getInstance();
-					int year = cal.get(Calendar.YEAR);
-					int month = cal.get(Calendar.MONTH) + 1;
+					int toDate = cal.get(Calendar.DATE);
+					int toYear = cal.get(Calendar.YEAR);
+					int toMonth = cal.get(Calendar.MONTH) + 1;
 	
+					int year, month = 0;
 					//request로 year, month 값을 받아옴
 					try{
 						year = Integer.parseInt(request.getParameter("year"));
@@ -222,7 +224,7 @@ p {
 						year = cal.get(Calendar.YEAR);
 					}
 					try{
-						month=Integer.parseInt(request.getParameter("month"));
+						month = Integer.parseInt(request.getParameter("month"));
 					}catch(Exception e){
 						month = cal.get(Calendar.MONTH)+1;
 					}
@@ -257,9 +259,10 @@ p {
 				%>
 				<tr>
 					<td colspan="7" style="text-align:center;">
-						<img style="width:10px; float:left; cursor:pointer;" src="/resources/static/img/prev.png" onclick="location.href='?month=<%=month-1%>'">
+						<img style="width:10px; float:left; cursor:pointer;" src="/resources/static/img/prev.png" onclick="location.href='?year=<%=year%>&month=<%=month-1%>'">
+						<span style="font-size:0.7rem;"><%=year%></span>
 						<span style="font-size:1.5rem;"><%=month%></span>
-						<img style="width:10px; float:right; cursor:pointer;" src="/resources/static/img/next.png" onclick="location.href='?month=<%=month+1%>'">
+						<img style="width:10px; float:right; cursor:pointer;" src="/resources/static/img/next.png" onclick="location.href='?year=<%=year%>&month=<%=month+1%>'">
 					</td>
 				</tr>
 				<tr>
@@ -283,13 +286,22 @@ p {
 							week = cal.get(Calendar.DAY_OF_WEEK);
 							
 							//일요일, 토요일은 붉은색으로 처리
-							if(week==1) 
-								out.println("<td style='color:red;'>"+i+"</td>");
-							else if(week==7) 
-								out.println("<td style='color:red;'>"+i+"</td>");
-							else 
-								out.println("<td>"+i+"</td>");
 							
+							
+							if(week==1) {
+								if(year==toYear&&month==toMonth&&i==toDate){
+									out.println("<td style='background-color:rgb(222, 226, 230);'>"+i+"</td>");
+								}else{out.println("<td style='color:red;'>"+i+"</td>");}
+							}else if(week==7) {
+								if(year==toYear&&month==toMonth&&i==toDate){
+									out.println("<td style='background-color:rgb(222, 226, 230);'>"+i+"</td>");
+								}else{out.println("<td style='color:red;'>"+i+"</td>");}
+								
+							}else {
+								if(year==toYear&&month==toMonth&&i==toDate){
+									out.println("<td style='background-color:rgb(222, 226, 230);'>"+i+"</td>");
+								}else{out.println("<td>"+i+"</td>");}
+							}
 							//토요일이면 다음줄로 넘어감
 							if(week==7){
 								out.println("</tr>");
