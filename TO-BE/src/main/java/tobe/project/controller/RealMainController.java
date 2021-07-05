@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -36,7 +37,7 @@ public class RealMainController extends HttpServlet {
 	
 	//메인페이지
 	@RequestMapping(value = "/mainPage")
-	public String list(Locale locale, Model model) throws Exception {
+	public String list(Locale locale, Model model,HttpServletRequest request) throws Exception {
 		System.out.println("와 메인 컨트롤러다!");
 		
 		
