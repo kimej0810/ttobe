@@ -124,7 +124,18 @@
 							<a href="#" class="list-group-item list-group-item-action"
 								onclick="location.href='/member/mypage?tidx=<%=userTidx%>'">
 								<%=userName%>님
-							</a> <a href="#" class="list-group-item list-group-item-action"
+							</a> 
+							<%
+							if(userGrade!=null){
+								if(userGrade.equals("A")){
+							%>
+								<a href="#" class="list-group-item list-group-item-action"
+								onclick="location.href='/admin/emaillist'">메일함</a>
+							<%
+								}
+							}
+							%>
+							<a href="#" class="list-group-item list-group-item-action"
 								onclick="location.href='/member/logout'"> 로그아웃 </a>
 						</div>
 					</div>
