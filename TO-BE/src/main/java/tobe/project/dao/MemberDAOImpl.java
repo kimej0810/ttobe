@@ -37,27 +37,21 @@ public class MemberDAOImpl implements MemberDAO{
 	public List<MemberVO> searchMember2(String t_name) throws Exception {
 		return sqlSession.selectList(Namespace+".searchMember2",t_name);
 	}
-	////////////////[06-15]////////
-	/////////////[가람]
 	//로그인
 	@Override
 	public MemberVO login(LoginDTO dto) throws Exception {
 		return sqlSession.selectOne(Namespace+".selectOneMemberId", dto);
 	}
-	
 	//비밀번호 변경
 	@Override
 	public int modifyPwd(MemberVO vo) throws Exception {
 		return sqlSession.update(Namespace+".modifyPwd", vo);
 	}
-	
 	//비밀번호 찾기 아이디체크
 	@Override
 	public int checkId(String t_id) throws Exception{
 		return sqlSession.selectOne(Namespace+".checkId", t_id);
 	}
-
-	
 	@Override
 	public MemberVO selectOneMemberId(String t_id)  throws Exception{
 		return sqlSession.selectOne(Namespace+".selectOneMemberId",t_id);
@@ -69,15 +63,11 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public void modifyMember(MemberVO vo) throws Exception {
 		sqlSession.update(Namespace+".modifyMember", vo);
-		
 	}
-	
 	@Override
 	public void insertFile(Map<String, Object> map) throws Exception {
 		sqlSession.insert(Namespace+".insertFile", map);
-		
 	}
-	///////////[가람]
 	@Override
 	public List<MemberDTO> selectAllMember2() throws Exception {
 		return sqlSession.selectList(Namespace+".selectAllMember2");

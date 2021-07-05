@@ -6,9 +6,6 @@
  	<select id="selectAllMember" resultType="memberVO">
  		select * from tobe_member where delyn = 'N' order by tidx desc
  	</select>
- 	<!-- <select id="searchDepartmentMember" resultType="memberVO">
- 		select * from tobe_member where t_department = #{t_department} order by tidx desc
- 	</select> -->
  	<select id="searchDepartmentMember" resultType="memberDTO">
  		SELECT A.*,B.F_STORED_FILE_NAME,B.F_TYPE
  		FROM TOBE_MEMBER A LEFT JOIN FILE_INFOTEST B ON A.TIDX = B.TIDX where A.t_department = #{t_department}

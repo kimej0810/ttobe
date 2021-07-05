@@ -45,7 +45,6 @@ public class AdminController{
 	
 	@Inject
 	private MemberService memberService;
-	//06-15 시큐리티
 	@Inject
 	BCryptPasswordEncoder pwdEncoder;
 	//파일 저장 기본 경로 bean 등록

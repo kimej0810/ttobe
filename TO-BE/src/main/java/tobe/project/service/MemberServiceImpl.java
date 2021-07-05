@@ -35,21 +35,10 @@ public class MemberServiceImpl implements MemberService{
 	public List<MemberVO> selectAllMember() throws Exception{
 		return dao.selectAllMember();
 	}
-
-	/*
-	 * @Override public List<MemberVO> searchDepartmentMember(String
-	 * t_department)throws Exception{ return
-	 * dao.searchDepartmentMember(t_department); }
-	 */
 	@Override
 	public List<MemberDTO> searchDepartmentMember(String t_department)throws Exception{
 		return dao.searchDepartmentMember(t_department);
 	}
-
-	/*
-	 * @Override public MemberVO selectOneMemberIdx(int tidx) throws Exception {
-	 * return dao.selectOneMemberIdx(tidx); }
-	 */
 	@Override
 	public MemberDTO selectOneMemberIdx(int tidx) throws Exception {
 		return dao.selectOneMemberIdx(tidx);

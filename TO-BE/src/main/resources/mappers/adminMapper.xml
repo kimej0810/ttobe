@@ -13,7 +13,7 @@
 	<insert id="addMember" parameterType="tobe.project.dto.MemberVO" useGeneratedKeys="true" keyProperty="tidx">
 		<selectKey keyProperty="tidx" resultType="int" order="BEFORE">
 			SELECT TIDX_SEQ.NEXTVAL FROM DUAL
-		</selectKey>
+		</selectKey> 
 		insert into TOBE_MEMBER
 		(tidx,t_id,t_pwd,t_email,t_addr_zipcode,t_addr_general,t_addr_detail,t_phone,t_name,t_birth,t_position,t_department,t_join_date)
 		values(tidx_seq.nextval,#{t_id},#{t_pwd},#{t_email},#{t_addr_zipcode},#{t_addr_general},#{t_addr_detail},#{t_phone},

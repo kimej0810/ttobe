@@ -9,14 +9,10 @@ import tobe.project.dto.MemberVO;
 
 public interface MemberDAO {
 	public List<MemberVO> selectAllMember() throws Exception;
-	//부서별 사원리스트
-	//public List<MemberVO> searchDepartmentMember(String t_department) throws Exception;
 	public List<MemberDTO> searchDepartmentMember(String t_department) throws Exception;
-	//public MemberVO selectOneMemberIdx(int tidx) throws Exception;
 	public MemberDTO selectOneMemberIdx(int tidx) throws Exception;
 	public List<MemberVO> searchMember(MemberVO vo)throws Exception;
 	public List<MemberVO> searchMember2(String t_name)throws Exception;
-	//----------------가람 시작!
 	//로그인
 	public MemberVO login(LoginDTO dto) throws Exception;
 	//사원정보 수정

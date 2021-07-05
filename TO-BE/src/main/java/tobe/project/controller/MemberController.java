@@ -98,8 +98,6 @@ public class MemberController {
 		}
 		return "";
 	}
-	//----------------------가람 시작!
-
 	//로그인 페이지불러오기
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public void loginGET(@ModelAttribute("dto") LoginDTO dto) {
