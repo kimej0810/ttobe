@@ -38,8 +38,16 @@ public class AdminServiceImpl implements AdminService{
 		return dao.selectOneMember(tidx);
 	}
 	@Override
-	public int modifyMember(MemberVO vo) throws Exception {
-		return dao.modifyMember(vo);
+	public int modifyName(MemberVO vo) throws Exception {
+		return dao.modifyName(vo);
+	}
+	@Override
+	public int modifyPosition(MemberVO vo) throws Exception {
+		return dao.modifyPosition(vo);
+	}
+	@Override
+	public int modifyDepartment(MemberVO vo) throws Exception {
+		return dao.modifyDepartment(vo);
 	}
 	@Override
 	public int totalCountMember(String keyword) throws Exception {

@@ -4,15 +4,15 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="tobe.project.mapper.memberMapper">
  	<select id="selectAllMember" resultType="memberVO">
- 		select * from tobe_member where delyn = 'N' order by tidx desc
+ 		SELECT * FROM TOBE_MEMBER WHERE DELYN = 'N' ORDER BY TIDX DESC
  	</select>
  	<select id="searchDepartmentMember" resultType="memberDTO">
  		SELECT A.*,B.F_STORED_FILE_NAME,B.F_TYPE
- 		FROM TOBE_MEMBER A LEFT JOIN FILE_INFOTEST B ON A.TIDX = B.TIDX where A.t_department = #{t_department}
+ 		FROM TOBE_MEMBER A LEFT JOIN FILE_INFOTEST B ON A.TIDX = B.TIDX WHERE A.T_DEPARTMENT = #{t_department}
  	</select>
     <select id="selectOneMemberIdx" resultType="memberDTO">
     	SELECT A.*,B.F_STORED_FILE_NAME,B.F_TYPE
- 		FROM TOBE_MEMBER A LEFT JOIN FILE_INFOTEST B ON A.TIDX = B.TIDX where B.F_TYPE = 'profile' AND A.TIDX = #{tidx}
+ 		FROM TOBE_MEMBER A LEFT JOIN FILE_INFOTEST B ON A.TIDX = B.TIDX WHERE B.F_TYPE = 'profile' AND A.TIDX = #{tidx}
     </select>
     <select id="searchMember" resultType="memberVO">
     	SELECT * FROM TOBE_MEMBER WHERE DELYN = 'N'
@@ -27,7 +27,7 @@
     </select>
     <!-- 06-15추가 -->
     <select id="selectMember" resultType="memberVO">
- 		select * from tobe_user order by tidx asc
+ 		SELECT * FROM TOBE_USER ORDER BY TIDX ASC
  	</select> 	
  	<!-- 비밀번호 변경 -->
  	<update id="modifyPwd">

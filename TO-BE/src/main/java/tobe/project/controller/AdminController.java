@@ -112,16 +112,26 @@ public class AdminController{
 		model.addAttribute("member",vo);
 		return "/admin/modify";
 	}
-	@RequestMapping(value="/modifyAction")
-	public String modifyMemberAction(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Locale locale, Model model,MemberVO vo) throws Exception {
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(searchCriteria);
-		pageMaker.setTotalCount(service.totalCountsearchMember(searchCriteria));
-		model.addAttribute("memberList",service.searchMemberList(searchCriteria));
-		model.addAttribute("pageMaker",pageMaker);
-		service.modifyMember(vo);
-		System.out.println("수정완료");
-		return "redirect:/admin/list";
+	@RequestMapping(value = "/modifyName")
+	@ResponseBody
+	public int modifyName(String reName, Integer tidx) throws Exception {
+		MemberVO vo = service.selectOneMember(tidx);
+		vo.setT_name(reName);
+		return service.modifyName(vo);
+	}
+	@RequestMapping(value = "/modifyPosition")
+	@ResponseBody
+	public int modifyPosition(String rePosition, Integer tidx) throws Exception {
+		MemberVO vo = service.selectOneMember(tidx);
+		vo.setT_position(rePosition);
+		return service.modifyPosition(vo);
+	}
+	@RequestMapping(value = "/modifyDepartment")
+	@ResponseBody
+	public int modifyDepartment(String reDepartment, Integer tidx) throws Exception {
+		MemberVO vo = service.selectOneMember(tidx);
+		vo.setT_department(reDepartment);
+		return service.modifyDepartment(vo);
 	}
 	@RequestMapping(value="/memberlist")
 	public String selectAllMember(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Locale locale, Model model) throws Exception {

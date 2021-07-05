@@ -23,7 +23,6 @@ public class AdminDAOImpl implements AdminDAO{
 	
 	private static final String Namespace = "tobe.project.mapper.adminMapper";
 	
-	
 	@Override
 	public List<MemberVO> selectAllMember() throws Exception {
 		return sqlSession.selectList(Namespace+".selectAllMember");
@@ -41,8 +40,16 @@ public class AdminDAOImpl implements AdminDAO{
 		return sqlSession.selectOne(Namespace+".selectOneMember", tidx);
 	}
 	@Override
-	public int modifyMember(MemberVO vo) throws Exception {
-		return sqlSession.update(Namespace+".modifyMember", vo);
+	public int modifyName(MemberVO vo) throws Exception{
+		return sqlSession.update(Namespace+".modifyName",vo);
+	}
+	@Override
+	public int modifyPosition(MemberVO vo) throws Exception {
+		return sqlSession.update(Namespace+".modifyPosition", vo);
+	}
+	@Override
+	public int modifyDepartment(MemberVO vo) throws Exception {
+		return sqlSession.update(Namespace+".modifyDepartment",vo);
 	}
 	@Override
 	public int totalCountMember(String keyword) throws Exception {

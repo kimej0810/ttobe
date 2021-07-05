@@ -12,7 +12,9 @@ public interface AdminDAO {
 	public int addMember(MemberVO vo) throws Exception;
 	public int deleteMember(int tidx) throws Exception;
 	public MemberVO selectOneMember(int tidx) throws Exception;
-	public int modifyMember(MemberVO vo) throws Exception;
+	public int modifyName(MemberVO vo) throws Exception;
+	public int modifyPosition(MemberVO vo) throws Exception;
+	public int modifyDepartment(MemberVO vo) throws Exception;
 	//마지막 사원번호 가져오기
 	public String selectOneId() throws Exception;
 	//페이징
