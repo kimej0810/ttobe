@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +15,7 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.ApprovalVO;
@@ -32,39 +34,28 @@ public class RealMainController extends HttpServlet {
 	@Inject
 	private ApprovalService approvalService;
 	
-	//Î©îÏù∏ÌéòÏù¥ÏßÄ
+	//∏ﬁ¿Œ∆‰¿Ã¡ˆ
 	@RequestMapping(value = "/mainPage")
 	public String list(Locale locale, Model model) throws Exception {
-		System.out.println("ÔøΩÔøΩ ÔßéÔøΩÔøΩÎ™ÖÔøΩÔøΩÔøΩÎåÅÔøΩÔøΩÔøΩ!");
-		
-		//Îã¨Î†•(Í∑ºÎç∞ viewÏóêÏÑú ÎøåÎ¶¥Í±∞Îùº ÌïÑÏöîÏóÜÍ∏¥Ìï®)
-		Calendar now = Calendar.getInstance();
-		
-		int year = now.get(Calendar.YEAR);
-		int month = now.get(Calendar.MONDAY)+1;
-		int day = now.get(Calendar.DAY_OF_MONTH);
-		int week = now.get(Calendar.DAY_OF_WEEK);
-		int lastDay = now.getActualMaximum(Calendar.DATE);
-
-		System.out.println("year->"+year);
-		System.out.println("month->"+month);
-		System.out.println("day->"+day);
-		System.out.println("week->"+week);
-		System.out.println("lastDay->"+lastDay);
+		System.out.println("øÕ ∏ﬁ¿Œ ƒ¡∆Æ∑—∑Ø¥Ÿ!");
 		
 		
-		//Ïò§ÎäòÏùò Î™ÖÏñ∏
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH) + 1;
+		
+		//ø¿¥√¿« ∏Ìæ
 		JSONParser parser = new JSONParser();
 		JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("C:\\Users\\bakug\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json"));
 		//JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("C:\\Users\\750\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json"));
 		//JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("D:\\kio\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json"));
-		//JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("C:\\Users\\767\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json")); Î•úÍ¥ë
+		//JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("C:\\Users\\767\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json")); ∑˚±§
 		
 		
 		int size = jsonArray.size();
 		System.out.println("size-------------->"+size); //52
 		
-		int random = (int)(Math.random()*52+1); //1~52 ÎÇúÏàòÏÉùÏÑ±
+		int random = (int)(Math.random()*52); //0~51 ≥≠ºˆª˝º∫
 		JSONObject jsonObject = (JSONObject)jsonArray.get(random);
 				
 		String author = (String) jsonObject.get("author");
@@ -74,7 +65,7 @@ public class RealMainController extends HttpServlet {
 		System.out.println("message->"+message);
 		
 		
-		//Ï†ÑÏûêÍ≤∞Ï†ú
+		//¿¸¿⁄∞·¡¶
 		SearchCriteria scri = new SearchCriteria();
 		scri.setPage(10);
 		List<ApprovalVO> alist = approvalService.selectAllApprovalDocumentList(scri);
@@ -84,12 +75,44 @@ public class RealMainController extends HttpServlet {
 		List<BoardVO> boardList = boardService.selectNotice();
 		model.addAttribute("year", year);
 		model.addAttribute("month", month);
-		model.addAttribute("day", day);
-		model.addAttribute("week", week);
-		model.addAttribute("lastDay", lastDay);
 		model.addAttribute("author", author);
 		model.addAttribute("message", message);
 		model.addAttribute("boardList", boardList);
 		return "/main/realMain";
+	}
+	
+	@RequestMapping(value = "/calendar")
+	public String writeReply(@RequestParam Map<String, String> param, Model model) throws Exception {
+
+		int year = Integer.parseInt(param.get("year"));
+		int month = Integer.parseInt(param.get("month"));
+		String function = param.get("function");
+		
+		if(function.equals("yearMinus")) {
+			year--;
+		}else if(function.equals("monthMinus")){
+			if(month==0) {
+				month=12;
+			}else {
+				month--;
+			}
+		}else if(function.equals("yearPlus")) {
+			year++;
+		}else {
+			if(month==12) {
+				month=1;
+			}else {
+				month++;
+			}
+		}
+		
+		System.out.println("year-------------->"+year);
+		System.out.println("month-------------->"+month);
+		System.out.println("function-------------->"+function);
+		
+		model.addAttribute("year", year);
+		model.addAttribute("month", month);
+		
+	    return "redirect:/board/list";
 	}
 }

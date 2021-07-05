@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ include file="/WEB-INF/views/include/new_main.jsp"%>
-<%@ page import="java.util.*,java.text.SimpleDateFormat" %>
+<%@ page import="java.util.*,java.text.SimpleDateFormat"%>
 <html>
 <head>
 <title>진짜메인</title>
@@ -18,6 +18,25 @@
 	grid-template-columns: 5fr 2fr;
 	grid-template-rows: repeat(6, max-content);
 }
+
+#calendar{
+	width:100%;
+}
+#calendar th{
+	background-color:#cfe2ff;
+	font-size:0.9rem;
+	padding:5px;
+	width:100px;
+}
+#calendar td{
+	border-bottom:1px solid rgb(222, 226, 230); 
+	height:60px;
+	font-size:0.8rem; 
+	vertical-align:top;
+	text-align:right;
+	padding:10px;
+}
+
 /*공지*/
 #box1 {
 	grid-row: span 3;
@@ -190,23 +209,95 @@ p {
 		style="width: 100%; height: 100%; font-size: 50px;">
 		<div class="conTitle">달력</div>
 		<div class="conCon">
-			<table border="1">
+			<table id="calendar" class="table w-100">
+				<%
+					Calendar cal = Calendar.getInstance();
+					int year = cal.get(Calendar.YEAR);
+					int month = cal.get(Calendar.MONTH) + 1;
+	
+					//request로 year, month 값을 받아옴
+					try{
+						year = Integer.parseInt(request.getParameter("year"));
+					}catch(Exception e){
+						year = cal.get(Calendar.YEAR);
+					}
+					try{
+						month=Integer.parseInt(request.getParameter("month"));
+					}catch(Exception e){
+						month = cal.get(Calendar.MONTH)+1;
+					}
+					
+					//12월->1월, 1월->12월
+					if (month == 13) {
+						year++;
+						month = 1;
+					}
+					if (month == 0) {
+						year--;
+						month = 12;
+					}
+	
+					//유효성검사, 현재년월로 초기화
+					if (year <= 0 || month < 1 || month > 12) {
+						year = cal.get(Calendar.YEAR);
+						month = cal.get(Calendar.MONTH) + 1;
+					}
+	
+					//현재 날짜를 1일로 설정
+					cal.set(year, month - 1, 1);
+					//요일 값
+					int week = cal.get(Calendar.DAY_OF_WEEK);
+					//달의 말일 
+					int lastDay = cal.getActualMaximum(Calendar.DATE);
+	
+					System.out.println("year--->" + year);
+					System.out.println("month--->" + month);
+					System.out.println("week--->" + week);
+					System.out.println("lastDay--->" + lastDay);
+				%>
 				<tr>
-					<th>일</th>
-					<th>월</th>
-					<th>화</th>
-					<th>수</th>
-					<th>목</th>
-					<th>금</th>
-					<th>토</th>
+					<td colspan="7" style="text-align:center;">
+						<img style="width:10px; float:left; cursor:pointer;" src="/resources/static/img/prev.png" onclick="location.href='?month=<%=month-1%>'">
+						<span style="font-size:1.5rem;"><%=month%></span>
+						<img style="width:10px; float:right; cursor:pointer;" src="/resources/static/img/next.png" onclick="location.href='?month=<%=month+1%>'">
+					</td>
+				</tr>
+				<tr>
+					<th>SUN</th>
+					<th>MON</th>
+					<th>TUE</th>
+					<th>WED</th>
+					<th>THU</th>
+					<th>FRI</th>
+					<th>SAT</th>
 				</tr>
 				<tr>
 					<%
-						Calendar cal = Calendar.getInstance();
-						int year = cal.get(Calendar.YEAR);
-						int month = cal.get(Calendar.MONTH);
-						int lastDay = cal.get(Calendar.DATE);
-				
+						for(int i=1; i<week; i++){
+							out.println("<td>&nbsp;</td>");
+						}
+					
+						//날짜출력
+						for(int i=1; i<=lastDay; i++){
+							cal.set(year, month-1, i);
+							week = cal.get(Calendar.DAY_OF_WEEK);
+							
+							//일요일, 토요일은 붉은색으로 처리
+							if(week==1) 
+								out.println("<td style='color:red;'>"+i+"</td>");
+							else if(week==7) 
+								out.println("<td style='color:red;'>"+i+"</td>");
+							else 
+								out.println("<td>"+i+"</td>");
+							
+							//토요일이면 다음줄로 넘어감
+							if(week==7){
+								out.println("</tr>");
+								//말일이 아니면 다음줄을 출력함
+								if(i<lastDay)
+									out.println("<tr>");
+							}
+						}
 						
 					%>
 				</tr>
