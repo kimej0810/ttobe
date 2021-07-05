@@ -172,6 +172,9 @@ p {
 </style>
 </head>
 <body>
+	<%
+		String t_id = (String)session.getAttribute("userId");
+	%>
 	<div id="box1" class="inner_content" style="width: 100%; height: 100%;">
 		<div class="conTitle">통합게시판</div>
 		<div class="conCon">
@@ -321,7 +324,7 @@ p {
 		<div class="conTitle">근태관리</div>
 		<div class="conCon">
 			<button type="button" class="btn btn-primary btn-sm float-right"
-				onclick="#">출근</button>
+				onclick="location.href='/commute/commute?t_id=<%=t_id%>'">출근</button>
 			<button type="button" class="btn btn-primary btn-sm float-right"
 				onclick="#">퇴근</button>
 		</div>
@@ -346,41 +349,7 @@ p {
 					<col width="20%">
 					<col width="10%">
 				</colgroup>
-				<tr>
-					<td>1</td>
-					<td>[공지] 공지사항입니다.</td>
-					<td>홍길동</td>
-					<td>2021.05.25</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>[공지] 공지사항입니다.</td>
-					<td>홍길동</td>
-					<td>2021.05.25</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>[공지] 공지사항입니다.</td>
-					<td>홍길동</td>
-					<td>2021.05.25</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>[공지] 공지사항입니다.</td>
-					<td>홍길동</td>
-					<td>2021.05.25</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td>[공지] 공지사항입니다.</td>
-					<td>홍길동</td>
-					<td>2021.05.25</td>
-					<td>0</td>
-				</tr>
+				
 			</table>
 		</div>
 	</div>

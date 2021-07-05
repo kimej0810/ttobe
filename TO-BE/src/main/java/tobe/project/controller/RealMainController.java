@@ -35,17 +35,17 @@ public class RealMainController extends HttpServlet {
 	@Inject
 	private ApprovalService approvalService;
 	
-	//메인페이지
+	//硫��명���댁�
 	@RequestMapping(value = "/mainPage")
 	public String list(Locale locale, Model model,HttpServletRequest request) throws Exception {
-		System.out.println("와 메인 컨트롤러다!");
+		System.out.println("�� 硫��� 而⑦�몃·�щ��!");
 		
 		
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH) + 1;
 		
-		//오늘의 명언
+		//�ㅻ���� 紐���
 		JSONParser parser = new JSONParser();
 		String path = request.getSession().getServletContext().getRealPath("/resources/static/data/");
 		String path2 = "maxim.json";
@@ -56,7 +56,7 @@ public class RealMainController extends HttpServlet {
 		int size = jsonArray.size();
 		System.out.println("size-------------->"+size); //52
 		
-		int random = (int)(Math.random()*52); //0~51 난수생성
+		int random = (int)(Math.random()*52); //0~51 ��������
 		JSONObject jsonObject = (JSONObject)jsonArray.get(random);
 				
 		String author = (String) jsonObject.get("author");
@@ -66,11 +66,15 @@ public class RealMainController extends HttpServlet {
 		System.out.println("message->"+message);
 		
 		
-		//전자결제
+		//����寃곗��
 		SearchCriteria scri = new SearchCriteria();
-		scri.setPage(10);
-		List<ApprovalVO> alist = approvalService.selectAllApprovalDocumentList(scri);
+		scri.setPage(1);
+		scri.setPerPageNum(10);
+		scri.setSearchType("");
 		
+		List<ApprovalVO> approvalList = approvalService.selectAllApprovalDocumentList(scri);
+		
+		System.out.println("전자결재석고대죄인조인간달프라이머리키위->"+approvalList.get(0).getE_textTitle());
 		
 		
 		List<BoardVO> boardList = boardService.selectNotice();
@@ -79,6 +83,7 @@ public class RealMainController extends HttpServlet {
 		model.addAttribute("author", author);
 		model.addAttribute("message", message);
 		model.addAttribute("boardList", boardList);
+		model.addAttribute("approvalList", approvalList);
 		return "/main/realMain";
 	}
 	
