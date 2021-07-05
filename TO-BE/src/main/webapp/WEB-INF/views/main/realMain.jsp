@@ -19,22 +19,24 @@
 	grid-template-rows: repeat(6, max-content);
 }
 
-#calendar{
-	width:100%;
+#calendar {
+	width: 100%;
 }
-#calendar th{
-	background-color:#cfe2ff;
-	font-size:0.9rem;
-	padding:5px;
-	width:100px;
+
+#calendar th {
+	background-color: #cfe2ff;
+	font-size: 0.9rem;
+	padding: 5px;
+	width: 100px;
 }
-#calendar td{
-	border-bottom:1px solid rgb(222, 226, 230); 
-	height:60px;
-	font-size:0.8rem; 
-	vertical-align:top;
-	text-align:right;
-	padding:10px;
+
+#calendar td {
+	border-bottom: 1px solid rgb(222, 226, 230);
+	height: 60px;
+	font-size: 0.8rem;
+	vertical-align: top;
+	text-align: right;
+	padding: 10px;
 }
 
 /*공지*/
@@ -173,19 +175,26 @@ p {
 </head>
 <body>
 	<%
-		String t_id = (String)session.getAttribute("userId");
+	String t_id = (String) session.getAttribute("userId");
 	%>
 	<div id="box1" class="inner_content" style="width: 100%; height: 100%;">
 		<div class="conTitle">통합게시판</div>
 		<div class="conCon">
 			<table id="table_notice" class="table w-100 table-hover">
 				<colgroup>
+					<col width="20%">
+					<col width="40%">
 					<col width="10%">
-					<col width="45%">
-					<col width="15%">
 					<col width="20%">
 					<col width="10%">
 				</colgroup>
+				<tr>
+					<th>번호</th>
+					<th>제목</th>
+					<th>작성일</th>
+					<th>작성자</th>
+					<th>조회수</th>
+				</tr>
 				<c:forEach items="${boardList}" var="board">
 					<c:if test="${board.b_type eq 'N'}">
 						<tr class="table-primary">
@@ -214,58 +223,62 @@ p {
 		<div class="conCon">
 			<table id="calendar" class="table w-100">
 				<%
-					Calendar cal = Calendar.getInstance();
-					int toDate = cal.get(Calendar.DATE);
-					int toYear = cal.get(Calendar.YEAR);
-					int toMonth = cal.get(Calendar.MONTH) + 1;
-	
-					int year, month = 0;
-					//request로 year, month 값을 받아옴
-					try{
-						year = Integer.parseInt(request.getParameter("year"));
-					}catch(Exception e){
-						year = cal.get(Calendar.YEAR);
-					}
-					try{
-						month = Integer.parseInt(request.getParameter("month"));
-					}catch(Exception e){
-						month = cal.get(Calendar.MONTH)+1;
-					}
-					
-					//12월->1월, 1월->12월
-					if (month == 13) {
-						year++;
-						month = 1;
-					}
-					if (month == 0) {
-						year--;
-						month = 12;
-					}
-	
-					//유효성검사, 현재년월로 초기화
-					if (year <= 0 || month < 1 || month > 12) {
-						year = cal.get(Calendar.YEAR);
-						month = cal.get(Calendar.MONTH) + 1;
-					}
-	
-					//현재 날짜를 1일로 설정
-					cal.set(year, month - 1, 1);
-					//요일 값
-					int week = cal.get(Calendar.DAY_OF_WEEK);
-					//달의 말일 
-					int lastDay = cal.getActualMaximum(Calendar.DATE);
-	
-					System.out.println("year--->" + year);
-					System.out.println("month--->" + month);
-					System.out.println("week--->" + week);
-					System.out.println("lastDay--->" + lastDay);
+				Calendar cal = Calendar.getInstance();
+				int toDate = cal.get(Calendar.DATE);
+				int toYear = cal.get(Calendar.YEAR);
+				int toMonth = cal.get(Calendar.MONTH) + 1;
+
+				int year, month = 0;
+				//request로 year, month 값을 받아옴
+				try {
+					year = Integer.parseInt(request.getParameter("year"));
+				} catch (Exception e) {
+					year = cal.get(Calendar.YEAR);
+				}
+				try {
+					month = Integer.parseInt(request.getParameter("month"));
+				} catch (Exception e) {
+					month = cal.get(Calendar.MONTH) + 1;
+				}
+
+				//12월->1월, 1월->12월
+				if (month == 13) {
+					year++;
+					month = 1;
+				}
+				if (month == 0) {
+					year--;
+					month = 12;
+				}
+
+				//유효성검사, 현재년월로 초기화
+				if (year <= 0 || month < 1 || month > 12) {
+					year = cal.get(Calendar.YEAR);
+					month = cal.get(Calendar.MONTH) + 1;
+				}
+
+				//현재 날짜를 1일로 설정
+				cal.set(year, month - 1, 1);
+				//요일 값
+				int week = cal.get(Calendar.DAY_OF_WEEK);
+				//달의 말일 
+				int lastDay = cal.getActualMaximum(Calendar.DATE);
+
+				System.out.println("year--->" + year);
+				System.out.println("month--->" + month);
+				System.out.println("week--->" + week);
+				System.out.println("lastDay--->" + lastDay);
 				%>
 				<tr>
-					<td colspan="7" style="text-align:center;">
-						<img style="width:10px; float:left; cursor:pointer;" src="/resources/static/img/prev.png" onclick="location.href='?year=<%=year%>&month=<%=month-1%>'">
-						<span style="font-size:0.7rem;"><%=year%></span>
-						<span style="font-size:1.5rem;"><%=month%></span>
-						<img style="width:10px; float:right; cursor:pointer;" src="/resources/static/img/next.png" onclick="location.href='?year=<%=year%>&month=<%=month+1%>'">
+					<td colspan="7" style="text-align: center;"><img
+						style="width: 10px; float: left; cursor: pointer;"
+						src="/resources/static/img/prev.png"
+						onclick="location.href='?year=<%=year%>&month=<%=month - 1%>'">
+						<span style="font-size: 0.7rem;"><%=year%></span> <span
+						style="font-size: 1.5rem;"><%=month%></span> <img
+						style="width: 10px; float: right; cursor: pointer;"
+						src="/resources/static/img/next.png"
+						onclick="location.href='?year=<%=year%>&month=<%=month + 1%>'">
 					</td>
 				</tr>
 				<tr>
@@ -279,41 +292,45 @@ p {
 				</tr>
 				<tr>
 					<%
-						for(int i=1; i<week; i++){
-							out.println("<td>&nbsp;</td>");
-						}
-					
-						//날짜출력
-						for(int i=1; i<=lastDay; i++){
-							cal.set(year, month-1, i);
-							week = cal.get(Calendar.DAY_OF_WEEK);
-							
-							//일요일, 토요일은 붉은색으로 처리
-							
-							
-							if(week==1) {
-								if(year==toYear&&month==toMonth&&i==toDate){
-									out.println("<td style='background-color:rgb(222, 226, 230);'>"+i+"</td>");
-								}else{out.println("<td style='color:red;'>"+i+"</td>");}
-							}else if(week==7) {
-								if(year==toYear&&month==toMonth&&i==toDate){
-									out.println("<td style='background-color:rgb(222, 226, 230);'>"+i+"</td>");
-								}else{out.println("<td style='color:red;'>"+i+"</td>");}
-								
-							}else {
-								if(year==toYear&&month==toMonth&&i==toDate){
-									out.println("<td style='background-color:rgb(222, 226, 230);'>"+i+"</td>");
-								}else{out.println("<td>"+i+"</td>");}
+					for (int i = 1; i < week; i++) {
+						out.println("<td>&nbsp;</td>");
+					}
+
+					//날짜출력
+					for (int i = 1; i <= lastDay; i++) {
+						cal.set(year, month - 1, i);
+						week = cal.get(Calendar.DAY_OF_WEEK);
+
+						//일요일, 토요일은 붉은색으로 처리
+
+						if (week == 1) {
+							if (year == toYear && month == toMonth && i == toDate) {
+						out.println("<td style='background-color:rgb(222, 226, 230);'>" + i + "</td>");
+							} else {
+						out.println("<td style='color:red;'>" + i + "</td>");
 							}
-							//토요일이면 다음줄로 넘어감
-							if(week==7){
-								out.println("</tr>");
-								//말일이 아니면 다음줄을 출력함
-								if(i<lastDay)
-									out.println("<tr>");
+						} else if (week == 7) {
+							if (year == toYear && month == toMonth && i == toDate) {
+						out.println("<td style='background-color:rgb(222, 226, 230);'>" + i + "</td>");
+							} else {
+						out.println("<td style='color:red;'>" + i + "</td>");
+							}
+
+						} else {
+							if (year == toYear && month == toMonth && i == toDate) {
+						out.println("<td style='background-color:rgb(222, 226, 230);'>" + i + "</td>");
+							} else {
+						out.println("<td>" + i + "</td>");
 							}
 						}
-						
+						//토요일이면 다음줄로 넘어감
+						if (week == 7) {
+							out.println("</tr>");
+							//말일이 아니면 다음줄을 출력함
+							if (i < lastDay)
+						out.println("<tr>");
+						}
+					}
 					%>
 				</tr>
 			</table>
@@ -324,7 +341,7 @@ p {
 		<div class="conTitle">근태관리</div>
 		<div class="conCon">
 			<button type="button" class="btn btn-primary btn-sm float-right"
-				onclick="location.href='/commute/commute?t_id=<%=t_id%>'">출근</button>
+				onclick="location.href='/commute/startCommute2?t_id=<%=t_id%>'">출근</button>
 			<button type="button" class="btn btn-primary btn-sm float-right"
 				onclick="#">퇴근</button>
 		</div>
@@ -336,12 +353,12 @@ p {
 			<div class="button_elec"
 				style="text-align: right; margin-bottom: 10px;">
 				<div class="btn-group" role="group" aria-label="Basic example">
-					<button type="button" class="btn btn-secondary">결재대기</button>
-					<button type="button" class="btn btn-secondary">결재진행</button>
-					<button type="button" class="btn btn-secondary">결재완료</button>
+					<button type="button" class="btn btn-secondary" id="wating">결재대기</button>
+					<button type="button" class="btn btn-secondary" id="progress">결재진행</button>
+					<button type="button" class="btn btn-secondary" id="completed">결재완료</button>
 				</div>
 			</div>
-			<table id="table_notice" class="table w-100">
+			<table id="table_notice" class="table w-100 table-hover">
 				<colgroup>
 					<col width="10%">
 					<col width="45%">
@@ -349,7 +366,22 @@ p {
 					<col width="20%">
 					<col width="10%">
 				</colgroup>
-				
+				<tr>
+					<th>문서번호</th>
+					<th>제목</th>
+					<th>기안자</th>
+					<th>기안일시</th>
+					<th>상태</th>
+				</tr>
+				<c:forEach items="${approvalList}" var="approval">
+					<tr>
+						<td>${approval.e_documentNum}</td>
+						<td>${approval.e_textTitle}</td>
+						<td>${approval.memberVO.t_name}</td>
+						<td>${approval.e_draftDate}</td>
+						<td>${approval.e_status}</td>
+					</tr>
+				</c:forEach>
 			</table>
 		</div>
 	</div>
@@ -374,5 +406,37 @@ p {
 		</div>
 	</div>
 	<div id="box6" class="inner_content space">&nbsp;</div>
+	<script>
+		$(document).ready(function(){
+			$("#wating").on("click", function(){
+				alert($(this).attr("id"));
+				
+				$.ajax({
+					type : "post",
+					url : "/main/approval",
+					data : {
+						"state" : $(this).attr("id");
+					},
+					dataType : "json",
+					error : function(request, status, error) {
+						console.log("code:" + request.status + "\n"
+								+ "message:" + request.responseText + "\n"
+								+ "error:" + error);
+					},
+					success : function(data) {
+						alert(data);
+					}
+				});
+				
+				
+			});
+			$("#progress").on("click", function(){
+				alert("결재진행이 눌렸네요");
+			});
+			$("#completed").on("click", function(){
+				alert("결재완료가 눌렸네요");
+			});
+		});
+	</script>
 </body>
 </html>

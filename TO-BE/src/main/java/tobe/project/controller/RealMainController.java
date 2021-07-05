@@ -69,7 +69,7 @@ public class RealMainController extends HttpServlet {
 		//����寃곗��
 		SearchCriteria scri = new SearchCriteria();
 		scri.setPage(1);
-		scri.setPerPageNum(10);
+		scri.setPerPageNum(5);
 		scri.setSearchType("");
 		
 		List<ApprovalVO> approvalList = approvalService.selectAllApprovalDocumentList(scri);
@@ -87,6 +87,12 @@ public class RealMainController extends HttpServlet {
 		return "/main/realMain";
 	}
 	
+	//전자결재 버튼 눌렸을때 오는곳
+	
+	
+	
+	
+	//달력인데 쓸지 안쓸지 모르겠음
 	@RequestMapping(value = "/calendar")
 	public String writeReply(@RequestParam Map<String, String> param, Model model) throws Exception {
 
