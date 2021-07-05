@@ -80,17 +80,7 @@ public class CommuteController {
 		System.out.println(list.size());
 		return list;
 	}
-	// 근태관리 출근 등록 처리
-	/*
-	 * @RequestMapping(value="/commute/startCommute")
-	 * 
-	 * @ResponseBody public int startCommute(MemberVO vo) throws Exception{
-	 * logger.info(">>>>>startCommute"); CommuteVO cvo; SimpleDateFormat format1 =
-	 * new SimpleDateFormat("yy/MM/dd"); SimpleDateFormat format2 = new
-	 * SimpleDateFormat("HH:mm"); Date time = new Date(); String time1 =
-	 * format1.format(time); return 1; }
-	 */
-
+	//근태관리 출근 등록 처리
 	@RequestMapping(value = "/commute/startCommute")
 	@ResponseBody
 	public List<CommuteVO> startCommute(CommuteVO vo) throws Exception {
@@ -104,7 +94,7 @@ public class CommuteController {
 		return list;
 	}
 
-	// 근태관리 퇴근 등록 처리
+	//근태관리 퇴근 등록 처리
 	@RequestMapping(value = "/commute/endCommute")
 	@ResponseBody
 	public List<CommuteVO> endCommute(CommuteVO vo) throws Exception {
@@ -114,7 +104,7 @@ public class CommuteController {
 		return list;
 	}
 
-	// 연차관리 페이지
+	//연차관리 페이지
 	@RequestMapping(value = "/leave/leaveManagement")
 	public String leaveManagementList(Model model, String t_id) throws Exception {
 		logger.info(">>>>leaveManagementList");
@@ -128,5 +118,15 @@ public class CommuteController {
 		System.out.println(">>>>>>>>>>" + list.get(0).getMemberVO().getT_id());
 		return "/leave/leaveManagement";
 	}
+	//연차등록 페이지
+	@RequestMapping(value = "/leave/addLeave")
+	public String addLeave(Model model,Locale locale) throws Exception {
+		/*
+		 * List<MemberVO> vo = aservice.selectAllMember();
+		 * model.addAttribute("allMember",vo); logger.info("Welcome home! DocumentWite",
+		 * locale);
+		 */
+		return "/leave/addLeave";
+	} 
 
 }

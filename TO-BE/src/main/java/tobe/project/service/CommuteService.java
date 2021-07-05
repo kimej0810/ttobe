@@ -22,4 +22,7 @@ public interface CommuteService {
 	
 	//연차 조회
 	public List<LeaveVO> selectAllLeave(int tidx) throws Exception;
+	
+	//연차 등록
+	public void addLeave() throws Exception;
 }

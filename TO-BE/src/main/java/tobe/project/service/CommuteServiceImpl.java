@@ -47,5 +47,12 @@ public class CommuteServiceImpl implements CommuteService{
 		return dao.selectAllLeave(tidx);
 	}
 	
+	//연차 등록
+	@Override
+	public void addLeave() throws Exception {
+		
+		
+	}
+	
 	
 }

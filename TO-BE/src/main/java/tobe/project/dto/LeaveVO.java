@@ -5,8 +5,6 @@ public class LeaveVO {
 	private String a_type;
 	private String a_startdate;
 	private String a_enddate;
-	private String a_status;
-	private String a_content;
 	private String a_useddays;
 	private int tidx;
 	
@@ -43,18 +41,6 @@ public class LeaveVO {
 	}
 	public void setA_enddate(String a_enddate) {
 		this.a_enddate = a_enddate;
-	}
-	public String getA_status() {
-		return a_status;
-	}
-	public void setA_status(String a_status) {
-		this.a_status = a_status;
-	}
-	public String getA_content() {
-		return a_content;
-	}
-	public void setA_content(String a_content) {
-		this.a_content = a_content;
 	}
 	public String getA_useddays() {
 		return a_useddays;

@@ -183,7 +183,7 @@ $(document).ready(function(){
 						selectAllCommute(list);	
 					}else{
 						var c_list = "";
-						c_list += "<tr><td colspan='5'>없어!</td></tr>";
+						c_list += "<tr><td colspan='5'>근무 기록이 없습니다.</td></tr>";
 						$("#c_list").html(c_list);
 					}
 				}
@@ -220,7 +220,7 @@ $(document).ready(function(){
 						selectAllCommute(list);	
 					}else{
 						var c_list = "";
-						c_list += "<tr><td colspan='5'>없어!</td></tr>";
+						c_list += "<tr><td colspan='5'>근무 기록이 없습니다.</td></tr>";
 						$("#c_list").html(c_list);
 					}
 				}
@@ -236,7 +236,9 @@ $(document).ready(function(){
 		<button type="button" class="btn btn-outline-secondary" onclick="location.href='/leave/leaveManagement?t_id=${member.t_id}'">연차관리</button>
 	</div>
 	<div style="text-align:center;">
-	<button type="button" id="prevMonth">&lt;</button><span id="test1"></span><button type="button" id="nextMonth">&gt;</button>
+		<button type="button" id="prevMonth" class="btn btn-outline-primary btn-sm">&lt;</button>
+			<span id="test1"></span>
+		<button type="button" id="nextMonth" class="btn btn-outline-primary btn-sm">&gt;</button>
 	</div>
 	<table class="table">
 		<thead>
@@ -254,8 +256,7 @@ $(document).ready(function(){
 					<td>${list.c_type}</td>
 					<td><c:set var="cdate" value="${list.c_date}"/>
 							${fn:substring(cdate,0,10)}
-						<input type="hidden" value="${list.cidx}" id="cidx" name="cidx">
-						
+						<input type="hidden" value="${list.cidx}" id="cidx" name="cidx">	
 					</td>
 					<td id="starttime">${list.c_starttime}</td>
 					<td>${list.c_endtime}</td>

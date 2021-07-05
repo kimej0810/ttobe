@@ -63,7 +63,7 @@
 	</table>
 	<div class="btnwrap">
 		<button type="button" onclick="modifyPwd();" class="btn btn-outline-primary btn-sm">수정</button>
-		<button type="button" onclick="history.go(-2);" class="btn btn-outline-danger btn-sm">취소</button>
+		<button type="button" onclick="location.href='/main/mainPage'" class="btn btn-outline-danger btn-sm">취소</button>
 		<input type="hidden" name="t_id" value="${member.t_id}"/>
 	</div>
 </form>

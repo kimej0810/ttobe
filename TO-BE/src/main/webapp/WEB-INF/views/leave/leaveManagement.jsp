@@ -7,24 +7,33 @@
 <head>
 <meta charset="UTF-8">
 <title>연차관리 페이지</title>
+<script type="text/javascript">
+	function regLeave(){ //기안서 팝업창
+		var url = "addLeave";
+		var name = "addLeave";
+		var option = "width = 660, height = 870 left = 100, top=50,location=no";
+		window.open(url,name,option)
+	}
+</script>
 </head>
 <body>
 	<div>
-		<c:forEach var="list" items="${list}" begin="1" end="1">
+		<button type="button" class="btn btn-outline-secondary" onclick="location.href='/commute/commute?t_id=${list[0].memberVO.t_id}'">근태현황</button>
+		<button type="button" class="btn btn-outline-secondary" onclick="location.href='/leave/leaveManagement?t_id=${list[0].memberVO.t_id}'">연차관리</button>
+		<%-- <c:forEach var="list" items="${list}" begin="1" end="1">
 			<button type="button" class="btn btn-outline-secondary" onclick="location.href='/commute/commute?t_id=${list.memberVO.t_id}'">근태현황</button>
 			<button type="button" class="btn btn-outline-secondary" onclick="location.href='/leave/leaveManagement?t_id=${list.memberVO.t_id}'">연차관리</button>
-		</c:forEach><!-- 그냥 리스트로 하면 안됨 왜안됨 ㅅㅄㅂ 버튼에 포이치를 쓰다니-->
-		
+		</c:forEach><!-- 그냥 리스트로 하면 안됨 왜안됨 버튼에 포이치를 쓰다니--> --%>
 	</div>
 	<div>기간</div>
 	<div>
 		<table class="table" border="1">
 			
 			<tr>
-				<c:forEach var="list" items="${list}" begin="1" end="1">
+				<%-- <c:forEach var="list" items="${list}" begin="1" end="1"> --%>
 				<th>발생 연차</th>
-				<td>${list.memberVO.t_leave_get}</td>
-				</c:forEach>
+				<td>${list[0].memberVO.t_leave_get}</td>
+			<%-- 	</c:forEach> --%>
 				<th>사용 연차</th>
 				<c:forEach var="alist" items="${list}" varStatus="status">
 					<c:set var="sum" value="${sum+alist.a_useddays}"></c:set>

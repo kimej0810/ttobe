@@ -49,4 +49,10 @@ public class CommuteDAOImpl implements CommuteDAO{
 		return sqlSession.selectList(Namespace+".selectAllLeave", tidx);
 	}
 	
+	//연차 등록
+	@Override
+	public void addLeave() throws Exception {
+		
+	}
+	
 }

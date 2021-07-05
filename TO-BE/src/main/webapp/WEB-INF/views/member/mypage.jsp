@@ -168,7 +168,7 @@
 		</table>
 		<div class="btnwrap">
 			<button type="button" onclick="modifyMember();" class="btn btn-outline-primary btn-sm">수정</button>
-			<button type="button" onclick="history.go(-1);" class="btn btn-outline-danger btn-sm">취소</button>
+			<button type="button" onclick="location.href='/main/mainPage'" class="btn btn-outline-danger btn-sm">취소</button>
 		</div>
 	</form>
 </body>

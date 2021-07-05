@@ -24,4 +24,6 @@ public interface CommuteDAO {
 	//연차 목록
 	public List<LeaveVO> selectAllLeave(int tidx) throws Exception;
 	
+	//연차 등록
+	public void addLeave() throws Exception;
 }

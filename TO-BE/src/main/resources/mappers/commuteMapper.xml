@@ -58,14 +58,13 @@ PUBLIC "-//mybatis/org//DTD Config 3.0//EN"
 		<result column="T_ID" property="t_id"/>
 		<result column="T_NAME" property="t_name"/>
 	</resultMap>
+	<!-- 
 	<select id="selectAllLeave" resultMap="selectAllLeaveVO">
 	SELECT * FROM (
 		SELECT ANNUAL_LEAVE.AIDX,
 		ANNUAL_LEAVE.A_TYPE,
 		ANNUAL_LEAVE.A_STARTDATE,
 		ANNUAL_LEAVE.A_ENDDATE,
-		ANNUAL_LEAVE.A_STATUS,
-		ANNUAL_LEAVE.A_CONTENT,
 		ANNUAL_LEAVE.A_USEDDAYS,
 		ANNUAL_LEAVE.TIDX,
 		TOBE_MEMBER.T_LEAVE_GET,
@@ -74,5 +73,56 @@ PUBLIC "-//mybatis/org//DTD Config 3.0//EN"
 		TOBE_MEMBER.T_NAME
 		FROM ANNUAL_LEAVE, TOBE_MEMBER WHERE TOBE_MEMBER.TIDX = #{tidx}) ORDER BY AIDX DESC
 	</select> 
-	
+	 -->
+	 
+	<!-- 연차 등록 -->
+	<insert id="addLeave" parameterType="LeaveVO"
+		useGeneratedKeys="true" keyProperty="aidx">
+		<selectKey keyProperty="aidx" resultType="int"
+			order="BEFORE">
+			SELECT AIDX_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO ANNUAL_LEAVE(
+			AIDX,
+			A_TYPE,
+			A_STARTDATE,
+			A_ENDDATE,
+			A_USEDDAYS,
+			TIDX
+			) VALUES(
+			AIDX_SEQ.NEXTVAL,
+			#{A_TYPE},
+			#{A_STARTDATE},
+			#{A_ENDDATE},
+			#{A_USEDDAYS},
+			#{TIDX}
+			)
+	</insert>
+	<insert id="writeApprovalDocument" parameterType="ApprovalDTO" keyProperty="eidx">
+ 		<selectKey keyProperty="eidx" resultType="int" order="BEFORE">
+			SELECT eidx_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+ 		INSERT INTO ELECTRONIC_APPROVAL(
+ 			EIDX, 
+ 			E_DOCUMENTNUM, 
+ 			E_RULE, 
+ 			E_DRAFTDATE, 
+ 			E_STARTDAY, 
+ 			E_CON, 
+ 			E_SEND, 
+ 			E_TEXTTITLE, 
+ 			E_TEXTCONTENT, 
+ 			TIDX
+ 			) VALUES(
+ 			EIDX_SEQ.NEXTVAL,
+ 			EIDX_DOCUMENT_SEQ.NEXTVAL,
+ 			#{E_RULE}, #{E_DRAFTDATE},
+ 			#{E_STARTDAY}, 
+ 			#{E_CON}, 
+ 			#{E_SEND}, 
+ 			#{E_TEXTTITLE}, 
+ 			#{E_TEXTCONTENT}, 
+ 			#{TIDX}
+ 			)
+ 	</insert>
 </mapper>	
