@@ -9,8 +9,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -20,15 +24,11 @@ import tobe.project.dto.MemberVO;
 
 @Component("fileUtils")
 public class FileUtils {
-	//�뙆�씪 ���옣�맆 寃쎈줈
-	//private static final String filePath = "D:\\kio\\tobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\";
-	//private static final String filePath = "C:\\Users\\bakug\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\"; // �뙆�씪�씠 ���옣�맆 �쐞移� �닔吏�
-	private static final String filePath = "D:\\kio\\tobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\";
-	//private static final String filePath = "C:\\api_dev\\to-be3\\TO-BE\\src\\main\\webapp\\resources\\static\\file\\"; // �뙆�씪�씠 ���옣�맆 �쐞移� �닔吏�
-	//private static final String filePath = "E:\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\profile\\";
-	
 	
 	public List<Map<String, Object>> parseInsertFileInfoProfile(MemberVO memberVO, MultipartHttpServletRequest mpRequest) throws IllegalStateException, IOException{
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder
+			      .getRequestAttributes()).getRequest();
+		String profilePath = request.getSession().getServletContext().getRealPath("/resources/static/profile/");
 		Iterator<String> iterator = mpRequest.getFileNames();
 		MultipartFile multipartFile = null;
 		String originalFileName = null;
@@ -39,7 +39,7 @@ public class FileUtils {
 		int tidx = memberVO.getTidx();
 		System.out.println("파일유틸에서"+tidx);
 		String type = "profile";
-		File file = new File(filePath);
+		File file = new File(profilePath);
 		System.out.println("FileUtils  file>>>>>>>>>>>>>>"+file);
 		if(file.exists()==false) {
 			file.mkdirs();
@@ -50,7 +50,7 @@ public class FileUtils {
 				originalFileName = multipartFile.getOriginalFilename();
 				originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
 				storedFileName = getRandomString() + originalFileExtension;
-				file = new File(filePath+storedFileName);
+				file = new File(profilePath+storedFileName);
 				multipartFile.transferTo(file);
 				listMap = new HashMap<String, Object>();
 				listMap.put("tidx", tidx);
@@ -66,13 +66,9 @@ public class FileUtils {
 	}
 	public List<Map<String, Object>> parseInsertFileInfoBoard(BoardVO boardVO, 
 			MultipartHttpServletRequest mpRequest) throws Exception{
-		
-		/*
-			Iterator�� �뜲�씠�꽣�뱾�쓽 吏묓빀泥�? �뿉�꽌 而щ젆�뀡�쑝濡쒕��꽣 �젙蹂대�� �뼸�뼱�삱 �닔 �엳�뒗 �씤�꽣�럹�씠�뒪�엯�땲�떎.
-			List�굹 諛곗뿴�� �닚李⑥쟻�쑝濡� �뜲�씠�꽣�쓽 �젒洹쇱씠 媛��뒫�븯吏�留�, Map�벑�쓽 �겢�옒�뒪�뱾�� �닚李⑥쟻�쑝濡� �젒洹쇳븷 �닔媛� �뾾�뒿�땲�떎.
-			Iterator�쓣 �씠�슜�븯�뿬 Map�뿉 �엳�뒗 �뜲�씠�꽣�뱾�쓣 while臾몄쓣 �씠�슜�븯�뿬 �닚李⑥쟻�쑝濡� �젒洹쇳빀�땲�떎.
-		*/
-		
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder
+			      .getRequestAttributes()).getRequest();
+		String filePath = request.getSession().getServletContext().getRealPath("/resources/static/file/");
 		Iterator<String> iterator = mpRequest.getFileNames();
 		
 		MultipartFile multipartFile = null;
@@ -120,13 +116,9 @@ public class FileUtils {
 	
 	public List<Map<String, Object>> parseInsertFileInfoData(DataLibraryVO dataVO, 
 			MultipartHttpServletRequest mpRequest) throws Exception{
-		
-		/*
-			Iterator�� �뜲�씠�꽣�뱾�쓽 吏묓빀泥�? �뿉�꽌 而щ젆�뀡�쑝濡쒕��꽣 �젙蹂대�� �뼸�뼱�삱 �닔 �엳�뒗 �씤�꽣�럹�씠�뒪�엯�땲�떎.
-			List�굹 諛곗뿴�� �닚李⑥쟻�쑝濡� �뜲�씠�꽣�쓽 �젒洹쇱씠 媛��뒫�븯吏�留�, Map�벑�쓽 �겢�옒�뒪�뱾�� �닚李⑥쟻�쑝濡� �젒洹쇳븷 �닔媛� �뾾�뒿�땲�떎.
-			Iterator�쓣 �씠�슜�븯�뿬 Map�뿉 �엳�뒗 �뜲�씠�꽣�뱾�쓣 while臾몄쓣 �씠�슜�븯�뿬 �닚李⑥쟻�쑝濡� �젒洹쇳빀�땲�떎.
-		*/
-		
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder
+			      .getRequestAttributes()).getRequest();
+		String filePath = request.getSession().getServletContext().getRealPath("/resources/static/file/");
 		Iterator<String> iterator = mpRequest.getFileNames();
 		
 		MultipartFile multipartFile = null;
@@ -173,7 +165,9 @@ public class FileUtils {
 	}
 	
 	public List<Map<String, Object>> parseInsertFileInfo(MemberVO vo, MultipartHttpServletRequest mpRequest) throws Exception{
-		
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder
+			      .getRequestAttributes()).getRequest();
+		String filePath = request.getSession().getServletContext().getRealPath("/resources/static/file/");
 		Iterator<String> iterator = mpRequest.getFileNames();
 		
 		MultipartFile multipartFile = null;
@@ -214,8 +208,10 @@ public class FileUtils {
 		return list;
 	}
 	
-	//寃뚯떆�뙋 泥⑤��뙆�씪 �닔�젙
 	public List<Map<String, Object>> parseUpdateFileInfo(BoardVO boardVO, String[] files, String[] fileNames, MultipartHttpServletRequest mpRequest) throws Exception{ 
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder
+			      .getRequestAttributes()).getRequest();
+		String filePath = request.getSession().getServletContext().getRealPath("/resources/static/file/");
 		Iterator<String> iterator = mpRequest.getFileNames();
 		MultipartFile multipartFile = null; 
 		String originalFileName = null; 
@@ -226,7 +222,6 @@ public class FileUtils {
 		int bidx = boardVO.getBidx();
 		while(iterator.hasNext()){ 
 			multipartFile = mpRequest.getFile(iterator.next()); 
-			//�깉濡쒖슫 泥⑤��뙆�씪�씠 �벑濡앸릺�뿀�쓣 �븣
 			if(multipartFile.isEmpty() == false){
 				originalFileName = multipartFile.getOriginalFilename(); 
 				originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf(".")); 
@@ -241,7 +236,6 @@ public class FileUtils {
 				list.add(listMap); 
 			} 
 		}
-		//�궘�젣�븷 �뙆�씪�쓽 �뙆�씪踰덊샇�� �씠由꾩쓣 諛쏆쓬
 		if(files != null && fileNames != null){ 
 			for(int i = 0; i<fileNames.length; i++) {
 					listMap = new HashMap<String,Object>();
@@ -252,9 +246,6 @@ public class FileUtils {
 		}
 		return list; 
 	}
-
-	
-	
 	public static String getRandomString() {
 		return UUID.randomUUID().toString().replaceAll("-","");
 	}
