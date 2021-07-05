@@ -55,8 +55,9 @@ public class RealMainController extends HttpServlet {
 		
 		//오늘의 명언
 		JSONParser parser = new JSONParser();
-		JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("C:\\Users\\bakug\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json"));
+		//JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("C:\\Users\\bakug\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json"));
 		//JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("C:\\Users\\750\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json"));
+		JSONArray jsonArray = (JSONArray)parser.parse(new FileReader("D:\\kio\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\data\\maxim.json"));
 		
 		
 		int size = jsonArray.size();
@@ -76,7 +77,6 @@ public class RealMainController extends HttpServlet {
 		SearchCriteria scri = new SearchCriteria();
 		scri.setPage(10);
 		List<ApprovalVO> alist = approvalService.selectAllApprovalDocumentList(scri);
-		System.out.println(alist.get(0).getE_textTitle());
 		
 		
 		

@@ -84,20 +84,22 @@
 						<p class="menu-name">자료실</p>
 					</li>
 					<%
-						if(userGrade.equals("A")){
+						if(userGrade!=null){
+							if(userGrade.equals("A")){
 					%>
 						<li class="sidebar-menu-item"
 							onclick="location.href='/admin/memberlist'">
 							<p class="menu-name">사원정보</p>
 						</li>
 					<%		
-						}else{
+							}else{
 					%>
 						<li class="sidebar-menu-item"
 						onclick="window.open('/member/list','사원정보','width=900,height=630,location=no,status=no');">
 						<p class="menu-name">사원정보</p>
 					</li>
 					<%		
+							}
 						}
 					 %>
 					
