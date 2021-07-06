@@ -38,13 +38,13 @@
 			%>
 			<tr>
 				<th>수신자</th>
-				<td><input type="text" name="m_addressee" class="form-control" value="${member.t_name}" readonly="readonly"></td>
+				<td><input type="text" name="t_name" class="form-control" value="${member.t_name}" readonly="readonly"></td>
 				<th>직급</th>
-				<td><input type="text" name="m_addressee" class="form-control" value="${member.t_position}" readonly="readonly"></td>
+				<td><input type="text" name="t_position" class="form-control" value="${member.t_position}" readonly="readonly"></td>
 			</tr>
 			<tr>
 				<th>부서</th>
-				<td><input type="text" name="m_addressee" class="form-control" value="${member.t_department}" readonly="readonly"></td>
+				<td><input type="text" name="t_department" class="form-control" value="${member.t_department}" readonly="readonly"></td>
 				<th>수신자 이메일<input type="hidden" name="tidx" value="${member.tidx }"></th>
 				<td><input type="text" name="m_addressee" class="form-control" value="${member.t_email}" readonly="readonly"></td>
 			</tr>
