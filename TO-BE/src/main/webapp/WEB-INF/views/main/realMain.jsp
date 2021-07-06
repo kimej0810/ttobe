@@ -10,6 +10,8 @@
 <title>진짜메인</title>
 <meta charset="UTF-8">
 <script type="text/javascript"
+	src="<c:url value="/resources/static/js/commute.js"/>"></script>
+<script type="text/javascript"
 	src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 <style>
 .content {
@@ -176,6 +178,7 @@ p {
 <body>
 	<%
 	String t_id = (String) session.getAttribute("userId");
+	System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+userTidx);
 	%>
 	<div id="box1" class="inner_content" style="width: 100%; height: 100%;">
 		<div class="conTitle">통합게시판</div>
@@ -346,10 +349,11 @@ p {
 		style="width: 100%; height: 100%; font-size: 50px;">
 		<div class="conTitle">근태관리</div>
 		<div class="conCon">
-			<button type="button" class="btn btn-primary btn-sm float-right"
-				onclick="location.href='/commute/startCommute2?t_id=<%=t_id%>'">출근</button>
-			<button type="button" class="btn btn-primary btn-sm float-right"
-				onclick="#">퇴근</button>
+			<input type="hidden" id="tidx" value="<%=userTidx%>">
+			<button id="startWork" type="button" class="btn btn-primary btn-sm float-right"
+				>출근</button>
+			<button id="endWork" type="button" class="btn btn-primary btn-sm float-right"
+				>퇴근</button>
 		</div>
 	</div>
 	<div id="box4" class="inner_content"

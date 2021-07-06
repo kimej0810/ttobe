@@ -45,7 +45,7 @@ $(document).ready(function(){
 	});
 	
 	/*퇴근기록*/
-	$("#endWork").on("click", function(){
+	$("#endWork").bind("click", function(){
 		var today = new Date();
 		var tidx = $("#tidx").val();
 		
@@ -90,5 +90,9 @@ $(document).ready(function(){
 				selectAllCommute(list);
 			}
 		});
+		
+		
 	});
+	
+	$("#starWork").trigger("click");
 });

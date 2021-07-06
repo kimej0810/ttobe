@@ -30,7 +30,7 @@ import tobe.project.service.BoardService;
 @RequestMapping(value = "/main")
 public class RealMainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	@Inject
 	private BoardService boardService;
 
