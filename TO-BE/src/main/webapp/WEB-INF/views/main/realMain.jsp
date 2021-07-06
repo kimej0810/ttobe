@@ -353,7 +353,7 @@ p {
 			<button id="startWork" type="button" class="btn btn-primary btn-sm float-right"
 				>출근</button>
 			<button id="endWork" type="button" class="btn btn-primary btn-sm float-right"
-				>퇴근</button>
+				onclick="location.href='/commute/commute?t_id=<%=t_id%>'">퇴근</button>
 		</div>
 	</div>
 	<div id="box4" class="inner_content"

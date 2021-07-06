@@ -75,7 +75,7 @@ public class DataLibraryController extends HttpServlet {
 	// ��猷��� �ㅼ�대���
 	@RequestMapping(value = "/fileDown")
 	@ResponseBody
-	public void fileDown(@RequestParam("didx") int didx, HttpServletResponse response) throws Exception {
+	public void fileDown(@RequestParam("didx") int didx, HttpServletResponse response, HttpServletRequest request) throws Exception {
 
 		System.out.println(didx);
 		//議고���� 利�媛�
@@ -88,8 +88,6 @@ public class DataLibraryController extends HttpServlet {
 		System.out.println("stored--->" + storedFileName);
 		System.out.println("original--->" + originalFileName);
 
-		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder
-			      .getRequestAttributes()).getRequest();
 		String filePath = request.getSession().getServletContext().getRealPath("/resources/static/file/");
 		
 		System.out.println("경로좀보자~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+filePath);

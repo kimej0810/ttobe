@@ -44,7 +44,7 @@ public class BoardController{
 	@Inject
 	private FileInfoService fileInfoService;
     
-	//게시판 목록
+	//寃����� 紐⑸�
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Locale locale, Model model, SearchCriteria scri, String searchType) throws Exception {
 		 logger.info("BoardList");
@@ -64,7 +64,7 @@ public class BoardController{
 		 return "/board/boardList";
 	}
 	
-	//게시판 상세보기
+	//寃����� ���몃낫湲�
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public String view(int bidx, @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
 		 logger.info("BoardWrite");
@@ -82,16 +82,20 @@ public class BoardController{
 		 return "/board/boardView";
 	}
 
-	//첨부파일 다운로드
+	//泥⑤����� �ㅼ�대���
 	@RequestMapping(value = "/fileDown")
-	public void fileDown(@RequestParam Map<String, Object> map, HttpServletResponse response) throws Exception {
+	public void fileDown(@RequestParam Map<String, Object> map, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		Map<String, Object> resultMap = fileInfoService.selectOneFile(map);
 		String storedFileName = (String) resultMap.get("F_STORED_FILE_NAME");
 		String originalFileName = (String) resultMap.get("F_ORG_FILE_NAME");
 		
 		System.out.println("storedFileName->"+storedFileName+" originalFileName->"+originalFileName);
 		
-		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("C:\\git\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\file\\"+storedFileName));
+String filePath = request.getSession().getServletContext().getRealPath("/resources/static/file/");
+		
+		System.out.println("경로좀보자~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+filePath);
+		
+		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File(filePath+storedFileName));
 		
 		response.setContentType("application/octet-stream");
 		response.setContentLength(fileByte.length);
@@ -102,26 +106,26 @@ public class BoardController{
 	}
 	
 	
-	//게시판 글쓰기뷰
+	//寃����� 湲��곌린酉�
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String write(Locale locale, Model model) throws Exception {
 		 logger.info("BoardWrite");
 		 return "/board/boardWrite";
 	}
 	
-	//게시판 글쓰기
+	//寃����� 湲��곌린
 	@RequestMapping(value = "/writeAction")
 	public String writeAction(BoardVO vo,String grade,HttpServletRequest request, MultipartHttpServletRequest mpRequest) throws Exception {
 		 logger.info("BoardWriteAction");
 		 BoardVO bvo = vo;
 		 if(grade.equals("Z")) {
 			bvo.setB_type("G");
-			System.out.println("일반글 등록");
+			System.out.println("�쇰�湲� �깅�");
 			service.writeBoard(bvo, mpRequest);
 			return "redirect:/board/list";
 		 }else if(grade.equals("A")) {
 			bvo.setB_type("N");
-			System.out.println("공지글 등록");
+			System.out.println("怨듭�湲� �깅�");
 			service.writeBoard(bvo, mpRequest);
 			return "redirect:/board/list";
 		 }
@@ -129,7 +133,7 @@ public class BoardController{
 		 return "redirect:"+referer;
 	}
 	
-	//게시판 수정뷰
+	//寃����� ����酉�
 	@RequestMapping(value = "/modify")
 	public String modify(int bidx, @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
 		 logger.info("BoardModifyView");
@@ -143,7 +147,7 @@ public class BoardController{
 		 return "/board/boardModify";
 	}
 	
-	//게시판 수정
+	//寃����� ����
 	@RequestMapping(value = "/modifyAction")
 	public String modifyAction(BoardVO vo, 
 								@ModelAttribute("scri") SearchCriteria scri, 
@@ -161,7 +165,7 @@ public class BoardController{
 	    return "redirect:/board/list";
 	}
 	
-	//게시판 삭제
+	//寃����� ����
 	@RequestMapping(value = "/delete")
 	public String delete(int bidx, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes rttr) throws Exception {
 		logger.info("BoardDelete");
@@ -173,7 +177,7 @@ public class BoardController{
 	    return "redirect:/board/list";
 	}
 	
-	//댓글 작성
+	//��湲� ����
 		@RequestMapping(value = "/writeReply")
 		public String writeReply(ReplyVO vo, SearchCriteria scri, RedirectAttributes rttr) throws Exception {
 			logger.info("writeReply");
