@@ -94,5 +94,5 @@ $(document).ready(function(){
 		
 	});
 	
-	$("#starWork").trigger("click");
+	$("#endWork").trigger("click");
 });

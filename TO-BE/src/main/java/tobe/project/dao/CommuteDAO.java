@@ -26,4 +26,5 @@ public interface CommuteDAO {
 	
 	//연차 등록
 	public void addLeave() throws Exception;
+	
 }

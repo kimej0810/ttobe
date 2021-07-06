@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -52,8 +53,8 @@
 	}
 	
 $(document).ready(function(){
-
-	/* //출근기록
+/* 
+	//출근기록
 	$("#startWork").on("click", function(){
 		var today = new Date();
 		var tidx = $("#tidx").val();
@@ -84,7 +85,6 @@ $(document).ready(function(){
 			}
 		
 		$.ajax({
-			//type: 
 			url:"/commute/startCommute",
 			data: form,
 			dataType:"json",
@@ -96,6 +96,8 @@ $(document).ready(function(){
 			}
 		});
 	});
+	
+	
 	
 	//퇴근기록
 	$("#endWork").on("click", function(){
@@ -143,8 +145,8 @@ $(document).ready(function(){
 				selectAllCommute(list);		
 			}
 		});
-	}); */
-	
+	});
+	 */
 	//월별
 	var date = new Date();
 	var viewYear = date.getFullYear();
@@ -231,6 +233,7 @@ $(document).ready(function(){
 });
 </script>
 </head>
+<body onload="test1(); test2()"> 
 	<div>
 		<button type="button" class="btn btn-outline-secondary" onclick="location.href='/commute/commute?t_id=${member.t_id}'">근태현황</button>
 		<button type="button" class="btn btn-outline-secondary" onclick="location.href='/leave/leaveManagement?t_id=${member.t_id}'">연차관리</button>
@@ -271,6 +274,5 @@ $(document).ready(function(){
 		<input type="hidden" id="tidx" value="${member.tidx}">
 		<input type="hidden" id="t_id" value="${member.t_id}">
 	</form>
-	
 </body>
 </html>

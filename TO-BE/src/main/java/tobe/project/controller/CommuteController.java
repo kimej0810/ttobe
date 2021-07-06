@@ -94,6 +94,7 @@ public class CommuteController {
 		return list;
 	}
 
+	
 	//근태관리 퇴근 등록 처리
 	@RequestMapping(value = "/commute/endCommute")
 	@ResponseBody
