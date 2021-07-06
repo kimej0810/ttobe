@@ -22,17 +22,21 @@ $.fn.serializeObject = function(){
 function click_ok(){
 
 	var scheduleData = JSON.stringify($('form#scheduleData').serializeObject());
+	var result = confirm("일정 추가하시겠습니까?");
 	
-	$.ajax({
-		data : scheduleData,
-		url : "/schedule/addSchedule",
-		type : "POST",
-		dataType : "json",
-		contentType : "application/json; charset=UTF-8",
-		success : function(data) {
-			opener.parent.location.reload();
-			window.close();
-		}
-	});
+	if(result){
+		$.ajax({
+			data : scheduleData,
+			url : "/schedule/addSchedule",
+			type : "POST",
+			dataType : "json",
+			contentType : "application/json; charset=UTF-8",
+			success : function(data) {
+				var result
+				opener.parent.location.reload();
+				window.close();
+			}
+		});
+	}
 };
 

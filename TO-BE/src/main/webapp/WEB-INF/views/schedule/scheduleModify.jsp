@@ -8,11 +8,12 @@
 <% 
 	ScheduleVO vo = (ScheduleVO)request.getAttribute("vo"); 
 	MemberVO mo = (MemberVO)request.getAttribute("mo");
+	int userTidx = (int)session.getAttribute("userTidx");
 	
-	if(session.getAttribute("userTidx") != null){
-		Object userTidx = session.getAttribute("userTidx");
-	}else{
+	if(userTidx == 0){ 
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+	}else if(userTidx == 0 || userTidx != vo.getTidx()){
+		out.println("<script>alert('권한이 없습니다');history.back();</script>");
 	}
 %> 
 <!DOCTYPE html>
@@ -29,18 +30,22 @@
 			function click_up(){
 				
 				var scheduleData = JSON.stringify($('form#scheduleData').serializeObject());
+				var result = confirm("일정을 수정하시겠습니까?");
 				
-				$.ajax({
-					data : scheduleData,
-					url : "/schedule/updateSchedule?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
-					type : "POST",
-					dataType : "json",
-					contentType : "application/json; charset=UTF-8",
-					success : function(data) {
-						opener.parent.location.reload();
-						location.href="scheduleContents?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>";
-					}
-				});
+				if(result){
+					$.ajax({
+						data : scheduleData,
+						url : "/schedule/updateSchedule?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
+						type : "POST",
+						dataType : "json",
+						contentType : "application/json; charset=UTF-8",
+						success : function(data) {
+							alert("일정 수정이 완료되었습니다.");
+							opener.parent.location.reload();
+							location.href="scheduleContents?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>";
+						}
+					});
+				}
 			}
 			$(document).ready(function(){
 				$("#s_startDate, #s_endDate").datetimepicker({
@@ -90,26 +95,27 @@
 					</div>
 					
 					<div class="domain">
-						<h3 class="zTree-h3">시작</h3>
+						<h3 class="zTree-h3">시작 날짜</h3>
 					</div>
 					<div class="domain">
 						<input class = "date" id = "s_startDate" type = "text" name = "s_startDate" id = "s_startDate" value="<%=vo.getS_startDate()%>">
 					</div>
 					<div class="domain">
-						<h3 class="zTree-h3">종료</h3>
+						<h3 class="zTree-h3">종료 날짜</h3>
 					</div>
 					<div class="domain">
 						<input class = "date" id = "s_endDate" type = "text" name = "s_endDate" id = "s_endDate" value="<%=vo.getS_endDate()%>">
 					</div>
 					<div class="domain">
-						<h3 class="zTree-h3">메모</h3>
+						<h3 class="zTree-h3">내용</h3>
 					</div>
 					<div class="domain">
 						<textarea class="s_content target" id="s_content" name="s_content" rows="5" cols="20" placeholder="100글자까지 입력 가능합니다"><%=vo.getS_content()%></textarea>
 					</div>
 					<div class="btngroup">
+						<button type="button" class="cancel-button" onclick="history.back();">취소</button> 
 						<button type="button" class="ok-button" onclick="click_up()">확인</button>
-						<button type="reset" class="set-button">다시쓰기</button>
+						<button type="reset" class="reset-button">다시쓰기</button>
 					</div>
 				</form>
 				

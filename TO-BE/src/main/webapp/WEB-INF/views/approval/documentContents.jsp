@@ -36,35 +36,26 @@
 		<link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>">
 		<script type="text/javascript">
 			function click_modify(){
-				var e_status = $('#e_status').val();
-				
-				if(e_status == 0 || <%=contents.getTidx()%> == <%=userTidx%>){
+					alert("수정페이지로 이동합니다.");
 					location.href="documentModify?eidx="+"<%=contents.getEidx()%>&tidx=<%=contents.getTidx()%>";
-				}else{
-					alert("문서의 기안자가 아니거나 수정할 수 없는 상태입니다.");
-				}
 			};
 			function click_delete(){
-				var e_status = $('#e_status').val();
-				
-				if(e_status == 0 || <%=contents.getTidx()%> == <%=userTidx%>){
-					alert("정말 삭제하시겠습니까?");
-					location.href="documentDelete?eidx="+<%=contents.getEidx()%>;
-					alert("결재문서가 삭제되었습니다.");
-					opener.parent.location.reload();
-					window.close();
-				}else{
-					alert("문서의 기안자가 아니거나 삭제할 수 없는 상태입니다.");
-				}
-			}
-			function click_ok(){
-				window.close();
+					var result = confirm("삭제 하시겠습니까?");
+					if(result){
+						location.href="documentDelete?eidx="+<%=contents.getEidx()%>;
+						alert("결재문서가 삭제되었습니다.");
+						opener.parent.location.reload();
+						window.close();
+					}
 			}
 			function ok(){
-				location.href="documentOk?eidx="+"<%=contents.getEidx()%>";
-				alert("승인처리 되었습니다.");
-				opener.parent.location.reload();
-				window.close();
+				var result = confirm("승인 처리 하시겠습니까?");
+				if(result){
+					location.href="documentOk?eidx="+"<%=contents.getEidx()%>";
+					alert("승인처리 되었습니다.");
+					opener.parent.location.reload();
+					window.close();
+				}
 			}
 			function no(){
 				var returnValue = prompt("반려 사유 작성","");
@@ -74,6 +65,7 @@
 						if(result){
 							location.href = "documentNo?eidx="+"<%=contents.getEidx()%>"+"&e_reason="+returnValue;
 							alert("반려처리 되었습니다.");
+							opener.parent.location.reload();
 							window.close();
 						}else{
 							alert("반려처리 취소되었습니다.");
@@ -145,7 +137,7 @@
 								<%=contents.getE_draftDate()%>
 							</td>
 							<td class="style33 style33" rowspan="3">결<br><br>재</td>
-							<td class="style35 style36" colspan="2">${to.teamLeader }</td>
+							<td class="style35 style36" colspan="2">${to.teamLeader}</td>
 							<td class="style35 style36" colspan="2"></td>
 							<td class="style35 style36" colspan="3">부장</td>
 							<td class="style35 style36" colspan="2">과장</td>
@@ -221,30 +213,30 @@
 				</table>
 				<div id="documentBtn">
 				<%if(userTidx == mo.getTidx() && contents.getE_status().trim().equals("결재대기")){%>
-					<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_ok()">확인</button>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_modify();">수정</button>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_delete();">삭제</button>
+					<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
 				<%}else if(userTidx != mo.getTidx() && userPosition.equals("팀장") && userId.equals(to.getTeamLeader()) && to.getStatus().equals("3000")){ %>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">승인</button>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="no()">반려</button>
-					<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_ok()">확인</button>
+					<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
 				<%}else if(userTidx != mo.getTidx() && userPosition.equals("부장") && userId.equals(to.getDepartmentHead()) && to.getStatus().equals("0300")){ %>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">승인</button>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="no()">반려</button>
-					<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_ok()">확인</button>
+					<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
 				<%}else if(userTidx != mo.getTidx() && userPosition.equals("과장") && userId.equals(to.getSectionHead()) && to.getStatus().equals("0030")){ %>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">승인</button>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="no()">반려</button>
-					<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_ok()">확인</button>
+					<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
 				<%}else if(userTidx != mo.getTidx() && userPosition.equals("대표") && userId.equals(to.getLeader()) && to.getStatus().equals("0003")){ %>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">최종승인</button>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="no()">반려</button>
-					<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_ok()">확인</button>
+					<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
 				<%}else if(userTidx == mo.getTidx() && to.getStatus().equals("3333") && contents.getE_status().trim().equals("결재반려")){%>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="approvalAgain()">재기안</button>
-					<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_ok()">확인</button>
+					<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
 				<%}else{ %>
-					<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_ok()">확인</button>
+					<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
 				<%} %>
 				</div>
 			</div>

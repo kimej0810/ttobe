@@ -6,8 +6,8 @@
 	Object userDep = session.getAttribute("userDep");
 	Object userTidx = session.getAttribute("userTidx");
 	
-	if(userName == null && userDep == null && userTidx == null){
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');window.close();</script>");
+	if(userName == null || userDep == null || userTidx == null){
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
 	}
 %>
 <!DOCTYPE html>
@@ -91,7 +91,7 @@
 								<input type="text" id="e_startDay" name="e_startDay" class="date" autocomplete="off">
 							</td>
 							<td class="style38  style43" colspan="2" rowspan="2">
-								<input type="text" id="charge" value="<%=userName%>">
+								<input type="text" id="charge" value="<%=userName%>" readonly>
 							</td>
 							<td class="style38 style43" colspan="2" rowspan="2">
 								<select id="teamLeader" name="teamLeader">
@@ -179,6 +179,7 @@
 				<div id="documentBtn">
 					<button type="reset" class="btn btn-primary btn-sm float-right">다시쓰기</button>
 					<button type="button" onclick="click_ok();" class="btn btn-primary btn-sm float-right">기안</button>
+					<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
 				</div>
 			</div>
 		</form>

@@ -5,7 +5,7 @@
 	Object userId = session.getAttribute("userId");
 	Object userTidx = session.getAttribute("userTidx");
 	
-	if(userId == null && userTidx == null){
+	if(userId == null || userTidx == null){
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>"); 
 	}
 %>
@@ -35,6 +35,9 @@
 			</div>
 			<div class="group-body">
 				<form id="scheduleData">
+					<div class="domain">
+						<h3 class="zTree-h3">제목</h3>
+					</div>
 					<input type="hidden" class="tidx" name="tidx" id="tidx" value="<%=userTidx%>">
 					<div class="top">
 						<input type="text" class="s_title" id="s_title" name="s_title" placeholder="제목을 입력하세요" autocomplete="off">
@@ -54,25 +57,27 @@
 						</select>
 					</div>
 					<div class="domain">
-						<h3 class="zTree-h3">시작</h3>
+						<h3 class="zTree-h3">시작 날짜</h3>
 					</div>
 					<div class="domain">
 						<input class = "date" id = "s_startDate" type = "text" name = "s_startDate" id = "s_startDate" autocomplete="off">
 					</div>
 					<div class="domain">
-						<h3 class="zTree-h3">종료</h3>
+						<h3 class="zTree-h3">종료 날짜</h3>
 					</div>
 					<div class="domain">
 						<input class = "date" id = "s_endDate" type = "text" name = "s_endDate" id = "s_endDate" autocomplete="off">
 					</div>
 					<div class="domain">
-						<h3 class="zTree-h3">메모</h3>
+						<h3 class="zTree-h3">내용</h3>
 					</div>
 					<div class="domain">
 						<textarea class="s_content target" id="s_content" name="s_content" rows="5" cols="20" placeholder="100글자까지 입력 가능합니다" autocomplete="off"></textarea>
 					</div>
 				</form>
+				<button type="button" class="close-button" onclick="window.close();">닫기</button>
 				<button type="button" class="ok-button" onclick="click_ok();">확인</button>
+				<button type="reset" class="reset-button">다시쓰기</button>
 			</div>
 		</div>
 		

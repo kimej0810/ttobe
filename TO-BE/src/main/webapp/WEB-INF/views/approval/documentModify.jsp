@@ -30,19 +30,21 @@
 		<script type="text/javascript">
 			function click_up(){
 				var draftLetterData = JSON.stringify($('form#draftLetterData').serializeObject());
-				
-				$.ajax({
-					type:'POST',
-					url:"/approval/ModifyDocumentWite?eidx="+"<%=contents.getEidx()%>&tidx=<%=contents.getTidx()%>",
-					dataType:'JSON',
-					data: draftLetterData,
-					contentType : "application/json; charset=UTF-8",
-					success: function(data){
-						alert("수정이 완료되었습니다.");
-						opener.parent.location.reload();
-						window.close();
-					}
-				});
+				var result = confirm("수정하시겠습니까?");
+				if(result){
+					$.ajax({
+						type:'POST',
+						url:"/approval/ModifyDocumentWite?eidx="+"<%=contents.getEidx()%>&tidx=<%=contents.getTidx()%>",
+						dataType:'JSON',
+						data: draftLetterData,
+						contentType : "application/json; charset=UTF-8",
+						success: function(data){
+							alert("수정이 완료되었습니다.");
+							opener.parent.location.reload();
+							window.close();
+						}
+					});
+				}
 			};
 		</script>
 	</head>
@@ -174,8 +176,9 @@
 				</tbody>
 			</table>
 			<div id="documentBtn">
-				<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_up();">확인</button>
 				<button type="reset" class="btn btn-primary btn-sm float-right">다시쓰기</button>
+				<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_up();">확인</button>
+				<button type="reset" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
 			</div>
 			</div>
 		</form>

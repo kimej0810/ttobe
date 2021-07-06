@@ -37,7 +37,7 @@
 							click: function() {
 								var url = "schedulePopup";
 								var name = "schedulePopup";
-								var option = "width = 620, height = 730 left = 100, top=50,location=no";
+								var option = "width = 600, height = 730 left = 100, top=50,location=no";
 								window.open(url,name,option)
 							}
 						},
@@ -52,22 +52,20 @@
 			    	headerToolbar: {
 			    		left: 'prev,next today boardCustomButton',
 				        center: 'title',
-				        right: 'myCustomButton'
+				        right: 'myCustomButton,timeGridDay,dayGridMonth'
 					},
 //					initialDate: '2020-09-12',  삭제시 현재날짜 focus!!
 					locale : "ko", //한글로 출력하는 속성 추가
-					navLinks: true, // can click day/week names to navigate views
+					navLinks: false, // can click day/week names to navigate views
 					businessHours: true, // display business hours
 					editable: false,
 					selectable: false,
 					dayMaxEventRows: true,
 					dayMaxEvents: 3,
-					navLinks: false,
 					events: [
 					<%
 					  	  for (int i = 0; i < list.size(); i++) {
 					  	  	ScheduleVO vo = (ScheduleVO)list.get(i);
-					  	  	
 					%>	
 			        {
 
@@ -96,27 +94,20 @@
 						
 						if (info.event.url) {
 							var name = "scheduleContents";
-							var option = "width = 620, height = 730 left = 100, top=50,location=no";
+							var option = "width = 600, height = 730 left = 100, top=50,location=no";
 						  window.open(info.event.url,name,option);
 						}
 					}
 				});
-			   
-
 			    calendar.render(); 
 			});
 			
 			
 		</script>
 		<style>
-			.fc-toolbar-chunk:last-child{
-				width: 300px;
-		    	text-align: right;
+			.fc-myCustomButton-button, .fc-timeGridDay-button, .fc-dayGridMonth-button{
+				width: 98px;
 			}
-			.fc-myCustomButton-button{
-				width: 165px;
-			}
-			
 			.content{
 				overflow: hidden;
 			}
@@ -184,6 +175,7 @@
 					<section class="panel">
 			        	<form role="form" method="get">
 			        	<div class="category">
+			        		<button id="mySchedule" class="btn btn-outline-secondary" type="button">나의 일정보기</button>
 							<button id="calendarButton" class="btn btn-outline-secondary" type="button">캘린더형</button>
 						</div>
 				        	<div class="search">
@@ -202,6 +194,12 @@
 								</div>
 							</div>
 							<script type="text/javascript">
+								function scheduleAddPopup(){
+									var url = "schedulePopup";
+									var name = "schedulePopup";
+									var option = "width = 600, height = 730 left = 100, top=50,location=no";
+									window.open(url,name,option)
+								}
 								 $(function(){
 									$('#calendarButton').on("click",function(){
 										$("#box").css("display","none");
@@ -216,12 +214,17 @@
 										$("#calendar").css("display","none");
 										$("#box").css("display","block");
 									})
+									$("#mySchedule").on("click",function(){
+										self.location = "fullcalendar" + '${paging.makeQuery(1)}' + "&searchType=나의 일정보기" + "&userId=" + "<%=userId%>";
+										$("#calendar").css("display","none");
+										$("#box").css("display","block");
+									})
 								});
 							</script>
 				        	<div class="panel-body">
 				          		<table class="table table-hover" id="board">
 				          			<thead>
-				          			<tr style="text-align: center;">
+				          			<tr>
 				          				<th width="20px">유형</th>
 				          				<th width="80px">제목</th>
 				          				<th width="60px">시작일시</th>
@@ -238,7 +241,7 @@
 						              			</td>
 						              			<td class="control-label scheduletitle">
 													<input type="hidden" value="${viewAll.sidx}">
-													<a href="scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=620, height=730'); return false;" style="text-decoration : none; color:black;">
+													<a href="scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=730'); return false;" style="text-decoration : none; color:black;">
 														<c:set var="content" value="${viewAll.s_title}"/>
 														<c:choose>
 															<c:when test="${fn:length(viewAll.s_title) > 10}">
@@ -267,7 +270,7 @@
 													</c:otherwise>
 												</c:choose>
 												<td class="scheduleContents">
-													<a href="scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=620, height=730'); return false;" style="text-decoration : none; color:black;">
+													<a href="scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=730'); return false;" style="text-decoration : none; color:black;">
 														<c:set var="content" value="${viewAll.s_content}"/>
 														${fn:substring(content,0,50)}
 													</a>
@@ -280,7 +283,7 @@
 									</tbody>
 								</table>
 								<div id="scheduleBtn">
-									<button type="button" class="btn btn-primary btn-sm float-right"> 일정 추가</button>
+									<button type="button" class="btn btn-primary btn-sm float-right" onclick="scheduleAddPopup()"> 일정 추가</button>
 								</div>
 							</div>					
 						</form>

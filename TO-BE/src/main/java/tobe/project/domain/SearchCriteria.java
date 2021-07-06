@@ -4,6 +4,7 @@ public class SearchCriteria extends Criteria {
 	
 	private String keyword;
 	private String searchType;
+	private String userId;
 	
 	public String getKeyword() {
 		return keyword;
@@ -16,5 +17,11 @@ public class SearchCriteria extends Criteria {
 	}
 	public void setSearchType(String searchType) {
 		this.searchType = searchType;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 }

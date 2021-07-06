@@ -8,9 +8,9 @@
 <% 
 	ScheduleVO vo = (ScheduleVO)request.getAttribute("vo"); 
 	MemberVO mo = (MemberVO)request.getAttribute("mo");
-	Object userTidx = session.getAttribute("userTidx"); 
+	int userTidx = (int)session.getAttribute("userTidx"); 
 	
-	if(userTidx == null){
+	if(userTidx == 0){
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
 	}
 %>
@@ -23,27 +23,17 @@
 		<link href="<c:url value="/resources/static/fullcalendar/css/schedule.css"/>" rel='stylesheet' />
 		<script>
 		function click_modify(){
-			if(<%=vo.getTidx()%> == <%=userTidx%>){
+				alert("일정 수정페이지로 이동합니다.");
 				location.href="scheduleModify?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>";
-			}else{
-				alert("수정할 수 있는 권한이 없습니다.");
-			}
 		};
 		function click_delete(){
-			if(<%=vo.getTidx()%> == <%=userTidx%>){
-				alert("정말 삭제하시겠습니까?");
+			var result = confirm("일정을 삭제하시겠습니까?");
+			if(result){
 				location.href="scheduleDelete?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>";
 				alert("일정이 삭제되었습니다.");
 				opener.parent.location.reload();
 				window.close();
-			}else{
-				alert("삭제할 수 있는 권한이 없습니다.");
 			}
-			
-		}
-		function click_ok(){
-			opener.parent.location.reload();
-			window.close();
 		}
 		</script>
 		<style type="text/css">
@@ -103,10 +93,15 @@
 					</div>
 				</form>
 				<div class="btngroup">
-					<button type="button" class="ok-button" onclick="click_ok()">확인</button>
+				<%if(vo.getTidx() == userTidx){ %>
+					<button type="button" class="close-button" onclick="window.close();">닫기</button>
+					<button type="button" class="delete-button" onclick="click_delete();">삭제</button>
 					<button type="button" class="modify-button" onclick="click_modify();">수정</button>
-					<button type="button" class="ok-button" onclick="click_delete();">삭제</button>
+				<%}else{%>
+					<button type="button" class="close-button" onclick="window.close();">닫기</button>
+				<%} %>
 				</div>
+				
 			</div>
 		</div>
 	</body>

@@ -39,20 +39,23 @@ jQuery.fn.serializeObject = function(){
 };
 function click_ok(){
 	var documentWiteData = JSON.stringify($("form#documentWiteData").serializeObject());
+	var result = confirm("결제요청 하시겠습니까?");
 	
-	$.ajax({
-		data: documentWiteData,
-		url:"/approval/addDocumentWite",
-		type:'POST',
-		dataType:'JSON',
-		contentType : "application/json; charset=UTF-8",
-		success: function(data){
-			var teamLeader = $('#teamLeader').val();
-			alert(teamLeader);
-			alert("결제요청이 완료되었습니다.");
-			opener.parent.location.reload();
-			window.close();
-		}
-	});
+	if(result){
+		$.ajax({
+			data: documentWiteData,
+			url:"/approval/addDocumentWite",
+			type:'POST',
+			dataType:'JSON',
+			contentType : "application/json; charset=UTF-8",
+			success: function(data){
+				var teamLeader = $('#teamLeader').val();
+				alert(teamLeader);
+				alert("결제요청이 완료되었습니다.");
+				opener.parent.location.reload();
+				window.close();
+			}
+		});
+	}
 	
 };

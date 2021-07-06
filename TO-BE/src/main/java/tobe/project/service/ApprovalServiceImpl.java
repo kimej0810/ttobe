@@ -65,7 +65,12 @@ public class ApprovalServiceImpl implements ApprovalService{
 	public int totalCountComplete() throws Exception {
 		return dao.totalCountComplete();
 	}
-
+	
+	@Override
+	public int totalCountNo() throws Exception {
+		return dao.totalCountNo();
+	}
+	
 	@Override
 	public void modifyApprovalStatusProgress(int eidx) throws Exception {
 		dao.modifyApprovalStatusProgress(eidx);
@@ -85,5 +90,4 @@ public class ApprovalServiceImpl implements ApprovalService{
 	public void modifyApprovalDocumentAgain(ApprovalDTO dto) throws Exception {
 		dao.modifyApprovalDocumentAgain(dto);
 	}
-	
 }

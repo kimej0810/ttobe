@@ -1,9 +1,7 @@
 package tobe.project.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import tobe.project.domain.PageMaker;
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.ApprovalDTO;
-import tobe.project.dto.ApprovalVO;
 import tobe.project.dto.MemberVO;
 import tobe.project.service.AdminService;
 import tobe.project.service.ApprovalLineService;
@@ -45,9 +42,6 @@ public class ApprovalController {
 	@Inject
 	private ApprovalLineService lservice;
 	
-	@Inject
-	private MemberService mservice;
-	
 	@RequestMapping(value = "/documentListMain")
 	public String documentMain(Model model, @ModelAttribute("scri")SearchCriteria scri,String t_id) throws Exception{
 		System.out.println("ApprovalController");
@@ -58,35 +52,29 @@ public class ApprovalController {
 		model.addAttribute("paging",pageMaker);
 		model.addAttribute("elist", service.selectAllApprovalDocumentList(scri));
 		
-		model.addAttribute("re",service.totalCountWaiting());
+		model.addAttribute("wa",service.totalCountWaiting());
 		model.addAttribute("pr",service.totalCountProgress());
 		model.addAttribute("co",service.totalCountComplete());
+		model.addAttribute("no",service.totalCountNo());
 		
-		MemberVO vo = mservice.selectOneMember(t_id);
-		if(vo.getT_position().equals("팀장")) {
-			model.addAttribute("tt",lservice.totalCountTeamLeaderApprovalToDo(t_id));
-		}else if(vo.getT_position().equals("부장")) {
-			model.addAttribute("dt",lservice.totalCountDepartmentHeadApprovalToDo(t_id));
-			model.addAttribute("dm",lservice.totalCountDepartmentHeadApprovalMust(t_id));
-		}else if(vo.getT_position().equals("과장")) {
-			model.addAttribute("st",lservice.totalCountSectionHeadApprovalToDo(t_id));
-			model.addAttribute("sm",lservice.totalCountSectionHeadApprovalMust(t_id));
-		}else if(vo.getT_position().equals("대표")) {
-			model.addAttribute("lto",lservice.totalCountLeaderApprovalToDo(t_id));
-			model.addAttribute("lm",lservice.totalCountLeaderApprovalMust(t_id));
-		}
 		return "/approval/documentListMain";
 	}
 	@RequestMapping(value = "/documentListMy")
-	public String documentListMy(Model model,@ModelAttribute("scri")SearchCriteria scri,int tidx) throws Exception {
+	public String documentListMy(Model model,@ModelAttribute("scri")SearchCriteria scri,String t_id) throws Exception {
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(service.totalCountApprovalDocument(scri));
 		
 		model.addAttribute("paging",pageMaker);
 		model.addAttribute("elist", service.selectAllApprovalDocumentList(scri));
+		
+		model.addAttribute("wa",service.totalCountWaiting());
+		model.addAttribute("pr",service.totalCountProgress());
+		model.addAttribute("co",service.totalCountComplete());
+		model.addAttribute("no",service.totalCountNo());
 		return "/approval/documentListMy";
 	}
+	
 	@RequestMapping(value = "/documentWite")
 	public String documentWite(Model model,Locale locale) throws Exception {
 		List<MemberVO> vo = aservice.selectAllMember();
@@ -170,14 +158,11 @@ public class ApprovalController {
 		model.addAttribute("contents",dto);
 		return dto;
 	}
+	@ResponseBody
 	@RequestMapping(value = "/documentApprovalAgainOk")
-	public ApprovalDTO documentApprovalAgainOk(Model model,int eidx,int tidx) throws Exception{
-		ApprovalDTO dto = service.selectOneApprovalDocumentContents(eidx);
-		List<MemberVO> vo = aservice.selectAllMember();
-		
-		model.addAttribute("allMember",vo);
-		model.addAttribute("mo",aservice.selectOneMember(tidx));
-		model.addAttribute("contents",dto);
+	public ApprovalDTO documentApprovalAgainOk(Model model,@RequestBody ApprovalDTO dto) throws Exception{
+		service.modifyApprovalDocumentAgain(dto);
+		lservice.modifyApprovalDocumentAgainLine(dto);
 		return dto;
 	}
 	

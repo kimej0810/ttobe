@@ -63,6 +63,11 @@ public class ApprovalDAOImpl implements ApprovalDAO{
 	public int totalCountProgress() throws Exception {
 		return sqlSession.selectOne(Namespace+".totalCountProgress");
 	}
+	
+	@Override
+	public int totalCountNo() throws Exception {
+		return sqlSession.selectOne(Namespace+".totalCountNo");
+	}
 
 	@Override
 	public int totalCountComplete() throws Exception {
@@ -90,4 +95,6 @@ public class ApprovalDAOImpl implements ApprovalDAO{
 	public void modifyApprovalDocumentAgain(ApprovalDTO dto) throws Exception {
 		sqlSession.update(Namespace+".modifyApprovalDocumentAgain",dto);		
 	}
+
+
 }

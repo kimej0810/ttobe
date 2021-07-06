@@ -26,6 +26,7 @@ public interface ApprovalDAO {
 	public int totalCountWaiting() throws Exception;
 	public int totalCountProgress()	throws Exception;
 	public int totalCountComplete() throws Exception;
+	public int totalCountNo() throws Exception;
 	
 }
  

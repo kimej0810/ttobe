@@ -81,7 +81,7 @@
  		WHERE 
  			EIDX = #{eidx}
  	</update>
- 	<update id="modifyApprovalDocumentAgainLine">
+ 	<update id="modifyApprovalDocumentAgainLine" parameterType="ApprovalDTO">
  		UPDATE
  			APPROVAL_LINE
  		SET

@@ -33,7 +33,7 @@
 				display:grid;
 				grid-template-columns:1fr minmax(70px, auto);
 			}
-			#waiting, #progress, #complete, #myApprovalToDo, #myApprovalMust{
+			#waiting, #progress, #complete, #no{
 				text-align:center;
 			    height: 35px;
 		   		background-color: lightgray;
@@ -72,7 +72,7 @@
 			    text-align: center;
 			    max-height: 590px;
 			}
-			#count, #clickCount, #clickCount1{
+			#count{
 				text-align:center;
 				font-size:20px;
 			}
@@ -90,7 +90,10 @@
 					<button type="button" class="btn btn-outline-secondary" id="progressDocument">결재진행문서</button>
 					<button type="button" class="btn btn-outline-secondary" id="completedDocument">결재완료문서</button>
 					<button type="button" class="btn btn-outline-secondary" id="NoDocument">결재반려문서</button>
-					<button type="button" class="btn btn-outline-secondary" onclick="location.href='/approval/documentListMy${paging.makeQuery(1)}&searchType=<%=userPosition %>&keyword=<%=userId %>&tidx=<%=userTidx %>'" id="my">결재반려문서</button>
+					<%if(userPosition.equals("팀장") || userPosition.equals("부장") || userPosition.equals("과장") || userPosition.equals("대표")){ %>
+						<button type="button" class="btn btn-outline-secondary" id="my" 
+						onclick="location.href='/approval/documentListMy${paging.makeQuery(1)}&searchType=<%=userPosition %>&userId=<%=userId%>&t_id=<%=userId%>'">결재예정문서</button>
+					<%}%>
 				</div>
 				<div id="statusGroup">
 					<table id="statusTable">
@@ -101,40 +104,18 @@
 							<col width="10%">
 							<col width="10%">
 							<col width="10%">
+							<col width="10%">
+							<col width="10%">
 						</colgroup>
 						<tr>
 							<th id="waiting">결재요청문서</th>
-							<th id="count">${re}</th>
+							<th id="count">${wa}</th>
 							<th id="progress">결재진행문서</th>
 							<th id="count">${pr }</th>
 							<th id="complete">결재완료문서</th>
 							<th id="count">${co }</th>
-							<c:choose>
-								<c:when test="${userPosition == '팀장' }">
-									<th id="myApprovalToDo"  width="10%">결재예정문서</th>
-									<th id="clickCountTeamLeader" width="10%">${tt }</th>
-									<th id="myApprovalMust" width="10%">결재대기문서</th>
-									<th id="clickCount1" width="10%">0</th>
-								</c:when>
-								<c:when test="${userPosition == '부장' }">
-									<th id="myApprovalToDo" width="10%">결재예정문서</th>
-									<th id="clickCountDepartmentHead" width="10%">${dt }</th>
-									<th id="myApprovalMust" width="10%">결재대기문서</th>
-									<th id="clickCount1" width="10%">${dm }</th>
-								</c:when>
-								<c:when test="${userPosition == '과장' }">
-									<th id="myApprovalToDo" width="10%">결재예정문서</th>
-									<th id="clickCountSectionHead" width="10%">${st }</th>
-									<th id="myApprovalMust" width="10%">결재대기문서</th>
-									<th id="clickCount1" width="10%">${sm }</th>
-								</c:when>
-								<c:when test="${userPosition == '대표' }">
-									<th id="myApprovalToDo" width="10%">결재예정문서</th>
-									<th id="clickCountLeader" width="10%">${lto }</th>
-									<th id="myApprovalMust" width="10%">결재대기문서</th>
-									<th id="clickCount1" width="10%">${lm }</th>
-								</c:when>
-							</c:choose>
+							<th id="no">결재반려문서</th>
+							<th id="count">${no }</th>
 						</tr>
 					</table>
 				</div>
@@ -184,7 +165,7 @@
 								<th width="50px">순번</th>
 								<th width="100px">문서번호</th>
 								<th width="100px">기안 부서</th>
-								<th width="80px">기안자</th>
+								<th width="100px">기안자</th>
 								<th>제목</th>
 								<th width="150px">기안 일시</th>
 								<th width="70px">상태</th>
@@ -192,20 +173,7 @@
 						</thead>
 						<tbody>
 							<c:forEach items="${elist}" var="elist" varStatus="status">
-								<c:choose>
-									<c:when test="${elist.e_status eq '결재대기' }">
-										<tr class="waitingList">
-									</c:when>
-									<c:when test="${elist.e_status eq '결재진행' }">
-										<tr class="progressList">
-									</c:when>
-									<c:when test="${elist.e_status eq '결재완료' }">
-										<tr class="progressList">
-									</c:when>
-									<c:when test="${elist.e_status eq '결재반려' }">
-										<tr class="progressList">
-									</c:when>
-								</c:choose>
+								<tr class="waitingList">
 								<td>${elist.eidx }</td>
 								<td>
 									<a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=665, height=925'); return false;" style="text-decoration : none; color:black;">${elist.e_documentNum }</a>
