@@ -38,10 +38,10 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public void writeBoard(BoardVO vo, MultipartHttpServletRequest mpRequest) throws Exception {
-		dao.writeBoard(vo); //게시글
+		dao.writeBoard(vo); //寃���湲�
 		
 		System.out.println("----------------------------------");
-		System.out.println("vo의 bidx->"+vo.getBidx());
+		System.out.println("vo�� bidx->"+vo.getBidx());
 		System.out.println("----------------------------------");
 		
 		List<Map<String, Object>> list = fileUtils.parseInsertFileInfoBoard(vo, mpRequest); 
@@ -49,7 +49,7 @@ public class BoardServiceImpl implements BoardService{
 		for(int i=0; i<size; i++) {
 			System.out.println("----------------------------------");
 			System.out.println("----------------------------------");
-			dao.insertFile(list.get(i)); //파일넣기
+			dao.insertFile(list.get(i)); //���쇰�ｊ린
 		}
 	}
 
@@ -70,10 +70,10 @@ public class BoardServiceImpl implements BoardService{
 			tempMap = list.get(i);
 			if(tempMap.get("IS_NEW").equals("Y")) {
 				
-				//기존에 등록된 첨부파일이 없음
+				//湲곗〈�� �깅��� 泥⑤����쇱�� ����
 				dao.insertFile(tempMap);
 			}else {
-				//기존에 등록된 첨부파일이 있음
+				//湲곗〈�� �깅��� 泥⑤����쇱�� ����
 				dao.modifyFile(tempMap);
 			}
 		}
@@ -91,7 +91,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardVO> selectNotice() throws Exception {
-		return dao.selectNotice();
+	public List<BoardVO> selectNotice(Map<String, String> search) throws Exception {
+		return dao.selectNotice(search);
 	}
 }

@@ -92,7 +92,7 @@
 	</select>
 	
 	<!-- 메인 페이지용 공지사항 -->
-	<select id="selectNotice" resultMap="selectAllBoardVO">
+	<select id="selectNotice" resultMap="selectAllBoardVO" parameterType="hashMap">
 		SELECT *
 		FROM(
 		SELECT BOARD.BIDX,
@@ -108,6 +108,7 @@
 		FROM BOARD,
 		TOBE_MEMBER
 		WHERE 1=1 AND BOARD.DELYN='N' AND BOARD.TIDX = TOBE_MEMBER.TIDX
+		AND BOARD.B_WRITEDATE BETWEEN TO_DATE(#{search1}, 'YYYY/MM/DD') AND TO_DATE(#{search2}, 'YYYY/MM/DD')
 		)
 		WHERE RNUM &lt;= 10
 		ORDER BY B_TYPE DESC, BIDX DESC

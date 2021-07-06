@@ -182,9 +182,9 @@ p {
 		<div class="conCon">
 			<table id="table_notice" class="table w-100 table-hover">
 				<colgroup>
-					<col width="20%">
+					<col width="15%">
 					<col width="40%">
-					<col width="10%">
+					<col width="15%">
 					<col width="20%">
 					<col width="10%">
 				</colgroup>
@@ -195,25 +195,34 @@ p {
 					<th>작성자</th>
 					<th>조회수</th>
 				</tr>
-				<c:forEach items="${boardList}" var="board">
-					<c:if test="${board.b_type eq 'N'}">
-						<tr class="table-primary">
-					</c:if>
-					<c:if test="${board.b_type eq 'G'}">
+				<c:choose>
+					<c:when test="${empty boardList}">
 						<tr>
-					</c:if>
-					<th scope="row">${board.bidx}
-					</td>
-					<td><a
-						href="/board/view?bidx=${board.bidx}&page=1&perPageNum=10&searchType=&keyword="
-						style="text-decoration: none; color: black;">${board.b_title}</a></td>
-					<td><fmt:parseDate var="writedate"
-							value="${board.b_writedate}" pattern="yyyy-MM-dd" /> <fmt:formatDate
-							value="${writedate}" pattern="yyyy-MM-dd" /></td>
-					<td>${board.memberVO.t_name}</td>
-					<td>${board.b_hit}</td>
-					</tr>
-				</c:forEach>
+							<td colspan="5">해당하는 게시글이 존재하지 않습니다.</td>
+						</tr>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${boardList}" var="board">
+							<tr>
+								<c:if test="${board.b_type eq 'N'}">
+									<tr class="table-primary">
+								</c:if>
+								<c:if test="${board.b_type eq 'G'}">
+									<tr>
+								</c:if>
+								<td scope="row">${board.bidx}</td>
+								<td><a
+									href="/board/view?bidx=${board.bidx}&page=1&perPageNum=10&searchType=&keyword="
+									style="text-decoration: none; color: black;">${board.b_title}</a></td>
+								<td><fmt:parseDate var="writedate"
+										value="${board.b_writedate}" pattern="yyyy-MM-dd" /> <fmt:formatDate
+										value="${writedate}" pattern="yyyy-MM-dd" /></td>
+								<td>${board.memberVO.t_name}</td>
+								<td>${board.b_hit}</td>
+							</tr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</table>
 		</div>
 	</div>
@@ -264,10 +273,7 @@ p {
 				//달의 말일 
 				int lastDay = cal.getActualMaximum(Calendar.DATE);
 
-				System.out.println("year--->" + year);
-				System.out.println("month--->" + month);
-				System.out.println("week--->" + week);
-				System.out.println("lastDay--->" + lastDay);
+				System.out.println("~~~~~~~~~~~구분선~~~~~~~~~~~~`");
 				%>
 				<tr>
 					<td colspan="7" style="text-align: center;"><img
@@ -374,15 +380,15 @@ p {
 					<th>상태</th>
 				</tr>
 				<tbody id="approval">
-				<c:forEach items="${approvalList}" var="approval">
-					<tr>
-						<td>${approval.e_documentNum}</td>
-						<td>${approval.e_textTitle}</td>
-						<td>${approval.memberVO.t_name}</td>
-						<td>${approval.e_draftDate}</td>
-						<td>${approval.e_status}</td>
-					</tr>
-				</c:forEach>
+					<c:forEach items="${approvalList}" var="approval">
+						<tr>
+							<td>${approval.e_documentNum}</td>
+							<td>${approval.e_textTitle}</td>
+							<td>${approval.memberVO.t_name}</td>
+							<td>${approval.e_draftDate}</td>
+							<td>${approval.e_status}</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>

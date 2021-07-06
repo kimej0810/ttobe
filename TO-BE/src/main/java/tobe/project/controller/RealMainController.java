@@ -2,6 +2,7 @@ package tobe.project.controller;
 
 import java.io.FileReader;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -22,7 +23,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.ApprovalVO;
 import tobe.project.dto.BoardVO;
-import tobe.project.dto.ReplyVO;
 import tobe.project.service.ApprovalService;
 import tobe.project.service.BoardService;
 
@@ -39,14 +39,53 @@ public class RealMainController extends HttpServlet {
 
 	// 硫��명���댁�
 	@RequestMapping(value = "/mainPage")
-	public String list(Locale locale, Model model, HttpServletRequest request) throws Exception {
-		System.out.println("�� 硫��� 而⑦�몃·�щ��!");
+	public String list(Locale locale, Model model, HttpServletRequest request, @RequestParam Map<String, String> param) throws Exception {
+		System.out.println("~~~~~~~메인 컨트롤러~~~~~~");
+		
+		List<BoardVO> boardList;
+		Map<String, String> search = new HashMap<String, String>();
+		String search1 = "";
+		String search2 = "";
 
 		Calendar cal = Calendar.getInstance();
-		int year = cal.get(Calendar.YEAR);
-		int month = cal.get(Calendar.MONTH) + 1;
-
-		// �ㅻ���� 紐���
+		int year = cal.get(cal.YEAR);
+		int month = cal.get(cal.MONTH);
+		
+		if(param.get("year")!=null) { //파라미터로 달력 값을 받음
+			int paramYear = Integer.parseInt(param.get("year"));
+			int paramMonth = Integer.parseInt(param.get("month"));
+			cal.set(paramYear, paramMonth-1, 1);
+			int maxDay = cal.getActualMaximum(cal.DAY_OF_MONTH);
+			
+			if((paramMonth/10)<1) {
+				search1 = paramYear+"/"+"0"+paramMonth+"/01";
+				search2 = paramYear+"/"+"0"+paramMonth+"/"+maxDay;
+				
+			}else { 
+				search1 = paramYear+"/"+paramMonth+"/01";
+				search2 = paramYear+"/"+paramMonth+"/"+maxDay;
+			}
+			search.put("search1", search1);
+			search.put("search2", search2);
+			boardList = boardService.selectNotice(search);
+		}else { //파라미터로 달력 값을 못받음
+			int maxDay = cal.getActualMaximum(cal.DAY_OF_MONTH);
+			if((month/10)<1) {
+				search1 = year+"/"+"0"+(month+1)+"/01";
+				search2 = year+"/"+"0"+(month+1)+"/"+maxDay;
+				
+			}else { 
+				search1 = year+"/"+(month+1)+"/01";
+				search2 = year+"/"+(month+1)+"/"+maxDay;
+			}
+			
+			search.put("search1", search1);
+			search.put("search2", search2);
+			boardList = boardService.selectNotice(search);
+		}
+		
+		
+		// 오늘의명언
 		JSONParser parser = new JSONParser();
 		String path = request.getSession().getServletContext().getRealPath("/resources/static/data/");
 		String path2 = "maxim.json";
@@ -65,17 +104,14 @@ public class RealMainController extends HttpServlet {
 		System.out.println("author->" + author);
 		System.out.println("message->" + message);
 
-		// ����寃곗��
+		// 전자결재 다섯개만 뽑아옴
 		SearchCriteria scri = new SearchCriteria();
 		scri.setPage(1);
 		scri.setPerPageNum(5);
 		scri.setSearchType("");
-
 		List<ApprovalVO> approvalList = approvalService.selectAllApprovalDocumentList(scri);
-
-		System.out.println("전자결재석고대죄인조인간달프라이머리키위->" + approvalList.get(0).getE_textTitle());
-
-		List<BoardVO> boardList = boardService.selectNotice();
+		
+		// 넘겨주자
 		model.addAttribute("year", year);
 		model.addAttribute("month", month);
 		model.addAttribute("author", author);
