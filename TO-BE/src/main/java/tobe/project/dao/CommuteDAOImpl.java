@@ -54,6 +54,11 @@ public class CommuteDAOImpl implements CommuteDAO{
 	public void addLeave() throws Exception {
 		
 	}
-	
+	//
+	@Override
+	public void addStartWork2(CommuteVO vo) throws Exception {
+		sqlSession.insert(Namespace+".addStartWork2", vo);
+		
+	}
 	
 }

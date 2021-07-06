@@ -17,7 +17,7 @@
 	}
 </style>
 <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/resources/static/js/commute.js"></script>
+<!-- <script type="text/javascript" src="/resources/static/js/commute.js"></script> -->
 <script>
 	
 	function selectAllCommute(list){
@@ -53,7 +53,7 @@
 	}
 	
 $(document).ready(function(){
-/* 
+
 	//출근기록
 	$("#startWork").on("click", function(){
 		var today = new Date();
@@ -146,7 +146,7 @@ $(document).ready(function(){
 			}
 		});
 	});
-	 */
+	
 	//월별
 	var date = new Date();
 	var viewYear = date.getFullYear();

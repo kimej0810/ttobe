@@ -93,7 +93,15 @@ public class CommuteController {
 		List<CommuteVO> list = service.selectAllCommute(vo.getTidx());
 		return list;
 	}
-
+	
+	//메인 출근
+	@RequestMapping(value = "/commute/startCommute2")
+	public String startCommute2(String t_id) throws Exception{
+		
+		logger.info("");
+		return "/main/mainPage";
+	}
+	
 	
 	//근태관리 퇴근 등록 처리
 	@RequestMapping(value = "/commute/endCommute")

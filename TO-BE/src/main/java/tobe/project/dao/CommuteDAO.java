@@ -27,4 +27,6 @@ public interface CommuteDAO {
 	//연차 등록
 	public void addLeave() throws Exception;
 	
+	//
+	public void addStartWork2(CommuteVO vo) throws Exception;
 }

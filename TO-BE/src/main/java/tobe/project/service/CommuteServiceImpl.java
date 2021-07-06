@@ -53,7 +53,12 @@ public class CommuteServiceImpl implements CommuteService{
 		
 		
 	}
-
+	//
+	@Override
+	public void addStartWork2(CommuteVO vo) throws Exception{
+		dao.addStartWork2(vo);
+		
+	}
 	
 	
 }

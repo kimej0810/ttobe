@@ -25,16 +25,8 @@ PUBLIC "-//mybatis/org//DTD Config 3.0//EN"
 	<update id="addEndWork">
 		<!-- UPDATE COMMUTE_MANAGEMENT SET C_ENDTIME = #{C_ENDTIME}, C_WORKTIME = #{C_WORKTIME}, C_TOTLALWORKTIME = #{C_TOTLALWORKTIME}
 		WHERE CIDX = #{CIDX} -->
-		
-		<!--원래이거임 update commute_management set c_endtime = #{c_endtime}, c_worktime = #{c_worktime} 
+		update commute_management set c_endtime = #{c_endtime}, c_worktime = #{c_worktime} 
 		where cidx = #{cidx}
-		 -->
-		update commute_management set c_endtime = case
-		when c_endtime = '0' then #{c_endtime}
-		else c_endtime
-		end	
-		where cidx = #{cidx}
-		 
 	</update>
 	
 	<!-- 근태목록 조회 -->
