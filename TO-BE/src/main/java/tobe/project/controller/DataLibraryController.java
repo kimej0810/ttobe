@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import tobe.project.domain.PageMaker;
@@ -34,7 +37,7 @@ public class DataLibraryController extends HttpServlet {
 	@Inject
 	FileInfoService fileInfoService;
 
-	// 자료실 목록
+	// ��猷��� 紐⑸�
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Locale locale, Model model, SearchCriteria scri, String searchType) throws Exception {
 		
@@ -59,23 +62,23 @@ public class DataLibraryController extends HttpServlet {
 		return "/data/dataList";
 	}
 
-	// 자료실 업로드
+	// ��猷��� ��濡���
 	@RequestMapping(value = "/transport")
 	public String transport(DataLibraryVO vo, MultipartHttpServletRequest mpRequest) throws Exception {
-		System.out.println("데이터 전송 테스트");
+		System.out.println("�곗�댄�� ���� ���ㅽ��");
 
 		System.out.println(vo.toString());
 		service.addData(vo, mpRequest);
 		return "redirect:/data/list";
 	}
 
-	// 자료실 다운로드
+	// ��猷��� �ㅼ�대���
 	@RequestMapping(value = "/fileDown")
 	@ResponseBody
 	public void fileDown(@RequestParam("didx") int didx, HttpServletResponse response) throws Exception {
 
 		System.out.println(didx);
-		//조회수 증가
+		//議고���� 利�媛�
 		service.hitData(didx);
 		
 		List<Map<String, Object>> fileList = fileInfoService.selectAllFile("didx", didx);
@@ -85,7 +88,13 @@ public class DataLibraryController extends HttpServlet {
 		System.out.println("stored--->" + storedFileName);
 		System.out.println("original--->" + originalFileName);
 
-		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("C:\\Users\\bakug\\ttobe\\TO-BE\\src\\main\\webapp\\resources\\static\\file\\"+storedFileName));
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder
+			      .getRequestAttributes()).getRequest();
+		String filePath = request.getSession().getServletContext().getRealPath("/resources/static/file/");
+		
+		System.out.println("경로좀보자~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+filePath);
+		
+		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File(filePath+storedFileName));
 		
 		response.setContentType("application/octet-stream");
 		response.setContentLength(fileByte.length);

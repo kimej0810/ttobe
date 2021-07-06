@@ -6,10 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>메인메인메인메인</title>
-<script type="text/javascript" src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
-    <script type="text/javascript" src="<c:url value="/resources/static/js/bootstrap.js"/>"></script>
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.min.css"/>"></script>
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/newMain.css"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/static/js/bootstrap.js"/>"></script>
+<link type="text/css" rel="stylesheet"
+	href="<c:url value="/resources/static/css/bootstrap.min.css"/>">
+<link type="text/css" rel="stylesheet"
+	href="<c:url value="/resources/static/css/newMain.css"/>">
 </head>
 <body>
 	<!-- Modal -->
@@ -39,20 +43,59 @@
 			</div>
 		</div>
 	</div>
+	<%
+	Integer userTidx = (Integer) session.getAttribute("userTidx");
+	String userId = (String) session.getAttribute("userId");
+	String userName = (String) session.getAttribute("userName");
+	String userGrade = (String) session.getAttribute("userGrade");
+	if (session.getAttribute("userTidx") == null) {
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+	}
+	%>
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar">
 			<div class="sidebar-content-wrappper">
-				<img id="sideLogo"
-					src="<c:url value="/resources/static/img/sideLogo.png"/>">
-				<div style="margin-top: 23px; margin-left: 15px;">A few
-					persons</div>
+				<img id="sideImg" src="/resources/static/img/sideImg.png"
+					style="width: 215px;">
 				<ul class="sidebar-menu">
-					<li class="sidebar-menu-item">일정관리</li>
-					<li class="sidebar-menu-item">근태관리</li>
-					<li class="sidebar-menu-item">게시판</li>
-					<li class="sidebar-menu-item">전자결재</li>
-					<li class="sidebar-menu-item">자료실</li>
-					<li class="sidebar-menu-item">사원정보</li>
+					<li class="sidebar-menu-item"
+						onclick="location.href='/schedule/fullcalendar'">
+						<p class="menu-name">일정관리</p>
+					</li>
+					<li class="sidebar-menu-item"
+						onclick="location.href='/commute/commute?t_id=<%=userId%>'">
+						<p class="menu-name">근태관리</p>
+					</li>
+					<li class="sidebar-menu-item" onclick="location.href='/board/list'">
+						<p class="menu-name">게시판</p>
+					</li>
+					<li class="sidebar-menu-item"
+						onclick="location.href='/approval/documentListMain?t_id=<%=userId%>'">
+						<p class="menu-name">전자결재</p>
+					</li>
+					<li class="sidebar-menu-item" onclick="location.href='/data/list'">
+						<p class="menu-name">자료실</p>
+					</li>
+					<%
+					if (userGrade != null) {
+						if (userGrade.equals("A")) {
+					%>
+					<li class="sidebar-menu-item"
+						onclick="location.href='/admin/memberlist'">
+						<p class="menu-name">사원정보</p>
+					</li>
+					<%
+					} else {
+					%>
+					<li class="sidebar-menu-item"
+						onclick="window.open('/member/list','사원정보','width=900,height=630,location=no,status=no');">
+						<p class="menu-name">사원정보</p>
+					</li>
+					<%
+					}
+					}
+					%>
+
 				</ul>
 			</div>
 		</nav>
@@ -60,32 +103,51 @@
 			<nav class="navbar">
 				<div class="navbar-wrapper">
 					<img src="/resources/static/img/toggle.png"
-						class="navbar-toggle sidebar-collapse">
-
-					<h2 style="text-align: center; font-size: 30px; margin-top: 7spx;">AFPS</h2>
-
-					<div class="dropdown">
-						<img src="/resources/static/img/profile2.jpg"
-							class="btn btn-secondary dropdown-toggle navbar-profile"
-							type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-							aria-expanded="false" style="padding: 0px;">
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
-							style="width: 150px; left: -120px;">
-							<li><a class="dropdown-item" href="#">홍길동님</a></li>
-							<li><a class="dropdown-item" href="#">LOGOUT</a></li>
-						</ul>
+						class="navbar-toggle sidebar-collapse"> <img
+						src="/resources/static/img/realLogo.png"
+						onclick="location.href='/main/mainPage'"
+						style="width: 90px; grid-column: 2/3; text-align: center; margin: auto; cursor: pointer;">
+					<div>
+						<img src="/resources/static/img/profile2.jpg" type="button"
+							id="profile"
+							style="padding: 0px; width: 50px; border-radius: 70%;">
+						<div id="dropDown" class="list-group"
+							style="width: 100px; height: 50px; position: absolute; right: 25px;">
+							<a href="#" class="list-group-item list-group-item-action"
+								onclick="location.href='/member/mypage?tidx=<%=userTidx%>'">
+								<%=userName%>님
+							</a>
+							<%
+							if (userGrade != null) {
+								if (userGrade.equals("A")) {
+							%>
+							<a href="#" class="list-group-item list-group-item-action"
+								onclick="location.href='/admin/emaillist'">메일함</a>
+							<%
+							}
+							}
+							%>
+							<a href="#" class="list-group-item list-group-item-action"
+								onclick="location.href='/member/logout'"> 로그아웃 </a>
+						</div>
 					</div>
+
 				</div>
 			</nav>
 			<main class="content">
 </body>
 <script>
-	$(document).ready(function() {
-		var width = $(window).width();
-		var main = $('.main');
-		$('.navbar-toggle').off().on('click', function() {
-			$('.sidebar').toggleClass('active');
-		});
+$(document).ready(function() {
+	var width = $(window).width();
+	var main = $('.main');
+	$("#dropDown").toggle();
+	$('.navbar-toggle').off().on('click', function() {
+		$('.sidebar').toggleClass('active');
 	});
+	$('#profile').on('click', function() {
+		$("#dropDown").toggle();
+	});
+
+});
 </script>
 </html>
