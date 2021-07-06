@@ -17,10 +17,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.ApprovalVO;
 import tobe.project.dto.BoardVO;
+import tobe.project.dto.ReplyVO;
 import tobe.project.service.ApprovalService;
 import tobe.project.service.BoardService;
 
@@ -28,55 +30,51 @@ import tobe.project.service.BoardService;
 @RequestMapping(value = "/main")
 public class RealMainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
+
 	@Inject
 	private BoardService boardService;
-	
+
 	@Inject
 	private ApprovalService approvalService;
-	
-	//硫��명���댁�
+
+	// 硫��명���댁�
 	@RequestMapping(value = "/mainPage")
-	public String list(Locale locale, Model model,HttpServletRequest request) throws Exception {
+	public String list(Locale locale, Model model, HttpServletRequest request) throws Exception {
 		System.out.println("�� 硫��� 而⑦�몃·�щ��!");
-		
-		
+
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH) + 1;
-		
-		//�ㅻ���� 紐���
+
+		// �ㅻ���� 紐���
 		JSONParser parser = new JSONParser();
 		String path = request.getSession().getServletContext().getRealPath("/resources/static/data/");
 		String path2 = "maxim.json";
-		String resultPath = path+path2;
-		JSONArray jsonArray = (JSONArray)parser.parse(new FileReader(resultPath));
-		
-		
+		String resultPath = path + path2;
+		JSONArray jsonArray = (JSONArray) parser.parse(new FileReader(resultPath));
+
 		int size = jsonArray.size();
-		System.out.println("size-------------->"+size); //52
-		
-		int random = (int)(Math.random()*52); //0~51 ��������
-		JSONObject jsonObject = (JSONObject)jsonArray.get(random);
-				
+		System.out.println("size-------------->" + size); // 52
+
+		int random = (int) (Math.random() * 52); // 0~51 ��������
+		JSONObject jsonObject = (JSONObject) jsonArray.get(random);
+
 		String author = (String) jsonObject.get("author");
 		String message = (String) jsonObject.get("message");
-		
-		System.out.println("author->"+author);
-		System.out.println("message->"+message);
-		
-		
-		//����寃곗��
+
+		System.out.println("author->" + author);
+		System.out.println("message->" + message);
+
+		// ����寃곗��
 		SearchCriteria scri = new SearchCriteria();
 		scri.setPage(1);
 		scri.setPerPageNum(5);
 		scri.setSearchType("");
-		
+
 		List<ApprovalVO> approvalList = approvalService.selectAllApprovalDocumentList(scri);
-		
-		System.out.println("전자결재석고대죄인조인간달프라이머리키위->"+approvalList.get(0).getE_textTitle());
-		
-		
+
+		System.out.println("전자결재석고대죄인조인간달프라이머리키위->" + approvalList.get(0).getE_textTitle());
+
 		List<BoardVO> boardList = boardService.selectNotice();
 		model.addAttribute("year", year);
 		model.addAttribute("month", month);
@@ -86,45 +84,67 @@ public class RealMainController extends HttpServlet {
 		model.addAttribute("approvalList", approvalList);
 		return "/main/realMain";
 	}
-	
-	//전자결재 버튼 눌렸을때 오는곳
-	
-	
-	
-	
-	//달력인데 쓸지 안쓸지 모르겠음
+
+	// 전자결재 버튼 눌렸을때 오는곳
+	@RequestMapping(value = "/approval", produces = "application/json; charset=utf8")
+	@ResponseBody
+	public List<ApprovalVO> approval(@RequestParam Map<String, String> param) throws Exception {
+
+		String state = param.get("state");
+
+		System.out.println("전자결재 상태를 말해라~~~~~~~~"+state);
+		
+		SearchCriteria scri = new SearchCriteria();
+		scri.setPage(1);
+		scri.setPerPageNum(5);
+		
+		if(state.equals("wating")) {
+			scri.setSearchType("결재대기");
+		}else if(state.equals("progress")) {
+			scri.setSearchType("결재진행");
+		}else if(state.equals("completed")) {
+			scri.setSearchType("결재완료");
+		}else {
+			scri.setSearchType("");
+		}
+		
+		List<ApprovalVO> approvalList = approvalService.selectAllApprovalDocumentList(scri);
+		return approvalList;
+	}
+
+	// 달력인데 쓸지 안쓸지 모르겠음
 	@RequestMapping(value = "/calendar")
 	public String writeReply(@RequestParam Map<String, String> param, Model model) throws Exception {
 
 		int year = Integer.parseInt(param.get("year"));
 		int month = Integer.parseInt(param.get("month"));
 		String function = param.get("function");
-		
-		if(function.equals("yearMinus")) {
+
+		if (function.equals("yearMinus")) {
 			year--;
-		}else if(function.equals("monthMinus")){
-			if(month==0) {
-				month=12;
-			}else {
+		} else if (function.equals("monthMinus")) {
+			if (month == 0) {
+				month = 12;
+			} else {
 				month--;
 			}
-		}else if(function.equals("yearPlus")) {
+		} else if (function.equals("yearPlus")) {
 			year++;
-		}else {
-			if(month==12) {
-				month=1;
-			}else {
+		} else {
+			if (month == 12) {
+				month = 1;
+			} else {
 				month++;
 			}
 		}
-		
-		System.out.println("year-------------->"+year);
-		System.out.println("month-------------->"+month);
-		System.out.println("function-------------->"+function);
-		
+
+		System.out.println("year-------------->" + year);
+		System.out.println("month-------------->" + month);
+		System.out.println("function-------------->" + function);
+
 		model.addAttribute("year", year);
 		model.addAttribute("month", month);
-		
-	    return "redirect:/board/list";
+
+		return "redirect:/board/list";
 	}
 }

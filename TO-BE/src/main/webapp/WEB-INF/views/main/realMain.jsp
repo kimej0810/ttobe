@@ -373,6 +373,7 @@ p {
 					<th>기안일시</th>
 					<th>상태</th>
 				</tr>
+				<tbody id="approval">
 				<c:forEach items="${approvalList}" var="approval">
 					<tr>
 						<td>${approval.e_documentNum}</td>
@@ -382,6 +383,7 @@ p {
 						<td>${approval.e_status}</td>
 					</tr>
 				</c:forEach>
+				</tbody>
 			</table>
 		</div>
 	</div>
@@ -407,15 +409,45 @@ p {
 	</div>
 	<div id="box6" class="inner_content space">&nbsp;</div>
 	<script>
+	function selectApproval(data) {
+		var approval = "";
+
+		if (data.length > 0) {
+			for (var i = 0; i < data.length; i++) {
+
+				approval += "<tr>";
+				approval += "<td>";
+				approval += data[i].e_documentNum;
+				approval += "</td>";
+				approval += "<td>";
+				approval += data[i].e_textTitle;
+				approval += "</td>";
+				approval += "<td>";
+				approval += data[i].memberVO.t_name;
+				approval += "</td>";
+				approval += "<td>";
+				approval += data[i].e_draftDate;
+				approval += "</td>";
+				approval += "<td>";
+				approval += data[i].e_status;
+				approval += "</td>";
+				approval += "</tr>";
+			}
+
+			$("#approval").html(approval);
+		} else {
+			$("#approval").html("<tr><td colspan='6'>해당하는 문서가 존재하지 않습니다.</td></tr>");
+		}
+	}
+	
 		$(document).ready(function(){
-			$("#wating").on("click", function(){
-				alert($(this).attr("id"));
-				
+			$("#wating, #progress, #completed").on("click", function(){
+	
 				$.ajax({
 					type : "post",
 					url : "/main/approval",
 					data : {
-						"state" : $(this).attr("id");
+						"state" : $(this).attr("id")
 					},
 					dataType : "json",
 					error : function(request, status, error) {
@@ -424,17 +456,10 @@ p {
 								+ "error:" + error);
 					},
 					success : function(data) {
-						alert(data);
+						selectApproval(data);
 					}
 				});
 				
-				
-			});
-			$("#progress").on("click", function(){
-				alert("결재진행이 눌렸네요");
-			});
-			$("#completed").on("click", function(){
-				alert("결재완료가 눌렸네요");
 			});
 		});
 	</script>
