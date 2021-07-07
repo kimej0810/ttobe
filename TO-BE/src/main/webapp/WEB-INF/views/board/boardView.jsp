@@ -167,13 +167,16 @@ pageContext.setAttribute("replace", "<br>");
 		//댓글 출력
 		function selectAllReply(data) {
 			var reply = "";
-
+			var userTidx = $("#tidx").val();
 			if (data.length > 0) {
 				for (var i = 0; i < data.length; i++) {
+					replyTidx = data[i].memberDTO.tidx;
 
 					reply += "<tr>";
 					reply += "<td valign='top' rowspan='3' style='width:7%;'>";
-					reply += "<img src='<c:url value='/resources/static/profile/${replyList.memberDTO.f_stored_file_name}'/>' style='width:50px; display:block; margin:5px auto; border-radius:70%;'>";
+					reply += "<img src='<c:url value='/resources/static/profile/";
+					reply += data[i].memberDTO.f_stored_file_name;
+					reply += "'/>' style='width:50px; display:block; margin:5px auto; border-radius:70%;'>";
 					reply += "</td>";
 					reply += "<td style='font-size:0.8rem;'>";
 					reply += data[i].memberDTO.t_name;
@@ -188,16 +191,24 @@ pageContext.setAttribute("replace", "<br>");
 					reply += "</tr>";
 					reply += "<tr>";
 					reply += "<td style='text-align:right;'>";
-					reply += "<img class='inputAreaBtn' src='<c:url value='/resources/static/img/pen.png'/>' style='width:10px; cursor:pointer;'>";
-					reply += " ";
-					reply += "<img class='deleteReplyBtn' src='<c:url value='/resources/static/img/cancel.png'/>' style='width:10px; cursor:pointer;'>";
+					
+					if(userTidx==replyTidx){
+						reply += "<img class='inputAreaBtn' src='<c:url value='/resources/static/img/pen.png'/>' style='width:10px; cursor:pointer;'>";
+						reply += " ";
+						reply += "<img class='deleteReplyBtn' src='<c:url value='/resources/static/img/cancel.png'/>' style='width:10px; cursor:pointer;'>";
+					}
+					
 					reply += "<input type='hidden' value='";
 					reply += data[i].ridx;
 					reply += "' id='ridx' name='ridx'>";
 					reply += "</td>";
 					reply += "</tr>";
+					
+					
+					
 				}
 
+				console.log(reply);
 				$("#reply").html(reply);
 			} else {
 				$("#reply").html("");
