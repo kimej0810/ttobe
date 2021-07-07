@@ -78,7 +78,7 @@ public class DataLibraryController extends HttpServlet {
 			
 			String didx = param.get("didx");
 			System.out.println("~~~~~~~~~didx에용~~~~~~~~`"+didx);
-			System.out.println("fdasjfksdf");
+			System.out.println("fdasjㅁㄴㅇㄹfksdf");
 			return "redirect:/data/list";
 		}
 
