@@ -207,17 +207,17 @@
 									});
 									$('#searchBtn').on("click",function() {
 										$("#calendar").css("display","none");
-										$("#box").css("display","block");
+										$("#box").css("display","flex");
 										self.location = "fullcalendar" + '${paging.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keyword').val());
 									});
 									$(".page-link").on("click",function(){
 										$("#calendar").css("display","none");
-										$("#box").css("display","block");
+										$("#box").css("display","flex");
 									})
 									$("#mySchedule").on("click",function(){
 										self.location = "fullcalendar" + '${paging.makeQuery(1)}' + "&searchType=나의 일정보기" + "&userId=" + "<%=userId%>";
 										$("#calendar").css("display","none");
-										$("#box").css("display","block");
+										$("#box").css("display","flex");
 									})
 								});
 							</script>
