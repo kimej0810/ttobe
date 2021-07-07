@@ -10,5 +10,6 @@ public interface FileInfoDAO {
 	public Map<String, Object> selectOneFile(Map<String, Object> map) throws Exception;
 	//���� ����
 	public void deleteFileDidx(int didx) throws Exception;
+	public Map<String, String> selectFileTidx(int tidx) throws Exception;
 	
 }

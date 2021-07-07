@@ -28,7 +28,7 @@ import tobe.project.service.FileInfoService;
 
 @Controller
 @RequestMapping(value = "/data")
-public class DataLibraryController extends HttpServlet {
+public class DataLibraryController {
 
 	@Inject
 	DataLibraryService service;

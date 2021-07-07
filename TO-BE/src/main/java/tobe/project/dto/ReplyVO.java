@@ -7,15 +7,13 @@ public class ReplyVO {
 	private char delyn;
 	private int tidx;
 	private int bidx;
-	private String profilePath;
 	
-	//resultMap �ㅽ��
-	private MemberVO memberVO;
-	public MemberVO getMemberVO() {
-		return memberVO;
+	private MemberDTO memberDTO;
+	public MemberDTO getMemberDTO() {
+		return memberDTO;
 	}
-	public void setMemberVO(MemberVO memberVO) {
-		this.memberVO = memberVO;
+	public void setMemberDTO(MemberDTO memberDTO) {
+		this.memberDTO = memberDTO;
 	}
 	
 	public int getRidx() {

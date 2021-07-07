@@ -48,4 +48,9 @@ public class FileInfoDAOImpl implements FileInfoDAO{
 		
 	}
 
+	@Override
+	public Map<String, String> selectFileTidx(int tidx) throws Exception {
+		return sqlSession.selectOne(Namespace+".selectFileTidx", tidx);
+	}
+
 }

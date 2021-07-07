@@ -1,11 +1,13 @@
 package tobe.project.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import tobe.project.dao.FileInfoDAO;
 import tobe.project.dao.ReplyDAO;
 import tobe.project.dto.ReplyVO;
 
@@ -15,6 +17,9 @@ public class ReplyServiceImpl implements ReplyService {
 	@Inject
 	private ReplyDAO dao;
 	
+	@Inject
+	private FileInfoDAO fdao;
+	
 	@Override
 	public List<ReplyVO> listReply(int bidx) throws Exception {
 		
@@ -22,7 +27,14 @@ public class ReplyServiceImpl implements ReplyService {
 		
 		for(int i=0; i<listReply.size(); i++) {;
 			listReply.get(i).setR_content(listReply.get(i).getR_content().replace("\n", "<br>"));
-			//ÏóîÌÑ∞ Î®πÏù¥ÎäîÏ§ë
+		}
+		
+		for(int i=0; i<listReply.size(); i++) {
+			Map<String, String> filePath = fdao.selectFileTidx(listReply.get(i).getTidx());
+			
+			System.out.println("«¡∑Œ« ªÁ¡¯∞Ê∑Œ¿”~~~~~~~~~``"+filePath.get("F_STORED_FILE_NAME"));
+			
+			listReply.get(i).getMemberDTO().setF_stored_file_name(filePath.get("F_STORED_FILE_NAME"));
 		}
 		
 		return listReply;

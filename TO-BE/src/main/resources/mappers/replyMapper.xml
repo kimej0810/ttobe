@@ -11,10 +11,10 @@
 		<result column="DELYN" property="delyn"/>
 		<result column="TIDX" property="tidx"/>
 		<result column="BIDX" property="bidx"/>
-		<association property="memberVO" resultMap="memberResultMap"></association>
+		<association property="memberDTO" resultMap="memberResultMap"></association>
 	</resultMap>
 	
-	<resultMap type="memberVO" id="memberResultMap">
+	<resultMap type="memberDTO" id="memberResultMap">
 		<id column="TIDX" property="tidx"/>
 		<result column="T_NAME" property="t_name"/>
 	</resultMap>
