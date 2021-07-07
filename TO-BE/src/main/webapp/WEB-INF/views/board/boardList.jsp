@@ -74,8 +74,13 @@
 					<c:if test="${board.b_type eq 'G'}">
 						<tr>
 					</c:if>
-						<th scope="row">${board.bidx}</td>
+						<th scope="row">${board.bidx}</th>
+					<c:if test="${board.b_type eq 'N'}">
+						<td><a href="view?bidx=${board.bidx}&page=${scri.page}&perPageNum=${scri.perPageNum}&searchType=${scri.searchType}&keyword=${scri.keyword}" style="text-decoration : none; color:black;">[공지] ${board.b_title}</a></td>
+					</c:if>
+					<c:if test="${board.b_type eq 'G'}">
 						<td><a href="view?bidx=${board.bidx}&page=${scri.page}&perPageNum=${scri.perPageNum}&searchType=${scri.searchType}&keyword=${scri.keyword}" style="text-decoration : none; color:black;">${board.b_title}</a></td>
+					</c:if>
 						<td>
 							<fmt:parseDate var="writedate" value="${board.b_writedate}" pattern="yyyy-MM-dd"/>
 							<fmt:formatDate value="${writedate}" pattern="yyyy-MM-dd"/>
