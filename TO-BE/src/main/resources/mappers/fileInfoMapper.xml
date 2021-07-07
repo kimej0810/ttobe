@@ -45,9 +45,16 @@
     	WHERE FIDX = #{FIDX}
     </select>
     
+    <select id="selectFileTidx" parameterType="hashMap" resultType="hashMap">
+    	SELECT
+    		F_STORED_FILE_NAME
+    	FROM FILE_INFOTEST
+    	WHERE TIDX = #{tidx} AND F_TYPE = 'profile'
+    </select>
+    
     <update id="modifyFile" parameterType="hashMap">
     	UPDATE FILE_INFOTEST
     	SET DELYN = 'Y'
-    	WHERE FIDX = #{FIDX}
+    	WHERE FIDX = #{FIDX} 
     </update>
 </mapper>

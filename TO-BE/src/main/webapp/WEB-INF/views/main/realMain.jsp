@@ -10,6 +10,8 @@
 <title>진짜메인</title>
 <meta charset="UTF-8">
 <script type="text/javascript"
+	src="<c:url value="/resources/static/js/commute.js"/>"></script>
+<script type="text/javascript"
 	src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 <style>
 .content {
@@ -349,7 +351,7 @@ p {
 		<div class="conCon">
 			<input type="hidden" id="tidx" value="<%=userTidx%>">
 			<button id="startWork" type="button" class="btn btn-primary btn-sm float-right"
-				onclick="location.href='/commute/startCommute2?tidx=<%=userTidx%>'">출근</button>
+				>출근</button>
 			<button id="endWork" type="button" class="btn btn-primary btn-sm float-right"
 				onclick="location.href='/commute/commute?t_id=<%=t_id%>'">퇴근</button>
 		</div>

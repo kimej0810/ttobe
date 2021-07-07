@@ -46,6 +46,7 @@ pageContext.setAttribute("replace", "<br>");
 		
 %>
 <input type="hidden" value="<%=uName%>">
+<input type="hidden" value="<%=userTidx%>" id="tidx">
 <%
 	}/* else{
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
@@ -104,8 +105,11 @@ pageContext.setAttribute("replace", "<br>");
 						</tr>
 						<tr>
 							<td style="text-align:right;">
-								<img class="inputAreaBtn" src='<c:url value='/resources/static/img/pen.png'/>' style="width:10px; cursor:pointer;">
-								<img class="deleteReplyBtn" src='<c:url value='/resources/static/img/cancel.png'/>' style="width:10px; cursor:pointer;">
+								<c:set var="userTidx" value="<%=userTidx%>"/>
+								<c:if test="${replyList.memberVO.tidx eq userTidx}">
+									<img class="inputAreaBtn" src='<c:url value='/resources/static/img/pen.png'/>' style="width:10px; cursor:pointer;">
+									<img class="deleteReplyBtn" src='<c:url value='/resources/static/img/cancel.png'/>' style="width:10px; cursor:pointer;">
+								</c:if>
 								<input type="hidden" value="${replyList.ridx}" id="ridx" name="ridx">
 							</td>
 						</tr>
@@ -146,7 +150,7 @@ pageContext.setAttribute("replace", "<br>");
 		Integer boardTidx = vo.getTidx();
 		if(loginTidx!=boardTidx & !loginGrade.equals("A")){
 	%>
-		<button type="submit" class="btn btn-primary btn-sm float-right list_btn">목록</button>
+		<button type="button" class="btn btn-primary btn-sm float-right list_btn">목록</button>
 	<%
 				
 		}else{
@@ -154,7 +158,7 @@ pageContext.setAttribute("replace", "<br>");
 	%>
 		<button type="button" class="btn btn-primary btn-sm float-right" onclick="location.href='modify?bidx=${boardVO.bidx}'">수정</button>
 		<button type="button" class="btn btn-primary btn-sm float-right" onclick="location.href='delete?bidx=${boardVO.bidx}'">삭제</button>
-		<button type="submit" class="btn btn-primary btn-sm float-right list_btn">목록</button>			
+		<button type="button" class="btn btn-primary btn-sm float-right list_btn">목록</button>			
 	<%
 		}
 	%>
@@ -207,10 +211,7 @@ pageContext.setAttribute("replace", "<br>");
 				function() {
 
 					var form = {
-						ridx : 1,
-						r_writedate : "2021/06/11",
-						delyn : "N",
-						tidx : 1,
+						tidx : $("#tidx").val(),
 						r_content : $("#r_content").val(),
 						bidx : $("#bidx").val()
 					}

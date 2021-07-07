@@ -7,8 +7,9 @@ public class ReplyVO {
 	private char delyn;
 	private int tidx;
 	private int bidx;
+	private String profilePath;
 	
-	//resultMap 실험
+	//resultMap �ㅽ��
 	private MemberVO memberVO;
 	public MemberVO getMemberVO() {
 		return memberVO;

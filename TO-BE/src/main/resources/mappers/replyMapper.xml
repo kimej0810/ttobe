@@ -47,7 +47,7 @@
 			#{r_content},
 			sysdate,
 			'N',
-			1,
+			#{tidx},
 			#{bidx}
 		)
 	</insert>
