@@ -15,7 +15,31 @@
 <link type="text/css" rel="stylesheet"
 	href="<c:url value="/resources/static/css/newMain.css"/>">
 </head>
+<style>
+#fileForm {
+	display: grid;
+	grid-template-columns: 3fr 3fr 1fr 3fr;
+	grid-template-rows: 1fr;
+}
+
+#d_title {
+	
+}
+
+.upload-btn-wrapper {
+	grid-column: 3/4;
+}
+</style>
 <body>
+	<%
+	Integer userTidx = (Integer) session.getAttribute("userTidx");
+	String userId = (String) session.getAttribute("userId");
+	String userName = (String) session.getAttribute("userName");
+	String userGrade = (String) session.getAttribute("userGrade");
+	if (session.getAttribute("userTidx") == null) {
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+	}
+	%>
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
@@ -27,31 +51,25 @@
 				</div>
 				<div class="modal-body">
 					<form id="fileForm" action="/data/transport" method="post"
-						enctype="multipart/form-data" style="height: 30px;">
-						<input type="text" name="d_title" placeholder="제목을 입력해주세요...">
-
-						<div class="upload-btn-wrapper">
+						enctype="multipart/form-data"
+						style="height: 30px; text-align: center;">
+						<input type="hidden" name="tidx" value="<%=userTidx%>">
+						<input id="d_title"
+							type="text" name="d_title" placeholder="제목을 입력해주세요..."
+							style="grid-column: 2/3;">
+						<div class="upload-btn-wrapper" style="border: none;">
 							<img src='<c:url value='/resources/static/img/plus.png'/>'
-								style="width: 15px;"> <input type="file" name="file">
+								style="width: 27px;"> <input type="file" name="file" id="file">
 						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="submit"
-						onclick="document.getElementById('fileForm').submit();">진짜추가</button>
+					<button type="submit" class="btn btn-primary btn-sm" id="submit"
+						onclick="#">진짜추가</button>
 				</div>
 			</div>
 		</div>
 	</div>
-	<%
-	Integer userTidx = (Integer) session.getAttribute("userTidx");
-	String userId = (String) session.getAttribute("userId");
-	String userName = (String) session.getAttribute("userName");
-	String userGrade = (String) session.getAttribute("userGrade");
-	if (session.getAttribute("userTidx") == null) {
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
-	}
-	%>
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar">
 			<div class="sidebar-content-wrappper">
@@ -137,17 +155,26 @@
 			<main class="content">
 </body>
 <script>
-$(document).ready(function() {
-	var width = $(window).width();
-	var main = $('.main');
-	$("#dropDown").toggle();
-	$('.navbar-toggle').off().on('click', function() {
-		$('.sidebar').toggleClass('active');
-	});
-	$('#profile').on('click', function() {
+	$(document).ready(function() {
+		var width = $(window).width();
+		var main = $('.main');
 		$("#dropDown").toggle();
+		$('.navbar-toggle').off().on('click', function() {
+			$('.sidebar').toggleClass('active');
+		});
+		$('#profile').on('click', function() {
+			$("#dropDown").toggle();
+		});
+		
+		$("#submit").on("click", function(){
+			
+			
+			if($("#file").val()==""){
+				alert("파일을 선택해주세요.");
+			}else{
+				$("#fileForm").submit();
+			}
+		});
 	});
-
-});
 </script>
 </html>

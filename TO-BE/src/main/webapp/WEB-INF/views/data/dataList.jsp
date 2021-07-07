@@ -10,6 +10,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+table{
+	text-align:center;
+}
+table th{
+	text-align:center;
+}
 .content {
 	display: inline !important;
 }
@@ -71,6 +77,15 @@
 .page-item {
 	padding: 0 !important;
 }
+
+.dataBtn{
+	display:none;
+}
+
+.dataBox:hover{
+	cursor: pointer;
+}
+
 </style>
 </head>
 <body>
@@ -96,19 +111,34 @@
 	</form>
 	<table class="table table-hover">
 		<tr>
+			<th>번호</th>
 			<th>파일명</th>
 			<th>작성자</th>
 			<th>작성일</th>
 			<th>다운로드수</th>
 		</tr>
 		<c:forEach items="${dataList}" var="data">
-			<tr>
-				<td><a href="/data/fileDown?didx=${data.didx}">${data.d_title}</a></td>
+			<tr class="dataBox">
+				<td>${data.didx}</td>
+				<td>${data.d_title}</td>
 				<td>${data.memberVO.t_name}</td>
 				<td><fmt:parseDate var="writedate" value="${data.d_writedate}"
 						pattern="yyyy-MM-dd" /> <fmt:formatDate value="${writedate}"
 						pattern="yyyy-MM-dd" /></td>
 				<td>${data.d_download}</td>
+			</tr>
+			<tr>
+				<td colspan="5" style="padding:0; border:none;"> 
+					<div class="dataBtn">
+						<c:set var="userTidx" value="<%=userTidx%>"/>
+						<c:if test="${data.memberVO.tidx eq userTidx}">
+							<button type="button" class="btn btn-primary btn-sm" style="float:right; margin-left:5px;">삭제</button>
+						</c:if>
+						<button type="button" class="btn btn-primary btn-sm" 
+						 onclick="location.href='/data/fileDown?didx=${data.didx}'"
+						 style="float:right;">다운로드</button>
+					</div>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>
@@ -138,7 +168,7 @@
 	</nav>
 	<button type="button" class="btn btn-primary btn-sm" style="background-color:#0b5ed7; float:right;" data-toggle="modal" data-target="#myModal">업로드</button>
 	<script>
-		$(function() {
+		$(document).ready(function(){
 			$('#searchBtn').click(
 					function() {
 						self.location = "list" + '${pageMaker.makeQuery(1)}'
@@ -146,8 +176,20 @@
 								+ $("select option:selected").val()
 								+ "&keyword="
 								+ encodeURIComponent($('#keywordInput').val());
-					});
+			});
+			$(".dataBox").on("click", function(){
+				var dataBtn = $(this).next("tr").children().children(".dataBtn");
+				if(dataBtn.is(":visible")){//현재 열렸으면
+					dataBtn.slideUp();//닫고
+				}else{//현재 닫혔으면
+					dataBtn.slideDown();//열고
+				}
+			});
 		});
+		/* $(function() {
+			
+			
+		}); */
 	</script>
 </body>
 </html>
