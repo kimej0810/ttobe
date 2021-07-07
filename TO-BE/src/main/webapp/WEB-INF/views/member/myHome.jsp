@@ -70,7 +70,9 @@ function scheduleAddPopup(){
 							<tbody>
 								<c:forEach items="${myBoard}" var="board">
 									<tr>
-										<td>${board.b_title}</td>
+										<td>
+											<a href="/board/view?bidx=${board.bidx}" style="text-decoration : none; color:black;">${board.b_title}</a>
+										</td>
 										<td>
 											<c:set var="boardContent" value="${board.b_content}"/>
 											${fn:substring(boardContent,0,5)}. . .
