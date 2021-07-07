@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/views/include/new_main.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,6 +46,9 @@ function scheduleAddPopup(){
 	#writeBtn{
 			width:50px;
 		}
+	#mainContainer a:root{
+		background-image: black;
+	}
 </style>
 </head>
 <body>
@@ -111,6 +115,13 @@ function scheduleAddPopup(){
 								</tr>
 							</thead>
 							<tbody>
+							<c:choose>
+							<c:when test="${fn:length(mySchedule) == 0}">
+								<tr>
+									<td>등록된 내용이 없습니다.</td>
+								</tr>
+							</c:when>
+								<c:otherwise>
 								<c:forEach items="${mySchedule}" var="schedule">
 									<tr>
 										<td>${schedule.s_type}</td>
@@ -129,6 +140,8 @@ function scheduleAddPopup(){
 										</td>
 									</tr>
 								</c:forEach>
+								</c:otherwise>
+							</c:choose>
 							</tbody>
 						</table>
 						<div style="text-align:right;">
@@ -155,21 +168,30 @@ function scheduleAddPopup(){
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${myLeave}" var="leave">
-									<tr>
-										<td>${leave.a_type}</td>
-										<td>
-											<c:set var="startdate" value="${leave.a_startdate}"/>
-											${fn:substring(startdate,0,16)}
-										</td>
-										<td>
-											<c:set var="enddate" value="${leave.a_enddate}"/>
-											${fn:substring(enddate,0,16)}
-										</td>
-										<td>${leave.a_useddays}</td>
-										<td>${leave.t_leave_get}</td>
-									</tr>
-								</c:forEach>
+							<c:choose>
+							<c:when test="${fn:length(myLeave) == 0}">
+								<tr>
+									<td>등록된 내용이 없습니다.</td>
+								</tr>
+							</c:when>
+								<c:otherwise>
+									<c:forEach items="${myLeave}" var="leave">
+										<tr>
+											<td>${leave.a_type}</td>
+											<td>
+												<c:set var="startdate" value="${leave.a_startdate}"/>
+												${fn:substring(startdate,0,16)}
+											</td>
+											<td>
+												<c:set var="enddate" value="${leave.a_enddate}"/>
+												${fn:substring(enddate,0,16)}
+											</td>
+											<td>${leave.a_useddays}</td>
+											<td>${leave.t_leave_get}</td>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
 							</tbody>
 						</table>
 					</div>
