@@ -61,7 +61,7 @@
 		</tbody>
 	</table>
 	<div>
-		<a href="${path}/admin/emaillist${pageMaker.makeSearch(pageMaker.cri.page)}&midx=${emailRead.midx}">
+		<a href="${path}/email/list${pageMaker.makeSearch(pageMaker.cri.page)}&midx=${emailRead.midx}">
 			<button class="saoneBtn btn btn-primary btn-sm" style="float:right;">목록</button>
 		</a>
 	</div>

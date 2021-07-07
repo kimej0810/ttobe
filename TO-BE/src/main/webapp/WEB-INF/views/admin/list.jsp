@@ -153,7 +153,7 @@
 						<td colspan="9" style="padding:0;text-align:center;">
 							<div class="saoneGoTag">
 								<button type="button" class="saoneBtn btn btn-outline-primary btn-sm" onclick="location.href='${path}/admin/info${pageMaker.makeSearch(pageMaker.cri.page)}&tidx=${member.tidx}'">정보보기</button>
-								<button type="button" class="saoneBtn btn btn-outline-primary btn-sm" onclick="location.href='${path}/admin/email${pageMaker.makeSearch(pageMaker.cri.page)}&tidx=${member.tidx}'">메일전송</button>
+								<button type="button" class="saoneBtn btn btn-outline-primary btn-sm" onclick="location.href='${path}/email/email${pageMaker.makeSearch(pageMaker.cri.page)}&tidx=${member.tidx}'">메일전송</button>
 								<c:if test="${member.delyn eq 'N' }">
 								<button type="button" id="deleteBtn" class="saoneBtn btn btn-outline-danger btn-sm">사원 퇴사</button>
 								</c:if>

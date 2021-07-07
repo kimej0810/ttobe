@@ -58,7 +58,7 @@
 			if(confirm('해당 사원에게 메일을 발송하시겠습니까?')){
 				window.opener.name ="list";
 				document.frm.target = "list";
-				document.frm.action = "/admin/email?tidx="+tidx;
+				document.frm.action = "/email/email?tidx="+tidx;
 				document.frm.submit();
 				self.close();
 			}else{

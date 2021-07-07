@@ -13,7 +13,7 @@
 <script>
 	$(document).ready(function(){
 		$(".searBtn").on("click",function(event){
-			self.location = "/admin/emaillist${pageMaker.makeQuery(1)}&searchType="+$("select option:selected").val()
+			self.location = "/email/list${pageMaker.makeQuery(1)}&searchType="+$("select option:selected").val()
 			+ "&keyword="+encodeURIComponent($(".searInput").val());
 		});
 		$("#checkAll").click(function(){
@@ -32,14 +32,14 @@
 			if(confirm('해당 글을 삭제하시겠습니까?')){
 				jQuery.ajaxSettings.traditional = true;
 				$.ajax({
-					url:"/admin/emailDelete",
+					url:"/email/delete",
 					data:{"eidxList" : chkArray},
 					dataType:"json",
 					success:function(data){
 						if(data==0){
 							alert("삭제실패");
 						}else{
-							location.href = "/admin/emaillist";
+							location.href = "/email/list";
 						}
 					}
 				});
@@ -54,12 +54,12 @@
 	function sendFn(){
 		if(confirm('사원리스트를 보시겠습니까?')){
 			window.open(
-				"/admin/memberList",
+				"/email/memberList",
 				"memberList",
 				"width=600,height=550,location=no,status=no,toolbar=no,scrollbars=no"
 			);	
 		}else{
-			location.href = "/admin/email";
+			location.href = "/email/email";
 		}
 		
 	}
@@ -157,7 +157,7 @@
 				<td>${email.t_position}</td>
 				<td>${email.m_addressee}</td>
 				<td>
-					<a href="${path}/admin/emailread${pageMaker.makeSearch(pageMaker.cri.page)}&midx=${email.midx}">${email.m_title}</a>
+					<a href="${path}/email/read${pageMaker.makeSearch(pageMaker.cri.page)}&midx=${email.midx}">${email.m_title}</a>
 				</td>
 				<td>
 					<c:set var="sendDate" value="${email.m_senddate}"/>
@@ -171,15 +171,15 @@
 	<nav class="pageDiv">
 		<ul class="pagination">
 			<c:if test="${pageMaker.prev}">
-				<li class="page-item"><a class="page-link" href="${path}/admin/emaillist${pageMaker.makeSearch(pageMaker.startPage-1)}">&laquo;</a></li>
+				<li class="page-item"><a class="page-link" href="${path}/email/list${pageMaker.makeSearch(pageMaker.startPage-1)}">&laquo;</a></li>
 			</c:if>
 			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 				<li class="page-item" <c:out value="${pageMaker.cri.page == idx ? 'id=active' : ''}"/>>
-					<a class="page-link" href="${path}/admin/emaillist${pageMaker.makeSearch(idx)}">${idx}</a>
+					<a class="page-link" href="${path}/email/list${pageMaker.makeSearch(idx)}">${idx}</a>
 				</li>
 			</c:forEach>
 			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-				<li class="page-item"><a class="page-link" href="${path}/admin/emaillist${pageMaker.makeSearch(pageMaker.endPage + 1)}">&raquo;</a></li>
+				<li class="page-item"><a class="page-link" href="${path}/email/list${pageMaker.makeSearch(pageMaker.endPage + 1)}">&raquo;</a></li>
 			</c:if>
 		</ul>
 	</nav>

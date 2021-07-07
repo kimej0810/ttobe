@@ -124,13 +124,17 @@
 							<a href="#" class="list-group-item list-group-item-action"
 								onclick="location.href='/member/mypage?tidx=<%=userTidx%>'">
 								<%=userName%>님
-							</a> 
+							</a>
+							<a href="#" class="list-group-item list-group-item-action"
+								onclick="location.href='/member/myHome?userIdx=<%=userTidx%>'">
+								정보
+							</a>
 							<%
 							if(userGrade!=null){
 								if(userGrade.equals("A")){
 							%>
 								<a href="#" class="list-group-item list-group-item-action"
-								onclick="location.href='/admin/emaillist'">메일함</a>
+								onclick="location.href='/email/list'">메일함</a>
 							<%
 								}
 							}

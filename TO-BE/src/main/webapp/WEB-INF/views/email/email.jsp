@@ -29,7 +29,7 @@
 	<div>
 		<button class="btn btn-outline-secondary" type="button" style="cursor:default;margin-bottom:45px;">메일 발송</button>
 	</div>
-	<form method="post" action="<%=request.getContextPath()%>/admin/emailAction">
+	<form method="post" action="<%=request.getContextPath()%>/email/emailAction">
 		<table class="table">
 			<%	
 				if(request.getAttribute("member")!=null){

@@ -1,0 +1,21 @@
+package tobe.project.service;
+
+import java.util.List;
+
+import tobe.project.domain.SearchCriteria;
+import tobe.project.dto.BoardVO;
+import tobe.project.dto.EmailDTO;
+import tobe.project.dto.LeaveDTO;
+import tobe.project.dto.ScheduleVO;
+
+public interface MyService {
+	public int totalCountEmail(SearchCriteria searchCriteria)throws Exception;
+	public List<EmailDTO> selectAllEmail(SearchCriteria searchCriteria)throws Exception;
+	public int totalCountBoard(SearchCriteria searchCriteria)throws Exception;
+	public List<BoardVO> selectAllBoard(SearchCriteria searchCriteria)throws Exception;
+	public int totalCountLeave(SearchCriteria searchCriteria)throws Exception;
+	public List<LeaveDTO> selectAllLeave(SearchCriteria searchCriteria)throws Exception;
+	public int totalCountSchedule(SearchCriteria searchCriteria)throws Exception;
+	public List<ScheduleVO> selectAllSchedule(SearchCriteria searchCriteria)throws Exception;
+}
+

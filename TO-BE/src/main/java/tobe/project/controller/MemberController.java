@@ -20,11 +20,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import tobe.project.domain.PageMaker;
+import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.LoginDTO;
 import tobe.project.dto.MemberDTO;
 import tobe.project.dto.MemberVO;
-import tobe.project.service.MemberFileService;
 import tobe.project.service.MemberService;
+import tobe.project.service.MyService;
 
 @Controller
 @RequestMapping(value = "/member")
@@ -32,6 +34,8 @@ public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@Inject
 	private MemberService service;
+	@Inject
+	private MyService myService;
 	@Inject
 	BCryptPasswordEncoder pwdEncoder;
 	
@@ -97,6 +101,34 @@ public class MemberController {
 			return "/member/login";
 		}
 		return "";
+	}
+	@RequestMapping(value = "/myHome")
+	public String myHome(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Model model)throws Exception{
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(searchCriteria);
+		pageMaker.setTotalCount(myService.totalCountEmail(searchCriteria));
+		model.addAttribute("myEmail",myService.selectAllEmail(searchCriteria));
+		model.addAttribute("pageMaker",pageMaker);
+		PageMaker pageMaker2 = new PageMaker();
+		pageMaker2.setCri(searchCriteria);
+		pageMaker2.setTotalCount(myService.totalCountBoard(searchCriteria));
+		model.addAttribute("myBoard",myService.selectAllBoard(searchCriteria));
+		model.addAttribute("pagemaker2",pageMaker2);
+		PageMaker pageMaker3 = new PageMaker();
+		pageMaker3.setCri(searchCriteria);
+		pageMaker3.setTotalCount(myService.totalCountLeave(searchCriteria));
+		model.addAttribute("myLeave",myService.selectAllLeave(searchCriteria));
+		model.addAttribute("pagemaker3",pageMaker3);
+		PageMaker pageMaker4 = new PageMaker();
+		pageMaker4.setCri(searchCriteria);
+		pageMaker4.setTotalCount(myService.totalCountSchedule(searchCriteria));
+		model.addAttribute("mySchedule",myService.selectAllSchedule(searchCriteria));
+		model.addAttribute("pagemaker4",pageMaker4);
+		
+		
+		
+		//List<EmailDTO> emailList = myService.selectAllEmail(tidx);
+		return "/member/myHome";
 	}
 	//로그인 페이지불러오기
 	@RequestMapping(value="/login", method = RequestMethod.GET)
