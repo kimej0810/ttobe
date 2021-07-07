@@ -49,10 +49,7 @@ function scheduleAddPopup(){
 </head>
 <body>
 	<div class="btnGroup">
-		<button type="button" class="btn btn-outline-secondary" onclick="location.href='/member/mypage?tidx=${member.tidx}'">사원정보변경</button>
-		<button type="button" class="btn btn-outline-secondary" onclick="location.href='/member/modifyPwd?t_id=${member.t_id}'">비밀번호변경</button>
 		<button type="button" class="btn btn-outline-secondary">나의 정보</button>
-	
 		<div id="mainContainer" class="form-control">
 			<div id="container1" class="form-control">
 				<div style="text-align:right;">
