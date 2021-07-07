@@ -119,8 +119,23 @@ public class AdminController{
 	}
 	@RequestMapping(value = "/findAdmin")
 	public String findAdmin(Model model)throws Exception{
-		
-		return "";
+		int check = service.adminCheck();
+		if(check==0) {
+			model.addAttribute("message","관리자 등록페이지로 이동합니다.");
+			model.addAttribute("check","0");
+			System.out.println("어디로");
+			return "/admin/check";
+		}else if(check==1) {
+			model.addAttribute("message","관리자가 존재합니다.");
+			model.addAttribute("check","1");
+			System.out.println("들어가는가");
+			return "/admin/check";
+		}
+		return "/member/login";
+	}
+	@RequestMapping(value = "/join")
+	public String joinAdmin(Model model)throws Exception{
+		return "/admin/join";
 	}
 	//ajax test
 	@RequestMapping(value="/test")

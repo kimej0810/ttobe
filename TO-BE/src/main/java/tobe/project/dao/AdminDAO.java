@@ -15,6 +15,7 @@ public interface AdminDAO {
 	public int modifyName(MemberVO vo) throws Exception;
 	public int modifyPosition(MemberVO vo) throws Exception;
 	public int modifyDepartment(MemberVO vo) throws Exception;
+	public int adminCheck()throws Exception;
 	//마지막 사원번호 가져오기
 	public String selectOneId() throws Exception;
 	//페이징
