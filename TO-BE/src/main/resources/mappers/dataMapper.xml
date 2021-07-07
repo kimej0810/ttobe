@@ -89,6 +89,15 @@
 		    #{tidx}
 		)
     </insert>
+    
+    <!-- 데이터 삭제 -->
+    <update id="deleteData" parameterType="int">
+    	UPDATE DATA_LIBRARY
+    	SET
+    		DELYN = 'Y'
+    	WHERE DIDX = #{didx}
+    </update>
+    
     <insert id="insertFile" parameterType="hashMap">
     	INSERT INTO FILE_INFOTEST(
     		FIDX,

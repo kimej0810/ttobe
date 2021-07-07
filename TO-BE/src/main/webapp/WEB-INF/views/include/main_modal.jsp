@@ -168,9 +168,10 @@
 		
 		$("#submit").on("click", function(){
 			
-			
 			if($("#file").val()==""){
 				alert("파일을 선택해주세요.");
+			}else if($("#d_title").val()==""){
+				alert("제목을 입력해주세요.");
 			}else{
 				$("#fileForm").submit();
 			}

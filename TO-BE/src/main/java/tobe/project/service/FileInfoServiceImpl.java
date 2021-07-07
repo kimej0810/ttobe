@@ -25,4 +25,10 @@ public class FileInfoServiceImpl implements FileInfoService {
 		return dao.selectOneFile(map);
 	}
 
+	@Override
+	public void deleteFileDidx(int didx) throws Exception {
+		dao.deleteFileDidx(didx);
+		
+	}
+
 }

@@ -35,18 +35,24 @@ public class DataLibraryServiceImpl implements DataLibraryService{
 	
 	@Override
 	public void addData(DataLibraryVO vo, MultipartHttpServletRequest mpRequest) throws Exception {
-		dao.addData(vo); //DataLibrary 추가
+		dao.addData(vo); //DataLibrary 異�媛�
 		
 		List<Map<String, Object>> list = fileUtils.parseInsertFileInfoData(vo, mpRequest);
 		int size = list.size();
 		for(int i=0; i<size; i++) {
-			dao.insertFile(list.get(i)); //FileInfo 추가
+			dao.insertFile(list.get(i)); //FileInfo 異�媛�
 		}
 	}
 
 	@Override
 	public void hitData(int didx) throws Exception {
 		dao.hitData(didx);
+	}
+
+	@Override
+	public void deleteData(int didx) throws Exception {
+		dao.deleteData(didx);
+		
 	}
 
 	

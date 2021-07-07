@@ -1,6 +1,7 @@
 package tobe.project.controller;
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.List;
 import java.util.Locale;
@@ -75,19 +76,22 @@ public class DataLibraryController extends HttpServlet {
 		@RequestMapping(value = "/delete")
 		public String delete(@RequestParam Map<String, String> param) throws Exception {
 			//didx릁 통해 파일 삭제
+			//dataLirbrary, fileInfo 두 테이블에서 삭제
 			
-			String didx = param.get("didx");
+			int didx = Integer.parseInt(param.get("didx"));
 			System.out.println("~~~~~~~~~didx에용~~~~~~~~`"+didx);
-			System.out.println("fdasjㅁㄴㅇㄹfksdf");
+			
+			service.deleteData(didx);
+			fileInfoService.deleteFileDidx(didx);
+			
 			return "redirect:/data/list";
 		}
 
 	//데이터 다운로드
 	@RequestMapping(value = "/fileDown")
 	@ResponseBody
-	public String fileDown(@RequestParam("didx") int didx, HttpServletResponse response, HttpServletRequest request) throws Exception {
+	public void fileDown(@RequestParam("didx") int didx, HttpServletResponse response, HttpServletRequest request) throws Exception {
 
-		System.out.println(didx);
 		//다운로드수 증가
 		service.hitData(didx);
 		
@@ -99,11 +103,7 @@ public class DataLibraryController extends HttpServlet {
 			System.out.println("stored--->" + storedFileName);
 			System.out.println("original--->" + originalFileName);
 			String filePath = request.getSession().getServletContext().getRealPath("/resources/static/file/");
-			
-			System.out.println("경로좀보자~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+filePath);
-			
-			File f = new File(filePath+storedFileName);
-			
+
 			byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File(filePath+storedFileName));
 			
 			response.setContentType("application/octet-stream");
@@ -115,10 +115,13 @@ public class DataLibraryController extends HttpServlet {
 			response.getOutputStream().close();
 			
 		}catch(Exception e){
-			System.out.println("파일이 없는데요");
+			response.setContentType("text/html; charset=euc-kr");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('해당 파일이 존재하지 않습니다.');</script>");
+			out.println("<script>location.href='/data/list';</script>");
+			out.flush();
 		}
 		
-		return "redirect:/data/list";
 	}
 
 }

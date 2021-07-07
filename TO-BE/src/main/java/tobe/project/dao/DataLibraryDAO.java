@@ -7,14 +7,16 @@ import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.DataLibraryVO;
 
 public interface DataLibraryDAO {
-	//자료실 목록
+	//��猷��� 紐⑸�
 	public List<DataLibraryVO> selectAllData(SearchCriteria scri) throws Exception;
-	//자료실 페이징
+	//��猷��� ���댁�
 	public int dataCount(SearchCriteria scri) throws Exception;
-	//자료실 업로드
+	//��猷��� ��濡���
 	public void addData(DataLibraryVO vo) throws Exception;
-	//자료실 업로드(fileInfo)
+	//��猷��� ��濡���(fileInfo)
 	public void insertFile(Map<String, Object> map) throws Exception;
-	//자료실 다운로드수 업
+	//��猷��� �ㅼ�대����� ��
 	public void hitData(int didx) throws Exception;
+	//데이터 삭제
+	public void deleteData(int didx) throws Exception;
 }

@@ -42,4 +42,10 @@ public class FileInfoDAOImpl implements FileInfoDAO{
 		return sqlSession.selectOne(Namespace+".selectOneFile", map);
 	}
 
+	@Override
+	public void deleteFileDidx(int didx) throws Exception {
+		sqlSession.update(Namespace+".deleteFileDidx", didx);
+		
+	}
+
 }

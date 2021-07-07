@@ -29,6 +29,14 @@
     	WHERE DIDX = #{didx} AND DELYN = 'N'
     </select>
     
+    <!-- 자료실 데이터 삭제 -->
+    <update id="deleteFileDidx" parameterType="int">
+    	UPDATE FILE_INFOTEST
+    	SET
+    		DELYN = 'Y'
+    	WHERE DIDX = #{didx}
+    </update>
+    
     <select id="selectOneFile" parameterType="hashMap" resultType="hashMap">
     	SELECT
     		F_STORED_FILE_NAME,

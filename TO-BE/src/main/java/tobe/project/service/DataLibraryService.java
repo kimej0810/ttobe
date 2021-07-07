@@ -12,4 +12,5 @@ public interface DataLibraryService {
 	public int dataCount(SearchCriteria scri) throws Exception;
 	public void addData(DataLibraryVO vo, MultipartHttpServletRequest mpRequest) throws Exception;
 	public void hitData(int didx) throws Exception;
+	public void deleteData(int didx) throws Exception;
 }
