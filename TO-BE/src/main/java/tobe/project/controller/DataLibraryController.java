@@ -115,7 +115,7 @@ public class DataLibraryController {
 			response.getOutputStream().close();
 			
 		}catch(Exception e){
-			response.setContentType("text/html; charset=euc-kr");
+			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('해당 파일이 존재하지 않습니다.');</script>");
 			out.println("<script>location.href='/data/list';</script>");
