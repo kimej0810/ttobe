@@ -92,9 +92,9 @@ pageContext.setAttribute("replace", "<br>");
 						<tr>
 							<td rowspan="3" valign="top" style="width:7%;">
 								<img
-								src="<c:url value="/resources/static/img/profile.png"/>"
+								src="<c:url value="/resources/static/profile/${replyList.memberDTO.f_stored_file_name}"/>"
 								style="width:50px; display:block; margin:5px auto; border-radius:70%;"></td>
-							<td style="font-size:0.8rem;">${replyList.memberVO.t_name}<fmt:parseDate
+							<td style="font-size:0.8rem;">${replyList.memberDTO.t_name}<fmt:parseDate
 									var="writedate" value="${boardVO.b_writedate}"
 									pattern="yyyy-MM-dd" /> <fmt:formatDate value="${writedate}"
 									pattern="yyyy-MM-dd" />
@@ -106,7 +106,7 @@ pageContext.setAttribute("replace", "<br>");
 						<tr>
 							<td style="text-align:right;">
 								<c:set var="userTidx" value="<%=userTidx%>"/>
-								<c:if test="${replyList.memberVO.tidx eq userTidx}">
+								<c:if test="${replyList.memberDTO.tidx eq userTidx}">
 									<img class="inputAreaBtn" src='<c:url value='/resources/static/img/pen.png'/>' style="width:10px; cursor:pointer;">
 									<img class="deleteReplyBtn" src='<c:url value='/resources/static/img/cancel.png'/>' style="width:10px; cursor:pointer;">
 								</c:if>
@@ -150,7 +150,7 @@ pageContext.setAttribute("replace", "<br>");
 		Integer boardTidx = vo.getTidx();
 		if(loginTidx!=boardTidx & !loginGrade.equals("A")){
 	%>
-		<button type="button" class="btn btn-primary btn-sm float-right list_btn" onclick="history.back();">목록</button>
+		<button type="button" class="btn btn-primary btn-sm float-right"  onclick="history.back();">목록</button>
 	<%
 				
 		}else{
@@ -176,7 +176,7 @@ pageContext.setAttribute("replace", "<br>");
 					reply += "<img src='<c:url value='/resources/static/img/profile.png'/>' style='width:50px; display:block; margin:5px auto; border-radius:70%;'>";
 					reply += "</td>";
 					reply += "<td style='font-size:0.8rem;'>";
-					reply += data[i].memberVO.t_name;
+					reply += data[i].memberDTO.t_name;
 					reply += " ";
 					reply += data[i].r_writedate.substr(0, 10);
 					reply += "</td>";
