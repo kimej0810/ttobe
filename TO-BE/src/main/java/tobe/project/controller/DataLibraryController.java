@@ -72,7 +72,7 @@ public class DataLibraryController extends HttpServlet {
 	}
 	
 	//데이터 삭제
-		@RequestMapping(value = "/transport")
+		@RequestMapping(value = "/delete")
 		public String delete(@RequestParam Map<String, String> param) throws Exception {
 			//didx릁 통해 파일 삭제
 			
