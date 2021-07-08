@@ -1,4 +1,5 @@
 package tobe.project.controller;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -34,23 +35,24 @@ public class AdminController{
 		logger.info("Welcome home! The client locale is {}.", locale);
 		String t_id = service.selectOneId();
 		if(t_id.equals("admin")) {
-			
+			Calendar cal = Calendar.getInstance();
+			int year = cal.get(cal.YEAR);
+		}else {
+			String[] tid = t_id.split("-");
+			int nextTid = Integer.parseInt(tid[1])+1;
+			int length = (int)(Math.log10(nextTid)+1);
+			String hipen = "";
+			if(length==2) {
+				hipen = "-00";
+			}else if(length==3) {
+				hipen = "-0";
+			}else if(length==1) {
+				hipen = "-000";
+			}else if(length==4){
+				hipen = "-";
+			}
+			model.addAttribute("tid",tid[0]+hipen+nextTid);
 		}
-		String[] tid = t_id.split("-");
-		int nextTid = Integer.parseInt(tid[1])+1;
-		int length = (int)(Math.log10(nextTid)+1);
-		String hipen = "";
-		if(length==2) {
-			hipen = "-00";
-		}else if(length==3) {
-			hipen = "-0";
-		}else if(length==1) {
-			hipen = "-000";
-		}else if(length==4){
-			hipen = "-";
-		}
-		model.addAttribute("tid",tid[0]+hipen+nextTid);
-		model.addAttribute("member");
 		return "/admin/add";
 	}
 	@RequestMapping(value="/addAction")
