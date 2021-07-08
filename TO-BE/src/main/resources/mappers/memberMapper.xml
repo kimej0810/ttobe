@@ -43,7 +43,7 @@
  	<select id="selectOneMemberId" resultType="memberDTO">
  		SELECT A.*,B.F_STORED_FILE_NAME,B.F_TYPE
  		FROM TOBE_MEMBER A LEFT JOIN FILE_INFOTEST B ON A.TIDX = B.TIDX WHERE B.F_TYPE = 'profile' AND A.T_ID = #{t_id}
- 	</select> 	
+ 	</select>
  	<!-- 사원정보 수정 -->
  	<update id="modifyMember">
  		update tobe_member set

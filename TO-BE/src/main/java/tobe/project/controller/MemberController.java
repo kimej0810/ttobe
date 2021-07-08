@@ -147,6 +147,7 @@ public class MemberController {
 				session.setAttribute("userDep",vo.getT_department());
 				session.setAttribute("userPosition", vo.getT_position());
 				session.setAttribute("userGrade", vo.getT_grade());
+				session.setAttribute("userProfile", vo.getF_stored_file_name());
 				model.addAttribute("member",vo);
 				System.out.println("로그인 성공");
 				return "redirect:/main/mainPage";
