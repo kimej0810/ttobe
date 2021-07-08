@@ -33,7 +33,6 @@ public class EmailController{
 	
 	@RequestMapping(value = "/list")
 	public String list(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria, Model model) throws Exception {
-		logger.info("search list() caller..");
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(searchCriteria);
 		pageMaker.setTotalCount(emailService.totalCountsearchEmail(searchCriteria));

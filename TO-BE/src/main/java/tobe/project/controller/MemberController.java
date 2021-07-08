@@ -81,10 +81,8 @@ public class MemberController {
 		String name = vo.getT_name();
 		String result[] = department.split("=");
 		String department1 = result[1];
-		System.out.println(department1);
 		String result2[] = name.split("=");
 		String name1 = result2[1];
-		System.out.println(name1);
 		if(department1.equals("all")) {
 			List<MemberVO> searchMember = service.searchMember2(name1);
 			model.addAttribute("searchMember",searchMember);
@@ -127,10 +125,6 @@ public class MemberController {
 		pageMaker4.setTotalCount(myService.totalCountSchedule(searchCriteria));
 		model.addAttribute("mySchedule",myService.selectAllSchedule(searchCriteria));
 		model.addAttribute("pagemaker4",pageMaker4);
-		
-		
-		
-		//List<EmailDTO> emailList = myService.selectAllEmail(tidx);
 		return "/member/myHome";
 	}
 	//로그인 페이지불러오기

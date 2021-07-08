@@ -35,7 +35,6 @@ public class AdminController{
 
 	@RequestMapping(value="/add")
 	public String addMember(Locale locale, Model model,MemberVO vo) throws Exception {
-		logger.info("Welcome home! The client locale is {}.", locale);
 		String t_id = service.selectOneId();
 		if(t_id.equals("admin")) {
 			Calendar cal = Calendar.getInstance();
@@ -79,7 +78,6 @@ public class AdminController{
 		pageMaker.setCri(searchCriteria);
 		model.addAttribute("pageMaker",pageMaker);
 		MemberVO vo = service.selectOneMember(tidx);
-		//파일조회
 		FileVO fileList = service.selectOneFile(tidx);
 		model.addAttribute("file",fileList);
 		model.addAttribute("member",vo);
@@ -133,13 +131,11 @@ public class AdminController{
 			model.addAttribute("message","관리자 등록페이지로 이동합니다.");
 			model.addAttribute("check","0");
 			session.setAttribute("result", "true");
-			System.out.println("어디로");
 			return "/admin/check";
 		}else if(check==1) {
 			model.addAttribute("message","관리자가 존재합니다.");
 			model.addAttribute("check","1");
 			session.setAttribute("result", "false");
-			System.out.println("들어가는가");
 			return "/admin/check";
 		}
 		return "/member/login";
