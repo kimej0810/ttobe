@@ -3,7 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="tobe.project.mapper.adminMapper">
-	
+	<select id="adminCheck" resultType="int">
+		SELECT COUNT(*) FROM TOBE_MEMBER WHERE T_GRADE = 'A'
+	</select>
 	<select id="selectAllMember" resultType="memberVO">
  		SELECT * FROM TOBE_MEMBER WHERE DELYN = 'N' ORDER BY TIDX DESC
  	</select>

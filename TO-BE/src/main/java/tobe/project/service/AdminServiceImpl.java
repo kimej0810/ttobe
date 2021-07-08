@@ -50,6 +50,10 @@ public class AdminServiceImpl implements AdminService{
 		return dao.modifyDepartment(vo);
 	}
 	@Override
+	public int adminCheck() throws Exception {
+		return dao.adminCheck();
+	}
+	@Override
 	public int totalCountMember(String keyword) throws Exception {
 		return dao.totalCountMember(keyword);
 	}

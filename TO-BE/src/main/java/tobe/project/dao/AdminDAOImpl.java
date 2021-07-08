@@ -52,6 +52,10 @@ public class AdminDAOImpl implements AdminDAO{
 		return sqlSession.update(Namespace+".modifyDepartment",vo);
 	}
 	@Override
+	public int adminCheck() throws Exception {
+		return sqlSession.selectOne(Namespace+".adminCheck");
+	}
+	@Override
 	public int totalCountMember(String keyword) throws Exception {
 		return sqlSession.selectOne(Namespace+".totalCountMember",keyword);
 	}
