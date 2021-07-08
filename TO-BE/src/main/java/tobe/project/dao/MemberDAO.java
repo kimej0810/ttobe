@@ -14,7 +14,7 @@ public interface MemberDAO {
 	public List<MemberVO> searchMember(MemberVO vo)throws Exception;
 	public List<MemberVO> searchMember2(String t_name)throws Exception;
 	//로그인
-	public MemberVO login(LoginDTO dto) throws Exception;
+	public MemberDTO login(LoginDTO dto) throws Exception;
 	//사원정보 수정
 	public void modifyMember(MemberVO vo) throws Exception;
 	//사진 업로드

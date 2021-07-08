@@ -39,7 +39,7 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 	//로그인
 	@Override
-	public MemberVO login(LoginDTO dto) throws Exception {
+	public MemberDTO login(LoginDTO dto) throws Exception {
 		return sqlSession.selectOne(Namespace+".selectOneMemberId", dto);
 	}
 	//비밀번호 변경

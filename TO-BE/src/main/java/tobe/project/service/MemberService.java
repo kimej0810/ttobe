@@ -19,7 +19,7 @@ public interface MemberService {
 	//부서전체 검색
 	public List<MemberVO> searchMember2(String t_name)throws Exception;
 	//로그인
-	public MemberVO login(LoginDTO dto) throws Exception;
+	public MemberDTO login(LoginDTO dto) throws Exception;
 	//이메일 전송
 	public void sendEmail(MemberVO vo, String div, String pwd) throws Exception;
 	//비밀번호 찾기

@@ -137,7 +137,7 @@ public class MemberController {
 	//로그인 처리
 	@RequestMapping(value="/loginPost", method = RequestMethod.POST)
 	public String loginPost(LoginDTO dto,HttpServletRequest request, Model model,HttpSession session) throws Exception{
-		MemberVO vo = service.login(dto);
+		MemberDTO vo = service.login(dto);
 		if(vo!=null) {
 			boolean check = BCrypt.checkpw(dto.getT_pwd(), vo.getT_pwd());
 			if(check) {	//	"1234" , "$2a$10$NuKJxnN.O7W0xvhFZZedMeFPqZtmwYVOWABefqex62oIQv3ftbOyi"
