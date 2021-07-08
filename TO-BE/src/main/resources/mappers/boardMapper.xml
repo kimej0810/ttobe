@@ -178,8 +178,9 @@
 		WHERE BIDX = #{bidx}
 	</update>
 	<update id="modifyFile">
-		UPDATE BOARD SET
-
+		UPDATE FILE_INFOTEST SET
+		DELYN = 'Y'
+		WHERE FIDX = #{FIDX}
 	</update>
 
 	<update id="deleteBoard">

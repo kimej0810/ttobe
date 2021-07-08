@@ -27,11 +27,11 @@
 	</style>
 </head>
 <body>
-	<form action="modifyAction" method="post" name="modifyForm">
+	<form action="modifyAction" method="post" name="modifyForm" enctype="multipart/form-data">
 		<input type="hidden" value="${boardVO.bidx}" name="bidx">
 		<input type="hidden" value="G" name="b_type">
-		<input type="hidden" value="fileNoDel" name="fileNoDel[]" value="">
-		<input type="hidden" value="fileNameDel" name="fileNameDel[]" value="">
+		<input type="hidden" id="fileNoDel" name="fileNoDel[]" value="">
+		<input type="hidden" id="fileNameDel" name="fileNameDel[]" value="">
 		<table id="modify" class="table">
 			<tr>
 				<th style="width:25%;">글제목</th>
@@ -53,7 +53,7 @@
 						<div style="width:100%; height:28.4px;">
 							<input type="hidden" id="FIDX" name="FIDX" value="${file.FIDX}">
 							<a>${file.F_ORG_FILE_NAME}</a>(${file.F_FILE_SIZE}kb)
-							<button id="fileDel" style="float:right;" onclick="fn_del(${file.FIDX});" type="button">삭제</button>
+							<button id="fileDelBtn" style="float:right;" onclick="fn_del('${file.FIDX}','${var.index}');" type="button">삭제</button>
 						</div>
 					</div>
 					</c:forEach>
@@ -63,20 +63,36 @@
 		<div id="btnArea">
 			<button type="button" class="btn btn-primary btn-sm float-right cancel_btn">취소</button>
 			<button type="button" class="btn btn-primary btn-sm" id="fileAdd">파일추가</button>
-			<button type="submit" class="btn btn-primary btn-sm float-right">등록</button>
+			<button type="button" class="btn btn-primary btn-sm float-right" id="submitBtn">등록</button>
 		</div>
 	</form>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			var formObj = $("form[name='modifyForm']");
 			
+			$("#submitBtn").on("click", function(){
+				if($("#title").val()==""){
+					alert("제목을 입력해주세요.");
+				}else if($("#content").val()==""){
+					alert("내용을 입력해주세요.");
+				}else if($("#content").val().length>=2000){
+					alert("최대 2000자까지 입력 가능합니다.");
+				}else{
+					$("#modifyAction").submit();
+				}
+			});
+			
+			$(document).on("click","#fileDelBtn", function(){
+				$(this).parent().remove();
+			})
+			
+			fileCount = 1;
 			$("#fileAdd").on("click", function(){
-				$("#fileArea").append("<div style='width:100%;'><input type='file' name='file'>"
+				$("#fileArea").append("<div><input type='file' name='file_"+(fileCount++)+"'/>"
 						+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
 				
 				$(document).on("click","#fileDelBtn", function(){
 					$(this).parent().remove();
-					
 				});
 			});
 			
@@ -90,12 +106,18 @@
 			});
 		});
 		
-		var fidxArray = new Array();
-		
-		function fn_del(fidx){
-			fidxArray.push(fidx);
-			alert(fidxArray.length);	
-		}
+		var fileNoArry = new Array();
+ 		var fileNameArry = new Array();
+ 		function fn_del(value, name){
+ 			
+ 			alert(value);
+ 			alert(name);
+ 			
+ 			fileNoArry.push(value);
+ 			fileNameArry.push(name);
+ 			$("#fileNoDel").attr("value", fileNoArry);
+ 			$("#fileNameDel").attr("value", fileNameArry);
+ 		}
 	</script>
 </body>
 </html>

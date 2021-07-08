@@ -27,7 +27,7 @@
 	</style>
 </head>
 <body>
-	<form action="writeAction" method="post" enctype="multipart/form-data">
+	<form id="writeAction" action="writeAction" method="post" enctype="multipart/form-data">
 		<%
 			Integer tidx = (Integer)session.getAttribute("userTidx");
 			String grade = (String)session.getAttribute("userGrade"); 
@@ -51,7 +51,7 @@
 				<th style="width:25%;">첨부파일</th>
 				<td style="text-align:left;">
 					<div id="fileArea">
-						<input type='file' name='file'>
+						<input type='file' name='file_0'>
 					</div>
 				</td>
 			</tr>
@@ -59,20 +59,33 @@
 		<div id="btnArea">
 			<button type="button" class="btn btn-primary btn-sm float-right" onclick="location.href='/board/list'">취소</button>
 			<button type="button" class="btn btn-primary btn-sm" id="fileAdd">파일추가</button>
-			<button type="submit" class="btn btn-primary btn-sm float-right">등록</button>
+			<button type="button" class="btn btn-primary btn-sm float-right" id="submitBtn">등록</button>
 		</div>
 	</form>
 </body>
 <script>
 	$(document).ready(function(){
+		fileCount = 1;
 		$("#fileAdd").on("click", function(){
-			$("#fileArea").append("<div><input type='file' name='file'>"
+			$("#fileArea").append("<div><input type='file' name='file_"+(fileCount++)+"'/>"
 					+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
 			
 			$(document).on("click","#fileDelBtn", function(){
 				$(this).parent().remove();
 				
 			});
+		});
+		
+		$("#submitBtn").on("click", function(){
+			if($("#title").val()==""){
+				alert("제목을 입력해주세요.");
+			}else if($("#content").val()==""){
+				alert("내용을 입력해주세요.");
+			}else if($("#content").val().length>=2000){
+				alert("최대 2000자까지 입력 가능합니다.");
+			}else{
+				$("#writeAction").submit();
+			}
 		});
 	});
 </script>

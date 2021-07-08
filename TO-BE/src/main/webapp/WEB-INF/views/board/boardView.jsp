@@ -35,6 +35,24 @@ pageContext.setAttribute("replace", "<br>");
 	width: 100%;
 	margin:0;
 }
+
+.thumbNail{
+	text-align: center;
+	display:inline-block;
+	width:100px;
+	height:150px;
+	border-raius:50px;
+}
+.thumbNail:hover{
+	background-color:#e6e6e6;
+}
+
+.thumbNailContent{
+
+	display:grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 2fr 1fr;
+}
 </style>
 </head>
 <body>
@@ -73,18 +91,19 @@ pageContext.setAttribute("replace", "<br>");
 			</thead>
 			<tbody>
 				<tr>
-					<td colspan="4">${boardVO.b_content}</td>
+					<td colspan="4" >${boardVO.b_content}</td>
 				</tr>
 				<tr>
+					<td colspan="4">
 					<c:forEach var="file" items="${file}">
-						<td colspan="4"><c:if
-								test="${file.F_TYPE eq 'png'||file.F_TYPE eq 'jpg'||file.F_TYPE eq 'gif'}">
-								<img
-									src="<c:url value="/resources/static/file/${file.F_STORED_FILE_NAME}"/>"
-									style="width: 100px;">
-							</c:if> <a href="#" onclick="fn_fileDown('${file.FIDX}'); return false;">${file.F_ORG_FILE_NAME}</a>(${file.F_FILE_SIZE}kb)<br>
-						</td>
+						<div class="thumbNail">
+							<div class="thumbNailContent">
+								<img src="<c:url value="/resources/static/file/${file.F_STORED_FILE_NAME}"/>" style="width:100%;">
+								<a href="#" onclick="fn_fileDown('${file.FIDX}'); return false;" style="font-size:0.8rem; text-decoration: none;">${file.F_ORG_FILE_NAME}</a>
+							</div>
+						</div>
 					</c:forEach>
+					</td>
 				</tr>
 				<tr>
 				<table id="reply" style="width:100%;">
@@ -93,7 +112,7 @@ pageContext.setAttribute("replace", "<br>");
 							<td rowspan="3" valign="top" style="width:7%;">
 								<img
 								src="<c:url value="/resources/static/profile/${replyList.memberDTO.f_stored_file_name}"/>"
-								style="width:50px; display:block; margin:5px auto; border-radius:70%;"></td>
+								style="width:50px; height:50px; display:block; margin:5px auto; border-radius:70%;"></td>
 							<td style="font-size:0.8rem;">${replyList.memberDTO.t_name}<fmt:parseDate
 									var="writedate" value="${boardVO.b_writedate}"
 									pattern="yyyy-MM-dd" /> <fmt:formatDate value="${writedate}"
@@ -176,7 +195,7 @@ pageContext.setAttribute("replace", "<br>");
 					reply += "<td valign='top' rowspan='3' style='width:7%;'>";
 					reply += "<img src='<c:url value='/resources/static/profile/";
 					reply += data[i].memberDTO.f_stored_file_name;
-					reply += "'/>' style='width:50px; display:block; margin:5px auto; border-radius:70%;'>";
+					reply += "'/>' style='width:50px; height:50px; display:block; margin:5px auto; border-radius:70%;'>";
 					reply += "</td>";
 					reply += "<td style='font-size:0.8rem;'>";
 					reply += data[i].memberDTO.t_name;

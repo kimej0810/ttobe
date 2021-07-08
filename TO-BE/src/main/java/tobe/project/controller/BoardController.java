@@ -1,18 +1,18 @@
 package tobe.project.controller;
 
-import java.io.File; 
+import java.io.File;
 import java.net.URLEncoder;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,6 +29,7 @@ import tobe.project.dto.ReplyVO;
 import tobe.project.service.BoardService;
 import tobe.project.service.FileInfoService;
 import tobe.project.service.ReplyService;
+import tobe.project.util.FileUtils;
 
 @Controller
 @RequestMapping(value = "/board")
@@ -157,7 +158,16 @@ String filePath = request.getSession().getServletContext().getRealPath("/resourc
 								MultipartHttpServletRequest mpRequest) throws Exception {
 		
 		logger.info("BoardModifyAction");
+		
+		for(int i=0; i<files.length; i++) {
+			System.out.println("asdfsdfsdsdafsdaffdssd->"+files[i]);
+			System.out.println("asdfsdfsdsdafsdaffdssd->"+fileNames[i]);
+		}
+		
+		
 	    service.modifyBoard(vo, files, fileNames, mpRequest);
+	    
+
 	    rttr.addAttribute("page", scri.getPage());
 	    rttr.addAttribute("perPageNum", scri.getPerPageNum());
 	    rttr.addAttribute("searchType", scri.getSearchType());

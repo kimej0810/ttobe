@@ -38,18 +38,19 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public void writeBoard(BoardVO vo, MultipartHttpServletRequest mpRequest) throws Exception {
-		dao.writeBoard(vo); //寃���湲�
+		dao.writeBoard(vo);
 		
 		System.out.println("----------------------------------");
-		System.out.println("vo�� bidx->"+vo.getBidx());
+		System.out.println("vo의 bidx->"+vo.getBidx());
 		System.out.println("----------------------------------");
 		
 		List<Map<String, Object>> list = fileUtils.parseInsertFileInfoBoard(vo, mpRequest); 
 		int size = list.size();
 		for(int i=0; i<size; i++) {
 			System.out.println("----------------------------------");
+			System.out.println(list.get(i).get("ORG_FILE_NAME"));
 			System.out.println("----------------------------------");
-			dao.insertFile(list.get(i)); //���쇰�ｊ린
+			dao.insertFile(list.get(i));
 		}
 	}
 
@@ -69,11 +70,8 @@ public class BoardServiceImpl implements BoardService{
 		for(int i = 0; i<size; i++) {
 			tempMap = list.get(i);
 			if(tempMap.get("IS_NEW").equals("Y")) {
-				
-				//湲곗〈�� �깅��� 泥⑤����쇱�� ����
 				dao.insertFile(tempMap);
 			}else {
-				//湲곗〈�� �깅��� 泥⑤����쇱�� ����
 				dao.modifyFile(tempMap);
 			}
 		}
