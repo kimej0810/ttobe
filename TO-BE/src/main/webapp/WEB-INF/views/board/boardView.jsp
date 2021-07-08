@@ -150,7 +150,7 @@ pageContext.setAttribute("replace", "<br>");
 		Integer boardTidx = vo.getTidx();
 		if(loginTidx!=boardTidx & !loginGrade.equals("A")){
 	%>
-		<button type="button" class="btn btn-primary btn-sm float-right list_btn">목록</button>
+		<button type="button" class="btn btn-primary btn-sm float-right" onclick="history.back();">목록</button>
 	<%
 				
 		}else{
@@ -158,7 +158,7 @@ pageContext.setAttribute("replace", "<br>");
 	%>
 		<button type="button" class="btn btn-primary btn-sm float-right" onclick="location.href='modify?bidx=${boardVO.bidx}'">수정</button>
 		<button type="button" class="btn btn-primary btn-sm float-right" onclick="location.href='delete?bidx=${boardVO.bidx}'">삭제</button>
-		<button type="button" class="btn btn-primary btn-sm float-right list_btn">목록</button>			
+		<button type="button" class="btn btn-primary btn-sm float-right" onclick="history.back();">목록</button>			
 	<%
 		}
 	%>
