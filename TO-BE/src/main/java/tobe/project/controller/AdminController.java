@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +20,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import tobe.project.domain.PageMaker;
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.FileVO;
+import tobe.project.dto.MemberDTO;
 import tobe.project.dto.MemberVO;
 import tobe.project.service.AdminService;
+import tobe.project.service.MemberService;
 @Controller
 @RequestMapping(value="/admin")
 public class AdminController{
@@ -36,7 +39,9 @@ public class AdminController{
 		String t_id = service.selectOneId();
 		if(t_id.equals("admin")) {
 			Calendar cal = Calendar.getInstance();
-			int year = cal.get(cal.YEAR);
+			int year = cal.get(cal.YEAR)-2000;
+			model.addAttribute("tid",year+"-0000");
+			return "/admin/add";
 		}else {
 			String[] tid = t_id.split("-");
 			int nextTid = Integer.parseInt(tid[1])+1;
@@ -52,8 +57,8 @@ public class AdminController{
 				hipen = "-";
 			}
 			model.addAttribute("tid",tid[0]+hipen+nextTid);
+			return "/admin/add";
 		}
-		return "/admin/add";
 	}
 	@RequestMapping(value="/addAction")
 	public String addMemberAction(Locale locale, Model model, MemberVO vo,MultipartHttpServletRequest mpRequest) throws Exception {
@@ -144,9 +149,11 @@ public class AdminController{
 		return "/admin/join";
 	}
 	@RequestMapping(value = "/joinAction")
-	public String joinAction(Model model,MemberVO vo)throws Exception{
-		
-		return "/main/main";
+	public String joinAction(Model model,MemberVO vo,MultipartHttpServletRequest mpRequest,HttpSession session)throws Exception{
+		String pwd = pwdEncoder.encode(vo.getT_pwd());
+		vo.setT_pwd(pwd);
+		service.insertAdmin(vo,mpRequest);
+		return "redirect:/member/login";
 	}
 	//ajax test
 	@RequestMapping(value="/test")

@@ -132,6 +132,18 @@
 			<div>
 				비밀번호를 잊으셨나요?&nbsp;&nbsp;<a href="/member/findPwd" onclick="window.open(this.href, '비밀번호찾기', 'width=500,height=500,top=200,left=100'); return false;">비밀번호 찾기</a>
 			</div>
+			<div>
+				<%
+					Integer admin = (Integer)session.getAttribute("admin");
+					if(admin==0){
+						
+				%>
+					<span>관리자가 없습니다.?&nbsp;&nbsp;</span>
+					<a href="/admin/findAdmin">관리자등록</a>
+				<%
+					}
+				%>
+			</div>
 		</form>
 	</section>
 </body>

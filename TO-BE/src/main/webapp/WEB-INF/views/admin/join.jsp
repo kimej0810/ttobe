@@ -43,7 +43,30 @@ input .tooltip{
 	background-color: red;
 
 }
-
+.fileLabel{
+	padding:.5em .75em;
+	color:#999;
+	font-size:inherit;
+	line-height:normal;
+	vertical-align:middle;
+	background-color:#fdfdfd;
+	cursor:pointer;
+	border:1px solid #ebebeb;
+	border-bottom-color:#e2e2e2;
+	border-radius:.25em;
+	display:block;
+	text-align:center;
+}
+input[type="file"]{
+	position:absolute;
+	width:1px;
+	height:1px;
+	padding:0;
+	margin:-1px;
+	overflow:hidden;
+	clip:rect(0,0,0,0);
+	border:0;
+}
 </style>
 <script>
 
@@ -133,6 +156,93 @@ function execDaumPostcode() {
         }
     }).open();
 }
+var fileArr;
+var fileInfoArr=[];
+//썸네일 클릭시 삭제.
+function fileRemove(index){
+	fileInfoArr.splice(index,1);
+	var imgId="#img_id_"+index;
+	$(imgId).remove();
+}
+//썸네일 미리보기
+function previewImage(targetObj, View_area){
+	var files = targetObj.files;
+	fileArr = Array.prototype.slice.call(files);
+	var preview = document.getElementById(View_area);
+	var ua = window.navigator.userAgent;
+	//ie일때
+	if(ua.indexOf("MSIE")>-1){
+		targetObj.select();
+		try {
+            var src = document.selection.createRange().text; // get file full path(IE9, IE10에서 사용 불가)
+            var ie_preview_error = document.getElementById("ie_preview_error_" + View_area);
+            if (ie_preview_error) {
+                preview.removeChild(ie_preview_error); //error가 있으면 delete
+            }
+            var img = document.getElementById(View_area); //이미지가 뿌려질 곳
+            //이미지 로딩, sizingMethod는 div에 맞춰서 사이즈를 자동조절 하는 역할
+            img.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"+src+"', sizingMethod='scale')";
+        } catch (e) {
+            if (!document.getElementById("ie_preview_error_" + View_area)) {
+                var info = document.createElement("<p>");
+                info.id = "ie_preview_error_" + View_area;
+                info.innerHTML = e.name;
+                preview.insertBefore(info, null);
+            }
+        }
+        //ie가 아닐때(크롬,사파리,FF)
+	}else{
+		var files = targetObj.files;
+        for ( var i = 0; i < files.length; i++) {
+            var file = files[i];
+            fileInfoArr.push(file);
+ 
+            var imageType = /image.*/; //이미지 파일일경우만.. 뿌려준다.
+            if (!file.type.match(imageType))
+                continue;
+            var prevImg = document.getElementById("img_id_"+i); //이전에 미리보기가 있다면 삭제
+            if (prevImg) {
+            	preview.removeChild(prevImg);
+            }
+            var span = document.createElement('span');
+            span.id="img_id_" +i;
+            span.style.width = '150px';
+            span.style.height = '200px';
+            preview.appendChild(span);
+ 
+            var img = document.createElement("img");
+            img.className="addImg";
+            img.classList.add("obj");
+            img.file = file;
+            img.style.width='inherit';
+            img.style.cursor='pointer';
+            const idx=i;
+            img.onclick=function(){
+            	fileRemove(idx);
+            }
+            span.appendChild(img);
+ 
+            if (window.FileReader) { // FireFox, Chrome, Opera 확인.
+                var reader = new FileReader();
+                reader.onloadend = (function(aImg) {
+                    return function(e) {
+                        aImg.src = e.target.result;
+                    };
+                })(img);
+                reader.readAsDataURL(file);
+            } else { // safari is not supported FileReader
+                //alert('not supported FileReader');
+                if (!document.getElementById("sfr_preview_error_"
+                    + View_area)) {
+                    var info = document.createElement("p");
+                    info.id = "sfr_preview_error_" + View_area;
+                    info.innerHTML = "not supported FileReader";
+                    preview.insertBefore(info, null);
+                }
+            }
+        }
+	}
+}
 function joinAdmin(){
 	var tPhone = "";
 	tPhone += $("#t_phone1").val();
@@ -160,11 +270,11 @@ function joinAdmin(){
 		<div class="header" style="text-align:center;">
 			<img src="<c:url value="/resources/static/img/loginlogo.png"/>" style="width:190px;margin-bottom:10px;" alt="회사로고이미지">
 		</div>
-		<form action="/admin/joinAction" method="post" name="frm" class="form" onsubmit="return joinAdmin()">
+		<form action="/admin/joinAction" method="post" name="frm" class="form" onsubmit="return joinAdmin()" enctype="multipart/form-data">
 			<div>
-				<div>
-					<span>아이디</span>
-					<input type="text" name="t_id" value="admin" class="form-control" readonly="readonly" style="margin-bottom:10px;">	
+				<span>아이디</span>
+				<div class="col-auto input-group" style="margin-bottom:10px;">
+					<input type="text" name="t_id" value="admin" class="form-control" readonly="readonly">	
 				</div>
 				<div>
 					<span>비밀번호</span>
@@ -174,6 +284,11 @@ function joinAdmin(){
 					<input type="password" name="t_pwdRe" id="pwdRe" class="pw form-control" placeholder="비밀번호 재입력" style="margin-bottom:10px;" data-bs-placement="right" required="required">
 					<span id="tootip_area2"></span>
 				</div>
+			</div>
+			<div class="form-control" style="display:inline-flex;height:113px;">
+						<span id="View_area"></span>
+						<label for="file" class="fileLabel">프로필 등록</label>
+						<input type="file" name="file" id="file" onchange="previewImage(this,'View_area')" value="사진 등록">
 			</div>
 			<span>연락처</span>
 			<div class="col-auto input-group" style="margin-bottom:10px;">

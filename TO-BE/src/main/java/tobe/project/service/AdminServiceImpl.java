@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import tobe.project.dao.AdminDAO;
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.FileVO;
+import tobe.project.dto.MemberDTO;
 import tobe.project.dto.MemberVO;
 import tobe.project.util.FileUtils;
 
@@ -21,6 +22,16 @@ public class AdminServiceImpl implements AdminService{
 	private AdminDAO dao;
 	@Resource(name="fileUtils")
 	private FileUtils fileUtils;
+	
+	@Override
+	public void insertAdmin(MemberVO vo,MultipartHttpServletRequest mpRequest) throws Exception {
+		dao.insertAdmin(vo);
+		List<Map<String,Object>> list = fileUtils.parseInsertFileInfoProfile(vo,mpRequest);
+		int size = list.size();
+		for(int i=0;i<size;i++) {
+			dao.addFile(list.get(i));
+		}
+	}
 	@Override
 	public List<MemberVO> selectAllMember() throws Exception{
 		return dao.selectAllMember();
@@ -68,7 +79,6 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public void addMember2(MemberVO memberVO, MultipartHttpServletRequest mpRequest) throws Exception {
 		dao.addMember(memberVO);
-		System.out.println("tidx는뭐야대체!"+memberVO.getTidx());
 		List<Map<String,Object>> list = fileUtils.parseInsertFileInfoProfile(memberVO,mpRequest);
 		int size = list.size();
 		for(int i=0;i<size;i++) {

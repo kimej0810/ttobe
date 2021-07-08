@@ -5,9 +5,11 @@ import java.util.Map;
 
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.FileVO;
+import tobe.project.dto.MemberDTO;
 import tobe.project.dto.MemberVO;
 
 public interface AdminDAO {
+	public int insertAdmin(MemberVO vo)throws Exception;
 	public List<MemberVO> selectAllMember() throws Exception;
 	public int addMember(MemberVO vo) throws Exception;
 	public int deleteMember(int tidx) throws Exception;

@@ -25,6 +25,7 @@ import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.LoginDTO;
 import tobe.project.dto.MemberDTO;
 import tobe.project.dto.MemberVO;
+import tobe.project.service.AdminService;
 import tobe.project.service.MemberService;
 import tobe.project.service.MyService;
 
@@ -36,6 +37,8 @@ public class MemberController {
 	private MemberService service;
 	@Inject
 	private MyService myService;
+	@Inject
+	private AdminService aService;
 	@Inject
 	BCryptPasswordEncoder pwdEncoder;
 	
@@ -132,7 +135,9 @@ public class MemberController {
 	}
 	//로그인 페이지불러오기
 	@RequestMapping(value="/login", method = RequestMethod.GET)
-	public void loginGET(@ModelAttribute("dto") LoginDTO dto) {
+	public void loginGET(@ModelAttribute("dto") LoginDTO dto,HttpSession session) throws Exception {
+		int check = aService.adminCheck();
+		session.setAttribute("admin", check);
 	}
 	//로그인 처리
 	@RequestMapping(value="/loginPost", method = RequestMethod.POST)

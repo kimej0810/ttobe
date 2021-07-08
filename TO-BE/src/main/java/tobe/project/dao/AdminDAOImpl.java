@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.FileVO;
+import tobe.project.dto.MemberDTO;
 import tobe.project.dto.MemberVO;
 import tobe.project.util.FileUtils;
 
@@ -23,6 +24,10 @@ public class AdminDAOImpl implements AdminDAO{
 	
 	private static final String Namespace = "tobe.project.mapper.adminMapper";
 	
+	@Override
+	public int insertAdmin(MemberVO vo) throws Exception {
+		return sqlSession.insert(Namespace+".insertAdmin",vo);
+	}
 	@Override
 	public List<MemberVO> selectAllMember() throws Exception {
 		return sqlSession.selectList(Namespace+".selectAllMember");

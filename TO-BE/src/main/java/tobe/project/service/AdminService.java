@@ -10,6 +10,7 @@ import tobe.project.dto.FileVO;
 import tobe.project.dto.MemberVO;
 
 public interface AdminService {
+	public void insertAdmin(MemberVO vo, MultipartHttpServletRequest mpRequest)throws Exception;
 	public List<MemberVO> selectAllMember() throws Exception;
 	public int addMember(MemberVO vo) throws Exception;
 	public int deleteMember(int tidx) throws Exception;

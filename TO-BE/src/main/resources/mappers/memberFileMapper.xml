@@ -5,7 +5,7 @@
 <mapper namespace="tobe.project.mapper.memberFileMapper">
 	<!-- 파일리스트 -->
 	<select id="selectAllFile" resultType="fileVO">
-		SELECT * FROM FILE_INFOTEST
+		SELECT * FROM FILE_INFO
 		WHERE DELYN = 'N'
 	</select>
 	<!-- 첨부파일추가 -->
