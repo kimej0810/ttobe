@@ -178,7 +178,6 @@ p {
 <body>
 	<%
 	String t_id = (String) session.getAttribute("userId");
-	System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+userTidx);
 	%>
 	<div id="box1" class="inner_content" style="width: 100%; height: 100%;">
 		<div class="conTitle">통합게시판</div>

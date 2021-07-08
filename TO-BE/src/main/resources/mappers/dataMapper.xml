@@ -99,7 +99,7 @@
     </update>
     
     <insert id="insertFile" parameterType="hashMap">
-    	INSERT INTO FILE_INFOTEST(
+    	INSERT INTO FILE_INFO(
     		FIDX,
 			TIDX,
 			F_TYPE,

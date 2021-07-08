@@ -12,7 +12,7 @@
     		ROUND(F_FILE_SIZE/1024, 1) AS F_FILE_SIZE,
     		F_TYPE,
     		F_STORED_FILE_NAME
-    	FROM FILE_INFOTEST
+    	FROM FILE_INFO
     	WHERE BIDX = #{bidx} AND DELYN = 'N'
     	ORDER BY FIDX ASC
     </select>
@@ -25,13 +25,13 @@
     		ROUND(F_FILE_SIZE/1024, 1) AS F_FILE_SIZE,
     		F_TYPE,
     		F_STORED_FILE_NAME
-    	FROM FILE_INFOTEST
+    	FROM FILE_INFO
     	WHERE DIDX = #{didx} AND DELYN = 'N'
     </select>
     
     <!-- 자료실 데이터 삭제 -->
     <update id="deleteFileDidx" parameterType="int">
-    	UPDATE FILE_INFOTEST
+    	UPDATE FILE_INFO
     	SET
     		DELYN = 'Y'
     	WHERE DIDX = #{didx}
@@ -41,19 +41,19 @@
     	SELECT
     		F_STORED_FILE_NAME,
     		F_ORG_FILE_NAME
-    	FROM FILE_INFOTEST
+    	FROM FILE_INFO
     	WHERE FIDX = #{FIDX}
     </select>
     
     <select id="selectFileTidx" parameterType="hashMap" resultType="hashMap">
     	SELECT
     		F_STORED_FILE_NAME
-    	FROM FILE_INFOTEST
+    	FROM FILE_INFO
     	WHERE TIDX = #{tidx} AND F_TYPE = 'profile'
     </select>
     
     <update id="modifyFile" parameterType="hashMap">
-    	UPDATE FILE_INFOTEST
+    	UPDATE FILE_INFO
     	SET DELYN = 'Y'
     	WHERE FIDX = #{FIDX} 
     </update>

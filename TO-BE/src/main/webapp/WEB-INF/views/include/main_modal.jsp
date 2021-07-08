@@ -126,7 +126,7 @@
 						onclick="location.href='/main/mainPage'"
 						style="width: 90px; grid-column: 2/3; text-align: center; margin: auto; cursor: pointer;">
 					<div>
-						<img src="/resources/static/img/profile2.jpg" type="button"
+						<img src="<c:url value="/resources/static/profile/${member.f_stored_file_name}"/>" type="button"
 							id="profile"
 							style="padding: 0px; width: 50px; border-radius: 70%;">
 						<div id="dropDown" class="list-group"

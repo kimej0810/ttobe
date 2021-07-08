@@ -53,6 +53,40 @@ pageContext.setAttribute("replace", "<br>");
 	grid-template-columns: 1fr;
 	grid-template-rows: 2fr 1fr;
 }
+
+.album{
+  height: 400px;
+  width: 640px;
+  overflow: hidden;
+}
+.images{
+  position: relative;
+  display: flex;
+  height: 400px;
+}
+.examImages{
+  width: 640px;
+  height: 400px;
+}
+button, button:active, button:focus{
+  width: 100px; height: 30px;
+  border: none;
+  color: white;
+  background-color: teal;
+  outline: none;
+}
+button:hover{
+  background-color: turquoise;
+}
+button:disabled{
+  background-color: gray;
+}
+.prev{
+  float: left;
+}
+.next{
+  float: right;
+}
 </style>
 </head>
 <body>
@@ -95,14 +129,16 @@ pageContext.setAttribute("replace", "<br>");
 				</tr>
 				<tr>
 					<td colspan="4">
-					<c:forEach var="file" items="${file}">
-						<div class="thumbNail">
-							<div class="thumbNailContent">
-								<img src="<c:url value="/resources/static/file/${file.F_STORED_FILE_NAME}"/>" style="width:100%;">
-								<a href="#" onclick="fn_fileDown('${file.FIDX}'); return false;" style="font-size:0.8rem; text-decoration: none;">${file.F_ORG_FILE_NAME}</a>
-							</div>
+						<div class="album">
+							<div class="images">
+								<img class="examImages" src="/resources/static/img/left-quote.png">
+								<img class="examImages" src="/resources/static/img/left-quote.png">
+								<img class="examImages" src="/resources/static/img/left-quote.png">
+								<img class="examImages" src="/resources/static/img/left-quote.png">
+							</div>					
 						</div>
-					</c:forEach>
+						<button class="prev">이전</button>
+						<button class="next">다음</button>
 					</td>
 				</tr>
 				<tr>
@@ -183,6 +219,45 @@ pageContext.setAttribute("replace", "<br>");
 	%>
 	</div>
 	<script>
+	let curPos = 0;
+	let postion = 0;
+	const IMAGE_WIDTH = 640;
+	const prevBtn = document.querySelector(".prev")
+	const nextBtn = document.querySelector(".next")
+	const images = document.querySelector(".images")
+	 
+	function prev(){
+	  if(curPos > 0){
+	    nextBtn.removeAttribute("disabled")
+	    postion += IMAGE_WIDTH;
+	    images.style.transform = `translateX(${postion}px)`;
+	    curPos = curPos - 1;
+	  }
+	  if(curPos == 0){
+	    prevBtn.setAttribute('disabled', 'true')
+	  }
+	}
+	function next(){
+	  if(curPos < 3){
+	    prevBtn.removeAttribute("disabled")
+	    postion -= IMAGE_WIDTH;
+	    images.style.transform = `translateX(${postion}px)`;
+	    curPos = curPos + 1;
+	  }
+	  if(curPos == 3){
+	    nextBtn.setAttribute('disabled', 'true')
+	  }
+	}
+	 
+	function init(){
+	  prevBtn.setAttribute('disabled', 'true')
+	  prevBtn.addEventListener("click", prev)
+	  nextBtn.addEventListener("click", next)
+	}
+	 
+	init();	
+	
+	
 		//댓글 출력
 		function selectAllReply(data) {
 			var reply = "";

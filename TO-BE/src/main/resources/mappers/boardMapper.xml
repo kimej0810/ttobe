@@ -150,7 +150,7 @@
 		)
 	</insert>
 	<insert id="insertFile" parameterType="hashMap">
-		INSERT INTO FILE_INFOTEST(
+		INSERT INTO FILE_INFO(
 		FIDX,
 		TIDX,
 		F_TYPE,
@@ -178,7 +178,7 @@
 		WHERE BIDX = #{bidx}
 	</update>
 	<update id="modifyFile">
-		UPDATE FILE_INFOTEST SET
+		UPDATE FILE_INFO SET
 		DELYN = 'Y'
 		WHERE FIDX = #{FIDX}
 	</update>
