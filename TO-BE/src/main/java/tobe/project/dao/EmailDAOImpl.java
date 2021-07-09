@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.EmailDTO;
-import tobe.project.dto.EmailVO;
 
 @Repository
 public class EmailDAOImpl implements EmailDAO{

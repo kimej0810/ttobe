@@ -1,6 +1,6 @@
 package tobe.project.service;
 
-import java.util.List; 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import tobe.project.dao.AdminDAO;
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.FileVO;
-import tobe.project.dto.MemberDTO;
 import tobe.project.dto.MemberVO;
 import tobe.project.util.FileUtils;
 

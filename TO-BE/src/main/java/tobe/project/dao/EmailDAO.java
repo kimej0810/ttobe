@@ -4,7 +4,6 @@ import java.util.List;
 
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.EmailDTO;
-import tobe.project.dto.EmailVO;
 
 public interface EmailDAO {
 	public int writeEmail(EmailDTO emailVO)throws Exception;

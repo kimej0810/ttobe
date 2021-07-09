@@ -41,7 +41,6 @@ input .tooltip{
 }
 .tooltip-inner{
 	background-color: red;
-
 }
 .fileLabel{
 	padding:.5em .75em;

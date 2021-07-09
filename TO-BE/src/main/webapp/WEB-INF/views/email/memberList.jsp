@@ -155,7 +155,7 @@
 			<c:forEach items="${selectAllMember}" var="member">
 				<div class="info">
 					<input type="hidden" id="tidx" name="tidx" value="${member.tidx}">
-					<img src="<c:url value="/resources/static/img/profile.png"/>" alt="프로필이미지">
+					<img src="<c:url value="/resources/static/profile/${member.f_stored_file_name}"/>" alt="프로필이미지">
 					<span>${member.t_name}</span>
 					<span>${member.t_department}</span>
 					<span>${member.t_position}</span>

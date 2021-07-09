@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import tobe.project.domain.PageMaker;
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.EmailDTO;
+import tobe.project.dto.MemberDTO;
 import tobe.project.dto.MemberVO;
 import tobe.project.service.AdminService;
 import tobe.project.service.EmailService;
@@ -99,7 +100,7 @@ public class EmailController{
 	}
 	@RequestMapping(value="/memberList")
 	public String memberList(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Locale locale, Model model) throws Exception{
-		List<MemberVO> selectAllMember = memberService.selectAllMember();
+		List<MemberDTO> selectAllMember = memberService.selectAllMember2();
 		model.addAttribute("selectAllMember",selectAllMember);
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(searchCriteria);

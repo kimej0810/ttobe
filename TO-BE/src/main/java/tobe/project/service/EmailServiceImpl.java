@@ -1,15 +1,11 @@
 package tobe.project.service;
 
-import java.io.FileReader;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import tobe.project.dao.EmailDAO;
 import tobe.project.domain.SearchCriteria;
@@ -31,18 +27,11 @@ public class EmailServiceImpl implements EmailService{
 		
 		try {
 			MailHandler mailHandler = new MailHandler(mailSender);
-			//받는사람
 			mailHandler.setTo(emailVO.getM_addressee());
-			//보내는사람
 			mailHandler.setFrom(FROM_ADDRESS);
-			//제목
 			mailHandler.setSubject(emailVO.getM_title());
-			//HTML Layout
 			String htmlContent = "<img src='cid:sideImg'><div style='width:400px;height:400px;margin:auto;border:1px solid black;'>"+emailVO.getM_content()+"</div>";
 			mailHandler.setText(htmlContent, true);
-			//첨부파일
-			//mailHandler.setAttach("test.png", "sideImg.png");
-			//이미지삽입
 			mailHandler.setInline("sideImg", "sideImg.png");
 			mailHandler.send();
 			

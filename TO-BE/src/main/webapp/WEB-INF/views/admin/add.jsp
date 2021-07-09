@@ -11,7 +11,67 @@
 <title>사원 등록</title>
 </head> 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script>
+	$(document).ready(function(){
+		$(document).on("focusout","#t_email",function(){
+			var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+			if(!emailRule.test($("input[id='t_email']").val())){
+				$("#t_email").attr("title","형식이 맞지 않습니다. [예 : 아이디@주소.com]");
+				$("#t_email").tooltip({
+						animation: true,
+						container:"#tootip_area",
+						delay:{show:50,hide:10},
+						html:false,
+						template:"<div class='tooltip' role='tooltip'><div class='tooltip-inner'></div></div>",
+						trigger:'manual'
+					});
+				$("#t_email").tooltip('show');
+				$("#t_email").val("");
+				$("#t_email").focus();
+			}else{
+				$("#t_email").tooltip('hide');
+			}
+		});
+		$(document).on("focusout","#t_phone",function(){
+			var regExp = /^\d{3}-\d{3,4}-\d{4}$/;
+			if(!regExp.test($("input[id='t_phone']").val())){
+				$("#t_phone").attr("title","형식이 맞지 않습니다. [예 : 010-0000-0000]");
+				$("#t_phone").tooltip({
+						animation: true,
+						container:"#tootip_area2",
+						delay:{show:50,hide:10},
+						html:false,
+						template:"<div class='tooltip' role='tooltip'><div class='tooltip-inner'></div></div>",
+						trigger:'manual'
+					});
+				$("#t_phone").tooltip('show');
+				$("#t_phone").val("");
+				$("#t_phone").focus();
+			}else{
+				$("#t_phone").tooltip('hide');
+			}
+		});
+		$(document).on("focusout","#t_birth",function(){
+			var birth = /^\d{4}-\d{2}-\d{2}$/;
+			if(!birth.test($("input[id='t_birth']").val())){
+				$("#t_birth").attr("title","형식이 맞지 않습니다. [예 : 1900-01-01]");
+				$("#t_birth").tooltip({
+						animation: true,
+						container:"#tootip_area3",
+						delay:{show:50,hide:10},
+						html:false,
+						template:"<div class='tooltip' role='tooltip'><div class='tooltip-inner'></div></div>",
+						trigger:'manual'
+					});
+				$("#t_birth").tooltip('show');
+				$("#t_birth").val("");
+				$("#t_birth").focus();
+			}else{
+				$("#t_birth").tooltip('hide');
+			}
+		});
+	});
     function execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -159,6 +219,9 @@
     	margin-top:20px;
     	margin-right:1%;
     }
+    .tooltip-inner{
+		background-color: red;
+	}
     #address, #detailAddress{
     	width:71%;
     }
@@ -215,7 +278,7 @@
 						<div class="infoImg">
 							<span id="View_area"></span>
 							<label for="file" class="fileLabel">프로필 등록</label>
-							<input type="file" name="file" id="file" onchange="previewImage(this,'View_area')" value="사진 등록">
+							<input type="file" name="file" id="file" onchange="previewImage(this,'View_area')" value="사진 등록" required="required">
 						</div>
 					</td>
 					<th>사원 번호</th>
@@ -232,7 +295,8 @@
 				<tr>
 					<th>생년월일</th>
 					<td>
-						<input type="text" name="t_birth" class="form-control">
+						<input type="text" name="t_birth" id="t_birth" class="form-control" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" maxlength="12">
+						<span id="tootip_area3"></span>
 					</td>
 				</tr>
 				<tr>
@@ -240,6 +304,7 @@
 					<td>
 						<select class="selectBuseo form-select" name="t_department">
 							<option value="부서없음">부서 선택</option>
+							<option value="대표">대표</option>
 							<option value="마케팅">마케팅</option>
 							<option value="판매">판매</option>
 							<option value="디자인">디자인</option>
@@ -265,11 +330,17 @@
 				</tr>
 				<tr>
 					<th>이메일</th>
-					<td colspan="2" align="left"><input type="text" name="t_email" class="form-control"></td>
+					<td colspan="2" align="left">
+						<input type="text" name="t_email" id="t_email" class="form-control">
+						<span id="tootip_area"></span>
+					</td>
 				</tr>
 				<tr>
 					<th>연락처</th>
-					<td colspan="2" align="left"><input type="text" name="t_phone" class="form-control"></td>
+					<td colspan="2" align="left">
+						<input type="text" name="t_phone" id="t_phone" class="form-control" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" maxlength="14">
+						<span id="tootip_area2"></span>
+					</td>
 				</tr>
 				<tr>
 					<th>우편번호</th>
