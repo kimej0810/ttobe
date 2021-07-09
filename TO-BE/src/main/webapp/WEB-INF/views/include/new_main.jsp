@@ -69,7 +69,7 @@
 					style="width: 215px;">
 				<ul class="sidebar-menu">
 					<li class="sidebar-menu-item"
-						onclick="location.href='/schedule/fullcalendar'">
+						onclick="location.href='/schedule/scheduleCalendar'">
 						<p class="menu-name">일정관리</p>
 					</li>
 					<li class="sidebar-menu-item"
