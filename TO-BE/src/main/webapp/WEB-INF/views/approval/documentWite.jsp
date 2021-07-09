@@ -2,9 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
-	Object userName = session.getAttribute("userName");
-	Object userDep = session.getAttribute("userDep");
+	String userName = (String)session.getAttribute("userName");
+	String userDep = (String)session.getAttribute("userDep");
 	Object userTidx = session.getAttribute("userTidx");
+	String userPosition = (String)session.getAttribute("userPosition");
 	
 	if(userName == null || userDep == null || userTidx == null){
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
@@ -29,6 +30,7 @@
 	<body>
 		<form id="documentWiteData" name="documentWiteData" method="POST">
 			<input type="hidden" name="tidx" id="tidx" value="<%=userTidx%>">
+			<input type="hidden" name="t_position" id="t_position" value="<%=userPosition %>">
 			<div id="documentWrite">
 				<table id="sheet0" class="sheet0">
 					<col class="col0">
@@ -143,7 +145,7 @@
 							</td>
 							<td class="style38 style42" colspan="3" rowspan="2">기 안 자</td>
 							<td class="style38 style57" colspan="8" rowspan="2">
-								<input type="text" id="e_member" name="e_member" value="<%=userName%>" readonly>
+								<input type="text" id="t_name" name="t_name" value="<%=userName%>" readonly>
 							</td>
 						</tr>
 						<tr class="row10">
@@ -157,7 +159,7 @@
 							</td>
 							<td class="style44 style45" colspan="3">기 안 부 서</td>
 							<td class="style44 style63" colspan="8">
-								<input type="text" id="e_buseo" name="e_buseo" value="<%=userDep%>"readonly>
+								<input type="text" id="t_department" name="t_department" value="<%=userDep%>"readonly>
 							</td>
 						</tr>
 						<tr class="row12">

@@ -55,9 +55,11 @@
  	
  	<select id="selectOneApprovalDocumentContents" resultType="ApprovalDTO" parameterType="ApprovalDTO">
  		SELECT
- 			*
- 		FROM
- 			ELECTRONIC_APPROVAL
+ 			EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_SEND, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, TIDX, T_NAME, T_DEPARTMENT, T_POSITION, TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, DELYN
+ 		from (
+ 				select A.*,B.T_NAME, T_DEPARTMENT, T_POSITION,C.TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, ROW_NUMBER() OVER(ORDER BY A.EIDX DESC) AS RNUM
+ 				FROM ELECTRONIC_APPROVAL A left join TOBE_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX 
+ 					WHERE A.DELYN = 'N')
  		WHERE
  			eidx = #{eidx}
  	</select>
@@ -135,22 +137,22 @@
     </select>
     
  	<!-- 총 게시글 개수 -->
- 	<select id="totalCountApprovalDocument" parameterType="tobe.project.domain.SearchCriteria" resultType="int">
+ 	<select id="totalCountApprovalDocument" resultType="int">
  	select count(eidx) from (
- 				select A.*,B.T_NAME, T_DEPARTMENT,C.TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, ROW_NUMBER() OVER(ORDER BY A.EIDX DESC) AS RNUM
+ 				select A.*,B.T_NAME, T_DEPARTMENT, T_POSITION, C.TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, ROW_NUMBER() OVER(ORDER BY A.EIDX DESC) AS RNUM
  				FROM ELECTRONIC_APPROVAL A left join TOBE_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX
- 					where 1=1 <include refid="search"/>
+ 					where 1=1 <include refid="searchWord"/> <include refid="search"/>
  					)where eidx > 0 and delyn = 'N' 
  	</select>
  	
  	<!-- 페이징 -->
- 	<select id="selectAllApprovalDocumentList" resultMap="approvalResultMap" parameterType="tobe.project.domain.SearchCriteria">
- 		 select EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_SEND, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, TIDX, T_NAME, T_DEPARTMENT,
+ 	<select id="selectAllApprovalDocumentList" resultMap="approvalResultMap">
+ 		 select EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_SEND, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, TIDX, T_NAME, T_DEPARTMENT, T_POSITION,
  		 		TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, DELYN
  			from (
- 				select A.*,B.T_NAME, T_DEPARTMENT,C.TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, ROW_NUMBER() OVER(ORDER BY A.EIDX DESC) AS RNUM
+ 				select A.*,B.T_NAME, T_DEPARTMENT, T_POSITION, C.TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, ROW_NUMBER() OVER(ORDER BY A.EIDX DESC) AS RNUM
  				FROM ELECTRONIC_APPROVAL A left join TOBE_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX
- 					WHERE 1=1 <include refid="search"/>  and A.DELYN = 'N'
+ 					WHERE 1=1 <include refid="searchWord"/> <include refid="search"/>and A.DELYN = 'N'
  					) WHERE delyn ='N' and RNUM BETWEEN #{rowStart} and #{rowEnd}
  	</select>
  	<!-- 페이징 end -->
@@ -158,19 +160,29 @@
  	<!-- sql code 조각 -->
  	<sql id="search">
 		<if test="searchType != null">
-			<if test="searchType == '결재대기'.toString()">AND E_STATUS = '결재대기'</if>
-			<if test="searchType == '결재진행'.toString()">AND E_STATUS = '결재진행'</if>
-			<if test="searchType == '결재완료'.toString()">AND E_STATUS = '결재완료'</if>
-			<if test="searchType == '결재반려'.toString()">AND E_STATUS = '결재반려'</if>
-			<if test="searchType == '팀장'.toString()">AND TEAMLEADER = #{userId} AND STATUS = '3000'</if>
-			<if test="searchType == '부장'.toString()">AND DEPARTMENTHEAD = #{userId} AND STATUS = '0300' </if>
-			<if test="searchType == '부장예정'.toString()">AND DEPARTMENTHEAD = #{userId} AND STATUS = '3000'</if>
-			<if test="searchType == '과장'.toString()">AND SECTIONHEAD = #{userId} AND STATUS = '0030'</if>
-			<if test="searchType == '과장예정'.toString()">AND SECTIONHEAD = #{userId} AND (STATUS = '3000' or STATUS = '0300')</if>
-			<if test="searchType == '대표'.toString()">AND LEADER = #{userId} AND STATUS = '0003'</if>
-			<if test="searchType == '대표예정'.toString()">AND LEADER = #{userId} AND (STATUS = '3000' or STATUS = '0300' or STATUS = '0030')</if>
 			<if test="searchType == '문서번호'.toString()">AND E_DOCUMENTNUM LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == '기안부서'.toString()">AND E_TEXTTITLE LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == '기안자이름'.toString()">AND T_NAME LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == '기안일시'.toString()">AND E_DRAFTDATE LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == '결재상태'.toString()">AND E_STATUS LIKE '%' || #{keyword} || '%'</if>
 			<if test="searchType == '기안제목'.toString()">AND E_TEXTTITLE LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == '기안내용'.toString()">AND E_TEXTCONTENT LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == '제목+내용'.toString()">AND (E_TEXTTITLE LIKE '%' || #{keyword} || '%') or (E_TEXTCONTENT LIKE '%' || #{keyword} || '%')</if>
 		</if>
 	</sql> 
+	<sql id="searchWord">
+			<if test="searchWord != null">
+				<if test="searchWord == '팀장'.toString()">AND TEAMLEADER = #{userId} AND STATUS = '3000'</if>
+				<if test="searchWord == '부장'.toString()">AND DEPARTMENTHEAD = #{userId} AND STATUS = '0300' </if>
+				<if test="searchWord == '부장예정'.toString()">AND DEPARTMENTHEAD = #{userId} AND STATUS = '3000'</if>
+				<if test="searchWord == '과장'.toString()">AND SECTIONHEAD = #{userId} AND STATUS = '0030'</if>
+				<if test="searchWord == '과장예정'.toString()">AND SECTIONHEAD = #{userId} AND (STATUS = '3000' or STATUS = '0300')</if>
+				<if test="searchWord == '대표'.toString()">AND LEADER = #{userId} AND STATUS = '0003'</if>
+				<if test="searchWord == '대표예정'.toString()">AND LEADER = #{userId} AND (STATUS = '3000' or STATUS = '0300' or STATUS = '0030')</if>
+				<if test="searchWord == '결재대기'.toString()">AND E_STATUS = '결재대기'</if>
+				<if test="searchWord == '결재진행'.toString()">AND E_STATUS = '결재진행'</if>
+				<if test="searchWord == '결재완료'.toString()">AND E_STATUS = '결재완료'</if>
+				<if test="searchWord == '결재반려'.toString()">AND E_STATUS = '결재반려'</if>
+			</if>
+	</sql>
  </mapper>

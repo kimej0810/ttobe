@@ -142,7 +142,7 @@
 						</td>
 						<td class="style38 style42" colspan="3" rowspan="2">기 안 자</td>
 						<td class="style38 style57" colspan="8" rowspan="2">
-							<input type="text" id="e_member" name="e_member" value="${mo.t_name }" readonly>
+							<input type="text" id="t_name" name="t_name" value="${mo.t_name }" readonly>
 						</td>
 					</tr>
 					<tr class="row10">
@@ -156,7 +156,7 @@
 						</td>
 						<td class="style44 style45" colspan="3">기 안 부 서</td>
 						<td class="style44 style63" colspan="8">
-							<input type="text" id="e_buseo" name="e_buseo" value="${mo.t_department }" readonly>
+							<input type="text" id="t_department" name="t_department" value="${mo.t_department }" readonly>
 						</td>
 					</tr>
 					<tr class="row12">

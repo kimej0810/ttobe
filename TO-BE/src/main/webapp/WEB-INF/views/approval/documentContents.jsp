@@ -14,6 +14,7 @@
 	int userTidx = (int)session.getAttribute("userTidx");
 	String userPosition = (String)session.getAttribute("userPosition");
 	String userId = (String)session.getAttribute("userId");
+	String userGrade = (String) session.getAttribute("userGrade");
 	
 	if(userTidx == 0){
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>"); 
@@ -137,7 +138,7 @@
 								<%=contents.getE_draftDate()%>
 							</td>
 							<td class="style33 style33" rowspan="3">결<br><br>재</td>
-							<td class="style35 style36" colspan="2">${to.teamLeader}</td>
+							<td class="style35 style36" colspan="2"></td>
 							<td class="style35 style36" colspan="2"></td>
 							<td class="style35 style36" colspan="3">부장</td>
 							<td class="style35 style36" colspan="2">과장</td>
@@ -178,7 +179,7 @@
 							</td>
 							<td class="style38 style42" colspan="3" rowspan="2">기 안 자</td>
 							<td class="style38 style57" colspan="8" rowspan="2">
-								<input type="text" id="e_member" name="e_member" value="${mo.t_name }" readonly>
+								<input type="text" id="t_name" name="t_name" value="${mo.t_name }" readonly>
 							</td>
 						</tr>
 						<tr class="row10">
@@ -192,7 +193,7 @@
 							</td>
 							<td class="style44 style45" colspan="3">기 안 부 서</td>
 							<td class="style44 style63" colspan="8">
-								<input type="text" id="e_buseo" name="e_buseo" value="${mo.t_department }" readonly>
+								<input type="text" id="t_department" name="t_department" value="${mo.t_department }" readonly>
 							</td>
 						</tr>
 						<tr class="row12">
@@ -214,6 +215,9 @@
 				<div id="documentBtn">
 				<%if(userTidx == mo.getTidx() && contents.getE_status().trim().equals("결재대기")){%>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_modify();">수정</button>
+					<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_delete();">삭제</button>
+					<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
+				<%}else if(userGrade.equals("A") && contents.getE_status().trim().equals("결재대기")){%>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_delete();">삭제</button>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
 				<%}else if(userTidx != mo.getTidx() && userPosition.equals("팀장") && userId.equals(to.getTeamLeader()) && to.getStatus().equals("3000")){ %>

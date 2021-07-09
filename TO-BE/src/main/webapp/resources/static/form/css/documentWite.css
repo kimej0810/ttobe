@@ -1944,7 +1944,7 @@ div:not(#documentBtn,#ui-datepicker-div,.ui-datepicker-header,.ui-datepicker-tit
     margin: 10px 2px auto;
 	
 }
-#e_rule, #e_draftDate, #e_startDay, #e_con, #e_member, #e_buseo, #e_send{
+#e_rule, #e_draftDate, #e_startDay, #e_con, #t_name, #t_department, #e_send{
 	width: 98%;
 	height: 28px;
 	border: none;

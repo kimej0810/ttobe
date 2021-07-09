@@ -8,7 +8,8 @@
 <% 
 	ScheduleVO vo = (ScheduleVO)request.getAttribute("vo"); 
 	MemberVO mo = (MemberVO)request.getAttribute("mo");
-	int userTidx = (int)session.getAttribute("userTidx"); 
+	int userTidx = (int)session.getAttribute("userTidx");
+	String userGrade = (String) session.getAttribute("userGrade");
 	
 	if(userTidx == 0){
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
@@ -97,7 +98,10 @@
 					<button type="button" class="close-button" onclick="window.close();">닫기</button>
 					<button type="button" class="delete-button" onclick="click_delete();">삭제</button>
 					<button type="button" class="modify-button" onclick="click_modify();">수정</button>
-				<%}else{%>
+				<%}else if(userGrade.equals("A")){%>
+					<button type="button" class="delete-button" onclick="click_delete();">삭제</button>
+					<button type="button" class="close-button" onclick="window.close();">닫기</button>
+				<%}else{ %>
 					<button type="button" class="close-button" onclick="window.close();">닫기</button>
 				<%} %>
 				</div>

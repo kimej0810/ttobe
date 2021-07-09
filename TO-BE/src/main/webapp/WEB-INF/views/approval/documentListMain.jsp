@@ -92,7 +92,7 @@
 					<button type="button" class="btn btn-outline-secondary" id="NoDocument">결재반려문서</button>
 					<%if(userPosition.equals("팀장") || userPosition.equals("부장") || userPosition.equals("과장") || userPosition.equals("대표")){ %>
 						<button type="button" class="btn btn-outline-secondary" id="my" 
-						onclick="location.href='/approval/documentListMy${paging.makeQuery(1)}&searchType=<%=userPosition %>&userId=<%=userId%>&t_id=<%=userId%>'">결재예정문서</button>
+						onclick="location.href='/approval/documentListMy${paging.makeQuery(1)}&searchWord=<%=userPosition %>&userId=<%=userId%>&t_id=<%=userId%>'">결재예정문서</button>
 					<%}%>
 				</div>
 				<div id="statusGroup">
@@ -121,12 +121,19 @@
 				</div>
 				<div id="waitingListGroup" class="search">
 					<div id="searchBtnGroup" class="input-group">
+						<input type="hidden" id="searchWord" value="${scri.searchWord}">
 						<select id="searchType" class="form-control" name="searchType" style="height:30px; font-size:0.5rem;">
-							<option value="전체" <c:out value = "${scri.searchType == null ? 'selected' : '' }"/>>-----</option>
-							<option value="문서번호" <c:out value = "${scri.searchType eq '문서번호' ? 'selected' : '' }"/>>문서번호</option>
-							<option value="기안제목" <c:out value = "${scri.searchType eq '기안제목' ? 'selected' : '' }"/>>기안제목</option>
+							<option value="전체보기"  <c:out value = "${scri.searchType == null ? 'selected' : '' }"/>>전체보기</option>
+							<option value="문서번호"  <c:out value = "${scri.searchType eq '문서 번호' ? 'selected' : '' }"/>>문서 번호</option>
+							<option value="기안부서"  <c:out value = "${scri.searchType eq '기안 부서' ? 'selected' : '' }"/>>기안 부서</option>
+							<option value="기안자이름" <c:out value = "${scri.searchType eq '기안자 이름' ? 'selected' : '' }"/>>기안자 이름</option>
+							<option value="기안일시"  <c:out value = "${scri.searchType eq '기안 일시' ? 'selected' : '' }"/>>기안 일시</option>
+							<option value="결재상태"  <c:out value = "${scri.searchType eq '결재 상태' ? 'selected' : '' }"/>>결재 상태</option>
+							<option value="기안제목"  <c:out value = "${scri.searchType eq '기안 제목' ? 'selected' : '' }"/>>기안 제목</option>
+							<option value="기안내용"  <c:out value = "${scri.searchType eq '기안 내용' ? 'selected' : '' }"/>>기안 내용</option>
+							<option value="제목+내용" <c:out value = "${scri.searchType eq '제목+내용' ? 'selected' : '' }"/>>제목+내용</option>
 						</select>
-						<input type="text" id="keyword" class="form-control" name="keyword" value="${scri.keyword }" style="height:30px; width:40%; font-size:0.5rem;">
+						<input type="text" id="keyword" class="form-control" name="keyword" value="${scri.keyword}" style="height:30px; width:40%; font-size:0.5rem;">
 						<div class="input-group-prepend">
 							<button type="button" id="searchBtn" style="height:30px; font-size:0.5rem;" class="btn btn-outline-secondary">검색</button>
 						</div>
@@ -141,20 +148,21 @@
 					}
 					$(function(){
 						$('#searchBtn').on("click",function(){
-							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchType=" + $('select option:selected').val() 
+							var check = $("#searchWord").val();
+							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=" + check + "&searchType=" + $('select option:selected').val() 
 							+ "&keyword=" + encodeURIComponent($('#keyword').val()) + "&t_id=<%=userId%>";
 						});
 						$('#waitingDocument').on("click",function(){
-							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchType=결재대기"+"&t_id=<%=userId%>";
+							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재대기"+"&t_id=<%=userId%>";
 						});
 						$('#progressDocument').on("click",function(){
-							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchType=결재진행"+"&t_id=<%=userId%>";
+							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재진행"+"&t_id=<%=userId%>";
 						});
 						$('#completedDocument').on("click",function(){
-							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchType=결재완료"+"&t_id=<%=userId%>";
+							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재완료"+"&t_id=<%=userId%>";
 						});
 						$('#NoDocument').on("click",function(){
-							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchType=결재반려"+"&t_id=<%=userId%>";
+							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재반려"+"&t_id=<%=userId%>";
 						});
 					});
 				</script>

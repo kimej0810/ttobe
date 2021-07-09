@@ -22,7 +22,6 @@ import tobe.project.dto.MemberVO;
 import tobe.project.service.AdminService;
 import tobe.project.service.ApprovalLineService;
 import tobe.project.service.ApprovalService;
-import tobe.project.service.MemberService;
 
 /**
  * Handles requests for the application home page.
@@ -88,6 +87,21 @@ public class ApprovalController {
 	public ApprovalDTO addDocumentWite(@RequestBody ApprovalDTO dto,Locale locale) throws Exception {
 		logger.info("Welcome home! addDocumentWite", locale);
 		System.out.println("dto="+dto);
+		if(dto.getT_position().equals("팀장")) {
+			dto.setStatus("0300");
+		}else if(dto.getT_position().equals("부장")) {
+			dto.setStatus("0030");
+			dto.setTeamLeader("결재권한없음");
+		}else if(dto.getT_position().equals("과장")) {
+			dto.setStatus("0003");
+			dto.setTeamLeader("결재권한없음");
+			dto.setDepartmentHead("결재권한없음");
+		}else if(dto.getT_position().equals("대표")) {
+			dto.setStatus("0000");
+			dto.setTeamLeader("결재권한없음");
+			dto.setDepartmentHead("결재권한없음");
+			dto.setSectionHead("결재권한없음");
+		}
 		service.writeApprovalDocument(dto);
 		lservice.writeApprovalLine(dto);
 		return dto;

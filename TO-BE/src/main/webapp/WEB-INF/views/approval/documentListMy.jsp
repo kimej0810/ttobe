@@ -125,10 +125,16 @@
 				</div>
 				<div id="waitingListGroup" class="search">
 					<div id="searchBtnGroup" class="input-group">
+						<input type="hidden" id="searchWord" value="${scri.searchWord}">
 						<select id="searchType" class="form-control" name="searchType" style="height:30px; font-size:0.5rem;">
-							<option value="전체" <c:out value = "${scri.searchType == null ? 'selected' : '' }"/>>-----</option>
-							<option value="문서번호" <c:out value = "${scri.searchType eq '문서번호' ? 'selected' : '' }"/>>문서번호</option>
-							<option value="기안제목" <c:out value = "${scri.searchType eq '기안제목' ? 'selected' : '' }"/>>기안제목</option>
+							<option value="전체보기"  <c:out value = "${scri.searchType == null ? 'selected' : '' }"/>>전체보기</option>
+							<option value="문서번호"  <c:out value = "${scri.searchType eq '문서 번호' ? 'selected' : '' }"/>>문서 번호</option>
+							<option value="기안부서"  <c:out value = "${scri.searchType eq '기안 부서' ? 'selected' : '' }"/>>기안 부서</option>
+							<option value="기안자이름" <c:out value = "${scri.searchType eq '기안자 이름' ? 'selected' : '' }"/>>기안자 이름</option>
+							<option value="기안제목"  <c:out value = "${scri.searchType eq '기안 제목' ? 'selected' : '' }"/>>기안 제목</option>
+							<option value="기안일시"  <c:out value = "${scri.searchType eq '기안 일시' ? 'selected' : '' }"/>>기안 일시</option>
+							<option value="결재상태"  <c:out value = "${scri.searchType eq '결재 상태' ? 'selected' : '' }"/>>결재 상태</option>
+							<option value="제목+내용" <c:out value = "${scri.searchType eq '제목+내용' ? 'selected' : '' }"/>>제목+내용</option>
 						</select>
 						<input type="text" id="keyword" class="form-control" name="keyword" value="${scri.keyword }" style="height:30px; width:40%; font-size:0.5rem;">
 						<div class="input-group-prepend">
@@ -145,20 +151,21 @@
 					}
 					$(function(){
 						$('#searchBtn').on("click",function(){
-							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchType=" + $('select option:selected').val() 
-							+ "&keyword=" + encodeURIComponent($('#keyword').val()) + "&t_id=<%=userId%>";
+							var check = $("#searchWord").val();
+							self.location = "documentListMy" + '${paging.makeQuery(1)}' + "&searchWord=" + check + "&searchType=" + $('select option:selected').val() 
+							+ "&keyword=" + encodeURIComponent($('#keyword').val()) + "&userId=<%=userId%>";
 						});
 						$('#waitingDocument').on("click",function(){
-							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchType=결재대기"+"&t_id=<%=userId%>";
+							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재대기"+"&t_id=<%=userId%>";
 						});
 						$('#progressDocument').on("click",function(){
-							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchType=결재진행"+"&t_id=<%=userId%>";
+							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재진행"+"&t_id=<%=userId%>";
 						});
 						$('#completedDocument').on("click",function(){
-							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchType=결재완료"+"&t_id=<%=userId%>";
+							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재완료"+"&t_id=<%=userId%>";
 						});
 						$('#NoDocument').on("click",function(){
-							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchType=결재반려"+"&t_id=<%=userId%>";
+							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재반려"+"&t_id=<%=userId%>";
 						});
 						
 					});
@@ -208,11 +215,11 @@
 					</div>
 					<div id="BtnBox">
 						<%if(userPosition.equals("팀장")){%>
-							<button type="button" class="btn btn-primary btn-sm float-right" id="myMust" onclick="self.location='documentListMy${paging.makeQuery(1)}&searchType=<%=userPosition %>&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재대기문서</button>
+							<button type="button" class="btn btn-primary btn-sm float-right" id="myMust" onclick="self.location='documentListMy${paging.makeQuery(1)}&searchWord=<%=userPosition %>&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재대기문서</button>
 							<button type="button" id="writeBtn" class="btn btn-primary btn-sm float-right" onclick="documentWite()">기안 작성</button>
 						<%}else{%>
-							<button type="button" class="btn btn-primary btn-sm float-right" id="myMust" onclick="self.location='documentListMy${paging.makeQuery(1)}&searchType=<%=userPosition %>&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재대기문서</button>
-							<button type="button" class="btn btn-primary btn-sm float-right" id="myToDo" onclick="self.location='documentListMy${paging.makeQuery(1)}&searchType=<%=userPosition %>예정&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재예정문서</button>
+							<button type="button" class="btn btn-primary btn-sm float-right" id="myMust" onclick="self.location='documentListMy${paging.makeQuery(1)}&searchWord=<%=userPosition %>&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재대기문서</button>
+							<button type="button" class="btn btn-primary btn-sm float-right" id="myToDo" onclick="self.location='documentListMy${paging.makeQuery(1)}&searchWord=<%=userPosition %>예정&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재예정문서</button>
 							<button type="button" id="writeBtn" class="btn btn-primary btn-sm float-right" onclick="documentWite()">기안 작성</button>
 						<%} %>
 					</div>
@@ -222,7 +229,7 @@
 							<ul class="pagination">
 								<c:if test="${paging.prev}">
 									<li class="page-item" style="color:black;">
-										<a class="page-link" href="documentListMain${paging.makeSearch(pageMaker.startPage - 1)}&t_id=<%=userId%>" aria-label="Previous">
+										<a class="page-link" href="documentListMy${paging.makeSearch(pageMaker.startPage - 1)}&t_id=<%=userId%>" aria-label="Previous">
 										    <span aria-hidden="true">&laquo;</span>
 										    <span class="sr-only"></span>
 										</a>
@@ -230,12 +237,12 @@
 								</c:if> 
 								<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="idx">
 									<li class="page-item">
-										<a class="page-link" href="documentListMain${paging.makeSearch(idx)}&t_id=<%=userId%>">${idx}</a>
+										<a class="page-link" href="documentListMy${paging.makeSearch(idx)}&t_id=<%=userId%>">${idx}</a>
 									</li>
 								</c:forEach>
 								<c:if test="${paging.next && paging.endPage > 0}">
 									<li class="page-item">
-										<a class="page-link" href="documentListMain${paging.makeSearch(pageMaker.endPage + 1)}&t_id=<%=userId%>" aria-label="Next">
+										<a class="page-link" href="documentListMy${paging.makeSearch(pageMaker.endPage + 1)}&t_id=<%=userId%>" aria-label="Next">
 										    <span aria-hidden="true">&raquo;</span>
 										    <span class="sr-only"></span>
 										</a>

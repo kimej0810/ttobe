@@ -54,7 +54,7 @@ public class PageMaker {
 		int temEndPage = (int)(Math.ceil(totalCount / (double)cri.getPerPageNum()));
 		if(endPage > temEndPage) {
 			endPage = temEndPage;
-		}
+		} 
 		
 		prev = startPage == 1 ? false : true;
 		next = endPage * cri.getPerPageNum() >= totalCount ? false : true;
@@ -72,11 +72,12 @@ public class PageMaker {
 	
 	
 	public String makeSearch(int page) {
-		UriComponents uriComponents = 
+		UriComponents uriComponents =  
 			UriComponentsBuilder.newInstance()
 				.queryParam("page", page) 
 				.queryParam("perPageNum", cri.getPerPageNum())
 				.queryParam("searchType", ((SearchCriteria)cri).getSearchType())
+				.queryParam("searchWord", ((SearchCriteria)cri).getSearchWord())
 				.queryParam("keyword", encoding(((SearchCriteria)cri).getKeyword()))
 				.build();
 		

@@ -25,34 +25,43 @@ import tobe.project.service.ScheduleService;
 @Controller
 @RequestMapping(value = "/schedule")
 public class CalendarController {
+	
 	private static final Logger logger = LoggerFactory.getLogger(CalendarController.class);
 	@Inject
 	private ScheduleService service;
  
-	//筌��꼶�뵛占쎈쐭
+	
 	@RequestMapping(value = "/fullcalendar")
 	public String list(Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception {
-		logger.info("fullcalendar");
-		 //野껊슣�뻻占쎈솇 占쎈읂占쎌뵠筌욌벡荑귞뵳占� start
+		
 		PageMaker pageMaker = new PageMaker();
+		List<ScheduleVO> schedule = service.showSchedule();
+		
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(service.countSchedule(scri));
-		 
+		
 		model.addAttribute("viewAll",service.selectSchedule(scri));	
 		model.addAttribute("paging",pageMaker);
-		//野껊슣�뻻占쎈솇占쎈읂占쎌뵠筌욌벡荑귞뵳占� end
-		List<ScheduleVO> schedule = service.showSchedule();
 		model.addAttribute("scri",scri);
 		model.addAttribute("schedule",schedule);
 		return "/schedule/fullcalendar";
 	}
-	
-	// 占쎌뵬占쎌젟�빊遺쏙옙 占쎈솚占쎈씜
+	@ResponseBody
+	@RequestMapping(value = "/searchSchedule")
+	public Object searchSchedule(SearchCriteria scri) throws Exception{
+		System.out.println("scri======="+ scri);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(scri);
+		pageMaker.setTotalCount(service.countSchedule(scri));
+		
+		List<ScheduleVO> svo = service.selectSchedule(scri);
+		return svo;
+	}
 	@RequestMapping(value = "/schedulePopup")
 	public String schedulePopup() throws Exception {
 		return "/schedule/schedulePopup";
 	}
-	//占쎌뵬占쎌젟 �빊遺쏙옙 ajax 占쎌깈�빊占�
+	
 	@ResponseBody
 	@RequestMapping(value = "/addSchedule", method = RequestMethod.POST) 
 	public Map<Object,Object> addSchedule(@RequestBody ScheduleVO vo) throws Exception{
@@ -60,8 +69,7 @@ public class CalendarController {
 		 service.addSchedule(vo); 
 		 return map; 
 	}
-	 
-	//占쎌뵬占쎌젟 占쎌읈筌ｏ옙 
+	
 	@ResponseBody
 	@RequestMapping(value = "/showSchedule")
 	public List<ScheduleVO> show() throws Exception {
@@ -69,7 +77,6 @@ public class CalendarController {
 		return list;
 	}
 	
-	//占쎌뵬占쎌젟 占쎄맒占쎄쉭
 	@RequestMapping(value = "/scheduleContents")
 	public ScheduleVO Contents(Model model, int sidx, int tidx) throws Exception {
 		System.out.println(sidx);

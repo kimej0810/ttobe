@@ -13,19 +13,35 @@ public class ApprovalDTO {
 	private String e_draftDate;
 	private String e_startDay;
 	private String e_con;
-	private String e_member;
 	private String e_send;
-	private String e_buseo;
 	private String e_textTitle;
 	private String e_textContent;
 	private String delyn;
 	private String e_status;
 	private String e_approvalnoyn;
 	private String e_reason;
-	private MemberVO memberVO;
-	private ApprovalVO approvalVO;
-	private ApprovalLineVO approvalLineVO;
+	private String t_name;
+	private String t_department;
+	private String t_position;
 	
+	public String getT_position() {
+		return t_position;
+	}
+	public void setT_position(String t_position) {
+		this.t_position = t_position;
+	}
+	public String getT_name() {
+		return t_name;
+	}
+	public void setT_name(String t_name) {
+		this.t_name = t_name;
+	}
+	public String getT_department() {
+		return t_department;
+	}
+	public void setT_department(String t_department) {
+		this.t_department = t_department;
+	}
 	public String getE_approvalnoyn() {
 		return e_approvalnoyn;
 	}
@@ -80,18 +96,6 @@ public class ApprovalDTO {
 	public void setTidx(int tidx) {
 		this.tidx = tidx;
 	}
-	public MemberVO getMemberVO() {
-		return memberVO;
-	}
-	public void setMemberVO(MemberVO memberVO) {
-		this.memberVO = memberVO;
-	}
-	public ApprovalVO getApprovalVO() {
-		return approvalVO;
-	}
-	public void setApprovalVO(ApprovalVO approvalVO) {
-		this.approvalVO = approvalVO;
-	}
 	public int getE_documentNum() {
 		return e_documentNum;
 	}
@@ -122,23 +126,11 @@ public class ApprovalDTO {
 	public void setE_con(String e_con) {
 		this.e_con = e_con;
 	}
-	public String getE_member() {
-		return e_member;
-	}
-	public void setE_member(String e_member) {
-		this.e_member = e_member;
-	}
 	public String getE_send() {
 		return e_send;
 	}
 	public void setE_send(String e_send) {
 		this.e_send = e_send;
-	}
-	public String getE_buseo() {
-		return e_buseo;
-	}
-	public void setE_buseo(String e_buseo) {
-		this.e_buseo = e_buseo;
 	}
 	public String getE_textTitle() {
 		return e_textTitle;
@@ -164,12 +156,4 @@ public class ApprovalDTO {
 	public void setE_status(String e_status) {
 		this.e_status = e_status;
 	}
-	public ApprovalLineVO getApprovalLineVO() {
-		return approvalLineVO;
-	}
-	public void setApprovalLineVO(ApprovalLineVO approvalLineVO) {
-		this.approvalLineVO = approvalLineVO;
-	}
-	
-	
 }

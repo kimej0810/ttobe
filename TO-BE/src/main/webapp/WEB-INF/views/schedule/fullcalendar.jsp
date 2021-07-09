@@ -29,8 +29,8 @@
 				var calendarEl = document.getElementById('calendar');
 			
 			    var calendar = new FullCalendar.Calendar(calendarEl, {
-			    	contentHeight: 700,
-			    	contentWidth:2000,
+			    	contentHeight: 785,
+			    	contentWidth:1500,
 					customButtons: {
 						myCustomButton: {
 							text: '일정 추가',
@@ -101,8 +101,6 @@
 				});
 			    calendar.render(); 
 			});
-			
-			
 		</script>
 		<style>
 			.fc-myCustomButton-button, .fc-timeGridDay-button, .fc-dayGridMonth-button{
@@ -112,10 +110,11 @@
 				overflow: hidden;
 			}
 			#calendar {
-				max-width: 100%;   
+				max-width: 80%;   
 				max-height: 100%;
 				margin: 0px auto;
 				width: 100%;
+				display: block;
 			}
 			#board{
 				text-align:center;
@@ -163,6 +162,10 @@
 			#scheduleBtn{
 				text-align: right;
 			}
+			#aBtn{
+				text-decoration : none;
+				color:black;
+			}
 		</style>
 	</head>
 	<body>		
@@ -170,7 +173,7 @@
 		
 		</div>
 		<div id="box">
-			<div class="row">
+			<div class="row" id="row">
 				<div class="col-lg-12">
 					<section class="panel">
 			        	<form role="form" method="get">
@@ -203,22 +206,62 @@
 								 $(function(){
 									$('#calendarButton').on("click",function(){
 										$("#box").css("display","none");
-										$("#calendar").css("display","flex");
+										$("#calendar").css("display","block");
 									});
-									$('#searchBtn').on("click",function() {
-										$("#calendar").css("display","none");
-										$("#box").css("display","flex");
-										self.location = "fullcalendar" + '${paging.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keyword').val());
+									$(document).on("click","#searchBtn",function() {
+										$.ajax({
+											url:"/schedule/searchSchedule",
+											data: {
+												searchType : $("#searchType").val(),
+												keyword : $("#keyword").val()
+											},
+											dataType:"json",
+											contentType : "application/json; charset=UTF-8",
+											success:function(svo){
+												var schedule = "";
+												for(var i=0; i < svo.length; i++){
+													schedule += "<tr><td scope='row'>"+svo[i].s_type+"</td>";
+													schedule += "<td class='control-label scheduletitle'><input type='hidden' value='"+svo[i].sidx+"'>";
+													schedule += "<a id='aBtn' href='#' title='scheduleContents?sidx="+svo[i].sidx+"&tidx="+svo[i].tidx+"'>"; 
+													if(svo[i].s_title.length > 10){
+														schedule += svo[i].s_title.substring(0,10)+"</a></td>";
+													}else{
+														schedule += svo[i].s_title+"</a></td>";
+													}
+													
+													if(svo[i].s_startDate == svo[i].s_endDate){
+														schedule += "<td class='scheduleDate'>"+svo[i].s_startDate+"</td><td>\</td>";
+													}else{
+														schedule += "<td class='scheduleDate'>"+svo[i].s_startDate+"</td><td class='scheduleDate'>"+svo[i].s_endDate+"</td>";
+													}
+													
+													schedule += "<td class='scheduleContents'><a id='aBtn' href='#' title='scheduleContents?sidx="+svo[i].sidx+"&tidx="+svo[i].tidx+"'>";
+													if(svo[i].s_content.length > 50){
+														schedule += svo[i].s_content.substring(0,50)+"</a></td><td>"+svo[i].memberVO.t_name+"</td></tr>";
+													}else{
+														schedule += svo[i].s_content+"</a></td><td>"+svo[i].memberVO.t_name+"</td></tr>";
+													}
+												}
+												$("#scheduleDataTbody").html(schedule);
+											}
+										});
+									
 									});
-									$(".page-link").on("click",function(){
+									$(document).on("click","#aBtn",function(){
+										var url = $(this).attr("title");
+										var nama = "_blank";
+										var option =  "width=600, height=730";
+										window.open(url,name,option);
+									});
+									$(".page-link").click("event",function(){
 										$("#calendar").css("display","none");
-										$("#box").css("display","flex");
-									})
+										$("#box").css("display","block");
+									});
 									$("#mySchedule").on("click",function(){
 										self.location = "fullcalendar" + '${paging.makeQuery(1)}' + "&searchType=나의 일정보기" + "&userId=" + "<%=userId%>";
 										$("#calendar").css("display","none");
-										$("#box").css("display","flex");
-									})
+										$("#box").css("display","block");
+									});
 								});
 							</script>
 				        	<div class="panel-body">
@@ -233,7 +276,7 @@
 				          				<th width="50px">사원이름</th>
 				          			</tr>
 				          			</thead>
-				          			<tbody>
+				          			<tbody id="scheduleDataTbody">
 					          			<c:forEach items="${viewAll}" var="viewAll">
 											<tr>
 												<td scope="row">

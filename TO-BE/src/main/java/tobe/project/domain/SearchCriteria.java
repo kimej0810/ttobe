@@ -4,9 +4,16 @@ public class SearchCriteria extends Criteria {
 	
 	private String keyword;
 	private String searchType;
+	private String searchWord;
 	private String userId;
 	private int userIdx; 
 	
+	public String getSearchWord() {
+		return searchWord;
+	}
+	public void setSearchWord(String searchWord) {
+		this.searchWord = searchWord;
+	}
 	public String getKeyword() {
 		return keyword;
 	}
