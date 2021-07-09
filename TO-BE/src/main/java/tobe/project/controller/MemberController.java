@@ -99,9 +99,9 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		if(session!=null) {
 			session.invalidate();
-			return "/member/login";
+			return "redirect:/member/login";
 		}
-		return "";
+		return "redirect:/member/login";
 	}
 	@RequestMapping(value = "/myHome")
 	public String myHome(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Model model)throws Exception{
@@ -193,7 +193,7 @@ public class MemberController {
 	//비밀번호변경 페이지
 	@RequestMapping(value="/modifyPwd", method = RequestMethod.GET)
 	public String modifyPwd(MemberVO vo,Model model) throws Exception{
-		MemberVO ex = service.selectOneMember(vo.getT_id());
+		MemberDTO ex = service.selectOneMember(vo.getT_id());
 		model.addAttribute("member",ex);
 		return "/member/modifyPwd";
 	}
@@ -202,7 +202,7 @@ public class MemberController {
 	@RequestMapping(value="/modifyPwdAction", method = RequestMethod.POST)
 	
 	public String modifyPwdAction(@ModelAttribute MemberVO vo,Model model) throws Exception{	
-		MemberVO ex = service.selectOneMember(vo.getT_id());
+		MemberDTO ex = service.selectOneMember(vo.getT_id());
 		System.out.println("vo.getT_pwd>>"+vo.getT_pwd());
 		/*if(vo.getT_pwd() == "" || vo.getT_pwd() == null) {
 			vo.setT_pwd(ex.getT_pwd());

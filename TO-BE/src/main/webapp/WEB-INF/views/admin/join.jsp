@@ -250,7 +250,6 @@ function joinAdmin(){
 	tPhone += $("#t_phone2").val();
 	tPhone += "-";
 	tPhone += $("#t_phone3").val();
-	alert(tPhone);
 	$("#t_phone").val(tPhone);
 	return true;
 }

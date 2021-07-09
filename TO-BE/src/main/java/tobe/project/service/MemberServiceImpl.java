@@ -106,7 +106,7 @@ public class MemberServiceImpl implements MemberService{
 	public void findPwd(HttpServletResponse response, MemberVO vo) throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		MemberVO mvo = dao.selectOneMemberId(vo.getT_id());
+		MemberDTO mvo = dao.selectOneMemberId(vo.getT_id());
 		if(dao.checkId(vo.getT_id()) == 0){
 			out.print("등록되지 않은 아이디 입니다.");
 			out.close();
@@ -127,7 +127,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 	//사원정보 조회?
 	@Override
-	public MemberVO selectOneMember(String t_id) throws Exception {
+	public MemberDTO selectOneMember(String t_id) throws Exception {
 		return dao.selectOneMemberId(t_id);
 	}
 	//사원정보 수정

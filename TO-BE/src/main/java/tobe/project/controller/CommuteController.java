@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import tobe.project.dto.CommuteVO;
 import tobe.project.dto.LeaveVO;
-import tobe.project.dto.MemberVO;
+import tobe.project.dto.MemberDTO;
 import tobe.project.service.CommuteService;
 import tobe.project.service.MemberService;
 
@@ -48,7 +48,7 @@ public class CommuteController {
 		String time1 = format1.format(time);
 		System.out.println(time1);
 
-		MemberVO mvo = mService.selectOneMember(t_id);
+		MemberDTO mvo = mService.selectOneMember(t_id);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("tidx", mvo.getTidx());
 		map.put("month", time1);
@@ -72,7 +72,7 @@ public class CommuteController {
 		System.out.println("t_id------->" + t_id);
 		System.out.println("---------------------------");
 
-		MemberVO mvo = mService.selectOneMember(t_id);
+		MemberDTO mvo = mService.selectOneMember(t_id);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("tidx", mvo.getTidx());
 		map.put("month", str);
@@ -118,7 +118,7 @@ public class CommuteController {
 	public String leaveManagementList(Model model, String t_id) throws Exception {
 		logger.info(">>>>leaveManagementList");
 
-		MemberVO mvo = mService.selectOneMember(t_id);
+		MemberDTO mvo = mService.selectOneMember(t_id);
 		System.out.println("tidx------------->"+mvo.getTidx());
 		
 		List<LeaveVO> list = service.selectAllLeave(mvo.getTidx());

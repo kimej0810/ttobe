@@ -53,7 +53,7 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSession.selectOne(Namespace+".checkId", t_id);
 	}
 	@Override
-	public MemberVO selectOneMemberId(String t_id)  throws Exception{
+	public MemberDTO selectOneMemberId(String t_id)  throws Exception{
 		return sqlSession.selectOne(Namespace+".selectOneMemberId",t_id);
 	}
 	@Override

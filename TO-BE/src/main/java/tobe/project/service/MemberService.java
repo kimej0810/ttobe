@@ -26,7 +26,7 @@ public interface MemberService {
 	public void findPwd(HttpServletResponse response, MemberVO vo) throws Exception;
 	//사원정보 수정
 	public void modifyMember(MemberVO vo, MultipartHttpServletRequest mpRequest) throws Exception;
-	public MemberVO selectOneMember(String t_id) throws Exception;
+	public MemberDTO selectOneMember(String t_id) throws Exception;
 	//비밀번호 변경
 	public int modifyPwd(MemberVO vo) throws Exception;
 	public List<MemberDTO> selectAllMember2()throws Exception;
