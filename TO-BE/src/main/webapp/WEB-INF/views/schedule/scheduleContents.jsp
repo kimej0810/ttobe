@@ -20,8 +20,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>일정 상세</title>
-		<script src="<c:url value="/resources/static/fullcalendar/js/jquery-3.6.0.min.js"/>"></script>		
-		<link href="<c:url value="/resources/static/fullcalendar/css/schedule.css"/>" rel='stylesheet' />
+		<script src="<c:url value="/resources/static/schedule/js/jquery-3.6.0.min.js"/>"></script>		
+		<link href="<c:url value="/resources/static/schedule/css/schedule.css"/>" rel='stylesheet' />
+		<link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>">
 		<script>
 		function click_modify(){
 				alert("일정 수정페이지로 이동합니다.");
@@ -53,59 +54,49 @@
 						<h3 class="zTree-h3">제목</h3>
 					</div>
 					<div class="top">
-						<input type="text" class="s_title" id="s_title" name="s_title" placeholder="제목을 입력하세요" value="<%=vo.getS_title()%>" readonly>
+						<input type="text" class="s_title form-control" id="s_title" name="s_title" value="<%=vo.getS_title()%>" readonly>
 					</div>
 					<div class="domain">
 						<h3 class="zTree-h3">사원번호</h3>
 					</div>
-					<c:choose>
-						<c:when test="${mo.getT_id() != null }">
-							<div class="domain">
-								<input type = "text" class="t_id"  name = "t_id" id = "t_id" value="<%=mo.getT_id()%>"autocomplete="off" readonly>
-							</div>
-						</c:when>
-						<c:otherwise>
-							<div class="domain">
-								<input type = "text" class="t_id"  name = "t_id" id = "t_id" value="아이디가 없습니다"autocomplete="off" readonly>
-							</div>
-						</c:otherwise>
-					</c:choose>
+					<div class="domain">
+						<input type = "text" class="t_id form-control"  name = "t_id" id = "t_id" value="<%=mo.getT_id()%>" readonly style="width: 200px">
+					</div>
 					<div  class="domain">
 						<h3 class="zTree-h3">일정 유형</h3>
-						<%=vo.getS_type()%>
+					</div>
+					<div  class="domain"> 
+						<input type = "text" class="s_type form-control" id="s_type" name="s_type" style="width: 200px" value="<%=vo.getS_type()%>" readonly>
 					</div>
 					<div class="domain">
 						<h3 class="zTree-h3">시작 날짜</h3>
 					</div>
 					<div class="domain">
-						<input class = "date" id = "s_startDate" type = "text" name = "s_startDate" id = "s_startDate" value="<%=vo.getS_startDate()%>" readonly>
+						<input class = "date form-control" id = "s_startDate" type = "text" name = "s_startDate" id = "s_startDate" value="<%=vo.getS_startDate()%>" readonly  style="width: 200px">
 					</div>
 					<div class="domain">
 						<h3 class="zTree-h3">종료 날짜</h3>
 					</div>
 					<div class="domain">
-							<input class = "date" id = "s_endDate" type = "text" name = "s_endDate" id = "s_endDate" value="<%=vo.getS_endDate()%>" readonly>
+							<input class = "date form-control" id = "s_endDate" type = "text" name = "s_endDate" id = "s_endDate" value="<%=vo.getS_endDate()%>" readonly  style="width: 200px">
 					</div>
 					<div class="domain">
 						<h3 class="zTree-h3">내용</h3>
 					</div>
 					<div class="domain">
-						<textarea class="s_content target" id="s_content" name="s_content" rows="5" cols="20" placeholder="100글자까지 입력 가능합니다" readonly><%=vo.getS_content()%></textarea>
+						<textarea class="s_content target form-control" id="s_content" name="s_content" rows="5" cols="20" readonly><%=vo.getS_content()%></textarea>
 					</div>
 				</form>
-				<div class="btngroup">
 				<%if(vo.getTidx() == userTidx){ %>
-					<button type="button" class="close-button" onclick="window.close();">닫기</button>
-					<button type="button" class="delete-button" onclick="click_delete();">삭제</button>
-					<button type="button" class="modify-button" onclick="click_modify();">수정</button>
+					<button type="button" class="delete-button btn btn-outline-danger btn-sm" onclick="click_delete();" style="margin-top:20px; height: 30px;">삭제</button>
+					<button type="button" class="close-button btn btn-primary btn-sm float-right" onclick="window.close();" style="margin: 20px 15px 0px 0px;height: 30px;">닫기</button>
+					<button type="button" class="modify-button btn btn-primary btn-sm float-right" onclick="click_modify();" style="margin:20px 15px 0px 0px; width: 80px; height: 30px;">수정</button>
 				<%}else if(userGrade.equals("A")){%>
-					<button type="button" class="delete-button" onclick="click_delete();">삭제</button>
-					<button type="button" class="close-button" onclick="window.close();">닫기</button>
+					<button type="button" class="delete-button btn btn-outline-danger btn-sm" onclick="click_delete();" style="margin-top:20px; height: 30px;">삭제</button>
+					<button type="button" class="close-button btn btn-primary btn-sm float-right" onclick="window.close();" style="margin: 20px 15px 0px 0px; height: 30px;">닫기</button>
 				<%}else{ %>
-					<button type="button" class="close-button" onclick="window.close();">닫기</button>
+					<button type="button" class="close-button btn btn-primary btn-sm float-right" onclick="window.close();" style="margin-top:20px;height: 30px;">닫기</button>
 				<%} %>
-				</div>
-				
 			</div>
 		</div>
 	</body>

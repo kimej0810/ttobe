@@ -22,10 +22,11 @@
 		<meta charset="UTF-8">
 		<title>일정 수정</title>
 		<script src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
-		<script src="<c:url value="/resources/static/fullcalendar/js/jquery.datetimepicker.full.min.js"/>"></script>
-		<script src="<c:url value="/resources/static/fullcalendar/js/scheduleModify.js"/>"  type="text/javascript"></script>
-		<link href="<c:url value="/resources/static/fullcalendar/css/jquery.datetimepicker.css"/>" rel="stylesheet">
-		<link href="<c:url value="/resources/static/fullcalendar/css/schedule.css"/>" rel='stylesheet' />
+		<script src="<c:url value="/resources/static/schedule/js/jquery.datetimepicker.full.min.js"/>"></script>
+		<script src="<c:url value="/resources/static/schedule/js/scheduleModify.js"/>"  type="text/javascript"></script>
+		<link href="<c:url value="/resources/static/schedule/css/jquery.datetimepicker.css"/>" rel="stylesheet">
+		<link href="<c:url value="/resources/static/schedule/css/schedule.css"/>" rel='stylesheet' />
+		<link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>">
 		<script>
 			function click_up(){
 				
@@ -54,6 +55,12 @@
 				jQuery.datetimepicker.setLocale('kr');
 			})
 		</script>
+		<style type="text/css">
+			body,html{
+				font-family: 'NanumSquareRound';
+			    font-size: 15px;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="group" id="popupGroup">
@@ -68,26 +75,19 @@
 						<h3 class="zTree-h3">제목</h3>
 					</div>
 					<div class="top">
-						<input type="text" class="s_title" id="s_title" name="s_title" placeholder="제목을 입력하세요" value="<%=vo.getS_title()%>">
+						<input type="text" class="s_title form-control" id="s_title" name="s_title" placeholder="제목을 입력하세요" value="<%=vo.getS_title()%>" autocomplete="off">
 					</div>
 					<div class="domain">
 						<h3 class="zTree-h3">사원번호</h3>
 					</div>
-					<c:choose>
-						<c:when test="${mo.getT_id() != null }">
-							<div class="domain">
-								<input type = "text" class="t_id"  name = "t_id" id = "t_id" value="<%=mo.getT_id()%>"autocomplete="off" readonly>
-							</div>
-						</c:when>
-						<c:otherwise>
-							<div class="domain">
-								<input type = "text" class="t_id"  name = "t_id" id = "t_id" value="아이디가 없습니다"autocomplete="off" readonly>
-							</div>
-						</c:otherwise>
-					</c:choose>
-					<div  class="domain">
+					<div class="domain">
+						<input type = "text" class="t_id form-control"  name = "t_id" id = "t_id" value="<%=mo.getT_id()%>" autocomplete="off"  style="width: 200px" readonly>
+					</div>
+					<div class="domain">
 						<h3 class="zTree-h3">일정 유형</h3>
-						<select class="s_type" id="s_type" name="s_type" value="<%=vo.getS_type()%>">
+					</div>
+					<div  class="domain"> 
+						<select class="s_type form-control" id="s_type" name="s_type" value="<%=vo.getS_type()%>" style="width: 200px">
 							<option value="개인">개인일정</option>
 							<option value="외근">외근</option>
 							<option value="출장">출장</option>
@@ -98,24 +98,24 @@
 						<h3 class="zTree-h3">시작 날짜</h3>
 					</div>
 					<div class="domain">
-						<input class = "date" id = "s_startDate" type = "text" name = "s_startDate" id = "s_startDate" value="<%=vo.getS_startDate()%>">
+						<input class = "date form-control" id = "s_startDate" type = "text" name = "s_startDate" id = "s_startDate" value="<%=vo.getS_startDate()%>" style="width: 200px">
 					</div>
 					<div class="domain">
 						<h3 class="zTree-h3">종료 날짜</h3>
 					</div>
 					<div class="domain">
-						<input class = "date" id = "s_endDate" type = "text" name = "s_endDate" id = "s_endDate" value="<%=vo.getS_endDate()%>">
+						<input class = "date form-control" id = "s_endDate" type = "text" name = "s_endDate" id = "s_endDate" value="<%=vo.getS_endDate()%>" style="width: 200px">
 					</div>
 					<div class="domain">
 						<h3 class="zTree-h3">내용</h3>
 					</div>
 					<div class="domain">
-						<textarea class="s_content target" id="s_content" name="s_content" rows="5" cols="20" placeholder="100글자까지 입력 가능합니다"><%=vo.getS_content()%></textarea>
+						<textarea class="s_content target form-control" id="s_content" name="s_content" rows="5" cols="20" placeholder="100글자까지 입력 가능합니다" autocomplete="off"><%=vo.getS_content()%></textarea>
 					</div>
 					<div class="btngroup">
-						<button type="button" class="cancel-button" onclick="history.back();">취소</button> 
-						<button type="button" class="ok-button" onclick="click_up()">확인</button>
-						<button type="reset" class="reset-button">다시쓰기</button>
+						<button type="button" class="cancel-button  btn btn-primary btn-sm float-right" onclick="history.back();" style="margin-top:20px;height: 30px;">취소</button> 
+						<button type="button" class="ok-button  btn btn-primary btn-sm float-right" onclick="click_up()" style="margin: 20px 15px 0px 0px; height: 30px;">확인</button>
+						<button type="reset" class="reset-button  btn btn-primary btn-sm float-right" style="margin:20px 15px 0px 0px; width: 80px; height: 30px;">다시쓰기</button>
 					</div>
 				</form>
 				

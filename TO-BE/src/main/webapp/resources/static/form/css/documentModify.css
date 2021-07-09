@@ -1914,6 +1914,7 @@ table.sheet0 tr.row14 {
 
 
 .sheet0{
+	width:100%;
 	margin:0px 6px auto;
 }
 #e_textTitle{
@@ -1935,12 +1936,12 @@ table.sheet0 tr.row14 {
 div:not(#documentBtn,#ui-datepicker-div,.ui-datepicker-header,.ui-datepicker-title){
 	margin-left: 5px;
 	margin-top: 15px;
-	width: 647px;
+	width: 700px;
 	text-align: right;
 }
 #documentBtn{
 	text-align: right;
-    width: 640px;
+    width: 704px;
     margin: 10px 0px auto;
 }
 #e_rule, #e_draftDate, #e_startDay, #e_con, #t_name, #t_department, #e_send{
@@ -1957,7 +1958,7 @@ div:not(#documentBtn,#ui-datepicker-div,.ui-datepicker-header,.ui-datepicker-tit
 	text-align: center;
 }
 #charge, #teamLeader, #departmentHead, #sectionHead, #leader{
-	width: 65px; 
+	width: 80px; 
 	height:50px;
 	border:none;
 	text-align: center;

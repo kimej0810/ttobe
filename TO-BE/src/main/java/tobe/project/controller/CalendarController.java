@@ -31,7 +31,7 @@ public class CalendarController {
 	private ScheduleService service;
  
 	
-	@RequestMapping(value = "/fullcalendar")
+	@RequestMapping(value = "/scheduleCalendar")
 	public String list(Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception {
 		
 		PageMaker pageMaker = new PageMaker();
@@ -40,11 +40,22 @@ public class CalendarController {
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(service.countSchedule(scri));
 		
-		model.addAttribute("viewAll",service.selectSchedule(scri));	
 		model.addAttribute("paging",pageMaker);
 		model.addAttribute("scri",scri);
 		model.addAttribute("schedule",schedule);
-		return "/schedule/fullcalendar";
+		return "/schedule/scheduleCalendar";
+	}
+	@RequestMapping(value = "/scheduleBoard")
+	public String scheduleBoard(Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception{
+		PageMaker pageMaker = new PageMaker();
+		
+		pageMaker.setCri(scri);
+		pageMaker.setTotalCount(service.countSchedule(scri));
+		
+		model.addAttribute("viewAll",service.selectSchedule(scri));	
+		model.addAttribute("paging",pageMaker);
+		model.addAttribute("scri",scri);
+		return "/schedule/scheduleBoard";
 	}
 	@ResponseBody
 	@RequestMapping(value = "/searchSchedule")

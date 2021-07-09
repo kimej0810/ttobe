@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="tobe.project.dto.ApprovalDTO"%>
 <%@page import="tobe.project.dto.ApprovalLineVO"%>
 <%@page import="tobe.project.dto.MemberVO"%>
@@ -10,7 +11,25 @@
 	ApprovalDTO contents = (ApprovalDTO)request.getAttribute("contents");
 	ApprovalDTO to = (ApprovalDTO)request.getAttribute("to");
 	MemberVO mo = (MemberVO)request.getAttribute("mo");
+	List<MemberVO> vo = (List<MemberVO>)request.getAttribute("vo");
 	
+	String lineTeamLeader = "";
+	String lineDepartmentHead = "";
+	String lineSectionHead = "";
+	String lineLeader = "";
+	for(int i = 0; i<vo.size(); i ++){
+		MemberVO name = (MemberVO)vo.get(i);
+		if(to.getTeamLeader().equals(name.getT_id())){
+			lineTeamLeader = name.getT_name();
+		}else if(to.getDepartmentHead().equals(name.getT_id())){
+			lineDepartmentHead = name.getT_name();
+		}else if(to.getSectionHead().equals(name.getT_id())){
+			lineSectionHead = name.getT_name();
+		}else if(to.getLeader().equals(name.getT_id())){
+			lineLeader = name.getT_name();
+		}
+		
+	}
 	int userTidx = (int)session.getAttribute("userTidx");
 	String userPosition = (String)session.getAttribute("userPosition");
 	String userId = (String)session.getAttribute("userId");
@@ -138,11 +157,11 @@
 								<%=contents.getE_draftDate()%>
 							</td>
 							<td class="style33 style33" rowspan="3">결<br><br>재</td>
-							<td class="style35 style36" colspan="2"></td>
-							<td class="style35 style36" colspan="2"></td>
-							<td class="style35 style36" colspan="3">부장</td>
-							<td class="style35 style36" colspan="2">과장</td>
-							<td class="style11 s">대 표</td>
+							<td class="style35 style36" colspan="2">${mo.t_name }</td>
+							<td class="style35 style36" colspan="2"><%=lineTeamLeader %></td>
+							<td class="style35 style36" colspan="3"><%=lineDepartmentHead %></td>
+							<td class="style35 style36" colspan="2"><%=lineSectionHead %></td>
+							<td class="style11 s"><%=lineLeader %></td>
 						</tr>
 						<tr class="row7">
 							<td></td>
@@ -151,19 +170,35 @@
 								<%=contents.getE_startDay()%>
 							</td>
 							<td class="style38  style43" colspan="2" rowspan="2">
-								<input type="text" id="charge" readonly>
+								<input type="text" id="charge" readonly value="O">
 							</td>
 							<td class="style38 style43" colspan="2" rowspan="2">
-								<input type="text" id="teamLeader" readonly>
+							<%if(contents.getStatus().equals("0300") || contents.getStatus().equals("0030") ||contents.getStatus().equals("0003")){ %>
+								<input type="text" id="teamLeader" readonly value="O">
+							<% }else{%>
+								<input type="text" id="teamLeader" readonly value="X">
+							<% }%>
 							</td>
 							<td class="style38 style43" colspan="3" rowspan="2">
-								<input type="text" id="departmentHead" readonly>
+							<%if(contents.getStatus().equals("0030") ||contents.getStatus().equals("0003")){ %>
+								<input type="text" id="departmentHead" readonly value="O">
+							<% }else{%>
+								<input type="text" id="departmentHead" readonly value="X">
+							<% }%>
 							</td>
 							<td class="style38 style43" colspan="2" rowspan="2">
-								<input type="text" id="sectionHead" readonly>
+							<%if(contents.getStatus().equals("0003")){ %>
+								<input type="text" id="sectionHead" readonly value="O">
+							<% }else{%>
+								<input type="text" id="sectionHead" readonly value="X">
+							<% }%>
 							</td>
 							<td class="style58 style59" rowspan="2">
-								<input type="text" id="leader" readonly>
+							<%if(contents.getStatus().equals("0000")){ %>
+								<input type="text" id="leader" readonly value="O">
+							<% }else{%>
+								<input type="text" id="leader" readonly value="X">
+							<% }%>
 							</td>
 						</tr>
 						<tr class="row8">
@@ -215,26 +250,26 @@
 				<div id="documentBtn">
 				<%if(userTidx == mo.getTidx() && contents.getE_status().trim().equals("결재대기")){%>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_modify();">수정</button>
-					<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_delete();">삭제</button>
+					<button type="button" class="btn btn-outline-danger btn-sm" onclick="click_delete();">삭제</button>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
 				<%}else if(userGrade.equals("A") && contents.getE_status().trim().equals("결재대기")){%>
-					<button type="button" class="btn btn-primary btn-sm float-right" onclick="click_delete();">삭제</button>
+					<button type="button" class="btn btn-outline-danger btn-sm" onclick="click_delete();">삭제</button>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
 				<%}else if(userTidx != mo.getTidx() && userPosition.equals("팀장") && userId.equals(to.getTeamLeader()) && to.getStatus().equals("3000")){ %>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">승인</button>
-					<button type="button" class="btn btn-primary btn-sm float-right" onclick="no()">반려</button>
+					<button type="button" class="btn btn-outline-danger btn-sm" onclick="no()">반려</button>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
 				<%}else if(userTidx != mo.getTidx() && userPosition.equals("부장") && userId.equals(to.getDepartmentHead()) && to.getStatus().equals("0300")){ %>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">승인</button>
-					<button type="button" class="btn btn-primary btn-sm float-right" onclick="no()">반려</button>
+					<button type="button" class="btn btn-outline-danger btn-sm" onclick="no()">반려</button>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
 				<%}else if(userTidx != mo.getTidx() && userPosition.equals("과장") && userId.equals(to.getSectionHead()) && to.getStatus().equals("0030")){ %>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">승인</button>
-					<button type="button" class="btn btn-primary btn-sm float-right" onclick="no()">반려</button>
+					<button type="button" class="btn btn-outline-danger btn-sm" onclick="no()">반려</button>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
 				<%}else if(userTidx != mo.getTidx() && userPosition.equals("대표") && userId.equals(to.getLeader()) && to.getStatus().equals("0003")){ %>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">최종승인</button>
-					<button type="button" class="btn btn-primary btn-sm float-right" onclick="no()">반려</button>
+					<button type="button" class="btn btn-outline-danger btn-sm" onclick="no()">반려</button>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
 				<%}else if(userTidx == mo.getTidx() && to.getStatus().equals("3333") && contents.getE_status().trim().equals("결재반려")){%>
 					<button type="button" class="btn btn-primary btn-sm float-right" onclick="approvalAgain()">재기안</button>

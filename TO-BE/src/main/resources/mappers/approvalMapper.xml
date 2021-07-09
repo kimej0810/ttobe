@@ -42,6 +42,11 @@
  		from tobe_member
  		where tidx = #{tidx}
     </select>
+    <select id="selectOneMemberId" parameterType="MemberVO" resultType="MemberVO">
+ 	  	select *
+ 		from tobe_member
+ 		where t_id = #{t_id}
+    </select>
     
  	<insert id="writeApprovalDocument" parameterType="ApprovalDTO" keyProperty="eidx">
  		<selectKey keyProperty="eidx" resultType="int" order="BEFORE">

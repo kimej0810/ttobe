@@ -102,7 +102,7 @@
 						<td></td>
 						<td class="style2">기 안 일 자</td>
 						<td class="style34 style34" colspan="2">
-							<input type="text" id="e_draftDate" name="e_draftDate" class="date" value="<%=contents.getE_draftDate()%>" autocomplete="off" readonly>
+							<input type="text" id="e_draftDate" name="e_draftDate" class="date" value="<%=contents.getE_draftDate()%>" autocomplete="off" readonly style="text-align: center;">
 						</td>
 						<td class="style33 style33" rowspan="3">결<br><br>재</td>
 						<td class="style35 style36" colspan="2">담당</td>
@@ -115,7 +115,7 @@
 							<td></td>
 							<td class="style2">시 행 일 자</td>
 							<td class="style34 style34" colspan="2">
-								<input type="text" id="e_startDay" name="e_startDay" class="date" autocomplete="off">
+								<input type="text" id="e_startDay" name="e_startDay" class="date" autocomplete="off" style="text-align: center;">
 							</td>
 							<td class="style38  style43" colspan="2" rowspan="2">
 								<input type="text" id="charge" value="<%=userName%>">
@@ -170,7 +170,7 @@
 						</td>
 						<td class="style38 style42" colspan="3" rowspan="2">기 안 자</td>
 						<td class="style38 style57" colspan="8" rowspan="2">
-							<input type="text" id="e_member" name="e_member" value="${mo.t_name }" readonly>
+							<input type="text" id="t_name" name="t_name" value="${mo.t_name }" readonly>
 						</td>
 					</tr>
 					<tr class="row10">
@@ -184,7 +184,7 @@
 						</td>
 						<td class="style44 style45" colspan="3">기 안 부 서</td>
 						<td class="style44 style63" colspan="8">
-							<input type="text" id="e_buseo" name="e_buseo" value="${mo.t_department }" readonly>
+							<input type="text" id="t_department" name="t_department" value="${mo.t_department }" readonly>
 						</td>
 					</tr>
 					<tr class="row12">

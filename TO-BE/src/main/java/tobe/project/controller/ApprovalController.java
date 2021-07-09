@@ -110,11 +110,9 @@ public class ApprovalController {
 	@RequestMapping(value = "/documentContents")
 	public ApprovalDTO documentContents(Model model,int eidx, int tidx) throws Exception{
 		ApprovalDTO dto = lservice.selectOneApprovalLine(eidx);
-//		mservice.selectOneMember(to.getTeamLeader());
-//		mservice.selectOneMember(to.getDepartmentHead());
-//		mservice.selectOneMember(to.getSectionHead());
-//		mservice.selectOneMember(to.getLeader());
+		List<MemberVO> vo = aservice.selectAllMember();
 		
+		model.addAttribute("vo",vo);
 		model.addAttribute("to",dto);
 		model.addAttribute("mo",aservice.selectOneMember(tidx));
 		model.addAttribute("contents",service.selectOneApprovalDocumentContents(eidx));

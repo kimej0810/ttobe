@@ -1,7 +1,5 @@
 package tobe.project.dto;
 
-import java.util.List;
-
 public class ScheduleVO {
 	private int sidx;
 	private String s_type;
