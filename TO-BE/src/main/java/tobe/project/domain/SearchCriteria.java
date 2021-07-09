@@ -5,7 +5,7 @@ public class SearchCriteria extends Criteria {
 	private String keyword;
 	private String searchType;
 	private String userId;
-	private int userIdx;
+	private int userIdx; 
 	
 	public String getKeyword() {
 		return keyword;
