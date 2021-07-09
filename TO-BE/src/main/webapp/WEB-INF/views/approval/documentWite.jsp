@@ -94,8 +94,7 @@
 							</td>
 							<td class="style38  style43" colspan="2" rowspan="2">
 								<input type="text" id="charge" value="<%=userName%>" readonly>
-							</td>	
-							
+							</td>
 							<%if(userPosition.equals("팀장")){ %>
 								<td class="style38 style43" colspan="2" rowspan="2">
 									<input type="text" id="teamLeader" name="teamLeader" value="<%=userName%>" readonly>
@@ -131,7 +130,7 @@
 								<td class="style38 style43" colspan="2" rowspan="2">
 										<input type="text" id="teamLeader" name="teamLeader" value="권한 없음" readonly>
 								</td>
-								<td class="style38 style43" colspan="2" rowspan="2">
+								<td class="style38 style43" colspan="3" rowspan="2">
 									<input type="text" id="departmentHead" name="departmentHead" value="<%=userName%>" readonly>
 								</td>
 								<td class="style38 style43" colspan="2" rowspan="2">
@@ -156,7 +155,7 @@
 								<td class="style38 style43" colspan="2" rowspan="2">
 										<input type="text" id="teamLeader" name="teamLeader" value="권한 없음" readonly>
 								</td>
-								<td class="style38 style43" colspan="2" rowspan="2">
+								<td class="style38 style43" colspan="3" rowspan="2">
 									<input type="text" id="departmentHead" name="departmentHead" value="권한 없음" readonly>
 								</td>
 								<td class="style38 style43" colspan="2" rowspan="2">
