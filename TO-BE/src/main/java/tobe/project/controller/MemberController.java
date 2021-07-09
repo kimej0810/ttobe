@@ -211,7 +211,7 @@ public class MemberController {
 			vo.setT_pwd(repwd);
 			service.modifyPwd(vo);
 			System.out.println("repwd>>"+repwd);
-			return "/main/mainPage";
+			return "redirect:/main/mainPage";
 		//}
 		
 	}
