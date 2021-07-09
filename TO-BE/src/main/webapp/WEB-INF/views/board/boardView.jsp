@@ -129,16 +129,14 @@ button:disabled{
 				</tr>
 				<tr>
 					<td colspan="4">
-						<div class="album">
-							<div class="images">
-								<img class="examImages" src="/resources/static/img/left-quote.png">
-								<img class="examImages" src="/resources/static/img/left-quote.png">
-								<img class="examImages" src="/resources/static/img/left-quote.png">
-								<img class="examImages" src="/resources/static/img/left-quote.png">
-							</div>					
+					<c:forEach var="file" items="${file}">
+						<div class="thumbNail">
+							<div class="thumbNailContent">
+								<img src="<c:url value="/resources/static/file/${file.F_STORED_FILE_NAME}"/>" style="width:100px;">
+								<a href="#" onclick="fn_fileDown('${file.FIDX}'); return false;" style="font-size:0.8rem; text-decoration: none;">${file.F_ORG_FILE_NAME}</a>
+							</div>
 						</div>
-						<button class="prev">이전</button>
-						<button class="next">다음</button>
+					</c:forEach>
 					</td>
 				</tr>
 				<tr>
