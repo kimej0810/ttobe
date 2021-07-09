@@ -13,11 +13,14 @@
 }
 
 <!-- -->
-
+body,html{
+	font-family: 'NanumSquareRound';
+    font-size: 15px;
+}
 ul {
 	list-style : none;
 }
- 
+
 .all {
 	background-color: rgba( 0, 0, 0, 0.5 );
 
@@ -34,29 +37,18 @@ ul {
 .group {
 	width : 580px;
 	box-shadow : 0 5px 15px rgba(0,0,0,.5);
-	margin : 0 auto;
+	margin : 8px auto;
 	border : 1px solid #ddd;
 }
 
 .group-head {
+	margin-top: 25px;
 	text-align:center;
 	height : 50px;
 	border-bottom : 1px solid #34aadc;
 	position : relative;
 	background-color : white;
 }
-/* .close-button {
-	position : absolute;
-	top: 12px;
-	right : 10px;
-	border: 0;
-    background: #34aadc;
-    width: 70px;
-    height: 27px;
-    cursor: pointer;
-    color: white;
-	border-radius: 6px;
-} */
 
 button {
 	width: 70px;
@@ -72,12 +64,11 @@ button {
     border-radius: 6px;
 }
 .group-body {
-	height :625px;
+	height :670px;
 	position : relative;
 	background-color : white;
-	margin-left: 40px;
+	margin: 15px;
 }
-
 .top {
 	height : 50px;
 	margin-top: 20px;
@@ -108,11 +99,6 @@ button {
 	resize : none;
 	border-radius : 5px;
 	border : 1px solid #34aadc;
-}
-.btngroup{
-	margin-top:10px;
-	height: 42px;
-    width: 539px;
 }
 
 .t_id {
