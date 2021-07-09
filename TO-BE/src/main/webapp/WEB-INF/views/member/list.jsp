@@ -149,9 +149,9 @@
 <%
 	if(session.getAttribute("userName")!=null){
 		String uName = (String)session.getAttribute("userName");
-	}/* else{
+	}else{
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
-	} */
+	}
 %>
 	<div class="contentheader" style="box-shadow:0 2px 5px lightgrey;background-color:white;">
 		<div class="mainLogo" >
