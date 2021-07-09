@@ -94,15 +94,17 @@ button:disabled{
 <%
 	if(session.getAttribute("userName")!=null){
 		String uName = (String)session.getAttribute("userName");
-		
+		String grade = (String)session.getAttribute("userGrade");
 		
 %>
 <input type="hidden" value="<%=uName%>">
 <input type="hidden" value="<%=userTidx%>" id="tidx">
+<input type="hidden" value="<%=userGrade%>" id="grade">
 <%
 	}/* else{
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
 	} */
+	
 %>
 	<div class="category">
 		<input type="hidden" id="boardType" value="${boardVO.b_type}">
@@ -159,7 +161,8 @@ button:disabled{
 						<tr>
 							<td style="text-align:right;">
 								<c:set var="userTidx" value="<%=userTidx%>"/>
-								<c:if test="${replyList.memberDTO.tidx eq userTidx}">
+								<c:set var="userGrade" value="<%=userGrade%>"/>
+								<c:if test="${replyList.memberDTO.tidx eq userTidx || userGrade=='A'}">
 									<img class="inputAreaBtn" src='<c:url value='/resources/static/img/pen.png'/>' style="width:10px; cursor:pointer;">
 									<img class="deleteReplyBtn" src='<c:url value='/resources/static/img/cancel.png'/>' style="width:10px; cursor:pointer;">
 								</c:if>
@@ -222,6 +225,7 @@ button:disabled{
 		function selectAllReply(data) {
 			var reply = "";
 			var userTidx = $("#tidx").val();
+			var grade = $("#grade").val();
 			if (data.length > 0) {
 				for (var i = 0; i < data.length; i++) {
 					replyTidx = data[i].memberDTO.tidx;
@@ -246,7 +250,7 @@ button:disabled{
 					reply += "<tr>";
 					reply += "<td style='text-align:right;'>";
 					
-					if(userTidx==replyTidx){
+					if(userTidx==replyTidx||grade=='A'){
 						reply += "<img class='inputAreaBtn' src='<c:url value='/resources/static/img/pen.png'/>' style='width:10px; cursor:pointer;'>";
 						reply += " ";
 						reply += "<img class='deleteReplyBtn' src='<c:url value='/resources/static/img/cancel.png'/>' style='width:10px; cursor:pointer;'>";
