@@ -49,8 +49,6 @@ public class BoardController{
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Locale locale, Model model, SearchCriteria scri, String searchType) throws Exception {
 		 logger.info("BoardList");
-		 System.out.println("searchType->"+searchType);
-		 System.out.println(scri.toString());
 		 
 		 List<BoardVO> list = service.selectAllBoard(scri);
 		
@@ -89,13 +87,7 @@ public class BoardController{
 		Map<String, Object> resultMap = fileInfoService.selectOneFile(map);
 		String storedFileName = (String) resultMap.get("F_STORED_FILE_NAME");
 		String originalFileName = (String) resultMap.get("F_ORG_FILE_NAME");
-		
-		System.out.println("storedFileName->"+storedFileName+" originalFileName->"+originalFileName);
-		
-String filePath = request.getSession().getServletContext().getRealPath("/resources/static/file/");
-		
-		System.out.println("경로좀보자~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+filePath);
-		
+		String filePath = request.getSession().getServletContext().getRealPath("/resources/static/file/");
 		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File(filePath+storedFileName));
 		
 		response.setContentType("application/octet-stream");
@@ -121,12 +113,10 @@ String filePath = request.getSession().getServletContext().getRealPath("/resourc
 		 BoardVO bvo = vo;
 		 if(grade.equals("Z")) {
 			bvo.setB_type("G");
-			System.out.println("�쇰�湲� �깅�");
 			service.writeBoard(bvo, mpRequest);
 			return "redirect:/board/list";
 		 }else if(grade.equals("A")) {
 			bvo.setB_type("N");
-			System.out.println("怨듭�湲� �깅�");
 			service.writeBoard(bvo, mpRequest);
 			return "redirect:/board/list";
 		 }
@@ -159,15 +149,8 @@ String filePath = request.getSession().getServletContext().getRealPath("/resourc
 		
 		logger.info("BoardModifyAction");
 		
-		for(int i=0; i<files.length; i++) {
-			System.out.println("asdfsdfsdsdafsdaffdssd->"+files[i]);
-			System.out.println("asdfsdfsdsdafsdaffdssd->"+fileNames[i]);
-		}
-		
-		
 	    service.modifyBoard(vo, files, fileNames, mpRequest);
 	    
-
 	    rttr.addAttribute("page", scri.getPage());
 	    rttr.addAttribute("perPageNum", scri.getPerPageNum());
 	    rttr.addAttribute("searchType", scri.getSearchType());

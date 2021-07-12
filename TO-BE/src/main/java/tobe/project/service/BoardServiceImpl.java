@@ -14,9 +14,13 @@ import tobe.project.dao.FileInfoDAO;
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.BoardVO;
 import tobe.project.util.FileUtils;
+import tobe.project.util.RemoveHtml;
 
 @Service
 public class BoardServiceImpl implements BoardService{
+	@Resource(name="removeHtml")
+	private RemoveHtml removeHtml;
+	
 	@Resource(name="fileUtils")
 	private FileUtils fileUtils;
 	
@@ -38,6 +42,8 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public void writeBoard(BoardVO vo, MultipartHttpServletRequest mpRequest) throws Exception {
+		
+		vo.setB_content(removeHtml.removeHtml(vo.getB_content()));
 		dao.writeBoard(vo);
 		
 		System.out.println("----------------------------------");

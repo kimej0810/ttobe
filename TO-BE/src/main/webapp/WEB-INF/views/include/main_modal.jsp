@@ -16,15 +16,13 @@
 	href="<c:url value="/resources/static/css/newMain.css"/>">
 </head>
 <style>
+
 #fileForm {
 	display: grid;
 	grid-template-columns: 3fr 3fr 1fr 3fr;
 	grid-template-rows: 1fr;
 }
 
-#d_title {
-	
-}
 
 .upload-btn-wrapper {
 	grid-column: 3/4;
@@ -62,6 +60,7 @@
 								style="width: 27px;"> <input type="file" name="file" id="file">
 						</div>
 					</form>
+					<div id="fileName" style="margin-top:10px; text-align:center;"></div>
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary btn-sm" id="submit"
@@ -175,6 +174,12 @@
 			}else{
 				$("#fileForm").submit();
 			}
+		});
+		
+		$("#file").change(function(){
+			var fileValue = $("#file").val().split("\\");
+			var fileName = fileValue[fileValue.length-1];
+			$("#fileName").html(fileName);
 		});
 	});
 </script>

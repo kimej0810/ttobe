@@ -93,16 +93,11 @@ public class RealMainController extends HttpServlet {
 		JSONArray jsonArray = (JSONArray) parser.parse(new FileReader(resultPath));
 
 		int size = jsonArray.size();
-		System.out.println("size-------------->" + size); // 52
-
-		int random = (int) (Math.random() * 52); // 0~51 ��������
+		int random = (int) (Math.random() * 50);
 		JSONObject jsonObject = (JSONObject) jsonArray.get(random);
 
 		String author = (String) jsonObject.get("author");
 		String message = (String) jsonObject.get("message");
-
-		System.out.println("author->" + author);
-		System.out.println("message->" + message);
 
 		// 전자결재 다섯개만 뽑아옴
 		SearchCriteria scri = new SearchCriteria();
@@ -127,21 +122,21 @@ public class RealMainController extends HttpServlet {
 	public List<ApprovalVO> approval(@RequestParam Map<String, String> param) throws Exception {
 
 		String state = param.get("state");
-
-		System.out.println("전자결재 상태를 말해라~~~~~~~~"+state);
 		
 		SearchCriteria scri = new SearchCriteria();
 		scri.setPage(1);
 		scri.setPerPageNum(5);
 		
 		if(state.equals("wating")) {
-			scri.setSearchType("결재대기");
+			scri.setSearchWord("결재대기");
 		}else if(state.equals("progress")) {
-			scri.setSearchType("결재진행");
+			scri.setSearchWord("결재진행");
 		}else if(state.equals("completed")) {
-			scri.setSearchType("결재완료");
+			scri.setSearchWord("결재완료");
+		}else if(state.equals("rejected")){
+			scri.setSearchWord("결재반려");
 		}else {
-			scri.setSearchType("");
+			scri.setSearchWord("");
 		}
 		
 		List<ApprovalVO> approvalList = approvalService.selectAllApprovalDocumentList(scri);
@@ -173,11 +168,7 @@ public class RealMainController extends HttpServlet {
 				month++;
 			}
 		}
-
-		System.out.println("year-------------->" + year);
-		System.out.println("month-------------->" + month);
-		System.out.println("function-------------->" + function);
-
+		
 		model.addAttribute("year", year);
 		model.addAttribute("month", month);
 

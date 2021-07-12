@@ -10,8 +10,6 @@
 <title>진짜메인</title>
 <meta charset="UTF-8">
 <script type="text/javascript"
-	src="<c:url value="/resources/static/js/commute.js"/>"></script>
-<script type="text/javascript"
 	src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 <style>
 .content {
@@ -347,12 +345,15 @@ p {
 	<div id="box3" class="inner_content"
 		style="width: 100%; height: 100%; font-size: 50px;">
 		<div class="conTitle">근태관리</div>
-		<div class="conCon">
+		<div class="conCon" style="display:grid; grid-template-columns:1fr 1fr;">
+		
 			<input type="hidden" id="tidx" value="<%=userTidx%>">
-			<button id="startWork" type="button" class="btn btn-primary btn-sm float-right"
-				>출근</button>
-			<button id="endWork" type="button" class="btn btn-primary btn-sm float-right"
-				onclick="location.href='/commute/commute?t_id=<%=t_id%>'">퇴근</button>
+			<button style="grid-columns:1/2; margin:0 10px;"
+				id="startWork" type="button" class="btn btn-outline-primary btn-lg float-right w-60"
+				onclick="location.href='/commute/startCommute?tidx=<%=userTidx%>'">출근</button>
+			<button style="grid-columns:2/3;" 
+				id="endWork" type="button" class="btn btn-outline-danger btn-lg float-right w-45"
+				onclick="location.href='/commute/endCommute?tidx=<%=userTidx%>'">퇴근</button>
 		</div>
 	</div>
 	<div id="box4" class="inner_content"
@@ -365,6 +366,7 @@ p {
 					<button type="button" class="btn btn-secondary" id="wating">결재대기</button>
 					<button type="button" class="btn btn-secondary" id="progress">결재진행</button>
 					<button type="button" class="btn btn-secondary" id="completed">결재완료</button>
+					<button type="button" class="btn btn-secondary" id="rejected">결재반려</button>
 				</div>
 			</div>
 			<table id="table_notice" class="table w-100 table-hover">

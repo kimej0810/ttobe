@@ -64,6 +64,23 @@
 	</form>
 </body>
 <script>
+function removeHtml(text)
+{
+ text = text.replace(/<br>/ig, "\n"); // <br>을 엔터로 변경
+ text = text.replace(/&nbsp;/ig, " "); // 공백      
+ // HTML 태그제거
+ text = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+
+ // shkim.add.
+ text = text.replace(/<(no)?script[^>]*>.*?<\/(no)?script>/ig, "");
+ text = text.replace(/<style[^>]*>.*<\/style>/ig, "");
+ text = text.replace(/<(\"[^\"]*\"|\'[^\']*\'|[^\'\">])*>/ig, "");
+ text = text.replace(/<\\w+\\s+[^<]*\\s*>/ig, "");
+ text = text.replace(/&[^;]+;/ig, "");
+ text = text.replace(/\\s\\s+/ig, "");
+
+ return text;
+}
 	$(document).ready(function(){
 		fileCount = 1;
 		$("#fileAdd").on("click", function(){
@@ -77,6 +94,8 @@
 		});
 		
 		$("#submitBtn").on("click", function(){
+			var content = "";
+			
 			if($("#title").val()==""){
 				alert("제목을 입력해주세요.");
 			}else if($("#content").val()==""){
@@ -84,9 +103,12 @@
 			}else if($("#content").val().length>=2000){
 				alert("최대 2000자까지 입력 가능합니다.");
 			}else{
+				content = removeHtml($("#content").val());
+				$("#content").val(content);
 				$("#writeAction").submit();
 			}
 		});
 	});
+	
 </script>
 </html>

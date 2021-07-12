@@ -3,6 +3,7 @@ package tobe.project.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -10,10 +11,14 @@ import org.springframework.stereotype.Service;
 import tobe.project.dao.FileInfoDAO;
 import tobe.project.dao.ReplyDAO;
 import tobe.project.dto.ReplyVO;
+import tobe.project.util.RemoveHtml;
 
 @Service
 public class ReplyServiceImpl implements ReplyService {
 
+	@Resource(name="removeHtml")
+	private RemoveHtml removeHtml;
+	
 	@Inject
 	private ReplyDAO dao;
 	
@@ -27,6 +32,7 @@ public class ReplyServiceImpl implements ReplyService {
 		
 		for(int i=0; i<listReply.size(); i++) {;
 			listReply.get(i).setR_content(listReply.get(i).getR_content().replace("\n", "<br>"));
+			listReply.get(i).setR_content(removeHtml.removeHtml(listReply.get(i).getR_content()));
 		}
 		
 		for(int i=0; i<listReply.size(); i++) {
@@ -42,6 +48,7 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Override
 	public void addReply(ReplyVO vo) throws Exception {
+		vo.setR_content(removeHtml.removeHtml(vo.getR_content()));
 		dao.create(vo);
 	}
 

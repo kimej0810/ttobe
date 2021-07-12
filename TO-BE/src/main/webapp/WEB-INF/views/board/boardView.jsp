@@ -8,7 +8,7 @@
 pageContext.setAttribute("replace", "<br>");
 %>
 <%@ include file="/WEB-INF/views/include/new_main.jsp"%>
-<%@ page import="tobe.project.dto.BoardVO"  %>
+<%@ page import="tobe.project.dto.BoardVO"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,10 +17,10 @@ pageContext.setAttribute("replace", "<br>");
 <script type="text/javascript"
 	src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 <style>
-#replyArea{
-	display:grid;
-	grid-template-columns:5fr 1fr;
-	grid-templage-rows:1fr;
+#replyArea {
+	display: grid;
+	grid-template-columns: 5fr 1fr;
+	grid-templage-rows: 1fr;
 }
 
 .category {
@@ -33,79 +33,85 @@ pageContext.setAttribute("replace", "<br>");
 
 #board {
 	width: 100%;
-	margin:0;
+	margin: 0;
 }
 
-.thumbNail{
+.thumbNail {
 	text-align: center;
-	display:inline-block;
-	width:100px;
-	height:150px;
-	border-raius:50px;
-}
-.thumbNail:hover{
-	background-color:#e6e6e6;
+	display: inline-block;
+	width: 100px;
+	height: 150px;
+	border-raius: 50px;
 }
 
-.thumbNailContent{
+.thumbNail:hover {
+	background-color: #e6e6e6;
+}
 
-	display:grid;
+.thumbNailContent {
+	display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: 2fr 1fr;
 }
 
-.album{
-  height: 400px;
-  width: 640px;
-  overflow: hidden;
+.album {
+	height: 400px;
+	width: 640px;
+	overflow: hidden;
 }
-.images{
-  position: relative;
-  display: flex;
-  height: 400px;
+
+.images {
+	position: relative;
+	display: flex;
+	height: 400px;
 }
-.examImages{
-  width: 640px;
-  height: 400px;
+
+.examImages {
+	width: 640px;
+	height: 400px;
 }
-button, button:active, button:focus{
-  width: 100px; height: 30px;
-  border: none;
-  color: white;
-  background-color: teal;
-  outline: none;
+
+button, button:active, button:focus {
+	width: 100px;
+	height: 30px;
+	border: none;
+	color: white;
+	background-color: teal;
+	outline: none;
 }
-button:hover{
-  background-color: turquoise;
+
+button:hover {
+	background-color: turquoise;
 }
-button:disabled{
-  background-color: gray;
+
+button:disabled {
+	background-color: gray;
 }
-.prev{
-  float: left;
+
+.prev {
+	float: left;
 }
-.next{
-  float: right;
+
+.next {
+	float: right;
 }
 </style>
 </head>
 <body>
-<!-- 세션 -->
-<%
-	if(session.getAttribute("userName")!=null){
-		String uName = (String)session.getAttribute("userName");
-		String grade = (String)session.getAttribute("userGrade");
-		
-%>
-<input type="hidden" value="<%=uName%>">
-<input type="hidden" value="<%=userTidx%>" id="tidx">
-<input type="hidden" value="<%=userGrade%>" id="grade">
-<%
-	}/* else{
+	<!-- 세션 -->
+	<%
+	if (session.getAttribute("userName") != null) {
+		String uName = (String) session.getAttribute("userName");
+		String grade = (String) session.getAttribute("userGrade");
+	%>
+	<input type="hidden" value="<%=uName%>">
+	<input type="hidden" value="<%=userTidx%>" id="tidx">
+	<input type="hidden" value="<%=userGrade%>" id="grade">
+	<%
+	} /* else{
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
-	} */
-	
-%>
+		} */
+	%>
 	<div class="category">
 		<input type="hidden" id="boardType" value="${boardVO.b_type}">
 		<button id="noticeBtn" class="btn btn-outline-secondary" type="button">공지사항</button>
@@ -127,63 +133,73 @@ button:disabled{
 			</thead>
 			<tbody>
 				<tr>
-					<td colspan="4" >${boardVO.b_content}</td>
-				</tr>
-				<tr>
 					<td colspan="4">
-					<c:forEach var="file" items="${file}">
-						<div class="thumbNail">
-							<div class="thumbNailContent">
-								<img src="<c:url value="/resources/static/file/${file.F_STORED_FILE_NAME}"/>" style="width:100px;">
-								<a href="#" onclick="fn_fileDown('${file.FIDX}'); return false;" style="font-size:0.8rem; text-decoration: none;">${file.F_ORG_FILE_NAME}</a>
-							</div>
+						<div style="margin:10px 0;">
+							${boardVO.b_content}
 						</div>
-					</c:forEach>
 					</td>
 				</tr>
 				<tr>
-				<table id="reply" style="width:100%;">
-					<c:forEach items="${replyList}" var="replyList">
-						<tr>
-							<td rowspan="3" valign="top" style="width:7%;">
-								<img
-								src="<c:url value="/resources/static/profile/${replyList.memberDTO.f_stored_file_name}"/>"
-								style="width:50px; height:50px; display:block; margin:5px auto; border-radius:70%;"></td>
-							<td style="font-size:0.8rem;">${replyList.memberDTO.t_name}<fmt:parseDate
-									var="writedate" value="${boardVO.b_writedate}"
-									pattern="yyyy-MM-dd" /> <fmt:formatDate value="${writedate}"
-									pattern="yyyy-MM-dd" />
-							</td>
-						</tr>
-						<tr>
-							<td class="contentArea">${replyList.r_content}</td>
-						</tr>
-						<tr>
-							<td style="text-align:right;">
-								<c:set var="userTidx" value="<%=userTidx%>"/>
-								<c:set var="userGrade" value="<%=userGrade%>"/>
-								<c:if test="${replyList.memberDTO.tidx eq userTidx || userGrade=='A'}">
-									<img class="inputAreaBtn" src='<c:url value='/resources/static/img/pen.png'/>' style="width:10px; cursor:pointer;">
-									<img class="deleteReplyBtn" src='<c:url value='/resources/static/img/cancel.png'/>' style="width:10px; cursor:pointer;">
-								</c:if>
-								<input type="hidden" value="${replyList.ridx}" id="ridx" name="ridx">
-							</td>
-						</tr>
-					</c:forEach>
-				</table>
-				<form name="reply" method="post" style="margin:10px 0;">
-					<input type="hidden" id="bidx" name="bidx" value="${boardVO.bidx}" />
-					<input type="hidden" id="page" name="page" value="${scri.page}">
-					<input type="hidden" id="perPageNum" name="perPageNum"
-						value="${scri.perPageNum}"> <input type="hidden"
-						id="searchType" name="searchType" value="${scri.searchType}">
-					<input type="hidden" id="keyword" name="keyword"
-						value="${scri.keyword}"> 
-					<div id="replyArea" style="width:100%; height:100px; margin:0 auto;">
-						<textarea id="r_content" name="r_content" style="width:100%; height:100%; resize: none;"></textarea>
-						<button class="btn btn-outline-secondary writeReplyBtn" type="button" style="width:100%; height:100px;">작성</button>
-					</div>
-				</form>
+					<td colspan="4"><c:forEach var="file" items="${file}">
+							<div class="thumbNail">
+								<div class="thumbNailContent">
+									<img
+										src="<c:url value="/resources/static/file/${file.F_STORED_FILE_NAME}"/>"
+										style="width: 100px;"> <a href="#"
+										onclick="fn_fileDown('${file.FIDX}'); return false;"
+										style="font-size: 0.8rem; text-decoration: none;">${file.F_ORG_FILE_NAME}</a>
+								</div>
+							</div>
+						</c:forEach></td>
+				</tr>
+				<tr>
+					<table id="reply" style="width: 100%;">
+						<c:forEach items="${replyList}" var="replyList">
+							<tr>
+								<td rowspan="3" valign="top" style="width: 7%;"><img
+									src="<c:url value="/resources/static/profile/${replyList.memberDTO.f_stored_file_name}"/>"
+									style="width: 50px; height: 50px; display: block; margin: 5px auto; border-radius: 70%;"></td>
+								<td style="font-size: 0.8rem;">${replyList.memberDTO.t_name}<fmt:parseDate
+										var="writedate" value="${boardVO.b_writedate}"
+										pattern="yyyy-MM-dd" /> <fmt:formatDate value="${writedate}"
+										pattern="yyyy-MM-dd" />
+								</td>
+							</tr>
+							<tr>
+								<td class="contentArea">${replyList.r_content}</td>
+							</tr>
+							<tr>
+								<td style="text-align: right;"><c:set var="userTidx"
+										value="<%=userTidx%>" /> <c:set var="userGrade"
+										value="<%=userGrade%>" /> <c:if
+										test="${replyList.memberDTO.tidx eq userTidx || userGrade=='A'}">
+										<img class="inputAreaBtn"
+											src='<c:url value='/resources/static/img/pen.png'/>'
+											style="width: 10px; cursor: pointer;">
+										<img class="deleteReplyBtn"
+											src='<c:url value='/resources/static/img/cancel.png'/>'
+											style="width: 10px; cursor: pointer;">
+									</c:if> <input type="hidden" value="${replyList.ridx}" id="ridx"
+									name="ridx"></td>
+							</tr>
+						</c:forEach>
+					</table>
+					<form name="reply" method="post" style="margin: 10px 0;">
+						<input type="hidden" id="bidx" name="bidx" value="${boardVO.bidx}" />
+						<input type="hidden" id="page" name="page" value="${scri.page}">
+						<input type="hidden" id="perPageNum" name="perPageNum"
+							value="${scri.perPageNum}"> <input type="hidden"
+							id="searchType" name="searchType" value="${scri.searchType}">
+						<input type="hidden" id="keyword" name="keyword"
+							value="${scri.keyword}">
+						<div id="replyArea"
+							style="width: 100%; height: 100px; margin: 0 auto;">
+							<textarea id="r_content" name="r_content"
+								style="width: 100%; height: 100%; resize: none;"></textarea>
+							<button class="btn btn-outline-secondary writeReplyBtn"
+								type="button" style="width: 100%; height: 100px;">작성</button>
+						</div>
+					</form>
 				</tr>
 		</table>
 	</div>
@@ -197,38 +213,59 @@ button:disabled{
 			value="${scri.keyword}"> <input type="hidden" id="FIDX"
 			name="FIDX" value="">
 	</form>
-	<div id="btnArea" style="text-align:right; margin-top:30px;">
-	
-	<% 
-		Integer loginTidx = (Integer)session.getAttribute("userTidx");
-		String loginGrade = (String)session.getAttribute("userGrade");
-		BoardVO vo = (BoardVO)request.getAttribute("boardVO");
+	<div id="btnArea" style="text-align: right; margin-top: 30px;">
+
+		<%
+		Integer loginTidx = (Integer) session.getAttribute("userTidx");
+		String loginGrade = (String) session.getAttribute("userGrade");
+		BoardVO vo = (BoardVO) request.getAttribute("boardVO");
 		Integer boardTidx = vo.getTidx();
-		if(loginTidx!=boardTidx & !loginGrade.equals("A")){
-	%>
-		<button type="button" class="btn btn-primary btn-sm float-right" onclick="history.back();">목록</button>
-	<%
-				
-		}else{
-				
-	%>
-		<button type="button" class="btn btn-primary btn-sm float-right" onclick="location.href='modify?bidx=${boardVO.bidx}'">수정</button>
-		<button type="button" class="btn btn-primary btn-sm float-right" onclick="location.href='delete?bidx=${boardVO.bidx}'">삭제</button>
-		<button type="button" class="btn btn-primary btn-sm float-right" onclick="history.back();">목록</button>			
-	<%
+		if (loginTidx != boardTidx & !loginGrade.equals("A")) {
+		%>
+		<button type="button" class="btn btn-primary btn-sm float-right"
+			onclick="history.back();">목록</button>
+		<%
+		} else {
+		%>
+		<button type="button" class="btn btn-primary btn-sm float-right"
+			onclick="location.href='modify?bidx=${boardVO.bidx}'">수정</button>
+		<button type="button" class="btn btn-primary btn-sm float-right"
+			onclick="location.href='delete?bidx=${boardVO.bidx}'">삭제</button>
+		<button type="button" class="btn btn-primary btn-sm float-right"
+			onclick="history.back();">목록</button>
+		<%
 		}
-	%>
+		%>
 	</div>
 	<script>
+		function removeHtml(text)
+		{
+		 text = text.replace(/<br>/ig, "\n"); // <br>을 엔터로 변경
+		 text = text.replace(/&nbsp;/ig, " "); // 공백      
+		 // HTML 태그제거
+		 text = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+	
+		 // shkim.add.
+		 text = text.replace(/<(no)?script[^>]*>.*?<\/(no)?script>/ig, "");
+		 text = text.replace(/<style[^>]*>.*<\/style>/ig, "");
+		 text = text.replace(/<(\"[^\"]*\"|\'[^\']*\'|[^\'\">])*>/ig, "");
+		 text = text.replace(/<\\w+\\s+[^<]*\\s*>/ig, "");
+		 text = text.replace(/&[^;]+;/ig, "");
+		 text = text.replace(/\\s\\s+/ig, "");
+	
+		 return text;
+		}
 	
 		//댓글 출력
 		function selectAllReply(data) {
 			var reply = "";
+			var content = "";
 			var userTidx = $("#tidx").val();
 			var grade = $("#grade").val();
 			if (data.length > 0) {
 				for (var i = 0; i < data.length; i++) {
 					replyTidx = data[i].memberDTO.tidx;
+					content = removeHtml(data[i].r_content);
 
 					reply += "<tr>";
 					reply += "<td valign='top' rowspan='3' style='width:7%;'>";
@@ -244,7 +281,7 @@ button:disabled{
 					reply += "</tr>";
 					reply += "<tr>";
 					reply += "<td class='contentArea'>";
-					reply += data[i].r_content;
+					reply += content;
 					reply += "</td>";
 					reply += "</tr>";
 					reply += "<tr>";
