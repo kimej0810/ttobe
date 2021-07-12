@@ -128,7 +128,11 @@ public class MemberController {
 		return "/member/myHome";
 	}
 	@RequestMapping(value="/leave", method = RequestMethod.GET)
-	public String leave(Model model,HttpSession session) throws Exception {
+	public String leave(Model model,HttpSession session,String t_id) throws Exception {
+		MemberDTO vo = service.selectOneMember(t_id);
+		List<MemberDTO> dto = service.selectAllMember2();
+		model.addAttribute("memberList",dto);
+		model.addAttribute("member",vo);
 		return "/member/leave";
 	}
 	//로그인 페이지불러오기
