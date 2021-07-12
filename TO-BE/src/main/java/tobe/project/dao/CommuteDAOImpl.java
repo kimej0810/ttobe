@@ -42,23 +42,17 @@ public class CommuteDAOImpl implements CommuteDAO{
 	public List<CommuteVO> selectAllCommute2(Map<String, Object> map) throws Exception {
 		return sqlSession.selectList(Namespace+".selectAllCommute2", map);
 	}
-	
-	//연차 목록
+
+	//출근기록조회
 	@Override
-	public List<LeaveVO> selectAllLeave(int tidx) throws Exception {
-		return sqlSession.selectList(Namespace+".selectAllLeave", tidx);
+	public String selectStartWork(int tidx) throws Exception {
+		return sqlSession.selectOne(Namespace+".selectStartWork", tidx);
 	}
 	
-	//연차 등록
+	//퇴근기록조회
 	@Override
-	public void addLeave() throws Exception {
-		
-	}
-	//
-	@Override
-	public void addStartWork2(CommuteVO vo) throws Exception {
-		sqlSession.insert(Namespace+".addStartWork2", vo);
-		
+	public String selectEndWork(int tidx) throws Exception {
+		return sqlSession.selectOne(Namespace+".selectEndWork", tidx);
 	}
 	
 }

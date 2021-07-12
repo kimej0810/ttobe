@@ -1,13 +1,14 @@
 package tobe.project.controller;
 
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import tobe.project.dto.CommuteVO;
-import tobe.project.dto.LeaveVO;
 import tobe.project.dto.MemberDTO;
 import tobe.project.service.CommuteService;
 import tobe.project.service.MemberService;
@@ -80,62 +80,56 @@ public class CommuteController {
 		System.out.println(list.size());
 		return list;
 	}
-	//근태관리 출근 등록 처리
-	@RequestMapping(value = "/commute/startCommute")
-	@ResponseBody
-	public List<CommuteVO> startCommute(CommuteVO vo) throws Exception {
-		logger.info(">>>>>startCommute");
-		SimpleDateFormat format1 = new SimpleDateFormat("yy/MM/dd");
-		SimpleDateFormat format2 = new SimpleDateFormat("HH:mm");
-		Date time = new Date();
-		String time1 = format1.format(time);
-		service.addStartWork(vo);
-		List<CommuteVO> list = service.selectAllCommute(vo.getTidx());
-		return list;
-	}
 	
 	//메인 출근
-	@RequestMapping(value = "/commute/startCommute2")
-	public String startCommute2(String t_id) throws Exception{
+	@RequestMapping(value = "/commute/startCommute")
+	public String startCommute2(@RequestParam Map<String, String> param, HttpServletResponse response) throws Exception {
+		logger.info("!!!!!!!!!!!!startCommute2!!!!!!!!!!");
 		
-		logger.info("");
-		return "/main/mainPage";
+		int tidx = Integer.parseInt(param.get("tidx"));
+		System.out.println(tidx);
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		
+		boolean test = service.addStartWork(tidx);
+		if(test) {
+			out.println("<script>alert('이미 출근 처리되었습니다.');</script>");
+			out.println("<script>window.location.href='/main/mainPage';</script>");
+			out.close();
+		}else {
+			out.println("<script>alert('출근 처리되었습니다.');</script>");
+			out.println("<script>window.location.href='/main/mainPage';</script>");
+			out.close();
+		}
+		
+		return "redirect:/main/mainPage";
+		
 	}
 	
-	
-	//근태관리 퇴근 등록 처리
+	//근태관리 퇴근 등록 처리 메인
 	@RequestMapping(value = "/commute/endCommute")
-	@ResponseBody
-	public List<CommuteVO> endCommute(CommuteVO vo) throws Exception {
+	public String endCommute(@RequestParam Map<String, String> param, HttpServletResponse response) throws Exception {
 		logger.info(">>>>>endCommute");
-		service.addEndWork(vo);
-		List<CommuteVO> list = service.selectAllCommute(vo.getTidx());
-		return list;
-	}
-
-	//연차관리 페이지
-	@RequestMapping(value = "/leave/leaveManagement")
-	public String leaveManagementList(Model model, String t_id) throws Exception {
-		logger.info(">>>>leaveManagementList");
-
-		MemberDTO mvo = mService.selectOneMember(t_id);
-		System.out.println("tidx------------->"+mvo.getTidx());
 		
-		List<LeaveVO> list = service.selectAllLeave(mvo.getTidx());
-		model.addAttribute("list", list);
-//		System.out.println(">>>>>>>>>>" + list.get(0).getA_enddate());
-		System.out.println(">>>>>>>>>>" + list.get(0).getMemberVO().getT_id());
-		return "/leave/leaveManagement";
+		int tidx = Integer.parseInt(param.get("tidx"));
+		System.out.println(tidx);
+		
+		response.setContentType("text/html; charset=utf-8"); 
+		PrintWriter out = response.getWriter();
+		
+		boolean test = service.addEndWork(tidx); 
+		if(test) {
+			out.println("<script>alert('이미 퇴근 처리되었습니다.');</script>");
+			out.println("<script>window.location.href='/main/mainPage';</script>");
+			out.close();
+		}else {
+			out.println("<script>alert('퇴근 처리되었습니다.');</script>");
+			out.println("<script>window.location.href='/main/mainPage';</script>");
+			out.close();
+		}
+		
+		
+		return "redirect:/main/mainPage";
 	}
-	//연차등록 페이지
-	@RequestMapping(value = "/leave/addLeave")
-	public String addLeave(Model model,Locale locale) throws Exception {
-		/*
-		 * List<MemberVO> vo = aservice.selectAllMember();
-		 * model.addAttribute("allMember",vo); logger.info("Welcome home! DocumentWite",
-		 * locale);
-		 */
-		return "/leave/addLeave";
-	} 
-
+	
 }

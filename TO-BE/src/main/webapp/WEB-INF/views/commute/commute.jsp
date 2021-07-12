@@ -17,7 +17,6 @@
 	}
 </style>
 <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
-<!-- <script type="text/javascript" src="/resources/static/js/commute.js"></script> -->
 <script>
 	
 	function selectAllCommute(list){
@@ -53,99 +52,6 @@
 	}
 	
 $(document).ready(function(){
-
-	//출근기록
-	$("#startWork").on("click", function(){
-		var today = new Date();
-		var tidx = $("#tidx").val();
-		
-		var year = today.getFullYear(); //년
-		var month = today.getMonth()+1; //월
-		var date = today.getDate(); //일
-		var startDate = year+"/"+month+"/"+date;
-		
-		var hours = today.getHours(); //시간
-		var minutes = today.getMinutes(); //분
-		var startTime = hours+":"+minutes;
-		
-		//var day = today.getDay(); //요일
-		var week = new Array("주말", "정상", "정상", "정상", "정상", "정상", "주말");
-		var c_type = week[today.getDay()];
-		
-		console.log(c_type);
-		console.log(startDate);
-		console.log(startTime);
-		
-		
-		var form = {
-				c_type: c_type,
-			    c_date: startDate,
-			    c_starttime: startTime,
-			    tidx: tidx
-			}
-		
-		$.ajax({
-			url:"/commute/startCommute",
-			data: form,
-			dataType:"json",
-			success:function(list){
-				selectAllCommute(list);
-			},
-			error:function(request,status,error){
-			    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-			}
-		});
-	});
-	
-	
-	
-	//퇴근기록
-	$("#endWork").on("click", function(){
-		var today = new Date();
-		var tidx = $("#tidx").val();
-		
-		var hours = today.getHours(); //시간
-		var minutes = today.getMinutes(); //분
-		var endTime = hours+":"+minutes;
-		
-		var c_time = "";
-		var endBtn = $("#c_list").children("tr").children("td").children("#cidx").first().val();
-		var startTime = $("#starttime").text();
-		alert(startTime);
-		var btime = startTime.split(":");
-		var endtime = eval((hours*60)+minutes);
-		var bbtime = eval(btime[0]*60);
-		console.log("출근시간"+bbtime);
-		var bctime = parseInt(bbtime);
-		var bdtime = parseInt(btime[1]);
-		var stTime = bctime+bdtime;
-		console.log("출근시간 분으로"+stTime);
-		var result = endtime-stTime;
-		console.log("근무시간"+result);
-	
-		console.log(endTime);
-		
-		var form = {
-			    c_endtime: endTime,
-			    tidx: tidx,
-			    cidx: endBtn,
-			    c_worktime: result
-			}
-		
-		alert(endBtn);
-		$.ajax({
-			//type: 
-			url:"/commute/endCommute",
-			data: form,
-			dataType:"json",
-			error:function(request,status,error){
-			    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-			},
-			success:function(list){
-				selectAllCommute(list);		
-			}
-		});
-	});
 	
 	//월별
 	var date = new Date();
@@ -236,7 +142,6 @@ $(document).ready(function(){
 <body onload="test1(); test2()"> 
 	<div>
 		<button type="button" class="btn btn-outline-secondary" onclick="location.href='/commute/commute?t_id=${member.t_id}'">근태현황</button>
-		<button type="button" class="btn btn-outline-secondary" onclick="location.href='/leave/leaveManagement?t_id=${member.t_id}'">연차관리</button>
 	</div>
 	<div style="text-align:center;">
 		<button type="button" id="prevMonth" class="btn btn-outline-primary btn-sm">&lt;</button>
@@ -269,8 +174,6 @@ $(document).ready(function(){
 		</tbody>		
 	</table>
 	<form name="frm">
-		<button type="button" name="startWork" id="startWork" class="btn btn-primary btn-sm float-right">출근</button>
-		<button type="button" name="endWork" id="endWork" class="btn btn-primary btn-sm float-right">퇴근</button>
 		<input type="hidden" id="tidx" value="${member.tidx}">
 		<input type="hidden" id="t_id" value="${member.t_id}">
 	</form>
