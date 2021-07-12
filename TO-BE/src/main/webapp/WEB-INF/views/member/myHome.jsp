@@ -18,6 +18,13 @@ function scheduleAddPopup(){
 	var option = "width = 600, height = 730 left = 100, top=50,location=no";
 	window.open(url,name,option)
 }
+function leaveBtn(){
+	var t_id = $("#t_id").val();
+	var url = "/member/leave?t_id="+t_id;
+	var name = "leave";
+	var option = "width = 800, height = 730 left = 100, top=50,location=no";
+	window.open(url,name,option)
+}
 </script>
 <style>
 	#container1,#container2,#container3,#container4{
@@ -54,6 +61,7 @@ function scheduleAddPopup(){
 <body>
 	<div class="btnGroup">
 		<button type="button" class="btn btn-outline-secondary">나의 정보</button>
+		<input type="hidden" id="t_id" value="<%=userId%>">
 		<div id="mainContainer" class="form-control">
 			<div id="container1" class="form-control">
 				<div style="text-align:right;">
@@ -118,7 +126,7 @@ function scheduleAddPopup(){
 							<c:choose>
 							<c:when test="${fn:length(mySchedule) == 0}">
 								<tr>
-									<td>등록된 내용이 없습니다.</td>
+									<td colspan="5">등록된 내용이 없습니다.</td>
 								</tr>
 							</c:when>
 								<c:otherwise>
@@ -176,7 +184,7 @@ function scheduleAddPopup(){
 							<c:choose>
 							<c:when test="${fn:length(myLeave) == 0}">
 								<tr>
-									<td>등록된 내용이 없습니다.</td>
+									<td colspan="5">등록된 내용이 없습니다.</td>
 								</tr>
 							</c:when>
 								<c:otherwise>
@@ -199,6 +207,9 @@ function scheduleAddPopup(){
 							</c:choose>
 							</tbody>
 						</table>
+						<div style="text-align:right;">
+							<button type="button" class="btn btn-primary btn-sm" onclick="leaveBtn()">연차 신청</button>
+						</div>
 					</div>
 				</div>
 			</div>

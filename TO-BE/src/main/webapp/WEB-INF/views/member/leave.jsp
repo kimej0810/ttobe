@@ -36,7 +36,7 @@
 		}
 		.form-control, .form-select{
 			height: 30px;
-			font-size: 0.8em;
+			font-size: 0.7em;
 		}
 		#tableNum{
 			font-size: 0.75em;
@@ -89,7 +89,7 @@
 					<td style="text-align:center;">${member.t_name }</td>
 					<td>
 						<select class="form-select">
-							<option value="no">::: 선 택 :::</option>
+							<option value="no">선 택</option>
 							<c:forEach items="${memberList}" var="list">
 								<c:if test="${list.t_position eq '팀장' }">
 									<c:if test="${list.t_department eq member.t_department}">
@@ -101,7 +101,7 @@
 					</td>
 					<td>
 						<select class="form-select">
-							<option value="no">::: 선 택 :::</option>
+							<option value="no">선 택</option>
 							<c:forEach items="${memberList}" var="list">
 								<c:if test="${list.t_position eq '부장' }">
 									<c:if test="${list.t_department eq member.t_department}">
@@ -113,7 +113,7 @@
 					</td>
 					<td>
 						<select class="form-select">
-							<option value="no">::: 선 택 :::</option>
+							<option value="no">선 택</option>
 							<c:forEach items="${memberList}" var="list">
 								<c:if test="${list.t_position eq '과장' }">
 									<c:if test="${list.t_department eq member.t_department}">
@@ -125,7 +125,7 @@
 					</td>
 					<td>
 						<select class="form-select">
-							<option value="no">::: 선 택 :::</option>
+							<option value="no">선 택</option>
 							<c:forEach items="${memberList}" var="list">
 								<c:if test="${list.t_position eq '대표' }">
 									<option value="${list.t_id}">${list.t_name}</option>
@@ -168,7 +168,7 @@
 					<th>휴 가 종 류</th>
 					<td>
 						<select class="form-select">
-							<option value="no">::: 선 택 :::</option>
+							<option value="no">선 택</option>
 							<option value="no">연차</option>
 							<option value="no">월차</option>
 							<option value="no">반차</option>
