@@ -1,7 +1,7 @@
 package tobe.project.dto;
 
 public class LeaveDTO {
-	private int aidx;
+	private int eidx;
 	private String a_type;
 	private String a_startdate;
 	private String a_enddate;
@@ -9,11 +9,11 @@ public class LeaveDTO {
 	private int tidx;
 	private int t_leave_get;
 	
-	public int getAidx() {
-		return aidx;
+	public int getEidx() {
+		return eidx;
 	}
-	public void setAidx(int aidx) {
-		this.aidx = aidx;
+	public void setEidx(int eidx) {
+		this.eidx = eidx;
 	}
 	public String getA_type() {
 		return a_type;

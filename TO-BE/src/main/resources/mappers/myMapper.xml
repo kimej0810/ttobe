@@ -70,14 +70,14 @@
 		ORDER BY B_TYPE DESC, BIDX DESC
 	</select>
 	<select id="totalCountLeave" resultType="int">
-		SELECT COUNT(AIDX)
+		SELECT COUNT(EIDX)
 		FROM ANNUAL_LEAVE
-		WHERE AIDX > 0 AND TIDX = #{userIdx}
+		WHERE EIDX > 0 AND TIDX = #{userIdx}
 	</select>
 	<select id="selectAllLeave" resultType="LeaveDTO">
-		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY AIDX DESC)NUM,
+		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY EIDX DESC)NUM,
 		A.*,B.T_LEAVE_GET FROM ANNUAL_LEAVE A LEFT JOIN TOBE_MEMBER B ON A.TIDX = B.TIDX
-		WHERE A.TIDX = #{userIdx} ORDER BY AIDX DESC)
+		WHERE A.TIDX = #{userIdx} ORDER BY EIDX DESC)
 		WHERE NUM BETWEEN #{rowStart} AND #{rowEnd}
 	</select>
 	<select id="totalCountSchedule" resultType="int">

@@ -48,7 +48,7 @@ public class EmailServiceImpl implements EmailService{
 			mailHandler.setTo(emailVO.getM_addressee());
 			mailHandler.setFrom(FROM_ADDRESS);
 			mailHandler.setSubject(emailVO.getM_title());
-			String htmlContent = "<img src='cid:emailImg1' width='800px;margin:auto;'><div style='width:700px;height:400px;margin:auto;'>"
+			String htmlContent = "<img src='cid:emailImg1' width='800px;margin:auto;'><div style='width:700px;height:200px;margin:auto;'>"
 					+ ""+emailVO.getM_content()+"</div><img src='cid:emailImg2' width='800px;margin:auto;'>";
 			mailHandler.setText(htmlContent, true);
 			mailHandler.setInline("emailImg1", "emailImg1.png");
