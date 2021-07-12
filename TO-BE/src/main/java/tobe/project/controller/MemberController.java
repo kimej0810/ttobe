@@ -127,6 +127,10 @@ public class MemberController {
 		model.addAttribute("pagemaker4",pageMaker4);
 		return "/member/myHome";
 	}
+	@RequestMapping(value="/leave", method = RequestMethod.GET)
+	public String leave(Model model,HttpSession session) throws Exception {
+		return "/member/leave";
+	}
 	//로그인 페이지불러오기
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public void loginGET(@ModelAttribute("dto") LoginDTO dto,HttpSession session) throws Exception {
@@ -200,7 +204,6 @@ public class MemberController {
 
 	//비밀번호변경
 	@RequestMapping(value="/modifyPwdAction", method = RequestMethod.POST)
-	
 	public String modifyPwdAction(@ModelAttribute MemberVO vo,Model model) throws Exception{	
 		MemberDTO ex = service.selectOneMember(vo.getT_id());
 		System.out.println("vo.getT_pwd>>"+vo.getT_pwd());

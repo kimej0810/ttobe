@@ -12,7 +12,6 @@
 <link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>"/>
 <script>
 	$(document).ready(function(){
-		
 		$("#t_department").on("change", function(){
 			$.ajax({
 				url:"/member/buseolist",

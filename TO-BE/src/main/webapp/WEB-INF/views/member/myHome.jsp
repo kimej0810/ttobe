@@ -125,7 +125,12 @@ function scheduleAddPopup(){
 								<c:forEach items="${mySchedule}" var="schedule">
 									<tr>
 										<td>${schedule.s_type}</td>
-										<td>${schedule.s_title }</td>
+										<td>
+											<a href="/schedule/scheduleContents?sidx=${schedule.sidx}&tidx=${schedule.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=730'); return false;" style="text-decoration : none; color:black;">
+												${schedule.s_title }
+											</a>
+											
+										</td>
 										<td>
 											<c:set var="scheduleContent" value="${schedule.s_content}"/>
 											${fn:substring(scheduleContent,0,6)}. . .
