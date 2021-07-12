@@ -348,11 +348,11 @@ p {
 		<div class="conCon" style="display:grid; grid-template-columns:1fr 1fr;">
 		
 			<input type="hidden" id="tidx" value="<%=userTidx%>">
-			<button style="grid-columns:1/2; margin:0 10px;"
-				id="startWork" type="button" class="btn btn-outline-primary btn-lg float-right w-60"
+			<button style="grid-columns:1/2; margin:0 5px;"
+				id="startWork" type="button" class="btn btn-outline-primary btn-lg float-right"
 				onclick="location.href='/commute/startCommute?tidx=<%=userTidx%>'">출근</button>
-			<button style="grid-columns:2/3;" 
-				id="endWork" type="button" class="btn btn-outline-danger btn-lg float-right w-45"
+			<button style="grid-columns:2/3; margin:0 5px;" 
+				id="endWork" type="button" class="btn btn-outline-danger btn-lg float-right"
 				onclick="location.href='/commute/endCommute?tidx=<%=userTidx%>'">퇴근</button>
 		</div>
 	</div>
