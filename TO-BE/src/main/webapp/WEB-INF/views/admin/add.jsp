@@ -12,8 +12,21 @@
 </head> 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 <script>
 	$(document).ready(function(){
+		$("#formTag").submit(function(){
+			$(".loding-check").css("display","inline");
+			setInterval(function(){
+				$(".loding1").hide();
+				setTimeout(function(){
+					$(".loding1").show();
+				},1000);
+			},750);
+			return true;
+		});	
 		$(document).on("focusout","#t_email",function(){
 			var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 			if(!emailRule.test($("input[id='t_email']").val())){
@@ -254,6 +267,25 @@
     table th{
     	text-align:center;
     }
+    .loding{
+		position: fixed;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		background: rgba(0,0,0,0.4);
+		width: 100%;
+		height: 100vh;
+		text-align: center;
+	}
+	.loding-check{
+		display: none;
+	}
+	.loding-img{
+		position: fixed;
+		top: 50vh;
+		color: white;
+	}
 </style>
 <body>
 <%
@@ -265,10 +297,19 @@
 		}
 	}
 %>
+	<div class="loding loding-check">
+		
+		<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-brightness-low loding-img" viewBox="0 0 16 16">
+  			<path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm.5-9.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 11a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm5-5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm-11 0a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9.743-4.036a.5.5 0 1 1-.707-.707.5.5 0 0 1 .707.707zm-7.779 7.779a.5.5 0 1 1-.707-.707.5.5 0 0 1 .707.707zm7.072 0a.5.5 0 1 1 .707-.707.5.5 0 0 1-.707.707zM3.757 4.464a.5.5 0 1 1 .707-.707.5.5 0 0 1-.707.707z"/>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-brightness-high loding-img loding1" viewBox="0 0 16 16">
+  			<path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+		</svg>
+	</div>
 	<div class="headerT">
 		<button id="noticeBtn" class="btn btn-outline-secondary" type="button">사원 등록</button>
 	</div>
-	<form action="/admin/addAction" method="post" enctype="multipart/form-data">
+	<form id="formTag" action="/admin/addAction" method="post" enctype="multipart/form-data">
 		<table class="table">
 			<tbody>
 				<tr>
@@ -287,20 +328,20 @@
 				<tr>
 					<th>이름</th>
 					<td>
-						<input type="text" placeholder="이름 작성" name="t_name" class="form-control">
+						<input type="text" placeholder="이름 작성" name="t_name" class="form-control" required="required">
 					</td>
 				</tr>
 				<tr>
 					<th>생년월일</th>
 					<td>
-						<input type="text" name="t_birth" id="t_birth" class="form-control" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" maxlength="12">
+						<input type="text" name="t_birth" id="t_birth" class="form-control" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" maxlength="12" required="required">
 						<span id="tootip_area3"></span>
 					</td>
 				</tr>
 				<tr>
 					<th>부서</th>
 					<td>
-						<select class="selectBuseo form-select" name="t_department">
+						<select class="selectBuseo form-select" name="t_department" required="required">
 							<option value="부서없음">부서 선택</option>
 							<option value="대표">대표</option>
 							<option value="마케팅">마케팅</option>
@@ -315,7 +356,7 @@
 				<tr>
 					<th>직급</th>
 					<td>
-						<select class="selectJk form-select" name="t_position">
+						<select class="selectJk form-select" name="t_position" required="required">
 							<option value="levelNull">직급 선택</option>
 							<option value="대표">대표</option>
 							<option value="팀장">팀장</option>
@@ -329,14 +370,14 @@
 				<tr>
 					<th>이메일</th>
 					<td colspan="2" align="left">
-						<input type="text" name="t_email" id="t_email" class="form-control">
+						<input type="text" name="t_email" id="t_email" class="form-control" required="required">
 						<span id="tootip_area"></span>
 					</td>
 				</tr>
 				<tr>
 					<th>연락처</th>
 					<td colspan="2" align="left">
-						<input type="text" name="t_phone" id="t_phone" class="form-control" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" maxlength="14">
+						<input type="text" name="t_phone" id="t_phone" class="form-control" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" maxlength="14" required="required">
 						<span id="tootip_area2"></span>
 					</td>
 				</tr>
@@ -350,7 +391,7 @@
 				<tr>
 					<th>일반주소</th>
 					<td colspan="2" align="left">
-						<input type="text" placeholder="일반주소" id="address" name="t_addr_general" class="form-control">
+						<input type="text" placeholder="일반주소" id="address" name="t_addr_general" class="form-control" required="required">
 					</td>
 				</tr>
 				<tr>

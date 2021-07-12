@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,16 +19,17 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import tobe.project.domain.PageMaker;
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.FileVO;
-import tobe.project.dto.MemberDTO;
 import tobe.project.dto.MemberVO;
 import tobe.project.service.AdminService;
-import tobe.project.service.MemberService;
+import tobe.project.service.EmailService;
 @Controller
 @RequestMapping(value="/admin")
 public class AdminController{
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	@Inject
 	private AdminService service;
+	@Inject
+	private EmailService emailService;
 	@Inject
 	BCryptPasswordEncoder pwdEncoder;
 
@@ -65,6 +65,7 @@ public class AdminController{
 		String pwd = pwdEncoder.encode(tid);
 		vo.setT_pwd(pwd);
 		service.addMember2(vo,mpRequest);
+		emailService.joinEmail(vo);
 		return "redirect:/admin/memberlist";
 	}
 	@RequestMapping(value="/delete")

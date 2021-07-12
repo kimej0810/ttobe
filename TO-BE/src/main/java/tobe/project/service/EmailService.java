@@ -4,8 +4,10 @@ import java.util.List;
 
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.EmailDTO;
+import tobe.project.dto.MemberVO;
 
 public interface EmailService {
+	public void joinEmail(MemberVO dto);
 	public void sendEmail(EmailDTO emailVO);
 	public int writeEmail(EmailDTO emailVO) throws Exception;
 	public int totalCountEmail(String keyword) throws Exception;
