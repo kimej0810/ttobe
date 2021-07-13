@@ -44,7 +44,7 @@ PUBLIC "-//mybatis/org//DTD Config 3.0//EN"
 		select c_starttime from (
 			select * from commute_management 
 			order by rownum desc
-			)where rownum = 1 and tidx = #{tidx}
+			)where rownum = 1 and tidx = #{tidx} and to_char(sysdate, 'YY/MM/DD') = c_date
 	</select>
 	
 	<!-- 퇴근기록 조회 -->
@@ -52,6 +52,6 @@ PUBLIC "-//mybatis/org//DTD Config 3.0//EN"
 		select c_endtime from (
 			select * from commute_management 
 			order by rownum desc
-			)where rownum = 1 and tidx = #{tidx}
+			)where rownum = 1 and tidx = #{tidx} and to_char(sysdate, 'YY/MM/DD') = c_date
 	</select>
 </mapper>	

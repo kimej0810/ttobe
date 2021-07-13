@@ -10,28 +10,37 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>commute page</title>
 <style type="text/css">
 	table{
 		text-align: center;
 	}
+	main.content {
+    	display: block;
+    }
+    #test1{
+    	margin: 5px 0px;
+    }
+    #btnWrap1{
+    	margin: 50px;
+    }
 </style>
 <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
 <script>
-	
+
 	function selectAllCommute(list){
+		
 		var c_list = "";
-		console.log(list.length);
-		if(list.length>0){
+		if(list.length > 0){
 			for(var i=0; i<list.length; i++){
 				c_list += "<tr>";
 				c_list += "<td>"; 
 				c_list += list[i].c_type;
 				c_list += "</td>";
 				c_list += "<td>";
-				if(list[i].c_date!=null){
-					var a = list[i].c_date;
-					var result = a.substring(0,10);
+				if(list[i].c_date != null){
+					var cdate = list[i].c_date;
+					var result = cdate.substring(0,10);
 					c_list += result;
 				}
 				c_list += "<input type='hidden' value='"+list[i].cidx+"' id='cidx' name='cidx'>";
@@ -51,75 +60,35 @@
 		}
 	}
 	
-$(document).ready(function(){
-	
-	//월별
-	var date = new Date();
-	var viewYear = date.getFullYear();
-	var viewMonth = date.getMonth();
-	var load = viewYear+"년"+(viewMonth+1)+"월";
-	$("#test1").html(load);
-	
-	$("#prevMonth").on("click", function(){
-		viewMonth = viewMonth-1;
-		if(viewMonth === -1){
-			viewYear = viewYear - 1;
-			viewMonth = viewMonth + 12;
-		}
-		test1 = viewYear+"년"+(viewMonth+1)+"월";
-		$("#test1").html(test1);
+	$(document).ready(function(){
+		//월별
+		var date = new Date();
+		var viewYear = date.getFullYear();
+		var viewMonth = date.getMonth();
+		var load = viewYear+"년&nbsp;"+(viewMonth+1)+"월";
+		$("#test1").html(load);
 		
-		var str = viewYear+"/"+("0"+(viewMonth+1)).slice(-2);
-		var str2 = str.slice(2);
-		var tid = $("#t_id").val();
-		//alert(tid);
-		//alert(str2);
-
-			$.ajax({
-				//type: 
-				url:"/commute/commute2",
-				data: {
-					"str":str2,
-					"t_id":tid
-				},
-				dataType:"json",
-				error:function(request,status,error){
-				    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-				},
-				success:function(list){
-					if(list.length!=0){
-						selectAllCommute(list);	
-					}else{
-						var c_list = "";
-						c_list += "<tr><td colspan='5'>근무 기록이 없습니다.</td></tr>";
-						$("#c_list").html(c_list);
-					}
-				}
-			});
+		$("#prevMonth").on("click", function(){
+			viewMonth = viewMonth-1;
+			if(viewMonth === -1){
+				viewYear = viewYear - 1;
+				viewMonth = viewMonth + 12;
+			}
+			test1 = viewYear+"년&nbsp;"+(viewMonth+1)+"월";
+			$("#test1").html(test1);
 			
-		});
-	
-	$("#nextMonth").on("click", function(){
-		viewMonth = viewMonth+1;
-		if(viewMonth === 12){
-			viewYear = viewYear + 1;
-			viewMonth = viewMonth - 12;
-		}
-		test1 = viewYear+"년"+(viewMonth+1)+"월";
-		$("#test1").html(test1);
-		
-		//날짜
-		var str = viewYear+"/"+("0"+(viewMonth+1)).slice(-2);
-		var str2 = str.slice(2);
-		var tid = $("#t_id").val();
+			var str = viewYear+"/"+("0"+(viewMonth+1)).slice(-2);
+			var str2 = str.slice(2);
+			var tid = $("#t_id").val();
+			
 			$.ajax({
-				//type: 
-				url:"/commute/commute2",
+				type: 'POST',
+				url: "/commute/commute2",
 				data: {
 					"str":str2,
 					"t_id":tid
 				},
-				dataType:"json",
+				dataType: "json",
 				error:function(request,status,error){
 				    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				},
@@ -133,17 +102,50 @@ $(document).ready(function(){
 					}
 				}
 			});
+		});
 		
+		$("#nextMonth").on("click", function(){
+			viewMonth = viewMonth+1;
+			if(viewMonth === 12){
+				viewYear = viewYear + 1;
+				viewMonth = viewMonth - 12;
+			}
+			test1 = viewYear+"년&nbsp;"+(viewMonth+1)+"월";
+			$("#test1").html(test1);
+			//날짜
+			var str = viewYear+"/"+("0"+(viewMonth+1)).slice(-2);
+			var str2 = str.slice(2);
+			var tid = $("#t_id").val();
+			$.ajax({
+				type: 'POST',
+				url: "/commute/commute2",
+				data: {
+					"str":str2,
+					"t_id":tid
+				},
+				dataType: "json",
+				error:function(request,status,error){
+				    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				},
+				success:function(list){
+					if(list.length!=0){
+						selectAllCommute(list);	
+					}else{
+						var c_list = "";
+						c_list += "<tr><td colspan='5'>근무 기록이 없습니다.</td></tr>";
+						$("#c_list").html(c_list);
+					}
+				}
+			});
+		});
 	});
-	
-});
 </script>
 </head>
-<body onload="test1(); test2()"> 
+<body> 
 	<div>
 		<button type="button" class="btn btn-outline-secondary" onclick="location.href='/commute/commute?t_id=${member.t_id}'">근태현황</button>
 	</div>
-	<div style="text-align:center;">
+	<div style="text-align:center;" id="btnWrap1">
 		<button type="button" id="prevMonth" class="btn btn-outline-primary btn-sm">&lt;</button>
 			<span id="test1"></span>
 		<button type="button" id="nextMonth" class="btn btn-outline-primary btn-sm">&gt;</button>
@@ -172,10 +174,8 @@ $(document).ready(function(){
 				</tr>
 			</c:forEach>
 		</tbody>		
-	</table>
-	<form name="frm">
-		<input type="hidden" id="tidx" value="${member.tidx}">
-		<input type="hidden" id="t_id" value="${member.t_id}">
-	</form>
+	</table>	
+	<input type="hidden" id="tidx" value="${member.tidx}">
+	<input type="hidden" id="t_id" value="${member.t_id}">
 </body>
 </html>
