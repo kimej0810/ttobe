@@ -23,8 +23,6 @@ PUBLIC "-//mybatis/org//DTD Config 3.0//EN"
 	
 	<!-- 퇴근시간 등록 -->
 	<update id="addEndWork">
-		<!-- UPDATE COMMUTE_MANAGEMENT SET C_ENDTIME = #{C_ENDTIME}, C_WORKTIME = #{C_WORKTIME}, C_TOTLALWORKTIME = #{C_TOTLALWORKTIME}
-		WHERE CIDX = #{CIDX} -->
 		update commute_management set c_endtime = #{c_endtime}, c_worktime = #{c_worktime} 
 		where rownum = 1 and tidx = #{tidx}
 	</update>

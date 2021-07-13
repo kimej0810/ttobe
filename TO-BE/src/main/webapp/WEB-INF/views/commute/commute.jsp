@@ -174,7 +174,7 @@
 				</tr>
 			</c:forEach>
 		</tbody>		
-	</table>	
+	</table>
 	<input type="hidden" id="tidx" value="${member.tidx}">
 	<input type="hidden" id="t_id" value="${member.t_id}">
 </body>
