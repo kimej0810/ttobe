@@ -14,7 +14,7 @@ public class MemberDTO {
 	private String t_position;
 	private String t_department;
 	private String t_join_date;
-	private String t_leave_get;
+	private int t_leave_get;
 	private String t_grade;
 	private String delyn;
 	private String f_type;
@@ -97,10 +97,10 @@ public class MemberDTO {
 	public void setT_join_date(String t_join_date) {
 		this.t_join_date = t_join_date;
 	}
-	public String getT_leave_get() {
+	public int getT_leave_get() {
 		return t_leave_get;
 	}
-	public void setT_leave_get(String t_leave_get) {
+	public void setT_leave_get(int t_leave_get) {
 		this.t_leave_get = t_leave_get;
 	}
 	public String getT_grade() {

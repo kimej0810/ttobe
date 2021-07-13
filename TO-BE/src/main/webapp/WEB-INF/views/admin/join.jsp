@@ -255,7 +255,7 @@ function joinAdmin(){
 </script>
 </head>
 <body>
-<%
+<%-- <%
 	String check = (String)session.getAttribute("result");
 	if(check==null){
 		out.println("<script>alert('잘못된 접근입니다.');location.href='/member/login';</script>");
@@ -263,7 +263,7 @@ function joinAdmin(){
 		out.println("<script>alert('관리자가 이미 존재합니다.');location.href='/member/login';</script>");
 	}
 	
-%>
+%> --%>
 	<div class="container">
 		<div class="header" style="text-align:center;">
 			<img src="<c:url value="/resources/static/img/loginlogo.png"/>" style="width:190px;margin-bottom:10px;" alt="회사로고이미지">

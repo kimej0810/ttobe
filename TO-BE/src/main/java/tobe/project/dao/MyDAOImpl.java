@@ -51,6 +51,22 @@ public class MyDAOImpl implements MyDAO{
 	public List<ScheduleVO> selectAllSchedule(SearchCriteria searchCriteria) throws Exception {
 		return sqlSession.selectList(Namespace+".selectAllSchedule",searchCriteria);
 	}
+	@Override
+	public int writeApproval(LeaveDTO dto) throws Exception {
+		return sqlSession.insert(Namespace+".writeApproval",dto);
+	}
+	@Override
+	public int writeLeave(LeaveDTO dto) throws Exception {
+		return sqlSession.insert(Namespace+".writeLeave",dto);
+	}
+	@Override
+	public int writeLine(LeaveDTO dto) throws Exception {
+		return sqlSession.insert(Namespace+".writeLine",dto);
+	}
+	@Override
+	public int updateLeave(LeaveDTO dto) throws Exception {
+		return sqlSession.update(Namespace+".updateLeave",dto);
+	}
 
 	
 

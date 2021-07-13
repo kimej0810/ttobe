@@ -94,4 +94,47 @@
 		FROM SCHEDULE_MANAGEMENT A LEFT JOIN TOBE_MEMBER B ON A.TIDX = B.TIDX WHERE A.TIDX = #{userIdx} 
 		AND A.DELYN = 'N') WHERE DELYN ='N' AND RNUM BETWEEN #{rowStart} AND #{rowEnd}
 	</select>
+	<insert id="writeApproval" keyProperty="eidx">
+		<selectKey keyProperty="eidx" resultType="int" order="BEFORE">
+				SELECT EIDX_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO ELECTRONIC_APPROVAL(EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_SEND, E_TEXTTITLE, E_TEXTCONTENT, TIDX)
+			VALUES(
+				EIDX_SEQ.NEXTVAL,
+				EIDX_DOCUMENT_SEQ.NEXTVAL,
+				#{e_type},
+				#{e_draftdate},
+				#{e_startday},
+				#{e_con},
+				#{e_send},
+				#{e_texttitle},
+				#{e_textcontent},
+				#{tidx}
+			)
+	</insert>
+	<insert id="writeLeave"  keyProperty="eidx">
+		INSERT INTO ANNUAL_LEAVE(EIDX,A_TYPE,A_STARTDATE,A_ENDDATE,A_USEDDAYS,TIDX)
+		VALUES(
+			#{eidx}+1,
+			#{a_type},
+			#{a_startdate},
+			#{a_enddate},
+			#{a_useddays},
+			#{tidx}
+		) 
+	</insert>
+	<insert id="writeLine"  keyProperty="eidx">
+		INSERT INTO APPROVAL_LINE(EIDX,TEAMLEADER,DEPARTMENTHEAD,SECTIONHEAD,LEADER,TIDX)
+			VALUES(
+				#{eidx}+1,
+				#{teamleader},
+				#{departmenthead},
+				#{sectionhead},
+				#{leader},
+				#{tidx}
+			)
+	</insert>
+	<update id="updateLeave">
+		UPDATE TOBE_MEMBER SET T_LEAVE_GET = #{a_userddays} WHERE TIDX = #{tidx}
+	</update>
 </mapper>

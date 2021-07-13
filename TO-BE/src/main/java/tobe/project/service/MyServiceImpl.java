@@ -50,6 +50,20 @@ public class MyServiceImpl implements MyService{
 	public List<ScheduleVO> selectAllSchedule(SearchCriteria searchCriteria) throws Exception {
 		return dao.selectAllSchedule(searchCriteria);
 	}
+	@Override
+	public int writeLeave(LeaveDTO dto) throws Exception {
+		int result1 = dao.writeApproval(dto);
+		int result2 = dao.writeLeave(dto);
+		int result3 = dao.writeLine(dto);
+		if(result1 == 1 && result2 == 1 && result3 == 1) {
+			return 1;
+		}
+		return 0;
+	}
+	@Override
+	public int updateLeave(LeaveDTO dto) throws Exception {
+		return dao.updateLeave(dto);
+	}
 
 	
 }

@@ -3,6 +3,7 @@ package tobe.project.controller;
 import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import tobe.project.domain.PageMaker;
 import tobe.project.domain.SearchCriteria;
+import tobe.project.dto.LeaveDTO;
 import tobe.project.dto.LoginDTO;
 import tobe.project.dto.MemberDTO;
 import tobe.project.dto.MemberVO;
@@ -134,6 +136,20 @@ public class MemberController {
 		model.addAttribute("memberList",dto);
 		model.addAttribute("member",vo);
 		return "/member/leave";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/leaveAction")
+	public int leaveAction(Model model,HttpSession session,LeaveDTO dto) throws Exception {
+		int checkck = myService.writeLeave(dto); 
+		if(checkck==1) {
+			MemberDTO memb = service.selectOneMemberIdx(dto.getTidx());
+			int checkLeave = memb.getT_leave_get() - dto.getA_useddays();
+			dto.setA_useddays(checkLeave);
+			return myService.updateLeave(dto);
+		}else {
+			return 0;
+		}
 	}
 	//로그인 페이지불러오기
 	@RequestMapping(value="/login", method = RequestMethod.GET)

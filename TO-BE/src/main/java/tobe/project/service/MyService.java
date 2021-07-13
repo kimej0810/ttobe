@@ -17,5 +17,7 @@ public interface MyService {
 	public List<LeaveDTO> selectAllLeave(SearchCriteria searchCriteria)throws Exception;
 	public int totalCountSchedule(SearchCriteria searchCriteria)throws Exception;
 	public List<ScheduleVO> selectAllSchedule(SearchCriteria searchCriteria)throws Exception;
+	public int writeLeave(LeaveDTO dto)throws Exception;
+	public int updateLeave(LeaveDTO dto)throws Exception;
 }
 

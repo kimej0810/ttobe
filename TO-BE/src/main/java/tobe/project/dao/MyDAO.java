@@ -17,4 +17,8 @@ public interface MyDAO {
 	public List<LeaveDTO> selectAllLeave(SearchCriteria searchCriteria)throws Exception;
 	public int totalCountSchedule(SearchCriteria searchCriteria)throws Exception;
 	public List<ScheduleVO> selectAllSchedule(SearchCriteria searchCriteria)throws Exception;
+	public int writeApproval(LeaveDTO dto)throws Exception;
+	public int writeLeave(LeaveDTO dto)throws Exception;
+	public int writeLine(LeaveDTO dto)throws Exception;
+	public int updateLeave(LeaveDTO dto)throws Exception;
 }
