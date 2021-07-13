@@ -146,7 +146,7 @@
 					function documentWite(){ //기안서 팝업창
 						var url = "documentWite";
 						var name = "documentWite";
-						var option = "width = 730, height = 925 left = 100, top=50,location=no";
+						var option = "width = 770, height = 915 left = 100, top=50,location=no";
 						window.open(url,name,option)
 					}
 					$(function(){
@@ -188,11 +188,11 @@
 								<tr class="waitingList">
 								<td>${elist.eidx }</td>
 								<td>
-									<a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=730, height=925'); return false;" style="text-decoration : none; color:black;">${elist.e_documentNum }</a>
+									<a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">${elist.e_documentNum }</a>
 								</td>
 								<td>${elist.memberVO.t_department }</td>
 								<td>${elist.memberVO.t_name }</td>
-								<td><a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=730, height=925'); return false;" style="text-decoration : none; color:black;">
+								<td><a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">
 									<c:set var="content" value="${elist.e_textTitle}"/>
 									<c:choose>
 										<c:when test="${fn:length(elist.e_textTitle) > 50}">

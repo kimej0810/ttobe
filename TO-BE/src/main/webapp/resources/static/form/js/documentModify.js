@@ -1,22 +1,23 @@
-//datepicker
-$(function() {
-	$.datepicker.setDefaults({
-		dateFormat : 'yy-mm-dd',
-		showOtherMonths : true,
-		showMonthAfterYear : true,
-		changeYear : true,
-		changeMonth : true,          
-       yearSuffix: "년",
-      	monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
-      	monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-       dayNamesMin: ['일','월','화','수','목','금','토'],
-       dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일']
+$(document).ready(function(){
+	$("#e_draftDate, #e_startDay").datetimepicker({
+		disabledWeekDays :[0, 6],
+		i18n:{
+			de:{
+				months:[
+					'Januar','Februar','März','April',
+					'Mai','Juni','Juli','August',
+					'September','Oktober','November','Dezember',
+				],
+				dayOfWeek:[
+					"So.", "Mo", "Di", "Mi", 
+					"Do", "Fr", "Sa.",
+				]
+			}
+		},
+		timepicker:false,
+		format:'Y-m-d'
 	});
-	$("#e_draftDate").datepicker();
-	$("#e_startDay").datepicker();
-	
-	$("#e_draftDate").datepicker('setDate', 'today');
-	$("#e_startDay").datepicker('setDate', '+1d');
+	jQuery.datetimepicker.setLocale('kr');
 });
 
 jQuery.fn.serializeObject = function(){

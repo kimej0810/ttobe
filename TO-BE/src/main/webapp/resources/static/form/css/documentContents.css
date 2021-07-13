@@ -1821,7 +1821,7 @@ table.sheet0 col.col6 {
 }
 
 table.sheet0 col.col7 {
-	width: 12.87777763pt
+	width: 48.877778pt;
 }
 
 table.sheet0 col.col8 {
@@ -1829,7 +1829,7 @@ table.sheet0 col.col8 {
 }
 
 table.sheet0 col.col9 {
-	width: 19.65555533pt
+	width: 48.655555pt;
 }
 
 table.sheet0 col.col10 {
@@ -1841,7 +1841,7 @@ table.sheet0 col.col11 {
 }
 
 table.sheet0 col.col12 {
-	width: 27.1111108pt
+	width: 57.111111pt;
 }
 
 table.sheet0 col.col13 {
@@ -1933,16 +1933,20 @@ table.sheet0 tr.row14 {
 	font-size: 15px;
 	margin-top:5px;
 }
-div:not(#documentBtn,#ui-datepicker-div,.ui-datepicker-header,.ui-datepicker-title){
+#documentWrite{
 	margin-left: 5px;
 	margin-top: 15px;
-	width: 700px;
+	width: 740px;
 	text-align: right;
+}
+#title, #contents{
+	width: 35px;
+    margin: 5px 0px 0px 15px;
 }
 #documentBtn{
 	text-align: right;
-    width: 704px;
-    margin: 10px 0px auto;
+    width: 100.8%;
+    margin-top: 10px;
 }
 #e_rule, #e_draftDate, #e_startDay, #e_con, #t_name, #t_department, #e_send{
 	width: 98%;
@@ -1950,6 +1954,7 @@ div:not(#documentBtn,#ui-datepicker-div,.ui-datepicker-header,.ui-datepicker-tit
 	border: none;
 	font-size: 15px;
 }
+
 #e_documentNum{ 
 	width:70px;
 	height: 28px;

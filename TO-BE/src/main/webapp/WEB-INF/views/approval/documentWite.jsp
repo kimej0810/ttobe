@@ -7,7 +7,7 @@
 	Object userTidx = session.getAttribute("userTidx");
 	String userPosition = (String)session.getAttribute("userPosition");
 	
-	if(userName == null || userDep == null || userTidx == null){
+	if(userName == null || userDep == null || userTidx == null || userPosition == null){
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
 	}
 %>
@@ -19,13 +19,13 @@
 		<script src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 		
 		<!-- datepicker -->
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<link href="<c:url value="/resources/static/form/css/jquery.datetimepicker.css"/>" rel="stylesheet">
+		<script src="<c:url value="/resources/static/form/js/jquery.datetimepicker.full.min.js"/>"></script>
 		
 		<link href="<c:url value="/resources/static/form/css/documentWite.css"/>" rel='stylesheet' />
 		<script src="<c:url value="/resources/static/form/js/documentWite.js"/>"></script>
 		<link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	</head>
 	<body>
 		<form id="documentWiteData" name="documentWiteData" method="POST">
@@ -70,14 +70,16 @@
 							</td>
 							<td class="style44 style46" colspan="3">전 결 규 정</td>
 							<td class="style44 style63" colspan="8">
-						 		<input type="text" id="e_rule" name="e_rule" autocomplete="off">
+						 		<input type="text" id="e_rule" name="e_rule" autocomplete="off" title="대상을 선택해주세요.">
+						 		<span id="tootip_area"></span>
 							</td>
 						</tr> 
 						<tr class="row6">
 							<td></td>
 							<td class="style2">기 안 일 자</td>
 							<td class="style34 style34" colspan="2">
-								<input type="text" id="e_draftDate" name="e_draftDate" class="date" autocomplete="off">
+								<input type="text" class="date" id="e_draftDate" name="e_draftDate" class="date" autocomplete="off" readonly title="날짜를 선택해주세요.">
+								<span id="tootip_area2"></span>
 							</td>
 							<td class="style33 style33" rowspan="3">결<br><br>재</td>
 							<td class="style35 style36" colspan="2">담당</td>
@@ -90,7 +92,8 @@
 							<td></td>
 							<td class="style2">시 행 일 자</td>
 							<td class="style34 style34" colspan="2">
-								<input type="text" id="e_startDay" name="e_startDay" class="date" autocomplete="off">
+								<input type="text" class="date" id="e_startDay" name="e_startDay" class="date" autocomplete="off" readonly title="날짜를 선택해주세요.">
+								<span id="tootip_area3"></span>
 							</td>
 							<td class="style38  style43" colspan="2" rowspan="2">
 								<input type="text" id="charge" value="<%=userName%>" readonly>
@@ -218,7 +221,8 @@
 								<td></td>
 								<td class="style3" rowspan="2">협 의 <br>및<br> 결 재 조 건</td>
 								<td class="style38 style43" colspan="2" rowspan="2">
-									<input type="text" id="e_con" name="e_con" autocomplete="off">
+									<input type="text" id="e_con" name="e_con" autocomplete="off" title="5글자 이상 50글자 이하로 입력해주세요.">
+									<span id="tootip_area4"></span>
 								</td>
 								<td class="style38 style42" colspan="3" rowspan="2">기 안 자</td>
 								<td class="style38 style57" colspan="8" rowspan="2">
@@ -232,7 +236,8 @@
 								<td></td>
 								<td class="style5">수 신 (참조)</td>
 								<td class="style44 style46" colspan="2">
-									<input type="text" id="e_send" name="e_send" autocomplete="off">
+									<input type="text" id="e_send" name="e_send" autocomplete="off" title="5글자 이상 50글자 이하로 입력해주세요.">
+									<span id="tootip_area5"></span>
 								</td>
 								<td class="style44 style45" colspan="3">기 안 부 서</td>
 								<td class="style44 style63" colspan="8">
@@ -242,15 +247,15 @@
 							<tr class="row12">
 								<td></td>
 								<td class="style53 style55" colspan="14">
-									<div style="width: 35px;">제목 </div>
-									<textarea class="target" id="e_textTitle" name="e_textTitle"> </textarea>
+									<div id="title">제목 </div>
+									<textarea class="target" id="e_textTitle" name="e_textTitle" title="10글자 이상 80글자 이하로 입력해주세요"> </textarea>
 								</td>
 							</tr>
 							<tr class="row15">
 								<td></td>
 								<td class="style15 style17" colspan="14">
-									<div style="width: 35px;">내용 </div>
-									<textarea class="target" id="e_textContent" name="e_textContent"> </textarea>
+									<div id="contents">내용 </div>
+									<textarea class="target" id="e_textContent" name="e_textContent" title="50글자 이상 2048글자 이하로 입력해주세요"> </textarea>
 								</td>
 							</tr>
 						</tbody>

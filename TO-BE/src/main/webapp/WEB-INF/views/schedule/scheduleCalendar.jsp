@@ -36,7 +36,7 @@
 							click: function() {
 								var url = "schedulePopup";
 								var name = "schedulePopup";
-								var option = "width = 600, height = 795 left = 100, top=50,location=no";
+								var option = "width = 600, height = 800 left = 100, top=50,location=no";
 								window.open(url,name,option)
 							}
 						},

@@ -80,7 +80,7 @@
 						<p class="menu-name">게시판</p>
 					</li>
 					<li class="sidebar-menu-item"
-						onclick="location.href='/approval/documentListMain?t_id=<%=userId%>'">
+						onclick="location.href='/approval/documentListMain'">
 						<p class="menu-name">전자결재</p>
 					</li>
 					<li class="sidebar-menu-item" onclick="location.href='/data/list'">

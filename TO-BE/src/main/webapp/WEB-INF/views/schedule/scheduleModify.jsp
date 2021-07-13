@@ -27,8 +27,25 @@
 		<link href="<c:url value="/resources/static/schedule/css/jquery.datetimepicker.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/static/schedule/css/schedule.css"/>" rel='stylesheet' />
 		<link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 		<script>
 			function click_up(){
+				var startDate = $("#s_startDate").val().replace("-","/"); //치환
+				var endDate = $("#s_endDate").val().replace("-","/");	//치환
+				var start = new Date(startDate);						//문자열을 날짜로 변환
+				var end = new Date(endDate);							//문자열을 날짜로 변환
+				
+				if($("#s_title").val() == ""){
+					return false;
+				}else if($("#s_startDate").val() == ""){
+					return false;
+				}else if($("#s_endDate").val() == ""){
+					return false;
+				}else if(start > end){
+					return false;
+				}else if($("#s_content").val() == ""){
+					return false;
+				}
 				
 				var scheduleData = JSON.stringify($('form#scheduleData').serializeObject());
 				var result = confirm("일정을 수정하시겠습니까?");
@@ -76,6 +93,7 @@
 					</div>
 					<div class="top">
 						<input type="text" class="s_title form-control" id="s_title" name="s_title" placeholder="제목을 입력하세요" value="<%=vo.getS_title()%>" autocomplete="off">
+						<span id="tootip_area"></span>
 					</div>
 					<div class="domain">
 						<h3 class="zTree-h3">사원번호</h3>
@@ -98,19 +116,22 @@
 						<h3 class="zTree-h3">시작 날짜</h3>
 					</div>
 					<div class="domain">
-						<input class = "date form-control" id = "s_startDate" type = "text" name = "s_startDate" id = "s_startDate" value="<%=vo.getS_startDate()%>" style="width: 200px">
+						<input class = "date form-control" id = "s_startDate" type = "text" name = "s_startDate" id = "s_startDate" value="<%=vo.getS_startDate()%>" style="width: 200px" readonly>
+						<span id="tootip_area2"></span>
 					</div>
 					<div class="domain">
 						<h3 class="zTree-h3">종료 날짜</h3>
 					</div>
 					<div class="domain">
-						<input class = "date form-control" id = "s_endDate" type = "text" name = "s_endDate" id = "s_endDate" value="<%=vo.getS_endDate()%>" style="width: 200px">
+						<input class = "date form-control" id = "s_endDate" type = "text" name = "s_endDate" id = "s_endDate" value="<%=vo.getS_endDate()%>" style="width: 200px" readonly>
+						<span id="tootip_area3"></span>
 					</div>
 					<div class="domain">
 						<h3 class="zTree-h3">내용</h3>
 					</div>
 					<div class="domain">
 						<textarea class="s_content target form-control" id="s_content" name="s_content" rows="5" cols="20" placeholder="100글자까지 입력 가능합니다" autocomplete="off"><%=vo.getS_content()%></textarea>
+						<span id="tootip_area4"></span>
 					</div>
 					<div class="btngroup">
 						<button type="button" class="cancel-button  btn btn-primary btn-sm float-right" onclick="history.back();" style="margin-top:20px;height: 30px;">취소</button> 

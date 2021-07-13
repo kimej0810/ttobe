@@ -53,9 +53,9 @@
 				SELECT eidx_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
  		INSERT INTO 
- 			electronic_approval(EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_SEND, E_TEXTTITLE, E_TEXTCONTENT, TIDX)
+ 			electronic_approval(EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_SEND, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, TIDX)
  		VALUES
- 			(eidx_seq.nextval,eidx_document_seq.nextval, #{e_rule}, #{e_draftDate}, #{e_startDay}, #{e_con}, #{e_send}, #{e_textTitle}, #{e_textContent}, #{tidx})
+ 			(eidx_seq.nextval,eidx_document_seq.nextval, #{e_rule}, #{e_draftDate}, #{e_startDay}, #{e_con}, #{e_send}, #{e_textTitle}, #{e_textContent}, #{e_status}, #{tidx})
  	</insert>
  	
  	<select id="selectOneApprovalDocumentContents" resultType="ApprovalDTO" parameterType="ApprovalDTO">
@@ -152,7 +152,7 @@
  	
  	<!-- 페이징 -->
  	<select id="selectAllApprovalDocumentList" resultMap="approvalResultMap">
- 		 select EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_SEND, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, TIDX, T_NAME, T_DEPARTMENT, T_POSITION,
+ 		 select EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_SEND, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, E_APPROVALNOYN, E_REASON, TIDX, T_NAME, T_DEPARTMENT, T_POSITION,
  		 		TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, DELYN
  			from (
  				select A.*,B.T_NAME, T_DEPARTMENT, T_POSITION, C.TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, ROW_NUMBER() OVER(ORDER BY A.EIDX DESC) AS RNUM
@@ -176,18 +176,18 @@
 		</if>
 	</sql> 
 	<sql id="searchWord">
-			<if test="searchWord != null">
-				<if test="searchWord == '팀장'.toString()">AND TEAMLEADER = #{userId} AND STATUS = '3000'</if>
-				<if test="searchWord == '부장'.toString()">AND DEPARTMENTHEAD = #{userId} AND STATUS = '0300' </if>
-				<if test="searchWord == '부장예정'.toString()">AND DEPARTMENTHEAD = #{userId} AND STATUS = '3000'</if>
-				<if test="searchWord == '과장'.toString()">AND SECTIONHEAD = #{userId} AND STATUS = '0030'</if>
-				<if test="searchWord == '과장예정'.toString()">AND SECTIONHEAD = #{userId} AND (STATUS = '3000' or STATUS = '0300')</if>
-				<if test="searchWord == '대표'.toString()">AND LEADER = #{userId} AND STATUS = '0003'</if>
-				<if test="searchWord == '대표예정'.toString()">AND LEADER = #{userId} AND (STATUS = '3000' or STATUS = '0300' or STATUS = '0030')</if>
-				<if test="searchWord == '결재대기'.toString()">AND E_STATUS = '결재대기'</if>
-				<if test="searchWord == '결재진행'.toString()">AND E_STATUS = '결재진행'</if>
-				<if test="searchWord == '결재완료'.toString()">AND E_STATUS = '결재완료'</if>
-				<if test="searchWord == '결재반려'.toString()">AND E_STATUS = '결재반려'</if>
-			</if>
+		<if test="searchWord != null">
+			<if test="searchWord == '팀장'.toString()">AND TEAMLEADER = #{userId} AND STATUS = '3000'</if>
+			<if test="searchWord == '부장'.toString()">AND DEPARTMENTHEAD = #{userId} AND STATUS = '0300' </if>
+			<if test="searchWord == '부장예정'.toString()">AND DEPARTMENTHEAD = #{userId} AND STATUS = '3000'</if>
+			<if test="searchWord == '과장'.toString()">AND SECTIONHEAD = #{userId} AND STATUS = '0030'</if>
+			<if test="searchWord == '과장예정'.toString()">AND SECTIONHEAD = #{userId} AND (STATUS = '3000' or STATUS = '0300')</if>
+			<if test="searchWord == '대표'.toString()">AND LEADER = #{userId} AND STATUS = '0003'</if>
+			<if test="searchWord == '대표예정'.toString()">AND LEADER = #{userId} AND (STATUS = '3000' or STATUS = '0300' or STATUS = '0030')</if>
+			<if test="searchWord == '결재대기'.toString()">AND E_STATUS = '결재대기'</if>
+			<if test="searchWord == '결재진행'.toString()">AND E_STATUS = '결재진행'</if>
+			<if test="searchWord == '결재완료'.toString()">AND E_STATUS = '결재완료'</if>
+			<if test="searchWord == '결재반려'.toString()">AND E_STATUS = '결재반려'</if>
+		</if>
 	</sql>
  </mapper>

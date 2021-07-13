@@ -20,13 +20,14 @@
 		<link href="<c:url value="/resources/static/schedule/css/jquery.datetimepicker.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/static/schedule/css/schedule.css"/>" rel='stylesheet' />
 		<link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 		<script type="text/javascript">
-		$(document).ready(function(){
-			$("#s_startDate, #s_endDate").datetimepicker({
-				disabledWeekDays :[0, 6]
+			$(document).ready(function(){
+				$("#s_startDate, #s_endDate").datetimepicker({
+					disabledWeekDays :[0, 6]
+				});
+				jQuery.datetimepicker.setLocale('kr');
 			});
-			jQuery.datetimepicker.setLocale('kr');
-		})
 		</script>
 		<style type="text/css">
 		body,html{
@@ -48,6 +49,7 @@
 					<input type="hidden" class="tidx" name="tidx" id="tidx" value="<%=userTidx%>">
 					<div class="top">
 						<input type="text" class="s_title form-control" id="s_title" name="s_title" placeholder="제목을 입력하세요" autocomplete="off">
+						<span id="tootip_area"></span>
 					</div>
 					<div class="domain">
 						<h3 class="zTree-h3">사원번호</h3>
@@ -69,19 +71,22 @@
 						<h3 class="zTree-h3 ">시작 날짜</h3>
 					</div>
 					<div class="domain">
-						<input class = "date form-control" id = "s_startDate" type = "text" name = "s_startDate" id = "s_startDate" autocomplete="off" style="width: 200px">
+						<input class = "date form-control" id = "s_startDate" type = "text" name = "s_startDate" id = "s_startDate" autocomplete="off" style="width: 200px" readonly>
+						<span id="tootip_area2"></span>
 					</div>
 					<div class="domain">
 						<h3 class="zTree-h3">종료 날짜</h3>
 					</div>
 					<div class="domain">
-						<input class = "date form-control" id = "s_endDate" type = "text" name = "s_endDate" id = "s_endDate" autocomplete="off" style="width: 200px">
+						<input class = "date form-control" id = "s_endDate" type = "text" name = "s_endDate" id = "s_endDate" autocomplete="off" style="width: 200px" readonly>
+						<span id="tootip_area3"></span>
 					</div>
 					<div class="domain">
 						<h3 class="zTree-h3">내용</h3>
 					</div>
 					<div class="domain">
 						<textarea class="s_content target form-control" id="s_content" name="s_content" rows="5" cols="20" placeholder="100글자까지 입력 가능합니다" autocomplete="off"></textarea>
+						<span id="tootip_area4"></span>
 					</div>
 				</form>
 				<button type="button" class="close-button btn btn-primary btn-sm float-right" onclick="window.close();" style="margin-top:20px;height: 30px;">닫기</button>

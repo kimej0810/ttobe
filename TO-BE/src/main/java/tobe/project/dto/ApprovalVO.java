@@ -14,10 +14,24 @@ public class ApprovalVO {
 	private String e_textContent;
 	private String delyn;
 	private String e_status;
+	private String e_approvalnoyn;
+	private String e_reason;
 	private int tidx;
 	private MemberVO memberVO;
 	private ApprovalLineVO approvalLineVO;
 	
+	public String getE_approvalNoyn() {
+		return e_approvalnoyn;
+	}
+	public void setE_approvalNoyn(String e_approvalnoyn) {
+		this.e_approvalnoyn = e_approvalnoyn;
+	}
+	public String getE_reason() {
+		return e_reason;
+	}
+	public void setE_reason(String e_reason) {
+		this.e_reason = e_reason;
+	}
 	
 	public ApprovalLineVO getApprovalLineVO() {
 		return approvalLineVO;

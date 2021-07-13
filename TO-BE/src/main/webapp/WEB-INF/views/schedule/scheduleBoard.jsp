@@ -101,7 +101,7 @@
 								function scheduleAddPopup(){
 									var url = "schedulePopup";
 									var name = "schedulePopup";
-									var option = "width = 600, height = 795 left = 100, top=50,location=no";
+									var option = "width = 600, height = 800 left = 100, top=50,location=no";
 									window.open(url,name,option)
 								}
 								$(function(){
@@ -146,7 +146,7 @@
 									$(document).on("click","#aBtn",function(){
 										var url = $(this).attr("title");
 										var nama = "_blank";
-										var option =  "width=600, height=795";
+										var option =  "width=600, height=800";
 										window.open(url,name,option);
 									});
 									$('#calendarButton').on("click",function(){
@@ -180,7 +180,7 @@
 						              			</td>
 						              			<td class="control-label scheduletitle">
 													<input type="hidden" value="${viewAll.sidx}">
-													<a href="scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=795'); return false;" style="text-decoration : none; color:black;">
+													<a href="scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=800'); return false;" style="text-decoration : none; color:black;">
 														<c:set var="content" value="${viewAll.s_title}"/>
 														<c:choose>
 															<c:when test="${fn:length(viewAll.s_title) > 10}">
@@ -197,7 +197,7 @@
 														<td class="scheduleDate">
 															${viewAll.s_startDate}
 														</td>
-														<td>\</td>
+														<td></td>
 													</c:when>
 													<c:otherwise>
 														<td class="scheduleDate">
@@ -209,7 +209,7 @@
 													</c:otherwise>
 												</c:choose>
 												<td class="scheduleContents">
-													<a href="scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=795'); return false;" style="text-decoration : none; color:black;">
+													<a href="scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=800'); return false;" style="text-decoration : none; color:black;">
 														<c:set var="content" value="${viewAll.s_content}"/>
 														${fn:substring(content,0,50)}
 													</a>

@@ -11,7 +11,7 @@
 	PageMaker paging = (PageMaker)request.getAttribute("paging");
 	String userPosition = (String)session.getAttribute("userPosition");
 	
-	if(session.getAttribute("userTidx") == null){
+	if(session.getAttribute("userTidx") == null || userPosition == null || session.getAttribute("userId")  == null){
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
 	}
 %>
@@ -143,7 +143,7 @@
 					function documentWite(){ //기안서 팝업창
 						var url = "documentWite";
 						var name = "documentWite";
-						var option = "width = 730, height = 925 left = 100, top=50,location=no";
+						var option = "width = 770, height = 915 left = 100, top=50,location=no";
 						window.open(url,name,option)
 					}
 					$(function(){
@@ -175,6 +175,9 @@
 								<th width="100px">기안 부서</th>
 								<th width="100px">기안자</th>
 								<th>제목</th>
+								<c:if test="${scri.searchWord eq '결재반려' }">
+								<th width="600px">반려사유</th>
+								</c:if>
 								<th width="150px">기안 일시</th>
 								<th width="70px">상태</th>
 							</tr>
@@ -184,11 +187,11 @@
 								<tr class="waitingList">
 								<td>${elist.eidx }</td>
 								<td>
-									<a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=730, height=925'); return false;" style="text-decoration : none; color:black;">${elist.e_documentNum }</a>
+									<a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">${elist.e_documentNum }</a>
 								</td>
 								<td>${elist.memberVO.t_department }</td>
 								<td>${elist.memberVO.t_name }</td>
-								<td><a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=730, height=925'); return false;" style="text-decoration : none; color:black;">
+								<td><a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">
 									<c:set var="content" value="${elist.e_textTitle}"/>
 									<c:choose>
 										<c:when test="${fn:length(elist.e_textTitle) > 50}">
@@ -200,6 +203,9 @@
 									</c:choose>
 									</a>
 								</td>
+								<c:if test="${scri.searchWord eq '결재반려' }">
+								<td>${elist.e_reason }</td>
+								</c:if>
 								<td>${elist.e_draftDate }</td>
 								<td>${elist.e_status }</td>
 								</tr>
