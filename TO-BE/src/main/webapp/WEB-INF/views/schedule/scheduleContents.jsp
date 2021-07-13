@@ -6,14 +6,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% 
-	ScheduleVO vo = (ScheduleVO)request.getAttribute("vo"); 
-	MemberVO mo = (MemberVO)request.getAttribute("mo");
-	int userTidx = (int)session.getAttribute("userTidx");
-	String userGrade = (String) session.getAttribute("userGrade");
-	
-	if(userTidx == 0){
+	if(session.getAttribute("userTidx") == null){ 
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
 	}
+
+	ScheduleVO vo = (ScheduleVO)request.getAttribute("vo"); 
+	MemberVO mo = (MemberVO)request.getAttribute("mo");
+	Integer userTidx = (Integer)session.getAttribute("userTidx");
+	String userGrade = (String) session.getAttribute("userGrade");
 %>
 <!DOCTYPE html>
 <html> 
@@ -85,15 +85,17 @@
 						<textarea class="s_content target form-control" id="s_content" name="s_content" rows="5" cols="20" readonly><%=vo.getS_content()%></textarea>
 					</div>
 				</form>
-				<%if(vo.getTidx() == userTidx){ %>
-					<button type="button" class="delete-button btn btn-outline-danger btn-sm" onclick="click_delete();" style="margin-top:20px; height: 30px;">삭제</button>
-					<button type="button" class="close-button btn btn-primary btn-sm float-right" onclick="window.close();" style="margin: 20px 15px 0px 0px;height: 30px;">닫기</button>
-					<button type="button" class="modify-button btn btn-primary btn-sm float-right" onclick="click_modify();" style="margin:20px 15px 0px 0px; width: 80px; height: 30px;">수정</button>
-				<%}else if(userGrade.equals("A")){%>
-					<button type="button" class="delete-button btn btn-outline-danger btn-sm" onclick="click_delete();" style="margin-top:20px; height: 30px;">삭제</button>
-					<button type="button" class="close-button btn btn-primary btn-sm float-right" onclick="window.close();" style="margin: 20px 15px 0px 0px; height: 30px;">닫기</button>
-				<%}else{ %>
-					<button type="button" class="close-button btn btn-primary btn-sm float-right" onclick="window.close();" style="margin-top:20px;height: 30px;">닫기</button>
+				<%if(userTidx != null){ %>
+					<%if(vo.getTidx() == userTidx){ %>
+						<button type="button" class="delete-button btn btn-outline-danger btn-sm" onclick="click_delete();" style="margin-top:20px; height: 30px;">삭제</button>
+						<button type="button" class="close-button btn btn-primary btn-sm float-right" onclick="window.close();" style="margin: 20px 15px 0px 0px;height: 30px;">닫기</button>
+						<button type="button" class="modify-button btn btn-primary btn-sm float-right" onclick="click_modify();" style="margin:20px 15px 0px 0px; width: 80px; height: 30px;">수정</button>
+					<%}else if(userGrade.equals("A")){%>
+						<button type="button" class="delete-button btn btn-outline-danger btn-sm" onclick="click_delete();" style="margin-top:20px; height: 30px;">삭제</button>
+						<button type="button" class="close-button btn btn-primary btn-sm float-right" onclick="window.close();" style="margin: 20px 15px 0px 0px; height: 30px;">닫기</button>
+					<%}else{ %>
+						<button type="button" class="close-button btn btn-primary btn-sm float-right" onclick="window.close();" style="margin-top:20px;height: 30px;">닫기</button>
+					<%} %>
 				<%} %>
 			</div>
 		</div>

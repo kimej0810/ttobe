@@ -6,15 +6,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% 
+	if(session.getAttribute("userTidx") == null){ 
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+	}
 	ScheduleVO vo = (ScheduleVO)request.getAttribute("vo"); 
 	MemberVO mo = (MemberVO)request.getAttribute("mo");
-	int userTidx = (int)session.getAttribute("userTidx");
-	
-	if(userTidx == 0){ 
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
-	}else if(userTidx == 0 || userTidx != vo.getTidx()){
-		out.println("<script>alert('권한이 없습니다');history.back();</script>");
-	}
+	Integer userTidx = (Integer)session.getAttribute("userTidx");
 %> 
 <!DOCTYPE html>
 <html>
@@ -29,6 +26,10 @@
 		<script src="<c:url value="/resources/static/schedule/js/scheduleModify.js"/>"  type="text/javascript"></script>
 		<link href="<c:url value="/resources/static/schedule/css/scheduleModify.css"/>" rel='stylesheet' />
 		<script>
+			if(<%=userTidx%> == 0 || <%=userTidx%> != <%=vo.getTidx()%>){
+				alert('권한이 없습니다');
+				history.back();
+			}
 			function click_up(){
 				var startDate = $("#s_startDate").val().replace("-","/"); //치환
 				var endDate = $("#s_endDate").val().replace("-","/");	//치환
