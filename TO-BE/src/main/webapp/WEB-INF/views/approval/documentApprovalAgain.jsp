@@ -4,16 +4,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
-	Object userName = session.getAttribute("userName");
-	Object userDep = session.getAttribute("userDep");
-	ApprovalDTO contents = (ApprovalDTO)request.getAttribute("contents");
-	
-	int userTidx = (int)session.getAttribute("userTidx");
-	if(userTidx == 0){ 
+	if(session.getAttribute("userTidx") == null){
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
-	}else if(userTidx == 0 || userTidx != contents.getTidx()){
-		out.println("<script>alert('권한이 없습니다');history.back();</script>");
 	}
+	String userName = (String)session.getAttribute("userName");;
+	String userDep =  (String)session.getAttribute("userDep");
+	Integer userTidx = (Integer)session.getAttribute("userTidx");
+	
+	ApprovalDTO contents = (ApprovalDTO)request.getAttribute("contents");
 %>
 <!DOCTYPE html>
 <html>
@@ -21,19 +19,21 @@
 		<meta charset="UTF-8">
 		<title>결제문서 수정페이지</title>
 		<script src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
-	 	
+		<link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>">
 		<!-- datepicker -->
 		<link href="<c:url value="/resources/static/form/css/jquery.datetimepicker.css"/>" rel="stylesheet">
 		<script src="<c:url value="/resources/static/form/js/jquery.datetimepicker.full.min.js"/>"></script>
 		
-		<link href="<c:url value="/resources/static/form/css/documentModify.css"/>" rel='stylesheet' />
-		<script src="<c:url value="/resources/static/form/js/documentModify.js"/>"></script>
-		<link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>">
+		<link href="<c:url value="/resources/static/form/css/documentApprovalAgain.css"/>" rel='stylesheet' />
+		<script src="<c:url value="/resources/static/form/js/documentApprovalAgain.js"/>"></script>
 		<script type="text/javascript">
+			if(<%=userTidx%> != <%=contents.getTidx()%>){
+				alert('권한이 없습니다');
+				history.back();
+			}
 			function click_up(){
 				var draftLetterData = JSON.stringify($('form#draftLetterData').serializeObject());
 				var result = confirm("재기안 하시겠습니까?");
-				
 				if(result){
 					$.ajax({
 						type:'POST',
@@ -55,7 +55,7 @@
 		<form id="draftLetterData" name="draftLetterData">
 		<input type="hidden" name="e_status" id="e_status" value="<%=contents.getE_status()%>">
 		<input type="hidden" name="eidx" id="eidx" value="<%=contents.getEidx() %>">
-		<div>
+		<div id="documentWrite">
 			<table id="sheet0" class="sheet0">
 				<col class="col0">
 				<col class="col1">

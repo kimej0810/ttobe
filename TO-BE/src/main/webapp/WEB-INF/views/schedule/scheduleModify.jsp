@@ -23,11 +23,11 @@
 		<title>일정 수정</title>
 		<script src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 		<script src="<c:url value="/resources/static/schedule/js/jquery.datetimepicker.full.min.js"/>"></script>
-		<script src="<c:url value="/resources/static/schedule/js/scheduleModify.js"/>"  type="text/javascript"></script>
 		<link href="<c:url value="/resources/static/schedule/css/jquery.datetimepicker.css"/>" rel="stylesheet">
-		<link href="<c:url value="/resources/static/schedule/css/schedule.css"/>" rel='stylesheet' />
 		<link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>">
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+		
+		<script src="<c:url value="/resources/static/schedule/js/scheduleModify.js"/>"  type="text/javascript"></script>
+		<link href="<c:url value="/resources/static/schedule/css/scheduleModify.css"/>" rel='stylesheet' />
 		<script>
 			function click_up(){
 				var startDate = $("#s_startDate").val().replace("-","/"); //치환
@@ -65,19 +65,7 @@
 					});
 				}
 			}
-			$(document).ready(function(){
-				$("#s_startDate, #s_endDate").datetimepicker({
-					disabledWeekDays :[0, 6]
-				});
-				jQuery.datetimepicker.setLocale('kr');
-			})
 		</script>
-		<style type="text/css">
-			body,html{
-				font-family: 'NanumSquareRound';
-			    font-size: 15px;
-			}
-		</style>
 	</head>
 	<body>
 		<div class="group" id="popupGroup">

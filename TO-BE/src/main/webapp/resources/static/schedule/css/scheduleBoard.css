@@ -1,0 +1,47 @@
+.content{
+	overflow: hidden;
+}
+#board{
+	text-align:center;
+}
+#paging ul{
+	justify-content:center;
+}
+.search{
+	width:100%;
+	display:grid;
+	grid-template-columns:1fr minmax(70px, auto);
+}
+#paging{
+	text-align: center;
+	font-size: 20px;
+}
+.input-group{
+	grid-column:2/3;
+}
+.page-item{
+	padding:0;
+}
+#box{
+	height: 650px;
+}
+.row{
+	margin:0px auto;
+	height: 134%;
+	max-width: 100%;
+	flex-wrap: inherit;
+	background-color:white;
+}
+.panel{
+	height: 90%;
+}
+#calendarButton{
+				width: 120px;
+}
+#scheduleBtn{
+	text-align: right;
+}
+#aBtn{
+	text-decoration : none;
+	color:black;
+}

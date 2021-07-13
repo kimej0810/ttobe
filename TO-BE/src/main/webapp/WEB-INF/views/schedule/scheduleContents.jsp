@@ -21,25 +21,23 @@
 		<meta charset="UTF-8">
 		<title>일정 상세</title>
 		<script src="<c:url value="/resources/static/schedule/js/jquery-3.6.0.min.js"/>"></script>		
-		<link href="<c:url value="/resources/static/schedule/css/schedule.css"/>" rel='stylesheet' />
-		<link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>">
+		<link href="<c:url value="/resources/static/css/bootstrap.css"/>" rel="stylesheet">
+		<link href="<c:url value="/resources/static/schedule/css/scheduleContents.css"/>" rel='stylesheet' />
 		<script>
-		function click_modify(){
-				alert("일정 수정페이지로 이동합니다.");
-				location.href="scheduleModify?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>";
-		};
-		function click_delete(){
-			var result = confirm("일정을 삭제하시겠습니까?");
-			if(result){
-				location.href="scheduleDelete?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>";
-				alert("일정이 삭제되었습니다.");
-				opener.parent.location.reload();
-				window.close();
+			function click_modify(){
+					alert("일정 수정페이지로 이동합니다.");
+					location.href="scheduleModify?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>";
+			};
+			function click_delete(){
+				var result = confirm("일정을 삭제하시겠습니까?");
+				if(result){
+					location.href="scheduleDelete?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>";
+					alert("일정이 삭제되었습니다.");
+					opener.parent.location.reload();
+					window.close();
+				}
 			}
-		}
 		</script>
-		<style type="text/css">
-		</style>
 	</head>
 	<body>
 		<div class="group" id="popupGroup">

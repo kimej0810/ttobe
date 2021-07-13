@@ -1450,3 +1450,19 @@ A VERTICAL event
     color: inherit; /* natural color for navlinks */
   }
 
+.fc-myCustomButton-button, .fc-timeGridDay-button, .fc-dayGridMonth-button{
+	width: 98px;
+}
+.content{
+	overflow: hidden;
+}
+#calendar {
+	max-width: 80%;   
+	max-height: 100%;
+	margin: 0px auto;
+	width: 100%;
+	display: block;
+}
+.fc-scrollgrid-sync-table{
+	height: 587px;
+}

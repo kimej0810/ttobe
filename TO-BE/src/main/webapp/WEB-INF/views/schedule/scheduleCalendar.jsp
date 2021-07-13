@@ -18,9 +18,8 @@
 <!DOCTYPE html>
 <html id="html">
 	<head>
-		<meta charset='utf-8' />
-		
-		<script src="<c:url value="/resources/static/schedule/js/jquery-3.6.0.min.js"/>"></script>
+		<meta charset='utf-8'/>
+		<title>캘린더 일정리스트</title>
 		<link href="<c:url value="/resources/static/schedule/css/calendarMain.css"/>" rel='stylesheet' />
 		<script src="<c:url value="/resources/static/schedule/js/calendarMain.js"/>"></script>
 		<script>
@@ -100,29 +99,9 @@
 			    calendar.render(); 
 			});
 		</script>
-		<style>
-			.fc-myCustomButton-button, .fc-timeGridDay-button, .fc-dayGridMonth-button{
-				width: 98px;
-			}
-			.content{
-				overflow: hidden;
-			}
-			#calendar {
-				max-width: 80%;   
-				max-height: 100%;
-				margin: 0px auto;
-				width: 100%;
-				display: block;
-			}
-			.fc-scrollgrid-sync-table{
-				height: 587px;
-			}
-		</style>
 	</head>
 	<body>		
 		<div id='calendar' style="position: relative">
-		
 		</div>
-		
 	</body>
 </html>

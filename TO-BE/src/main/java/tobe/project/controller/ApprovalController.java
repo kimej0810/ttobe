@@ -89,16 +89,16 @@ public class ApprovalController {
 		System.out.println("dto="+dto);
 		if(dto.getT_position().equals("팀장")) {
 			dto.setStatus("0300");
-			dto.setE_status("결재진행");
+			dto.setE_status("결재대기");
 		}else if(dto.getT_position().equals("부장")) {
 			dto.setStatus("0030");
 			dto.setTeamLeader("결재권한없음");
-			dto.setE_status("결재진행");
+			dto.setE_status("결재대기");
 		}else if(dto.getT_position().equals("과장")) {
 			dto.setStatus("0003");
 			dto.setTeamLeader("결재권한없음");
 			dto.setDepartmentHead("결재권한없음");
-			dto.setE_status("결재진행");
+			dto.setE_status("결재대기");
 		}else if(dto.getT_position().equals("대표")) {
 			dto.setStatus("0000");
 			dto.setTeamLeader("결재권한없음");
@@ -132,8 +132,10 @@ public class ApprovalController {
 			service.modifyApprovalStatusProgress(eidx);
 		}else if(to.getStatus().equals("0300")){
 			lservice.modifyApprovalDepartmentHead(eidx);
+			service.modifyApprovalStatusProgress(eidx);
 		}else if(to.getStatus().equals("0030")){
 			lservice.modifyApprovalSectionHead(eidx);
+			service.modifyApprovalStatusProgress(eidx);
 		}else{
 			lservice.modifyApprovalLeader(eidx);
 			service.modifyApprovalStatusOk(eidx);

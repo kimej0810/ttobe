@@ -9,85 +9,13 @@
 <% 
 	List<ApprovalVO> elist = (List<ApprovalVO>)request.getAttribute("elist"); 
 	PageMaker paging = (PageMaker)request.getAttribute("paging");
-	String userPosition = (String)session.getAttribute("userPosition");
-	
-	if(session.getAttribute("userTidx") == null){
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
-	}
 %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>결재문서</title>
-		<script src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
-		<script type="text/javascript">
-		</script>
-		<style type="text/css">
-			#statusTable{
-				width:70%;
-				margin:30px auto;
-			}
-			.search{
-				width:100%;
-				display:grid;
-				grid-template-columns:1fr minmax(70px, auto);
-			}
-			#waiting, #progress, #complete, #no{
-				text-align:center;
-			    height: 35px;
-		   		background-color: lightgray;
-			}
-	    	#paging{
-				text-align: center;
-				font-size: 20px;
-			}
-			.content{
-				overflow: hidden;
-			}
-			#paging ul{
-				justify-content:center;
-			}
-			.input-group{
-				grid-column:2/3;
-			}
-			.page-item{
-				padding:0;
-			}
-			#BtnBox{
-				width:100%;
-				display:grid;
-				grid-template-columns:9fr minmax(30px, auto);
-			}
-			#writeBtn{
-				grid-column:2/3;
-			}
-			#myMust{
-				grid-column: -4/-3;
-				width: 130px;
-			}
-			#myToDo{
-				width: 130px;
-    			margin-left: 20px;
-			}
-			#approvalContent{
-			 max-width: 100%;
-			 width:100%;
-			 margin:0px auto;
-			}
-			#documentTable{
-				 height: 625px;
-			    text-align: center;
-			    max-height: 590px;
-			}
-			#count{
-				text-align:center;
-				font-size:20px;
-			}
-		</style>
-		<script type="text/javascript">
-			
-		</script>
+		<title>나의 결재문서 리스트</title>
+		<link href="<c:url value="/resources/static/form/css/documentListMy.css"/>" rel='stylesheet'/>
 	</head>
 	<body>
 		<div id="approvalContent">

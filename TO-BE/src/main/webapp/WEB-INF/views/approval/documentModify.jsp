@@ -4,13 +4,13 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
-	ApprovalDTO contents = (ApprovalDTO)request.getAttribute("contents");
-	int userTidx = (int)session.getAttribute("userTidx");
-	if(userTidx == 0){ 
+	if(session.getAttribute("userTidx") == null){ 
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
-	}else if(userTidx == 0 || userTidx != contents.getTidx()){
-		out.println("<script>alert('권한이 없습니다');history.back();</script>");
 	}
+	
+	Integer userTidx = (Integer)session.getAttribute("userTidx");
+	ApprovalDTO contents = (ApprovalDTO)request.getAttribute("contents");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -27,6 +27,10 @@
 		<script src="<c:url value="/resources/static/form/js/documentModify.js"/>"></script>
 		<link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>">
 		<script type="text/javascript">
+			if(<%=userTidx %> != <%=contents.getTidx()%>){
+				alert('권한이 없습니다');
+				history.back();
+			}	 
 			function click_up(){
 				var draftDate = $("#e_draftDate").val().replace("-","/");
 				var startDay = $("#e_startDay").val().replace("-","/");

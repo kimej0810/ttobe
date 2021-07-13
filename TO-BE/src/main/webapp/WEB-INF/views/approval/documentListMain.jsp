@@ -9,77 +9,13 @@
 <% 
 	List<ApprovalVO> elist = (List<ApprovalVO>)request.getAttribute("elist"); 
 	PageMaker paging = (PageMaker)request.getAttribute("paging");
-	String userPosition = (String)session.getAttribute("userPosition");
-	
-	if(session.getAttribute("userTidx") == null || userPosition == null || session.getAttribute("userId")  == null){
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
-	}
 %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>결재문서</title>
-		<script src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
-		<script type="text/javascript">
-		</script>
-		<style type="text/css">
-			#statusTable{
-				width:70%;
-				margin:30px auto;
-			}
-			.search{
-				width:100%;
-				display:grid;
-				grid-template-columns:1fr minmax(70px, auto);
-			}
-			#waiting, #progress, #complete, #no{
-				text-align:center;
-			    height: 35px;
-		   		background-color: lightgray;
-			}
-	    	#paging{
-				text-align: center;
-				font-size: 20px;
-			}
-			.content{
-				overflow: hidden;
-			}
-			#paging ul{
-				justify-content:center;
-			}
-			.input-group{
-				grid-column:2/3;
-			}
-			.page-item{
-				padding:0;
-			}
-			#writeBtnBox{
-				width:100%;
-				display:grid;
-				grid-template-columns:9fr minmax(30px, auto);
-			}
-			#writeBtn{
-				grid-column:2/3;
-			}
-			#approvalContent{
-			 max-width: 100%;
-			 width:100%;
-			 margin:0px auto;
-			}
-			#documentTable{
-				 height: 625px;
-			    text-align: center;
-			    max-height: 590px;
-			}
-			#count{
-				text-align:center;
-				font-size:20px;
-			}
-		</style>
-		<script type="text/javascript">
-			
-		</script>
+		<title>모든 결재문서 리스트</title>
+		<link href="<c:url value="/resources/static/form/css/documentListMain.css"/>" rel='stylesheet'/>
 	</head>
 	<body>
 		<div id="approvalContent">
@@ -90,9 +26,11 @@
 					<button type="button" class="btn btn-outline-secondary" id="progressDocument">결재진행문서</button>
 					<button type="button" class="btn btn-outline-secondary" id="completedDocument">결재완료문서</button>
 					<button type="button" class="btn btn-outline-secondary" id="NoDocument">결재반려문서</button>
-					<%if(userPosition.equals("팀장") || userPosition.equals("부장") || userPosition.equals("과장") || userPosition.equals("대표")){ %>
-						<button type="button" class="btn btn-outline-secondary" id="my" 
-						onclick="location.href='/approval/documentListMy${paging.makeQuery(1)}&searchWord=<%=userPosition %>&userId=<%=userId%>&t_id=<%=userId%>'">결재예정문서</button>
+					<%if(userPosition != null){ %>
+						<%if(userPosition.equals("팀장") || userPosition.equals("부장") || userPosition.equals("과장") || userPosition.equals("대표")){ %>
+							<button type="button" class="btn btn-outline-secondary" id="my" 
+							onclick="location.href='/approval/documentListMy${paging.makeQuery(1)}&searchWord=<%=userPosition %>&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재문서</button>
+						<%}%>
 					<%}%>
 				</div>
 				<div id="statusGroup">

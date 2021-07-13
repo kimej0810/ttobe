@@ -58,7 +58,8 @@
 	String userId = (String) session.getAttribute("userId");
 	String userName = (String) session.getAttribute("userName");
 	String userGrade = (String) session.getAttribute("userGrade");
-	if (session.getAttribute("userTidx") == null) {
+	String userPosition = (String) session.getAttribute("userPosition");
+	if (userTidx == null) {
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
 	}
 	%>

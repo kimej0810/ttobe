@@ -16,25 +16,11 @@
 		<title>일정 추가</title>
 		<script src="<c:url value="/resources/static/schedule/js/jquery-3.6.0.min.js"/>"></script>
 		<script src="<c:url value="/resources/static/schedule/js/jquery.datetimepicker.full.min.js"/>"></script>
-		<script src="<c:url value="/resources/static/schedule/js/schedulepop.js"/>"  type="text/javascript"></script>
 		<link href="<c:url value="/resources/static/schedule/css/jquery.datetimepicker.css"/>" rel="stylesheet">
-		<link href="<c:url value="/resources/static/schedule/css/schedule.css"/>" rel='stylesheet' />
 		<link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>">
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-		<script type="text/javascript">
-			$(document).ready(function(){
-				$("#s_startDate, #s_endDate").datetimepicker({
-					disabledWeekDays :[0, 6]
-				});
-				jQuery.datetimepicker.setLocale('kr');
-			});
-		</script>
-		<style type="text/css">
-		body,html{
-			font-family: 'NanumSquareRound';
-		    font-size: 15px;
-		}
-		</style>
+		
+		<script src="<c:url value="/resources/static/schedule/js/schedulepop.js"/>"  type="text/javascript"></script>
+		<link href="<c:url value="/resources/static/schedule/css/schedulePopup.css"/>" rel='stylesheet' />
 	</head>
 	<body>
 		<div class="group" id="popupGroup">
@@ -88,10 +74,10 @@
 						<textarea class="s_content target form-control" id="s_content" name="s_content" rows="5" cols="20" placeholder="100글자까지 입력 가능합니다" autocomplete="off"></textarea>
 						<span id="tootip_area4"></span>
 					</div>
-				</form>
 				<button type="button" class="close-button btn btn-primary btn-sm float-right" onclick="window.close();" style="margin-top:20px;height: 30px;">닫기</button>
 				<button type="button" class="ok-button btn btn-primary btn-sm float-right" onclick="click_ok();" style="margin: 20px 15px 0px 0px; height: 30px;">확인</button>
 				<button type="reset" class="reset-button btn btn-primary btn-sm float-right" style="margin:20px 15px 0px 0px; width: 80px; height: 30px;">다시쓰기</button>
+				</form>
 			</div>
 		</div>
 		
