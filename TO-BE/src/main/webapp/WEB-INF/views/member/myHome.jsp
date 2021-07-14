@@ -89,7 +89,7 @@ function leaveBtn(){
 								<c:forEach items="${myBoard}" var="board">
 									<tr>
 										<td>
-											<a href="/board/view?bidx=${board.bidx}" style="text-decoration : none; color:black;">${board.b_title}</a>
+											<a href="/board/view?bidx=${board.bidx}&pagePort=myhome" onclick="window.open(this.href, '_blank', 'width=600, height=730'); return false;" style="text-decoration : none; color:black;">${board.b_title}</a>
 										</td>
 										<td>
 											<c:set var="boardContent" value="${board.b_content}"/>
