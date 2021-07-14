@@ -3,6 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page import="tobe.project.dto.*" %>
+<%
+	String userName = (String)session.getAttribute("userName");
+	MemberDTO member = (MemberDTO)request.getAttribute("member");
+	if(userName==null){
+		out.println("<script>alert('잘못된 접근입니다.');window.close();</script>");
+	}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,6 +76,9 @@
 				</div>
 				<span>문서 번호 : ${leave.e_documentnum }</span>
 			</div>
+			<c:set var="e_status" value="${leave.e_status}"/>
+			<input type="hidden" id="e_status" value="${fn:trim(e_status)}">
+			<input type="hidden" id="eidx" value="${leave.eidx }">
 			<table class="table">
 				<tr style="border-top:1px solid lightgray;">
 					<th rowspan="2" style="border-left: 1px solid lightgray;vertical-align:middle;" width="20%" scope="col">결 재</th>
@@ -227,9 +238,48 @@
 				</tr>
 			</table>
 			<div style="float:right;">
-				<input type="button" class="btn btn-danger btn-sm" onclick="window.close();" value="닫기">
+			<%
+				if(userName.equals(member.getT_name())){
+			%>
+				<input type="button" id="modifyBtn" class="btn btn-danger btn-sm" value="수정">
+				<input type="button" id="delBtn" class="btn btn-danger btn-sm" value="삭제"> 
+			<%
+				}
+			%>
+				<input type="button" class="btn btn-primary btn-sm" onclick="window.close();" value="닫기">
 			</div>
 		</form>
 	</div>
+	<script>
+	$(document).ready(function(){
+		$(document).on("click","#modifyBtn",function(){
+			var eidx = $("#eidx").val();
+			self.location.href="/member/leaveModify?eidx="+eidx;
+			
+		});
+		$(document).on("click","#delBtn",function(){
+			if($("#e_status").val()=="결재대기"){
+				if(confirm("해당 결재를 취소하시겠습니까?")){
+					if(confirm("취소된 결재내역은 삭제됩니다.")){
+						var eidx = $("#eidx").val();
+						$.ajax({
+							url:"/member/leaveDelete?eidx="+eidx,
+							dataType:'json',
+							success:function(e){
+								if(e==1){
+									alert("삭제되었습니다.");
+									opener.parent.location.reload();
+									window.close();
+								}else if(e==0){
+									alert("삭제실패");
+								}
+							}
+						});
+					}
+				}
+			}
+		});
+	});
+	</script>
 </body>
 </html>

@@ -71,8 +71,9 @@ public class MyDAOImpl implements MyDAO{
 	public LeaveDTO selectOneLeave(int eidx) throws Exception {
 		return sqlSession.selectOne(Namespace+".selectOneLeave",eidx);
 	}
-
-	
-
+	@Override
+	public int leaveDelete(int eidx) throws Exception {
+		return sqlSession.update(Namespace+".leaveDelete",eidx);
+	}
 	
 }

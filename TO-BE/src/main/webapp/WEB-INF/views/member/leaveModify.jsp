@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.*" %>
 <%
@@ -16,7 +18,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>휴가 신청</title>
+	<title>휴가 신청 수정</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -189,7 +191,7 @@
 				<div>
 					<h2>휴 가 신 청 서</h2>
 				</div>
-				<span>문서 번호 :</span>
+				<span>문서 번호 : ${leave.e_documentnum }</span>
 			</div>
 			<table class="table">
 				<tr style="border-top:1px solid lightgray;">
@@ -204,7 +206,10 @@
 					<td style="text-align:center;">${member.t_name }</td>
 					<td>
 						<select class="form-select" name="teamleader" id="teamleader" required="required">
-							<option value="no">선 택</option>
+							<option value="${leave.teamleader}">
+								<c:if test="">
+								</c:if>
+							</option>
 							<c:choose>
 								<c:when test="${member.t_position eq '팀장' || member.t_position eq '부장' || member.t_position eq '과장'}">
 									<option value="결재권한없음" selected="selected">선택불가</option>
@@ -274,8 +279,8 @@
 			<table class="table">
 				<tr style="border-top:1px solid lightgray;">
 					<th scope="col" width="14%">신 청 일 자</th>
-					<td scope="col"><%=toDate %>
-						<input type="hidden" name="e_draftdate" value="<%=toDate %>">
+					<td scope="col">${leave.e_draftdate}
+						<input type="hidden" name="e_draftdate" value="${leave.e_draftdate}">
 					</td>
 					<th scope="col" width="14%">시 작 일 자</th>
 					<td scope="col">
@@ -347,18 +352,18 @@
 				<tr>
 					<th>제 목</th>
 					<td colspan="5">
-						<input type="text" class="form-control" name="e_texttitle" id="e_texttitle" required="required">
+						<input type="text" class="form-control" name="e_texttitle" id="e_texttitle" required="required" value="${leave.e_texttitle}">
 					</td>
 				</tr>
 				<tr>
 					<th style="vertical-align:middle;">내 용</th>
 					<td colspan="5">
-						<textarea class="form-control" style="height:200px;" name="e_textcontent" id="e_textcontent" required="required"></textarea>
+						<input type="text" class="form-control" style="height:200px;vertical-align:top;" name="e_textcontent" id="e_textcontent" required="required" value="${leave.e_textcontent}">
 					</td>
 				</tr>
 				<tr>
 					<th>신 청 일 자</th>
-					<td><%=toDate %></td>
+					<td>${leave.e_draftdate}</td>
 					<th>신 청 인</th>
 					<td>
 						<input type="text" class="form-control" id="t_name2" required="required">
@@ -369,8 +374,8 @@
 				</tr>
 			</table>
 			<div style="float:right;">
-				<input type="button" id="subBtn" class="btn btn-primary btn-sm" value="신청">
-				<input type="button" class="btn btn-danger btn-sm" onclick="window.close();" value="취소">
+				<input type="button" class="btn btn-primary btn-sm" value="수정">
+				<input type="button" class="btn btn-danger btn-sm" onclick="history.back();" value="취소">
 			</div>
 		</form>
 	</div>

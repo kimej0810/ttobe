@@ -68,6 +68,10 @@ public class MyServiceImpl implements MyService{
 	public LeaveDTO selectOneLeave(int eidx) throws Exception {
 		return dao.selectOneLeave(eidx);
 	}
+	@Override
+	public int leaveDelete(int eidx) throws Exception {
+		return dao.leaveDelete(eidx);
+	}
 
 	
 }

@@ -142,9 +142,12 @@ public class MemberController {
 		LeaveDTO leave = myService.selectOneLeave(eidx);
 		Integer tidx = (Integer)session.getAttribute("userTidx");
 		model.addAttribute("leave",leave);
-		model.addAttribute("member",service.selectOneMemberIdx(tidx));
-		model.addAttribute("memberList",service.selectAllMember2());
-		return "/member/leaveView";
+		if(tidx!=null) {
+			model.addAttribute("member",service.selectOneMemberIdx(tidx));
+			model.addAttribute("memberList",service.selectAllMember2());
+			return "/member/leaveView";
+		}
+		return "redirect:/member/login";
 	}
 	@ResponseBody
 	@RequestMapping(value="/leaveAction")
@@ -159,6 +162,23 @@ public class MemberController {
 		}else {
 			return 0;
 		}
+	}
+	@ResponseBody
+	@RequestMapping(value="/leaveDelete")
+	public int leaveDelete(Model model,int eidx) throws Exception {
+		return myService.leaveDelete(eidx);
+	}
+	@RequestMapping(value="/leaveModify")
+	public String leaveModify(Model model,HttpSession session,int eidx) throws Exception {
+		LeaveDTO leave = myService.selectOneLeave(eidx);
+		Integer tidx = (Integer)session.getAttribute("userTidx");
+		model.addAttribute("leave",leave);
+		if(tidx!=null) {
+			model.addAttribute("member",service.selectOneMemberIdx(tidx));
+			model.addAttribute("memberList",service.selectAllMember2());
+			return "/member/leaveModify";
+		}
+		return "/member/login";
 	}
 	//로그인 페이지불러오기
 	@RequestMapping(value="/login", method = RequestMethod.GET)

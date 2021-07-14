@@ -78,7 +78,7 @@
 		SELECT A.*,C.* FROM (SELECT ROW_NUMBER() OVER (ORDER BY EIDX DESC)NUM,
 		A.*,B.T_LEAVE_GET FROM ANNUAL_LEAVE A LEFT JOIN TOBE_MEMBER B ON A.TIDX = B.TIDX
 		WHERE A.TIDX = #{userIdx} ORDER BY EIDX DESC) A JOIN ELECTRONIC_APPROVAL C ON A.EIDX = C.EIDX
-		WHERE NUM BETWEEN #{rowStart} AND #{rowEnd}
+		WHERE C.DELYN = 'N' AND NUM BETWEEN #{rowStart} AND #{rowEnd}
 	</select>
 	<select id="totalCountSchedule" resultType="int">
 		SELECT COUNT(SIDX) 
@@ -145,4 +145,7 @@
 		WHERE DELYN = 'N' 
 		AND A.EIDX = #{eidx}
 	</select>
+	<update id="leaveDelete">
+		UPDATE ELECTRONIC_APPROVAL SET DELYN = 'Y' WHERE EIDX = #{eidx}
+	</update>
 </mapper>

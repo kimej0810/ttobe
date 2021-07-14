@@ -22,4 +22,5 @@ public interface MyDAO {
 	public int writeLine(LeaveDTO dto)throws Exception;
 	public int updateLeave(LeaveDTO dto)throws Exception;
 	public LeaveDTO selectOneLeave(int eidx) throws Exception;
+	public int leaveDelete(int eidx) throws Exception;
 }
