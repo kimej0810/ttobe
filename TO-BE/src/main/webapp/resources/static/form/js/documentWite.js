@@ -46,27 +46,27 @@ function click_ok(){
 	var draft = new Date(draftDate);
 	var start = new Date(startDay);
 	
-	if($("#e_rule").val() == ""){
-		alert("전결자를 선택해주세요.");
+	if($("#e_rule").val() == "" || $("#e_rule").val().length < 2 || $("#e_rule").val().length > 10){
+		alert("유형을 입력해주세요. [2글자 이상 10글자 이하]");
 		$("#e_rule").focus();
 		return false;
 	}else if($("#e_draftDate").val() == "" || $("#e_startDay").val() == "" || draft>start){
 		alert("날짜를 올바르게 선택해주세요. [시행일자보다 기안일자가 작아야 합니다.]");
 		return false;
-	}else if($("#e_con").val() == ""){
-		alert("협의 및 결재조건을 입력해주세요. [5글자 이상 50글자 이하]");
+	}else if($("#e_con").val() == "" || $("#e_con").val().length < 2 || $("#e_con").val().length > 10){
+		alert("합의부서을 입력해주세요. [2글자 이상 10글자 이하]");
 		$("#e_con").focus();
 		return false;
-	}else if($("#e_send").val() == ""){
-		alert("수신자를 입력해주세요. [5글자 이상 50글자 이하]");
+	}else if($("#e_send").val() == "" || $("#e_send").val().length < 2 || $("#e_send").val().length > 10){
+		alert("수신자를 입력해주세요. [2글자 이상 10글자 이하]");
 		$("#e_send").focus();
 		return false;
-	}else if($("#e_textTitle").val() == "" || $("#e_textTitle").val().length < 10 || $("#e_textTitle").val().length > 80){
-		alert("제목을 입력해주세요. [10글자 이상 80글자 이하]");
+	}else if($("#e_textTitle").val() == "" || $("#e_textTitle").val().length < 10 || $("#e_textTitle").val().length > 40){
+		alert("제목을 입력해주세요. [10글자 이상 40글자 이하]");
 		$("#e_textTitle").focus();
 		return false;
-	}else if($("#e_textContent").val() == "" || $("#e_textContent").val().length < 30 || $("#e_textContent").val().length > 2048){
-		alert("내용을 입력해주세요. [30글자 이상 2048글자 이하]");
+	}else if($("#e_textContent").val() == "" || $("#e_textContent").val().length < 30 || $("#e_textContent").val().length > 1024){
+		alert("내용을 입력해주세요. [30글자 이상 1024글자 이하]");
 		$("#e_textContent").focus();
 		return false;
 	}

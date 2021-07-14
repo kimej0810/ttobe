@@ -66,9 +66,9 @@
 							<td class="style44 style46" colspan="2">
 								21-<input type="text" id="e_documentNum" name="e_documentNum" readonly>
 							</td>
-							<td class="style44 style46" colspan="3">전 결 규 정</td>
+							<td class="style44 style46" colspan="3">기 안 유 형</td>
 							<td class="style44 style63" colspan="8">
-						 		<input type="text" id="e_rule" name="e_rule" autocomplete="off" title="대상을 선택해주세요.">
+						 		<input type="text" id="e_rule" name="e_rule" autocomplete="off" title="2글자 이상 10글자 이하로 입력해주세요.">
 						 		<span id="tootip_area"></span>
 							</td>
 						</tr> 
@@ -219,9 +219,9 @@
 							</tr>
 							<tr class="row9">
 								<td></td>
-								<td class="style3" rowspan="2">협 의 <br>및<br> 결 재 조 건</td>
+								<td class="style3" rowspan="2">합 의 부 서</td>
 								<td class="style38 style43" colspan="2" rowspan="2">
-									<input type="text" id="e_con" name="e_con" autocomplete="off" title="5글자 이상 50글자 이하로 입력해주세요.">
+									<input type="text" id="e_con" name="e_con" autocomplete="off" title="2글자 이상 10글자 이하로 입력해주세요.">
 									<span id="tootip_area4"></span>
 								</td>
 								<td class="style38 style42" colspan="3" rowspan="2">기 안 자</td>
@@ -236,7 +236,7 @@
 								<td></td>
 								<td class="style5">수 신 (참조)</td>
 								<td class="style44 style46" colspan="2">
-									<input type="text" id="e_send" name="e_send" autocomplete="off" title="5글자 이상 50글자 이하로 입력해주세요.">
+									<input type="text" id="e_send" name="e_send" autocomplete="off" title="2글자 이상 10글자 이하로 입력해주세요.">
 									<span id="tootip_area5"></span>
 								</td>
 								<td class="style44 style45" colspan="3">기 안 부 서</td>
@@ -248,14 +248,14 @@
 								<td></td>
 								<td class="style53 style55" colspan="14">
 									<div id="title">제목 </div>
-									<textarea class="target" id="e_textTitle" name="e_textTitle" title="10글자 이상 80글자 이하로 입력해주세요"> </textarea>
+									<textarea class="target" id="e_textTitle" name="e_textTitle" title="10글자 이상 40글자 이하로 입력해주세요"> </textarea>
 								</td>
 							</tr>
 							<tr class="row15">
 								<td></td>
 								<td class="style15 style17" colspan="14">
 									<div id="contents">내용 </div>
-									<textarea class="target" id="e_textContent" name="e_textContent" title="50글자 이상 2048글자 이하로 입력해주세요"> </textarea>
+									<textarea class="target" id="e_textContent" name="e_textContent" title="30글자 이상 1024글자 이하로 입력해주세요"> </textarea>
 								</td>
 							</tr>
 						</tbody>

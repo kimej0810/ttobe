@@ -142,7 +142,7 @@
 							<td class="style44 style46" colspan="2">
 								21-<input type="text" id="e_documentNum" name="e_documentNum" value="<%=contents.getE_documentNum()%>" readonly>
 							</td>
-							<td class="style44 style46" colspan="3">전 결 규 정</td>
+							<td class="style44 style46" colspan="3">기 안 유 형</td>
 							<td class="style44 style63" colspan="8">
 								<input type="text" id="e_rule" name="e_rule" value="<%=contents.getE_rule()%>" readonly>
 								<span id="tootip_area"></span>
@@ -226,7 +226,7 @@
 						</tr>
 						<tr class="row9">
 							<td></td>
-							<td class="style3" rowspan="2">협 의 <br>및<br> 결 재 조 건</td>
+							<td class="style3" rowspan="2">합 의 부 서</td>
 							<td class="style38 style43" colspan="2" rowspan="2">
 								<input type="text" id="e_con" name="e_con" value="<%=contents.getE_con()%>" readonly>
 								<span id="tootip_area4"></span>

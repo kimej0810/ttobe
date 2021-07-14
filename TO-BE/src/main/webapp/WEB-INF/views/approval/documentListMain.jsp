@@ -108,8 +108,8 @@
 					<table class="table table-hover" id="board">
 						<thead>
 							<tr>
-								<th width="50px">순번</th>
 								<th width="100px">문서번호</th>
+								<th width="100px">기안 유형</th>
 								<th width="100px">기안 부서</th>
 								<th width="100px">기안자</th>
 								<th>제목</th>
@@ -123,9 +123,19 @@
 						<tbody>
 							<c:forEach items="${elist}" var="elist" varStatus="status">
 								<tr class="waitingList">
-								<td>${elist.eidx }</td>
 								<td>
 									<a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">${elist.e_documentNum }</a>
+								</td>
+								<td>
+									<c:set var="content" value="${elist.e_rule}"/>
+									<c:choose>
+										<c:when test="${fn:length(elist.e_rule) > 5}">
+											<c:out value="${fn:substring(content,0,5)}"/>...
+										</c:when>
+										<c:otherwise>
+											<c:out value="${elist.e_rule}"/>
+										</c:otherwise> 
+									</c:choose>
 								</td>
 								<td>${elist.memberVO.t_department }</td>
 								<td>${elist.memberVO.t_name }</td>

@@ -32,6 +32,36 @@
 				history.back();
 			}
 			function click_up(){
+				var draftDate = $("#e_draftDate").val().replace("-","/");
+				var startDay = $("#e_startDay").val().replace("-","/");
+				var draft = new Date(draftDate);
+				var start = new Date(startDay);
+				
+				if($("#e_rule").val() == "" || $("#e_rule").val().length < 2 || $("#e_rule").val().length > 10){
+					alert("유형을 입력해주세요. [2글자 이상 10글자 이하]");
+					$("#e_rule").focus();
+					return false;
+				}else if($("#e_draftDate").val() == "" || $("#e_startDay").val() == "" || draft>start){
+					alert("날짜를 올바르게 선택해주세요. [시행일자보다 기안일자가 작아야 합니다.]");
+					return false;
+				}else if($("#e_con").val() == "" || $("#e_con").val().length < 2 || $("#e_con").val().length > 10){
+					alert("합의부서를 입력해주세요. [2글자 이상 10글자 이하]");
+					$("#e_con").focus();
+					return false;
+				}else if($("#e_send").val() == "" || $("#e_send").val().length < 2 || $("#e_send").val().length > 10){
+					alert("수신자를 입력해주세요. [2글자 이상 10글자 이하]");
+					$("#e_send").focus();
+					return false;
+				}else if($("#e_textTitle").val() == "" || $("#e_textTitle").val().length < 10 || $("#e_textTitle").val().length > 40){
+					alert("제목을 입력해주세요. [10글자 이상 40글자 이하]");
+					$("#e_textTitle").focus();
+					return false;
+				}else if($("#e_textContent").val() == "" || $("#e_textContent").val().length < 30 || $("#e_textContent").val().length > 1024){
+					alert("내용을 입력해주세요. [30글자 이상 1024글자 이하]");
+					$("#e_textContent").focus();
+					return false;
+				}
+				
 				var draftLetterData = JSON.stringify($('form#draftLetterData').serializeObject());
 				var result = confirm("재기안 하시겠습니까?");
 				if(result){
@@ -92,7 +122,7 @@
 						<td class="style44 style46" colspan="2">
 							21-<input type="text" id="e_documentNum" name="e_documentNum" value="<%=contents.getE_documentNum()%>" readonly>
 						</td>
-						<td class="style44 style46" colspan="3">전 결 규 정</td>
+						<td class="style44 style46" colspan="3">기 안 유 형</td>
 						<td class="style44 style63" colspan="8">
 							<input type="text" id="e_rule" name="e_rule" value="<%=contents.getE_rule()%>" >
 							<span id="tootip_area"></span>
@@ -166,7 +196,7 @@
 					</tr>
 					<tr class="row9">
 						<td></td>
-						<td class="style3" rowspan="2">협 의 <br>및<br> 결 재 조 건</td>
+						<td class="style3" rowspan="2">합 의 부 서</td>
 						<td class="style38 style43" colspan="2" rowspan="2">
 							<input type="text" id="e_con" name="e_con" value="<%=contents.getE_con()%>">
 							<span id="tootip_area4"></span>
