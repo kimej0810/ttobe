@@ -35,7 +35,7 @@
 							click: function() {
 								var url = "schedulePopup";
 								var name = "schedulePopup";
-								var option = "width = 600, height = 800 left = 100, top=50,location=no";
+								var option = "width = 600, height = 830 left = 100, top=50,location=no";
 								window.open(url,name,option)
 							}
 						},
@@ -49,7 +49,7 @@
 			    	headerToolbar: {
 			    		left: 'prev,next today boardCustomButton',
 				        center: 'title',
-				        right: 'myCustomButton,timeGridDay,dayGridMonth'
+				        right: 'myCustomButton'
 					},
 //					initialDate: '2020-09-12',  삭제시 현재날짜 focus!!
 					locale : "ko", //한글로 출력하는 속성 추가
@@ -63,15 +63,69 @@
 					<%
 					  	  for (int i = 0; i < list.size(); i++) {
 					  	  	ScheduleVO vo = (ScheduleVO)list.get(i);
+					  	  	if(vo.getS_type().equals("회사일정")){
 					%>	
 			        {
 
-			        	url:"scheduleContents?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
-			        	title: "<%=vo.getS_title()%>",
-			        	start: "<%=vo.getS_startDate()%>",
-			        	end: "<%=vo.getS_endDate()%>"
+					        	url:"scheduleContents?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
+					        	title: "<%=vo.getS_title()%>",
+					        	start: "<%=vo.getS_startDate()%>",
+					        	end: "<%=vo.getS_endDate()%>"
 			        },
 			        <%
+					  	  	}else if(vo.getS_type().equals("중요일정")){
+					%>
+					{
+
+					        	url:"scheduleContents?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
+					        	title: "<%=vo.getS_title()%>",
+					        	start: "<%=vo.getS_startDate()%>",
+					        	end: "<%=vo.getS_endDate()%>",
+					        	color : "red",
+				        	
+				    },
+					<%
+					  	  	}else if(vo.getS_type().equals("외근")){
+					%>
+					{
+
+					        	url:"scheduleContents?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
+					        	title: "<%=vo.getS_title()%>",
+					        	start: "<%=vo.getS_startDate()%>",
+					        	end: "<%=vo.getS_endDate()%>",
+					        	color : "black",
+			        	
+			   		},
+					
+					<%
+					  	  	}else if(vo.getS_type().equals("출장")){
+					 
+					%>
+					{
+
+				        	url:"scheduleContents?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
+				        	title: "<%=vo.getS_title()%>",
+				        	start: "<%=vo.getS_startDate()%>",
+				        	end: "<%=vo.getS_endDate()%>",
+				        	color : "gray",
+	        	
+	   				},
+					<%
+					  	  	}else{
+					%>
+					{
+
+					        	url:"scheduleContents?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
+					        	title: "<%=vo.getS_title()%>",
+					        	start: "<%=vo.getS_startDate()%>",
+					        	end: "<%=vo.getS_endDate()%>",
+					        	color : "#FFFF00",
+					        	textColor:"black",
+					        	
+        	
+   					},
+					<%
+					  	  	}
 					  	  }
 					%>
 			        	{
@@ -91,7 +145,7 @@
 						
 						if (info.event.url) {
 							var name = "scheduleContents";
-							var option = "width = 600, height = 800 left = 100, top=50,location=no";
+							var option = "width = 600, height = 830 left = 100, top=50,location=no";
 						  window.open(info.event.url,name,option);
 						}
 					}
@@ -99,9 +153,69 @@
 			    calendar.render(); 
 			});
 		</script>
+		<style type="text/css">
+			a{color:black;text-decoration: none;}
+			/* 토요일 색상 */
+			table.fc-col-header>tbody>tr:last-child>th:last-child>div>a{color:blue}
+			table.fc-scrollgrid-sync-table>tbody>tr>td:last-child>.fc-daygrid-day-frame>.fc-daygrid-day-top>a{color:blue}
+			/* 일요일 색상 */
+			table.fc-col-header>tbody>tr:first-child>th:first-child>div>a{color:red}
+			table.fc-scrollgrid-sync-table>tbody>tr>td:first-child>.fc-daygrid-day-frame>.fc-daygrid-day-top>a{color:red}
+			#explanation{
+				position: absolute;
+				right: 22.6%;
+    			top: 11.7%;
+			}
+			#explanation1{
+				background-color: #0d6efd;
+			    width: 13px;
+			    height: 13px;
+			}
+			#explanation2{
+				background-color: red;
+			    width: 13px;
+			    height: 13px;
+			    margin-left: 10px;
+			}
+			#explanation3{
+				background-color: #FFFF00;
+			    width: 13px;
+			    height: 13px;
+			    margin-left: 10px;
+			}
+			#explanation4{
+				background-color: gray;
+			    width: 13px;
+			    height: 13px;
+			    margin-left: 10px;
+			}
+			#explanation5{
+				background-color: black;
+			    width: 13px;
+			    height: 13px;
+			    margin-left: 10px;
+			}
+			li{
+				display: inline-block;
+			}
+		</style>
 	</head>
 	<body>		
+		
 		<div id='calendar' style="position: relative">
 		</div>
+		<ul id="explanation">
+			<li><sub><div id="explanation1"></div></sub></li>
+			<li>회사일정</li>
+			<li><sub><div id="explanation2"></div></sub></li>
+			<li>중요일정</li>
+			<li><sub><div id="explanation3"></div></sub></li>
+			<li>개인용무</li>
+			<li><sub><div id="explanation4"></div></sub></li>
+			<li>외근</li>
+			<li><sub><div id="explanation5"></div></sub></li>
+			<li>출장</li>
+			
+		</ul>
 	</body>
 </html>

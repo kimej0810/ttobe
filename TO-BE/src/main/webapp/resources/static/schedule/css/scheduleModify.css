@@ -64,7 +64,7 @@ button {
     border-radius: 6px;
 }
 .group-body {
-	height :670px;
+	height :695px;
 	position : relative;
 	background-color : white;
 	margin: 15px;
@@ -77,8 +77,7 @@ button {
 .s_title {
 	border: 1px solid #34aadc;
 	border-radius: 5px;
-    width: 500px;
-    height: 30px;
+    height: 35px;
 }
 
 .domain {
@@ -91,11 +90,10 @@ button {
     border-radius: 5px;
     border: 1px solid #34aadc;
     width: 300px;
-    height: 25px;
+    height: 35px;
 }
 
 .s_content {
-	width : 500px;
 	resize : none;
 	border-radius : 5px;
 	border : 1px solid #34aadc;
@@ -105,7 +103,7 @@ button {
 	border: 1px solid #34aadc;
 	border-radius: 5px;
     width: 500px;
-    height: 30px;
+    height: 35px;
 }
 .target {
     -ms-overflow-style: none;

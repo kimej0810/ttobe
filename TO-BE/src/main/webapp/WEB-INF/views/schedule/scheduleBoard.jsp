@@ -43,6 +43,7 @@
 										<option value="제목"<c:out value="${scri.searchType eq '제목' ? 'selected' : '' }"/>>제목</option>
 										<option value="내용"<c:out value="${scri.searchType eq '내용' ? 'selected' : '' }"/>>내용</option>
 										<option value="제목+내용"<c:out value="${scri.searchType eq '제목+내용' ? 'selected' : '' }"/>>제목+내용</option>
+										<option value="이름"<c:out value="${scri.searchType eq '사원이름' ? 'selected' : '' }"/>>사원이름</option>
 									</select>
 									<input type="text" style="height:30px; width:40%; font-size:0.8rem;" id="keyword" class="form-control" name="keyword" value="${scri.keyword }">
 									<div class="input-group-prepend">	
@@ -80,7 +81,7 @@
 						              			</td>
 						              			<td class="control-label scheduletitle">
 													<input type="hidden" value="${viewAll.sidx}">
-													<a href="scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=800'); return false;" style="text-decoration : none; color:black;">
+													<a href="scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=830'); return false;" style="text-decoration : none; color:black;">
 														<c:set var="content" value="${viewAll.s_title}"/>
 														<c:choose>
 															<c:when test="${fn:length(viewAll.s_title) > 10}">
@@ -109,7 +110,7 @@
 													</c:otherwise>
 												</c:choose>
 												<td class="scheduleContents">
-													<a href="scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=800'); return false;" style="text-decoration : none; color:black;">
+													<a href="scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=830'); return false;" style="text-decoration : none; color:black;">
 														<c:set var="content" value="${viewAll.s_content}"/>
 														${fn:substring(content,0,50)}
 													</a>

@@ -48,7 +48,9 @@
 					</div>
 					<div  class="domain"> 
 						<select class="s_type form-control" id="s_type" name="s_type" style="width: 200px">
-							<option value="개인">개인일정</option>
+							<option value="회사일정">회사일정</option>
+							<option value="중요일정">중요일정</option>
+							<option value="개인">개인용무</option>
 							<option value="외근">외근</option>
 							<option value="출장">출장</option>
 						</select>
@@ -74,7 +76,7 @@
 						<textarea class="s_content target form-control" id="s_content" name="s_content" rows="5" cols="20" placeholder="100글자까지 입력 가능합니다" autocomplete="off"></textarea>
 						<span id="tootip_area4"></span>
 					</div>
-				<button type="button" class="close-button btn btn-primary btn-sm float-right" onclick="window.close();" style="margin-top:20px;height: 30px;">닫기</button>
+				<button type="button" class="close-button btn btn-primary btn-sm float-right" onclick="window.close();" style="margin-top:20px;margin-right:0px;height: 30px;">닫기</button>
 				<button type="button" class="ok-button btn btn-primary btn-sm float-right" onclick="click_ok();" style="margin: 20px 15px 0px 0px; height: 30px;">확인</button>
 				<button type="reset" class="reset-button btn btn-primary btn-sm float-right" style="margin:20px 15px 0px 0px; width: 80px; height: 30px;">다시쓰기</button>
 				</form>

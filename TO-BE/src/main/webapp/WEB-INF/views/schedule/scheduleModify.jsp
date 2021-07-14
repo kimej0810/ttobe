@@ -123,7 +123,7 @@
 						<span id="tootip_area4"></span>
 					</div>
 					<div class="btngroup">
-						<button type="button" class="cancel-button  btn btn-primary btn-sm float-right" onclick="history.back();" style="margin-top:20px;height: 30px;">취소</button> 
+						<button type="button" class="cancel-button  btn btn-primary btn-sm float-right" onclick="history.back();" style="margin-top:20px;margin-right:0px;height: 30px;">취소</button> 
 						<button type="button" class="ok-button  btn btn-primary btn-sm float-right" onclick="click_up()" style="margin: 20px 15px 0px 0px; height: 30px;">확인</button>
 						<button type="reset" class="reset-button  btn btn-primary btn-sm float-right" style="margin:20px 15px 0px 0px; width: 80px; height: 30px;">다시쓰기</button>
 					</div>
