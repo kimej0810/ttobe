@@ -33,58 +33,10 @@ public class CommuteController {
 	@Inject
 	private MemberService mService;
 
-	// 목록테스트
-	@RequestMapping(value = "/commute/commute")
-	// @ResponseBody
-	public String commuteList(CommuteVO vo, Model model, String t_id) throws Exception {
-		logger.info(">>>>>commuteList");
-
-		System.out.println("---------------------------");
-		System.out.println("t_id------->" + t_id);
-		System.out.println("---------------------------");
-
-		SimpleDateFormat format1 = new SimpleDateFormat("yy/MM");
-		Date time = new Date();
-		String time1 = format1.format(time);
-		System.out.println(time1);
-
-		MemberDTO mvo = mService.selectOneMember(t_id);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("tidx", mvo.getTidx());
-		map.put("month", time1);
-		List<CommuteVO> list = service.selectAllCommute2(map);
-		model.addAttribute("member", mvo);
-		model.addAttribute("list", list);
-
-		return "/commute/commute";
-	}
-
-	// 목록테스트
-	@RequestMapping(value = "/commute/commute2")
-	@ResponseBody
-	public Object commuteList2(@RequestParam Map<String, String> param, CommuteVO vo, Model model, String t_id)
-			throws Exception {
-		logger.info(">>>>>commuteList");
-
-		String str = param.get("str");
-		System.out.println("---------------------------");
-		System.out.println("str------->" + str);
-		System.out.println("t_id------->" + t_id);
-		System.out.println("---------------------------");
-
-		MemberDTO mvo = mService.selectOneMember(t_id);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("tidx", mvo.getTidx());
-		map.put("month", str);
-		List<CommuteVO> list = service.selectAllCommute2(map);
-		System.out.println(list.size());
-		return list;
-	}
-	
-	//메인 출근
+	//출근 등록
 	@RequestMapping(value = "/commute/startCommute")
 	public String startCommute2(@RequestParam Map<String, String> param, HttpServletResponse response) throws Exception {
-		logger.info("!!!!!!!!!!!!startCommute2!!!!!!!!!!");
+		logger.info("startCommute...");
 		
 		int tidx = Integer.parseInt(param.get("tidx"));
 		System.out.println(tidx);
@@ -101,15 +53,13 @@ public class CommuteController {
 			out.println("<script>window.location.href='/main/mainPage';</script>");
 			out.close();
 		}
-		
 		return "redirect:/main/mainPage";
-		
 	}
 	
-	//근태관리 퇴근 등록 처리 메인
+	//퇴근 등록
 	@RequestMapping(value = "/commute/endCommute")
 	public String endCommute(@RequestParam Map<String, String> param, HttpServletResponse response) throws Exception {
-		logger.info(">>>>>endCommute");
+		logger.info("endCommute...");
 		
 		int tidx = Integer.parseInt(param.get("tidx"));
 		System.out.println(tidx);
@@ -127,9 +77,48 @@ public class CommuteController {
 			out.println("<script>window.location.href='/main/mainPage';</script>");
 			out.close();
 		}
-		
-		
 		return "redirect:/main/mainPage";
 	}
 	
+	//근태관리 목록
+	@RequestMapping(value = "/commute/commute")
+	public String commuteList(Model model, String t_id) throws Exception {
+		logger.info("commuteList...");
+
+		System.out.println("t_id: " + t_id);
+
+		SimpleDateFormat format1 = new SimpleDateFormat("yy/MM");
+		Date date = new Date();
+		String current = format1.format(date);
+		System.out.println("current: " + current);
+
+		MemberDTO mvo = mService.selectOneMember(t_id);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("tidx", mvo.getTidx());
+		map.put("month", current);
+		List<CommuteVO> list = service.selectAllCommute2(map);
+		model.addAttribute("member", mvo);
+		model.addAttribute("list", list);
+
+		return "/commute/commute";
+	}
+
+	//월별 페이징
+	@RequestMapping(value = "/commute/commute2")
+	@ResponseBody
+	public Object commuteList2(@RequestParam Map<String, String> param, Model model, String t_id) throws Exception {
+		logger.info("commuteList2...");
+
+		String str = param.get("str");
+		System.out.println("str: " + str);
+		System.out.println("t_id: " + t_id);
+
+		MemberDTO mvo = mService.selectOneMember(t_id);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("tidx", mvo.getTidx());
+		map.put("month", str);
+		List<CommuteVO> list = service.selectAllCommute2(map);
+		System.out.println("list.size: " + list.size());
+		return list;
+	}
 }

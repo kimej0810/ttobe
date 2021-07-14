@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -40,7 +39,7 @@
 				c_list += "<td>";
 				if(list[i].c_date != null){
 					var cdate = list[i].c_date;
-					var result = cdate.substring(0,10);
+					var result = cdate.substring(0,10);	
 					c_list += result;
 				}
 				c_list += "<input type='hidden' value='"+list[i].cidx+"' id='cidx' name='cidx'>";
@@ -66,7 +65,7 @@
 		var viewYear = date.getFullYear();
 		var viewMonth = date.getMonth();
 		var load = viewYear+"년&nbsp;"+(viewMonth+1)+"월";
-		$("#test1").html(load);
+		$("#dateSpan").html(load);
 		
 		$("#prevMonth").on("click", function(){
 			viewMonth = viewMonth-1;
@@ -74,8 +73,8 @@
 				viewYear = viewYear - 1;
 				viewMonth = viewMonth + 12;
 			}
-			test1 = viewYear+"년&nbsp;"+(viewMonth+1)+"월";
-			$("#test1").html(test1);
+			prevM = viewYear+"년&nbsp;"+(viewMonth+1)+"월";
+			$("#dateSpan").html(prevM);
 			
 			var str = viewYear+"/"+("0"+(viewMonth+1)).slice(-2);
 			var str2 = str.slice(2);
@@ -110,8 +109,8 @@
 				viewYear = viewYear + 1;
 				viewMonth = viewMonth - 12;
 			}
-			test1 = viewYear+"년&nbsp;"+(viewMonth+1)+"월";
-			$("#test1").html(test1);
+			nextM = viewYear+"년&nbsp;"+(viewMonth+1)+"월";
+			$("#dateSpan").html(nextM);
 			//날짜
 			var str = viewYear+"/"+("0"+(viewMonth+1)).slice(-2);
 			var str2 = str.slice(2);
@@ -147,7 +146,7 @@
 	</div>
 	<div style="text-align:center;" id="btnWrap1">
 		<button type="button" id="prevMonth" class="btn btn-outline-primary btn-sm">&lt;</button>
-			<span id="test1"></span>
+			<span id="dateSpan"></span>
 		<button type="button" id="nextMonth" class="btn btn-outline-primary btn-sm">&gt;</button>
 	</div>
 	<table class="table">

@@ -9,18 +9,17 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>">
 <style type="text/css">
+
 	.login-form{
 		width: 60%;
 		height: 50%;
 		max-width: 400px;
 		max-height: 600px;
 		margin: 10vh auto;
-		
 	}
 	#logo{
 		width: 200px;
 	}
-	
 	.form-control{
 		margin: 10px 0px;
 	}
@@ -31,16 +30,17 @@
 		margin: 10px 0px;
 	}
 </style>
-<script language="javascript">
+<script type="text/javascript">
+	
 	function checkLogin(){
 		
-		if(frm.t_id.value == ""){
-			document.getElementById("empty_id").style.display = "block";
-			frm.t_id.focus();
+		if($("#t_id").val() == ""){
+			$("#empty_id").css("display","block");
+			$("#t_id").focus();
 			return;
-		}else if(frm.t_pwd.value == ""){
-			document.getElementById("empty_pwd").style.display = "block";
-			frm.t_pwd.focus();
+		}else if($("#t_pwd").val() == ""){
+			$("#empty_pwd").css("display","block");
+			$("#t_pwd").focus();
 			return;
 		}
 		
@@ -59,6 +59,7 @@
 	}
 	
 	$(document).ready(function(){
+		
 		var key = getCookie("key");
 		$("#t_id").val(key);
 		
@@ -103,7 +104,7 @@
 	    if(start != -1){
 	        start += cookieName.length;
 	        var end = cookieData.indexOf(';', start);
-	        if(end == -1)end = cookieData.length;
+	        if(end == -1) end = cookieData.length;
 	        cookieValue = cookieData.substring(start, end);
 	    }
 	    return unescape(cookieValue);
