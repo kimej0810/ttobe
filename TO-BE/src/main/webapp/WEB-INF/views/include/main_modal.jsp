@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="tobe.project.dto.MemberDTO"%>
 <!DOCTYPE html>
 <html lang="kr">
 <head>
@@ -14,22 +15,45 @@
 	href="<c:url value="/resources/static/css/bootstrap.min.css"/>">
 <link type="text/css" rel="stylesheet"
 	href="<c:url value="/resources/static/css/newMain.css"/>">
-</head>
 <style>
-
-#fileForm {
-	display: grid;
-	grid-template-columns: 3fr 3fr 1fr 3fr;
-	grid-template-rows: 1fr;
+.sidebar-menu-item:hover {
+	color: rgb(95, 129, 228);
+	transition: all .3s ease;
+	background-color: rgba(95, 129, 228, 0.1);
 }
 
+.sidebar-menu-item::after {
+	content: '';
+	width: 0%;
+	left: 50%;
+	height: 1px;
+	display: block;
+	position: absolute;
+	margin-top: 3px;
+	border-bottom: 3px solid rgb(95, 129, 228);
+	background-color: black;
+	transition: all .3s ease;
+}
 
-.upload-btn-wrapper {
-	grid-column: 3/4;
+.sidebar-menu-item:hover::after {
+	content: '';
+	width: 100%;
+	left: 0px;
+	height: 1px;
+	display: block;
+	position: absolute;
+	margin-top: 3px;
+	border-bottom: 3px solid rgb(95, 129, 228);
+	background-color: black;
+	background-color: gray;
+	transition: all .3s ease;
 }
 </style>
+</head>
 <body>
 	<%
+	//MemberDTO member = (MemberDTO) request.getAttribute("member");
+	String userProfile = (String) session.getAttribute("userProfile");
 	Integer userTidx = (Integer) session.getAttribute("userTidx");
 	String userId = (String) session.getAttribute("userId");
 	String userName = (String) session.getAttribute("userName");
@@ -76,7 +100,7 @@
 					style="width: 215px;">
 				<ul class="sidebar-menu">
 					<li class="sidebar-menu-item"
-						onclick="location.href='/schedule/fullcalendar'">
+						onclick="location.href='/schedule/scheduleCalendar'">
 						<p class="menu-name">일정관리</p>
 					</li>
 					<li class="sidebar-menu-item"
@@ -125,21 +149,24 @@
 						onclick="location.href='/main/mainPage'"
 						style="width: 90px; grid-column: 2/3; text-align: center; margin: auto; cursor: pointer;">
 					<div>
-						<img src="<c:url value="/resources/static/profile/${member.f_stored_file_name}"/>" type="button"
-							id="profile"
-							style="padding: 0px; width: 50px; border-radius: 70%;">
+						<c:set var="profile" value="<%=userProfile%>" />
+						<img src="<c:url value="/resources/static/profile/${profile }"/>"
+							type="button" id="profile"
+							style="padding: 0px; width: 50px; height: 50px; border-radius: 70%;">
 						<div id="dropDown" class="list-group"
 							style="width: 100px; height: 50px; position: absolute; right: 25px;">
 							<a href="#" class="list-group-item list-group-item-action"
 								onclick="location.href='/member/mypage?tidx=<%=userTidx%>'">
 								<%=userName%>님
-							</a>
+							</a> <a href="#" class="list-group-item list-group-item-action"
+								onclick="location.href='/member/myHome?userIdx=<%=userTidx%>'">
+								정보 </a>
 							<%
 							if (userGrade != null) {
 								if (userGrade.equals("A")) {
 							%>
 							<a href="#" class="list-group-item list-group-item-action"
-								onclick="location.href='/admin/emaillist'">메일함</a>
+								onclick="location.href='/email/list'">메일함</a>
 							<%
 							}
 							}
@@ -164,23 +191,24 @@
 		$('#profile').on('click', function() {
 			$("#dropDown").toggle();
 		});
-		
-		$("#submit").on("click", function(){
-			
-			if($("#file").val()==""){
+
+		$("#submit").on("click", function() {
+
+			if ($("#file").val() == "") {
 				alert("파일을 선택해주세요.");
-			}else if($("#d_title").val()==""){
+			} else if ($("#d_title").val() == "") {
 				alert("제목을 입력해주세요.");
-			}else{
+			} else {
 				$("#fileForm").submit();
 			}
 		});
-		
-		$("#file").change(function(){
+
+		$("#file").change(function() {
 			var fileValue = $("#file").val().split("\\");
-			var fileName = fileValue[fileValue.length-1];
+			var fileName = fileValue[fileValue.length - 1];
 			$("#fileName").html(fileName);
 		});
+
 	});
 </script>
 </html>

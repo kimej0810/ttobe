@@ -186,10 +186,6 @@ table th{
 				}
 			});
 		});
-		/* $(function() {
-			
-			
-		}); */
 	</script>
 </body>
 </html>
