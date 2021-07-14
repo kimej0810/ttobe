@@ -124,13 +124,14 @@
 		) 
 	</insert>
 	<insert id="writeLine"  keyProperty="eidx">
-		INSERT INTO APPROVAL_LINE(EIDX,TEAMLEADER,DEPARTMENTHEAD,SECTIONHEAD,LEADER,TIDX)
+		INSERT INTO APPROVAL_LINE(EIDX,TEAMLEADER,DEPARTMENTHEAD,SECTIONHEAD,LEADER,STATUS,TIDX)
 			VALUES(
 				#{eidx}+1,
 				#{teamleader},
 				#{departmenthead},
 				#{sectionhead},
 				#{leader},
+				#{status},
 				#{tidx}
 			)
 	</insert>

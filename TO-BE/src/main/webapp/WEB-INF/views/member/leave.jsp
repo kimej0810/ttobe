@@ -151,6 +151,15 @@
 				alert("신청자와 이름이 다릅니다.");
 				return;
 			}
+			if($("#t_position").val()=="팀장"){
+				$("#status").val("0300");
+			}else if($("#t_position").val()=="부장"){
+				$("#status").val("0030");
+			}else if($("#t_position").val()=="과장"){
+				$("#status").val("0003");
+			}else{
+				$("#status").val("3000");
+			}
 			$("#a_type").val($("#e_type").val());
 			$("#a_startdate").val($("#startD").val());
 			var result = $("form[name=frm]").serialize();
@@ -301,7 +310,6 @@
 							<option value="null" selected="selected">선 택</option>
 							<option value="연차">연차</option>
 							<option value="월차">월차</option>
-							<option value="반차">반차</option>
 							<option value="병가">병가</option>
 							<option value="기타">기타</option>
 						</select>
@@ -311,6 +319,8 @@
 					<td>${member.t_name }
 						<input type="hidden" name="t_name" id="t_name" value="${member.t_name }">
 						<input type="hidden" name="tidx" value="${member.tidx }">
+						<input type="hidden" name="t_position" id="t_position" value="${member.t_position }">
+						<input type="hidden" name="status" id="status">
 					</td>
 					<th>부 서</th>
 					<td>${member.t_department }</td>

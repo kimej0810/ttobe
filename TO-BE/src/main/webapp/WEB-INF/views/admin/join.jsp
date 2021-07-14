@@ -215,6 +215,7 @@ function previewImage(targetObj, View_area){
             img.file = file;
             img.style.width='inherit';
             img.style.cursor='pointer';
+            img.style.height='-webkit-fill-available';
             const idx=i;
             img.onclick=function(){
             	fileRemove(idx);
