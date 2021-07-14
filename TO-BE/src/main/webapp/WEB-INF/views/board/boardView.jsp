@@ -231,8 +231,13 @@ button:disabled {
 			onclick="location.href='modify?bidx=${boardVO.bidx}'">수정</button>
 		<button type="button" class="btn btn-primary btn-sm float-right"
 			onclick="location.href='delete?bidx=${boardVO.bidx}'">삭제</button>
+			<c:if test="${pagePort eq 'board' }">
+				<button type="button" class="btn btn-primary btn-sm float-right list_btn">목록</button>
+			</c:if>
+			<c:if test="${pagePort eq 'myhome' }">
 		<button type="button" class="btn btn-primary btn-sm float-right"
-			onclick="history.back();">목록</button>
+			onclick="window.close();">닫기</button>
+			</c:if>
 		<%
 		}
 		%>

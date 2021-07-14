@@ -212,7 +212,7 @@ p {
 								</c:if>
 								<td scope="row">${board.bidx}</td>
 								<td><a
-									href="/board/view?bidx=${board.bidx}&page=1&perPageNum=10&searchType=&keyword="
+									href="/board/view?bidx=${board.bidx}&page=1&perPageNum=10&searchType=&keyword=&pagePort=board"
 									style="text-decoration: none; color: black;">${board.b_title}</a></td>
 								<td><fmt:parseDate var="writedate"
 										value="${board.b_writedate}" pattern="yyyy-MM-dd" /> <fmt:formatDate

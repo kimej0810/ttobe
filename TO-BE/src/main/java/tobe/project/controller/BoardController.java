@@ -65,7 +65,7 @@ public class BoardController{
 	
 	//寃����� ���몃낫湲�
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
-	public String view(int bidx, @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
+	public String view(int bidx, @ModelAttribute("scri") SearchCriteria scri, Model model, String pagePort) throws Exception {
 		 logger.info("BoardWrite");
 		 
 		 BoardVO vo = service.selectOneBoard(bidx);
@@ -78,7 +78,14 @@ public class BoardController{
 		 
 		 List<Map<String, Object>> fileList = fileInfoService.selectAllFile("bidx", bidx);
 		 model.addAttribute("file", fileList);
-		 return "/board/boardView";
+		 
+		 model.addAttribute("pagePort", pagePort);
+		 if(pagePort.equals("board")) {
+			 return "/board/boardView";
+		 }else{
+			 return "/board/myBoardView";
+		 }
+		 
 	}
 
 	//泥⑤����� �ㅼ�대���
