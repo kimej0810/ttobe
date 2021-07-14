@@ -67,6 +67,14 @@
 				}
 			}
 		</script>
+		<style type="text/css">
+			img{
+				width: 258px;
+			    position: absolute;
+			    left: 48%;
+			    top: 23%;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="group" id="popupGroup">
@@ -95,10 +103,13 @@
 					</div>
 					<div  class="domain"> 
 						<select class="s_type form-control" id="s_type" name="s_type" value="<%=vo.getS_type()%>" style="width: 200px">
-							<option value="개인">개인일정</option>
+							<option value="회사일정">회사일정</option>
+							<option value="중요일정">중요일정</option>
+							<option value="개인">개인용무</option>
 							<option value="외근">외근</option>
 							<option value="출장">출장</option>
 						</select>
+						<div><img src="/resources/static/img/scheduleLogo.png"></div>
 					</div>
 					
 					<div class="domain">

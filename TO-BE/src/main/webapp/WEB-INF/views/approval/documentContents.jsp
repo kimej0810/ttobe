@@ -57,7 +57,7 @@
 					location.href="documentModify?eidx="+"<%=contents.getEidx()%>&tidx=<%=contents.getTidx()%>";
 			};
 			function click_delete(){
-					var result = confirm("삭제 하시겠습니까?");
+					var result = confirm("결재를 취소 하시겠습니까? (취소 된 결재는 삭제됩니다.)");
 					if(result){
 						location.href="documentDelete?eidx="+<%=contents.getEidx()%>;
 						alert("결재문서가 삭제되었습니다.");

@@ -161,6 +161,7 @@
 			/* 일요일 색상 */
 			table.fc-col-header>tbody>tr:first-child>th:first-child>div>a{color:red}
 			table.fc-scrollgrid-sync-table>tbody>tr>td:first-child>.fc-daygrid-day-frame>.fc-daygrid-day-top>a{color:red}
+			.fc-header-toolbar>div:nth-child(2){margin-right: 13.4%}
 			#explanation{
 				position: absolute;
 				right: 22.6%;
@@ -184,13 +185,13 @@
 			    margin-left: 10px;
 			}
 			#explanation4{
-				background-color: gray;
+				background-color: black;
 			    width: 13px;
 			    height: 13px;
 			    margin-left: 10px;
 			}
 			#explanation5{
-				background-color: black;
+				background-color: gray;
 			    width: 13px;
 			    height: 13px;
 			    margin-left: 10px;

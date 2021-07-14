@@ -163,7 +163,7 @@
 					<div id="writeBtnBox">
 						<button type="button" id="writeBtn" class="btn btn-primary btn-sm float-right" onclick="documentWite()">기안 작성</button>
 					</div>
-					</div>
+					
 					<div id="paging">
 						<nav aria-label="Page navigation example" id="paging">
 							<ul class="pagination">
@@ -191,6 +191,7 @@
 							</ul>
 			 			</nav>
 					</div>
+				</div>
 			</form>
 		</div>
 	</body>

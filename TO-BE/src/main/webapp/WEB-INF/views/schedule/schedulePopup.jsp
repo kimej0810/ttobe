@@ -21,6 +21,14 @@
 		
 		<script src="<c:url value="/resources/static/schedule/js/schedulepop.js"/>"  type="text/javascript"></script>
 		<link href="<c:url value="/resources/static/schedule/css/schedulePopup.css"/>" rel='stylesheet' />
+		<style type="text/css">
+			img{
+				width: 258px;
+			    position: absolute;
+			    left: 48%;
+			    top: 23%;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="group" id="popupGroup">
@@ -54,6 +62,7 @@
 							<option value="외근">외근</option>
 							<option value="출장">출장</option>
 						</select>
+						<div><img src="/resources/static/img/scheduleLogo.png"></div>
 					</div>
 					<div class="domain">
 						<h3 class="zTree-h3 ">시작 날짜</h3>

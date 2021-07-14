@@ -38,6 +38,14 @@
 				}
 			}
 		</script>
+		<style type="text/css">
+			img{
+				width: 258px;
+			    position: absolute;
+			    left: 48%;
+			    top: 23%;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="group" id="popupGroup">
@@ -65,6 +73,7 @@
 					</div>
 					<div  class="domain"> 
 						<input type = "text" class="s_type form-control" id="s_type" name="s_type" style="width: 200px" value="<%=vo.getS_type()%>" readonly>
+						<div><img src="/resources/static/img/scheduleLogo.png"></div>
 					</div>
 					<div class="domain">
 						<h3 class="zTree-h3">시작 날짜</h3>
