@@ -61,7 +61,7 @@
 			</tr>
 		</table>
 		<div id="btnArea">
-			<button type="button" class="btn btn-primary btn-sm float-right cancel_btn">취소</button>
+			<button type="button" class="btn btn-primary btn-sm float-right" onclick="history.back();">취소</button>
 			<button type="button" class="btn btn-primary btn-sm" id="fileAdd">파일추가</button>
 			<button type="button" class="btn btn-primary btn-sm float-right" id="submitBtn">등록</button>
 		</div>
@@ -103,6 +103,7 @@
 					   + "&perPageNum=${scri.perPageNum}"
 					   + "&searchType=${scri.searchType}"
 					   + "&keyword=${scri.keyword}";
+					   + "&pagePort=board";	
 			});
 		});
 		
