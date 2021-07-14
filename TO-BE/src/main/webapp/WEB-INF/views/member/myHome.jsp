@@ -56,6 +56,12 @@ function leaveBtn(){
 	#mainContainer a:root{
 		background-image: black;
 	}
+	table{
+		text-align:center;
+	}
+	#leaveTitle{
+		cursor: pointer;
+	}
 </style>
 </head>
 <body>
@@ -173,11 +179,12 @@ function leaveBtn(){
 						<table class="table">
 							<thead>
 								<tr>
-									<th>유형</th>
-									<th>시작일</th>
-									<th>종료일</th>
-									<th>사용일수</th>
-									<th>잔여일수</th>
+									<th scope="col" width="5%">유형</th>
+									<th scope="col" width="45%">제목</th>
+									<th scope="col" width="15%">시작일</th>
+									<th scope="col" width="15%">종료일</th>
+									<th scope="col" width="10%">사용일수</th>
+									<th scope="col" width="10%">결재상태</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -190,17 +197,23 @@ function leaveBtn(){
 								<c:otherwise>
 									<c:forEach items="${myLeave}" var="leave">
 										<tr>
-											<td>${leave.a_type}</td>
+											<td>${leave.a_type}
+											</td>
+											<td>
+												<a href="/member/leaveView?eidx=${leave.eidx}" onclick="window.open(this.href, '_blank', 'width=800, height=640'); return false;" style="text-decoration : none; color:black;">
+													${leave.e_texttitle}
+												</a>
+											</td>
 											<td>
 												<c:set var="startdate" value="${leave.a_startdate}"/>
-												${fn:substring(startdate,0,16)}
+												${fn:substring(startdate,0,10)}
 											</td>
 											<td>
 												<c:set var="enddate" value="${leave.a_enddate}"/>
-												${fn:substring(enddate,0,16)}
+												${fn:substring(enddate,0,10)}
 											</td>
 											<td>${leave.a_useddays}</td>
-											<td>${leave.t_leave_get}</td>
+											<td>${leave.e_status }</td>
 										</tr>
 									</c:forEach>
 								</c:otherwise>

@@ -75,9 +75,9 @@
 		WHERE EIDX > 0 AND TIDX = #{userIdx}
 	</select>
 	<select id="selectAllLeave" resultType="LeaveDTO">
-		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY EIDX DESC)NUM,
+		SELECT A.*,C.* FROM (SELECT ROW_NUMBER() OVER (ORDER BY EIDX DESC)NUM,
 		A.*,B.T_LEAVE_GET FROM ANNUAL_LEAVE A LEFT JOIN TOBE_MEMBER B ON A.TIDX = B.TIDX
-		WHERE A.TIDX = #{userIdx} ORDER BY EIDX DESC)
+		WHERE A.TIDX = #{userIdx} ORDER BY EIDX DESC) A JOIN ELECTRONIC_APPROVAL C ON A.EIDX = C.EIDX
 		WHERE NUM BETWEEN #{rowStart} AND #{rowEnd}
 	</select>
 	<select id="totalCountSchedule" resultType="int">
@@ -135,6 +135,13 @@
 			)
 	</insert>
 	<update id="updateLeave">
-		UPDATE TOBE_MEMBER SET T_LEAVE_GET = #{a_userddays} WHERE TIDX = #{tidx}
+		UPDATE TOBE_MEMBER SET T_LEAVE_GET = #{a_useddays} WHERE TIDX = #{tidx}
 	</update>
+	<select id="selectOneLeave" resultType="leaveDTO">
+		SELECT A.*,B.*,C.* FROM ELECTRONIC_APPROVAL A 
+		LEFT JOIN APPROVAL_LINE B ON A.EIDX = B.EIDX 
+		INNER JOIN ANNUAL_LEAVE C ON A.EIDX = C.EIDX 
+		WHERE DELYN = 'N' 
+		AND A.EIDX = #{eidx}
+	</select>
 </mapper>

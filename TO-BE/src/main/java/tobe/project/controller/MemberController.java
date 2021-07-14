@@ -137,7 +137,15 @@ public class MemberController {
 		model.addAttribute("member",vo);
 		return "/member/leave";
 	}
-	
+	@RequestMapping(value="/leaveView", method = RequestMethod.GET)
+	public String leave(Model model,HttpSession session,int eidx) throws Exception {
+		LeaveDTO leave = myService.selectOneLeave(eidx);
+		Integer tidx = (Integer)session.getAttribute("userTidx");
+		model.addAttribute("leave",leave);
+		model.addAttribute("member",service.selectOneMemberIdx(tidx));
+		model.addAttribute("memberList",service.selectAllMember2());
+		return "/member/leaveView";
+	}
 	@ResponseBody
 	@RequestMapping(value="/leaveAction")
 	public int leaveAction(Model model,HttpSession session,LeaveDTO dto) throws Exception {
@@ -146,7 +154,8 @@ public class MemberController {
 			MemberDTO memb = service.selectOneMemberIdx(dto.getTidx());
 			int checkLeave = memb.getT_leave_get() - dto.getA_useddays();
 			dto.setA_useddays(checkLeave);
-			return myService.updateLeave(dto);
+			//myService.updateLeave(dto)
+			return 1;
 		}else {
 			return 0;
 		}

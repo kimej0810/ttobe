@@ -23,6 +23,7 @@ public class LeaveDTO {
 	private String e_textcontent;
 	private String e_reason;
 	private String e_type;
+	private String e_status;
 	public int getEidx() {
 		return eidx;
 	}
@@ -154,6 +155,12 @@ public class LeaveDTO {
 	}
 	public void setE_type(String e_type) {
 		this.e_type = e_type;
+	}
+	public String getE_status() {
+		return e_status;
+	}
+	public void setE_status(String e_status) {
+		this.e_status = e_status;
 	}
 	
 }

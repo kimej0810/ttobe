@@ -5,7 +5,7 @@
 <%@ page import="java.text.*" %>
 <%
 	Date date = new Date();
-	SimpleDateFormat simpleDate = new SimpleDateFormat("yy/MM/dd");
+	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
 	String toDate = simpleDate.format(date);
 %>
 <!DOCTYPE html>
@@ -88,7 +88,7 @@
 		});
 		$("#startDay").click(function(){
 			$("#startD").datepicker({
-				format:"yy/mm/dd",
+				format:"yyyy-mm-dd",
 				startDate:'+1d',
 				autoclose:true,
 				daysOfWeekDisabled:[0,6],
@@ -106,7 +106,7 @@
 		});
 		$("#endDay").click(function(){
 			$("#endD").datepicker({
-				format:"yy/mm/dd",
+				format:"yyyy-mm-dd",
 				startDate:'+1d',
 				autoclose:true,
 				daysOfWeekDisabled:[0,6],
@@ -122,9 +122,34 @@
 			});
 		});
 		$("#subBtn").on("click",function(){
+			if($("#teamleader").val() =="no" || $("#departmenthead").val() =="no" || $("#sectionhead").val() =="no" || $("#leader").val() =="no"){
+				alert("결재 담당을 선택해주세요.");
+				return;
+			}
+			if($("#startD").val()==null || $("#endD").val()==null){
+				alert("원하는 날짜를 선택해주세요.");
+				return;
+			}
+			if($("#e_type").val()==null || $("#e_type").val()=="null"){
+				alert("휴가 종류를 선택해주세요.");
+				return;
+			}	
+			if($("#u_useddays").val()==null){
+				alert("신청 일수를 작성해주세요.");
+				return;
+			}
+			if($("#e_con").val()==null || $("#e_send").val() == null){
+				alert("비상연락처와 그 관계를 작성해주세요.");
+				return;
+			}
+			if($("#e_textcontent").val()==null || $("#e_texttitle").val()==null){
+				alert("제목과 내용은 필수입니다.");
+				return;
+			}
 			if($("#t_name").val()!=$("#t_name2").val()){
 				$("#t_name2").val("");
 				alert("신청자와 이름이 다릅니다.");
+				return;
 			}
 			$("#a_type").val($("#e_type").val());
 			$("#a_startdate").val($("#startD").val());
@@ -141,14 +166,6 @@
 				}
 			});
 		});
-/* 		$("#endD").on("focusout",function(){
-			var stDate = new Date($("#startD").val());
-			var enDate = new Date($("#endD").val());
-			var chDate = enDate - stDate;
-			var reDate = chDate/(1000*60*60*24);
-			alert(reDate);
-			$("#u_useddays").val(reDate);
-		}); */
 	});
 	</script>
 </head>
@@ -173,11 +190,11 @@
 				<tr>
 					<td style="text-align:center;">${member.t_name }</td>
 					<td>
-						<select class="form-select" name="teamleader" required="required">
+						<select class="form-select" name="teamleader" id="teamleader" required="required">
 							<option value="no">선 택</option>
 							<c:choose>
 								<c:when test="${member.t_position eq '팀장' || member.t_position eq '부장' || member.t_position eq '과장'}">
-									<option value="null" selected="selected">선택불가</option>
+									<option value="결재권한없음" selected="selected">선택불가</option>
 								</c:when>
 								<c:otherwise>
 									<c:forEach items="${memberList}" var="list">
@@ -192,11 +209,11 @@
 						</select>
 					</td>
 					<td>
-						<select class="form-select" name="departmenthead" required="required">
+						<select class="form-select" name="departmenthead" id="departmenthead" required="required">
 							<option value="no">선 택</option>
 							<c:choose>
 								<c:when test="${member.t_position eq '부장' || member.t_position eq '과장'}">
-									<option value="null" selected="selected">선택불가</option>
+									<option value="결재권한없음" selected="selected">선택불가</option>
 								</c:when>
 								<c:otherwise>
 									<c:forEach items="${memberList}" var="list">
@@ -211,11 +228,11 @@
 						</select>
 					</td>
 					<td>
-						<select class="form-select" name="sectionhead" required="required">
+						<select class="form-select" name="sectionhead" id="sectionhead" required="required">
 							<option value="no">선 택</option>
 							<c:choose>
 								<c:when test="${member.t_position eq '과장'}">
-									<option value="null" selected="selected">선택불가</option>
+									<option value="결재권한없음" selected="selected">선택불가</option>
 								</c:when>
 								<c:otherwise>
 									<c:forEach items="${memberList}" var="list">
@@ -230,7 +247,7 @@
 						</select>
 					</td>
 					<td>
-						<select class="form-select" required="required" name="leader">
+						<select class="form-select" required="required" name="leader" id="leader">
 							<option value="no">선 택</option>
 							<c:forEach items="${memberList}" var="list">
 								<c:if test="${list.t_position eq '대표' }">
@@ -281,7 +298,7 @@
 					<th>휴 가 종 류</th>
 					<td>
 						<select class="form-select" name="e_type" id="e_type" required="required">
-							<option value="null">선 택</option>
+							<option value="null" selected="selected">선 택</option>
 							<option value="연차">연차</option>
 							<option value="월차">월차</option>
 							<option value="반차">반차</option>
@@ -301,7 +318,7 @@
 				<tr>
 					<th>신 청 일 수</th>
 					<td>
-						<input type="text" class="form-control" name="u_useddays" id="u_useddays" required="required" maxlength="2" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+						<input type="text" class="form-control" name="a_useddays" id="u_useddays" required="required" maxlength="4" onKeyup="this.value=this.value.replace(/[^.0-9]/g,'');">
 					</td>
 					<th>비상연락망</th>
 					<td>
@@ -310,19 +327,19 @@
 					</td>
 					<th>관 계</th>
 					<td>
-						<input type="text" class="form-control" name="e_send" required="required">
+						<input type="text" class="form-control" name="e_send" id="e_send" required="required">
 					</td>
 				</tr>
 				<tr>
 					<th>제 목</th>
 					<td colspan="5">
-						<input type="text" class="form-control" name="e_texttitle" required="required">
+						<input type="text" class="form-control" name="e_texttitle" id="e_texttitle" required="required">
 					</td>
 				</tr>
 				<tr>
 					<th style="vertical-align:middle;">내 용</th>
 					<td colspan="5">
-						<textarea class="form-control" style="height:200px;" name="e_textcontent" required="required"></textarea>
+						<textarea class="form-control" style="height:200px;" name="e_textcontent" id="e_textcontent" required="required"></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -339,7 +356,7 @@
 			</table>
 			<div style="float:right;">
 				<input type="button" id="subBtn" class="btn btn-primary btn-sm" value="신청">
-				<input type="button" class="btn btn-danger btn-sm" value="취소">
+				<input type="button" class="btn btn-danger btn-sm" onclick="window.close();" value="취소">
 			</div>
 		</form>
 	</div>

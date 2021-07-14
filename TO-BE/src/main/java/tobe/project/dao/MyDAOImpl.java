@@ -67,6 +67,10 @@ public class MyDAOImpl implements MyDAO{
 	public int updateLeave(LeaveDTO dto) throws Exception {
 		return sqlSession.update(Namespace+".updateLeave",dto);
 	}
+	@Override
+	public LeaveDTO selectOneLeave(int eidx) throws Exception {
+		return sqlSession.selectOne(Namespace+".selectOneLeave",eidx);
+	}
 
 	
 
