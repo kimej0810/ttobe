@@ -15,6 +15,7 @@ pageContext.setAttribute("replace", "<br>");
 <title></title>
 <script type="text/javascript"
 	src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <style>
 #replyArea {
 	display: grid;
@@ -106,12 +107,7 @@ button:disabled {
 	<input type="hidden" value="<%=uName%>">
 	<input type="hidden" value="<%=userTidx%>" id="tidx">
 	<input type="hidden" value="<%=userGrade%>" id="grade">
-	<div class="category">
-		<input type="hidden" id="boardType" value="${boardVO.b_type}">
-		<button id="noticeBtn" class="btn btn-outline-secondary" type="button">공지사항</button>
-		<button id="generalBtn" class="btn btn-outline-secondary"
-			type="button">일반게시글</button>
-	</div>
+	<input type="hidden" value="${boardVO.bidx}" id="bidx">
 	<div class="container-fluid" id="view">
 		<table class="table" id="board">
 			<thead>
@@ -222,9 +218,9 @@ button:disabled {
 		} else {
 		%>
 		<button type="button" class="btn btn-primary btn-sm float-right"
-			onclick="location.href='modify?bidx=${boardVO.bidx}'">수정</button>
+			onclick="modifyBtn()">수정</button>
 		<button type="button" class="btn btn-primary btn-sm float-right"
-			onclick="location.href='delete?bidx=${boardVO.bidx}'">삭제</button>
+			onclick="deleteBtn()">삭제</button>
 			<c:if test="${pagePort eq 'board' }">
 				<button type="button" class="btn btn-primary btn-sm float-right asas">목록</button>
 			</c:if>
@@ -237,6 +233,22 @@ button:disabled {
 		%>
 	</div>
 	<script>
+		function modifyBtn(){
+			alert("수정하기 페이지로 이동합니다.");
+			var bidx = $("#bidx").val();
+			opener.parent.location.href="/board/modify?bidx="+bidx;
+			window.close();
+		}
+		function deleteBtn(){
+			if(confirm("해당 글을 삭제하시겠습니까?")){
+				var bidx = $("#bidx").val();
+				self.location.href="/board/delete?bidx="+bidx;
+				opener.parent.location.reload();
+				alert("삭제되었습니다.");
+				window.close();
+			}
+						
+		}
 		function removeHtml(text)
 		{
 		 text = text.replace(/<br>/ig, "\n"); // <br>을 엔터로 변경
