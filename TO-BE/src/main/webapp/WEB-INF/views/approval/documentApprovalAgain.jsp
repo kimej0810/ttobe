@@ -34,7 +34,7 @@
 			function click_up(){
 				var draftDate = $("#e_draftDate").val().replace("-","/");
 				var startDay = $("#e_startDay").val().replace("-","/");
-				var draft = new Date(draftDate);
+				var draft = new Date(draftDate); 
 				var start = new Date(startDay);
 				
 				if($("#e_rule").val() == "" || $("#e_rule").val().length < 2 || $("#e_rule").val().length > 10){

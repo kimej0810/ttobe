@@ -66,7 +66,7 @@
 							<td class="style44 style46" colspan="2">
 								21-<input type="text" id="e_documentNum" name="e_documentNum" readonly>
 							</td>
-							<td class="style44 style46" colspan="3">기 안 유 형</td>
+							<td class="style44 style46" colspan="3">기 안 유 형</td> 
 							<td class="style44 style63" colspan="8">
 						 		<input type="text" id="e_rule" name="e_rule" autocomplete="off" title="2글자 이상 10글자 이하로 입력해주세요.">
 						 		<span id="tootip_area"></span>

@@ -111,7 +111,7 @@
 								<th width="100px">문서번호</th>
 								<th width="100px">기안 유형</th>
 								<th width="100px">기안 부서</th>
-								<th width="100px">기안자</th>
+								<th width="100px">기안자</th> 
 								<th>제목</th>
 								<c:if test="${scri.searchWord eq '결재반려' }">
 								<th width="600px">반려사유</th>

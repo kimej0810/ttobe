@@ -1928,7 +1928,7 @@ table.sheet0 tr.row14 {
 #e_textContent{
 	width: 99.5%;
 	height: 425px;
-	border: none;
+	border: none; 
 	resize: none;
 	font-size: 15px;
 	margin-top:5px;

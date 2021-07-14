@@ -106,7 +106,7 @@
 								<th width="100px">기안 유형</th>
 								<th width="100px">기안 부서</th>
 								<th width="100px">기안자</th>
-								<th>제목</th>
+								<th>제목</th> 
 								<th width="150px">기안 일시</th>
 								<th width="70px">상태</th>
 							</tr>

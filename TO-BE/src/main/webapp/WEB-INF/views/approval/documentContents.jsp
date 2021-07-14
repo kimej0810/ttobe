@@ -145,7 +145,7 @@
 							<td class="style44 style46" colspan="3">기 안 유 형</td>
 							<td class="style44 style63" colspan="8">
 								<input type="text" id="e_rule" name="e_rule" value="<%=contents.getE_rule()%>" readonly>
-								<span id="tootip_area"></span>
+								<span id="tootip_area"></span> 
 							</td>
 						</tr>
 						<tr class="row6">

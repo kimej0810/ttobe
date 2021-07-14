@@ -40,7 +40,7 @@
 				if($("#e_rule").val() == "" || $("#e_rule").val().length < 2 || $("#e_rule").val().length > 10){
 					alert("유형을 입력해주세요. [2글자 이상 10글자 이하]");
 					$("#e_rule").focus();
-					return false;
+					return false; 
 				}else if($("#e_draftDate").val() == "" || $("#e_startDay").val() == "" || draft>start){
 					alert("날짜를 올바르게 선택해주세요. [시행일자보다 기안일자가 작아야 합니다.]");
 					return false;
