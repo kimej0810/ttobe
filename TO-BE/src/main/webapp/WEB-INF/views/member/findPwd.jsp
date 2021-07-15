@@ -20,27 +20,36 @@
         font-size: 15px;
 	}
 	form{
-		width:50%;
-		height:50%;
-		margin:10vh auto;
+		width: 60%;
+		height: 60%;
+		margin: 5vh auto;
 	}
-	.btnwrap{
+	.btnWrap{
 		text-align: right;
+		margin: 10px 0px;
+	}
+	#title{
+		text-align: center;
+		font-size: 20px;
+		font-weight: bold;
+	}
+	.inputWrap{
+		margin: 10px 0px;
 	}
 </style>
 </head>
 <body>	
 	<form action="/member/findPwd" method="POST">
-		<div>비밀번호 찾기</div>
-		<div>
+		<div id="title">비밀번호 찾기</div>
+		<div class="inputWrap">
 			<label for="t_id">ID</label>
 			<input type="text" name="t_id" id="t_id" class="form-control" placeholder="회원가입한 아이디를 입력해주세요." required="required">
 		</div>
-		<div>
+		<div class="inputWrap">
 			<label for="t_email">E-MAIL</label>
 			<input type="text" name="t_email" id="t_email" class="form-control" placeholder="회원가입한 이메일을 입력해주세요." required="required">
 		</div>
-		<div class="btnwrap">
+		<div class="btnWrap">
 			<button type="submit" id="btn_findPwd" class="btn btn-outline-primary btn-sm">찾기</button>
 			<button type="button" onclick="self.close();" class="btn btn-outline-danger btn-sm">취소</button>
 		</div>

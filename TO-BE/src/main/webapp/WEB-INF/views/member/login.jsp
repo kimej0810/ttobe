@@ -26,8 +26,8 @@
 	.error{
 		color: red;
 	}
-	.btn{
-		margin: 10px 0px;
+	#btnLogin{
+		margin: 5px 0px;
 	}
 </style>
 <script type="text/javascript">
@@ -109,6 +109,12 @@
 	    }
 	    return unescape(cookieValue);
 	}
+	
+	function popupOpen(){
+		var popupX = (window.screen.width / 2) - (600 / 2);
+		var popupY= (window.screen.height / 2) - (350 / 2);
+		window.open('/member/findPwd', '비밀번호찾기', 'status=no, height=350, width=600, left='+ popupX + ', top='+ popupY);
+	}
 </script>
 </head>
 <body onkeydown="javascript:enterLogin();">
@@ -128,10 +134,10 @@
 				<label for="useCookie">아이디 저장</label>
 			</div>
 			<div>
-				<button type="button" onclick="checkLogin();" class="btn btn-primary w-100">LOGIN</button>
+				<button type="button" onclick="checkLogin();" class="btn btn-primary w-100" id="btnLogin">LOGIN</button>
 			</div>
 			<div>
-				비밀번호를 잊으셨나요?&nbsp;&nbsp;<a href="/member/findPwd" onclick="window.open(this.href, '비밀번호찾기', 'width=700, height=300, top=200, left=100'); return false;">비밀번호 찾기</a>
+				비밀번호를 잊으셨나요?&nbsp;&nbsp;<button type="button" onclick="popupOpen();" class="btn btn-link">비밀번호찾기</button>
 			</div>
 			<div>
 				<%
