@@ -140,39 +140,48 @@ public class ApprovalController {
 	
 	@RequestMapping(value = "/documentOk")
 	public ApprovalDTO documentOK(Model model,int eidx) throws Exception{
-		ApprovalDTO to = lservice.selectOneApprovalLine(eidx);
+		ApprovalDTO to = service.selectOneApprovalDocumentContents(eidx);
+		ApprovalDTO to2 = lservice.selectOneApprovalLine(eidx);
 		LeaveDTO dto = myservice.selectOneLeave(eidx);
-	
 		ScheduleVO vo = new ScheduleVO();
-		MemberDTO memb = mservice.selectOneMemberIdx(to.getTidx());
+		ScheduleVO vo2 = new ScheduleVO();
+		MemberDTO memb = mservice.selectOneMemberIdx(to2.getTidx());
 		int checkLeave = memb.getT_leave_get() - dto.getA_useddays();
 		
-		if(to.getStatus().equals("3000")) {
+		if(to2.getStatus().equals("3000")) {
 			lservice.modifyApprovalTeamLeader(eidx);
 			service.modifyApprovalStatusProgress(eidx);
-		}else if(to.getStatus().equals("0300")){
+		}else if(to2.getStatus().equals("0300")){
 			lservice.modifyApprovalDepartmentHead(eidx);
 			service.modifyApprovalStatusProgress(eidx);
-		}else if(to.getStatus().equals("0030")){
+		}else if(to2.getStatus().equals("0030")){
 			lservice.modifyApprovalSectionHead(eidx);
 			service.modifyApprovalStatusProgress(eidx);
 		}else{
+			if(to.getStatus().equals("0000")){
+				vo.setS_type(to.getE_rule());
+				vo.setS_title(to.getE_textTitle());
+				vo.setS_startDate(to.getE_draftDate());
+				vo.setS_endDate(to.getE_startDay());
+				vo.setS_content(to.getE_textContent());
+				vo.setTidx(to.getTidx());
+			}
 			dto.setA_useddays(checkLeave);
 			int mySchedule = myservice.updateLeave(dto);
 			if(mySchedule == 1) {
-				vo.setS_type(dto.getE_type());
-				vo.setS_title(dto.getE_texttitle());
-				vo.setS_startDate(dto.getA_startdate());
-				vo.setS_endDate(dto.getA_enddate());
-				vo.setS_content(dto.getE_textcontent());
-				vo.setTidx(dto.getTidx());
+				vo2.setS_type(dto.getE_type());
+				vo2.setS_title(dto.getE_texttitle());
+				vo2.setS_startDate(dto.getA_startdate());
+				vo2.setS_endDate(dto.getA_enddate());
+				vo2.setS_content(dto.getE_textcontent());
+				vo2.setTidx(dto.getTidx());
 			}
 			sservice.addSchedule(vo);
-			System.out.println(vo);
+			sservice.addSchedule(vo2);
 			lservice.modifyApprovalLeader(eidx);
 			service.modifyApprovalStatusOk(eidx);
 		}
-		return to;
+		return to2;
 	}
 	
 	@RequestMapping(value = "/documentNo")
