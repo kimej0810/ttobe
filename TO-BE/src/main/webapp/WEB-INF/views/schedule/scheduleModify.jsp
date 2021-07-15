@@ -36,15 +36,16 @@
 				var start = new Date(startDate);						//문자열을 날짜로 변환
 				var end = new Date(endDate);							//문자열을 날짜로 변환
 				
-				if($("#s_title").val() == ""){
+				if($("#s_title").val() == "" || $("#s_title").val().length < 5 || $("#s_title").val().length > 40){
+					alert("제목을 입력해주세요. [5글자 이상 40글자 이하]");
+					$("#s_title").focus();
 					return false;
-				}else if($("#s_startDate").val() == ""){
+				}else if($("#s_startDate").val() == "" || $("#s_endDate").val() == "" || start > end){
+					alert("날짜를 올바르게 선택해주세요. [종료날짜보다 시작날짜가 작아야 합니다.]");
 					return false;
-				}else if($("#s_endDate").val() == ""){
-					return false;
-				}else if(start > end){
-					return false;
-				}else if($("#s_content").val() == ""){
+				}else if($("#s_content").val() == "" || $("#s_content").val().length < 10 || $("#s_content").val().length > 1024){
+					alert("내용을 입력해주세요. [10글자 이상 1024글자 이하]");
+					$("#s_content").focus();
 					return false;
 				}
 				
