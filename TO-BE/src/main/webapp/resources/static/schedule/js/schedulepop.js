@@ -75,6 +75,7 @@ function click_ok(){
 			dataType : "json",
 			contentType : "application/json; charset=UTF-8",
 			success : function(data) {
+				alert("일정 등록이 완료되었습니다.");
 				opener.parent.location.reload();
 				window.close();
 			}
