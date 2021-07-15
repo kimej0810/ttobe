@@ -270,15 +270,15 @@ public class MemberController {
 	public String modifyPwdAction(@ModelAttribute MemberVO vo,Model model) throws Exception{	
 		MemberDTO ex = service.selectOneMember(vo.getT_id());
 		System.out.println("vo.getT_pwd>>"+vo.getT_pwd());
-		/*if(vo.getT_pwd() == "" || vo.getT_pwd() == null) {
+		if(vo.getT_pwd() == "" || vo.getT_pwd() == null) {
 			vo.setT_pwd(ex.getT_pwd());
-		}else {*/
+		}else {
 			String repwd = pwdEncoder.encode(vo.getT_pwd());
 			vo.setT_pwd(repwd);
 			service.modifyPwd(vo);
 			System.out.println("repwd>>"+repwd);
-			return "redirect:/main/mainPage";
-		//}
-		
+			
+		}
+		return "redirect:/main/mainPage";
 	}
 }
