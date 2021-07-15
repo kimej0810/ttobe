@@ -86,7 +86,7 @@ function leaveBtn(){
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${myBoard}" var="board">
+								<c:forEach items="${myBoard}" var="board" end="6">
 									<tr>
 										<td>
 											<a href="/board/view?bidx=${board.bidx}&pagePort=myhome" onclick="window.open(this.href, '_blank', 'width=600, height=730'); return false;" style="text-decoration : none; color:black;">${board.b_title}</a>
@@ -105,9 +105,17 @@ function leaveBtn(){
 								</c:forEach>
 							</tbody>
 						</table>
-						<div style="text-align:right;">
-							<button type="button" class="btn btn-primary btn-sm" id="writeBtn" onclick="location.href='/board/write'">등록</button>
-						</div>
+						<c:if test="${fn:length(myBoard) > 6}">
+							<div style="text-align:right;">
+								<input type="button" class="btn btn-primary btn-sm" onclick="location.href='/board/list?searchType=w&keyword=<%=userName%>'"value="더보기">
+								<button type="button" class="btn btn-primary btn-sm" id="writeBtn" onclick="location.href='/board/write'">등록</button>
+							</div>
+						</c:if>
+						<c:if test="${fn:length(myBoard) < 6}">
+							<div style="text-align:right;">
+								<button type="button" class="btn btn-primary btn-sm" id="writeBtn" onclick="location.href='/board/write'">등록</button>
+							</div>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -136,7 +144,7 @@ function leaveBtn(){
 								</tr>
 							</c:when>
 								<c:otherwise>
-								<c:forEach items="${mySchedule}" var="schedule">
+								<c:forEach items="${mySchedule}" var="schedule" end="6">
 									<tr>
 										<td>${schedule.s_type}</td>
 										<td>
@@ -163,9 +171,17 @@ function leaveBtn(){
 							</c:choose>
 							</tbody>
 						</table>
-						<div style="text-align:right;">
-							<button type="button" class="btn btn-primary btn-sm" onclick="scheduleAddPopup()">일정 추가</button>
-						</div>
+						<c:if test="${fn:length(mySchedule) > 6}">
+							<div style="text-align:right;">
+								<input type="button" class="btn btn-primary btn-sm" onclick="location.href='/schedule/scheduleBoard?page=1&perPageNum=10&searchType=&userId=<%=userTidx%>'"value="더보기">
+								<button type="button" class="btn btn-primary btn-sm" onclick="scheduleAddPopup()">일정 추가</button>
+							</div>
+						</c:if>
+						<c:if test="${fn:length(mySchedule) < 6}">
+							<div style="text-align:right;">
+								<button type="button" class="btn btn-primary btn-sm" onclick="scheduleAddPopup()">일정 추가</button>
+							</div>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -195,7 +211,7 @@ function leaveBtn(){
 								</tr>
 							</c:when>
 								<c:otherwise>
-									<c:forEach items="${myLeave}" var="leave">
+									<c:forEach items="${myLeave}" var="leave" end="6">
 										<tr>
 											<td>${leave.a_type}
 											</td>
@@ -220,9 +236,18 @@ function leaveBtn(){
 							</c:choose>
 							</tbody>
 						</table>
-						<div style="text-align:right;">
+						<c:if test="${fn:length(myLeave) > 6}">
+							<div style="text-align:right;">
+							<input type="button" class="btn btn-primary btn-sm" onclick="location.href='/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'"value="더보기">
 							<button type="button" class="btn btn-primary btn-sm" onclick="leaveBtn()">연차 신청</button>
 						</div>
+						</c:if>
+						<c:if test="${fn:length(myLeave) < 6}">
+							<div style="text-align:right;">
+								<button type="button" class="btn btn-primary btn-sm" onclick="leaveBtn()">연차 신청</button>
+							</div>
+						</c:if>
+						
 					</div>
 				</div>
 			</div>

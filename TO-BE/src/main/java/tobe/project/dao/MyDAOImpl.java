@@ -75,5 +75,17 @@ public class MyDAOImpl implements MyDAO{
 	public int leaveDelete(int eidx) throws Exception {
 		return sqlSession.update(Namespace+".leaveDelete",eidx);
 	}
+	@Override
+	public int modifyLeave(LeaveDTO dto) throws Exception {
+		return sqlSession.update(Namespace+".modifyLeave",dto);
+	}
+	@Override
+	public int modifyLine(LeaveDTO dto) throws Exception {
+		return sqlSession.update(Namespace+".modifyLine",dto);
+	}
+	@Override
+	public int modifyApproval(LeaveDTO dto) throws Exception {
+		return sqlSession.update(Namespace+".modifyApproval",dto);
+	}
 	
 }

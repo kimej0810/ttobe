@@ -21,5 +21,6 @@ public interface MyService {
 	public int updateLeave(LeaveDTO dto)throws Exception;
 	public LeaveDTO selectOneLeave(int eidx) throws Exception;
 	public int leaveDelete(int eidx) throws Exception;
+	public int modifyLeave(LeaveDTO dto)throws Exception;
 }
 

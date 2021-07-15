@@ -3,7 +3,6 @@ package tobe.project.controller;
 import java.util.List;
 import java.util.Locale;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -155,8 +154,8 @@ public class MemberController {
 		int checkck = myService.writeLeave(dto); 
 		if(checkck==1) {
 			MemberDTO memb = service.selectOneMemberIdx(dto.getTidx());
-			int checkLeave = memb.getT_leave_get() - dto.getA_useddays();
-			dto.setA_useddays(checkLeave);
+			//int checkLeave = memb.getT_leave_get() - dto.getA_useddays();
+			//dto.setA_useddays(checkLeave);
 			//myService.updateLeave(dto)
 			return 1;
 		}else {
@@ -179,6 +178,11 @@ public class MemberController {
 			return "/member/leaveModify";
 		}
 		return "/member/login";
+	}
+	@ResponseBody
+	@RequestMapping(value="/leaveModifyAction")
+	public int leaveModifyAction(Model model,HttpSession session,LeaveDTO dto) throws Exception {
+		return myService.modifyLeave(dto);
 	}
 	//로그인 페이지불러오기
 	@RequestMapping(value="/login", method = RequestMethod.GET)

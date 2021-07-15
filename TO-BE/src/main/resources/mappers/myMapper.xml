@@ -148,4 +148,29 @@
 	<update id="leaveDelete">
 		UPDATE ELECTRONIC_APPROVAL SET DELYN = 'Y' WHERE EIDX = #{eidx}
 	</update>
+	<update id="modifyApproval">
+		UPDATE ELECTRONIC_APPROVAL
+		SET E_RULE = #{e_rule},
+		E_STARTDAY = #{e_startday},
+		E_CON = #{e_con},
+		E_SEND = #{e_send},
+		E_TEXTTITLE = #{e_texttitle},
+		E_TEXTCONTENT = #{e_textcontent}
+		WHERE EIDX = #{eidx}
+	</update>
+	<update id="modifyLine">
+		UPDATE APPROVAL_LINE
+		SET TEAMLEADER = #{teamleader},
+		DEPARTMENTHEAD = #{departmenthead},
+		SECTIONHEAD = #{sectionhead}
+		WHERE EIDX = #{eidx}
+	</update>
+	<update id="modifyLeave">
+		UPDATE ANNUAL_LEAVE
+		SET A_TYPE = #{a_type},
+		A_STARTDATE = #{a_startdate},
+		A_ENDDATE = #{a_enddate},
+		A_USEDDAYS = #{a_useddays}
+		WHERE EIDX = #{eidx}
+	</update>
 </mapper>

@@ -11,7 +11,7 @@
 	String toDate = simpleDate.format(date);
 	String userName = (String)session.getAttribute("userName");
 	if(userName==null){
-		out.println("<script>alert('잘못된 접근입니다.');window.close();</script>");
+		out.println("<script>alert('잘못된 접근입니다.');location.href='/member/login';</script>");
 	}
 %>
 <!DOCTYPE html>
@@ -102,6 +102,7 @@
 				todayHighlight:true,
 				language:"ko"
 			}).on('changeDate',function(selectedDate){
+					$("#u_useddays").val("");
 					if($("#endD").val()!=""){
 						if($("#startD").val() > $("#endD").val()){
 							$("#startD").datepicker('setDate',new Date($("#endD").val()));
@@ -120,6 +121,7 @@
 				todayHighlight:true,
 				language:"ko"
 			}).on('changeDate',function(){
+				$("#u_useddays").val("");
 				if($(this).val()!=""){
 					if($("#endD").val() < $("#startD").val()){
 						$(this).datepicker('setDate', new Date($("#startD").val()));
@@ -170,12 +172,12 @@
 			$("#a_startdate").val($("#startD").val());
 			var result = $("form[name=frm]").serialize();
 			$.ajax({
-				url: "/member/leaveAction",
+				url: "/member/leaveModifyAction",
 				data:result,
 				type:"POST",
 				dataType: "json",
 				success:function(e){
-					alert("신청이 완료되었습니다.");
+					alert("수정이 완료되었습니다.");
 					opener.parent.location.reload();
 					window.close();
 				}
@@ -218,7 +220,9 @@
 									<c:forEach items="${memberList}" var="list">
 										<c:if test="${list.t_position eq '팀장' }">
 											<c:if test="${list.t_department eq member.t_department}">
-												<option value="${list.t_id}">${list.t_name}</option>
+												<c:if test="${list.t_id eq leave.teamleader}">
+													<option value="${list.t_id}"  selected="selected">${list.t_name}</option>
+												</c:if>
 											</c:if>
 										</c:if>
 									</c:forEach>
@@ -237,7 +241,9 @@
 									<c:forEach items="${memberList}" var="list">
 										<c:if test="${list.t_position eq '부장' }">
 											<c:if test="${list.t_department eq member.t_department}">
-												<option value="${list.t_id}">${list.t_name}</option>
+												<c:if test="${list.t_id eq leave.departmenthead }">
+													<option value="${list.t_id}"  selected="selected">${list.t_name}</option>
+												</c:if>
 											</c:if>
 										</c:if>
 									</c:forEach>
@@ -256,7 +262,9 @@
 									<c:forEach items="${memberList}" var="list">
 										<c:if test="${list.t_position eq '과장' }">
 											<c:if test="${list.t_department eq member.t_department}">
-												<option value="${list.t_id}">${list.t_name}</option>
+												<c:if test="${list.t_id eq leave.sectionhead }">
+													<option value="${list.t_id}" selected="selected">${list.t_name}</option>
+												</c:if>
 											</c:if>
 										</c:if>
 									</c:forEach>
@@ -286,7 +294,8 @@
 					<td scope="col">
 						<div class="input-group">
 							<label for="startD" style="display: inherit;">
-							<input type="text" class="form-control" id="startD" name="e_startday" required="required">
+							<c:set var="startdate" value="${leave.a_startdate}"/>
+							<input type="text" class="form-control" id="startD" name="e_startday" required="required" value="${fn:substring(startdate,0,10)}">
 							<input type="hidden" name="a_startdate" id="a_startdate">
 								<span id="startDay" class="calendar">
 									<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
@@ -301,7 +310,8 @@
 					<td scope="col">
 						<div class="input-group">
 						<label for="endD" style="display: inherit;">
-							<input type="text" class="form-control" name="a_enddate" id="endD" required="required">
+							<c:set var="enddate" value="${leave.a_enddate}"/>
+							<input type="text" class="form-control" name="a_enddate" id="endD" required="required" value="${fn:substring(enddate,0,10)}">
 								<span id="endDay" class="calendar">
 									<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-calendar-date-fill" viewBox="0 0 16 16">
 										<path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zm5.402 9.746c.625 0 1.184-.484 1.184-1.18 0-.832-.527-1.23-1.16-1.23-.586 0-1.168.387-1.168 1.21 0 .817.543 1.2 1.144 1.2z"/>
@@ -315,12 +325,31 @@
 				<tr>
 					<th>휴 가 종 류</th>
 					<td>
-						<select class="form-select" name="e_type" id="e_type" required="required">
-							<option value="null" selected="selected">선 택</option>
-							<option value="연차">연차</option>
-							<option value="월차">월차</option>
-							<option value="병가">병가</option>
-							<option value="기타">기타</option>
+						<select class="form-select" name="e_rule" id="e_type" required="required">
+							<c:if test="${leave.a_type eq '연차' }">
+								<option value="연차" selected="selected">연차</option>
+								<option value="월차">월차</option>
+								<option value="병가">병가</option>
+								<option value="기타">기타</option>
+							</c:if>
+							<c:if test="${leave.a_type eq '월차' }">
+								<option value="연차">연차</option>
+								<option value="월차" selected="selected">월차</option>
+								<option value="병가">병가</option>
+								<option value="기타">기타</option>
+							</c:if>
+							<c:if test="${leave.a_type eq '병가' }">
+								<option value="연차">연차</option>
+								<option value="월차">월차</option>
+								<option value="병가" selected="selected">병가</option>
+								<option value="기타">기타</option>
+							</c:if>
+							<c:if test="${leave.a_type eq '기타' }">
+								<option value="연차">연차</option>
+								<option value="월차">월차</option>
+								<option value="병가">병가</option>
+								<option value="기타" selected="selected">기타</option>
+							</c:if>
 						</select>
 						<input type="hidden" name="a_type" id="a_type">
 					</td>
@@ -337,16 +366,16 @@
 				<tr>
 					<th>신 청 일 수</th>
 					<td>
-						<input type="text" class="form-control" name="a_useddays" id="u_useddays" required="required" maxlength="4" onKeyup="this.value=this.value.replace(/[^.0-9]/g,'');">
+						<input type="text" class="form-control" name="a_useddays" id="u_useddays" value="${leave.a_useddays}" required="required" maxlength="4" onKeyup="this.value=this.value.replace(/[^.0-9]/g,'');">
 					</td>
 					<th>비상연락망</th>
 					<td>
-						<input type="text" class="form-control" name="e_con" id="e_con" required="required" maxlength="15" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');">
+						<input type="text" class="form-control" name="e_con" id="e_con" required="required" maxlength="15" value="${leave.e_con}" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');">
 						<span id="tootip_area2"></span>
 					</td>
 					<th>관 계</th>
 					<td>
-						<input type="text" class="form-control" name="e_send" id="e_send" required="required">
+						<input type="text" class="form-control" name="e_send" id="e_send" value="${leave.e_send}" required="required">
 					</td>
 				</tr>
 				<tr>
@@ -358,7 +387,7 @@
 				<tr>
 					<th style="vertical-align:middle;">내 용</th>
 					<td colspan="5">
-						<input type="text" class="form-control" style="height:200px;vertical-align:top;" name="e_textcontent" id="e_textcontent" required="required" value="${leave.e_textcontent}">
+						<textarea class="form-control" style="height:200px;vertical-align:top;" name="e_textcontent" id="e_textcontent" required="required">${leave.e_textcontent}</textarea>
 					</td>
 				</tr>
 				<tr>
@@ -374,7 +403,8 @@
 				</tr>
 			</table>
 			<div style="float:right;">
-				<input type="button" class="btn btn-primary btn-sm" value="수정">
+				<input type="hidden" name="eidx" value="${leave.eidx }">
+				<input type="button" id="subBtn" class="btn btn-primary btn-sm" value="수정">
 				<input type="button" class="btn btn-danger btn-sm" onclick="history.back();" value="취소">
 			</div>
 		</form>

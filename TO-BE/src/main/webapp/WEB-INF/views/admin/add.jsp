@@ -219,7 +219,17 @@
 	        }
 		}
 	}
-    
+    function checkFrm(){
+    	if($("#t_department").val()==null || $("#t_department").val()=="부서없음"){
+    		alert("부서를 선택해주세요.");
+    		return false;
+    	}else if($("#t_position").val()==null || $("#t_position").val()==""){
+    		alert("직급을 선택해주세요.");
+    		return false;
+    	}else{
+			return true;    		
+    	}
+    }
 </script>
 <style>
     .infoImg img{
@@ -308,7 +318,7 @@
 	<div class="headerT">
 		<button id="noticeBtn" class="btn btn-outline-secondary" type="button">사원 등록</button>
 	</div>
-	<form id="formTag" action="/admin/addAction" method="post" enctype="multipart/form-data">
+	<form id="formTag" action="/admin/addAction" method="post" onsubmit="return checkFrm()" enctype="multipart/form-data">
 		<table class="table">
 			<tbody>
 				<tr>
@@ -340,7 +350,7 @@
 				<tr>
 					<th>부서</th>
 					<td>
-						<select class="selectBuseo form-select" name="t_department" required="required">
+						<select class="selectBuseo form-select" name="t_department" id="t_department">
 							<option value="부서없음">부서 선택</option>
 							<option value="대표">대표</option>
 							<option value="마케팅">마케팅</option>
@@ -355,7 +365,7 @@
 				<tr>
 					<th>직급</th>
 					<td>
-						<select class="selectJk form-select" name="t_position" required="required">
+						<select class="selectJk form-select" name="t_position" id="t_position">
 							<option value="levelNull">직급 선택</option>
 							<option value="대표">대표</option>
 							<option value="팀장">팀장</option>

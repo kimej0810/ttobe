@@ -310,7 +310,7 @@
 				<tr>
 					<th>휴 가 종 류</th>
 					<td>
-						<select class="form-select" name="e_type" id="e_type" required="required">
+						<select class="form-select" name="e_rule" id="e_type" required="required">
 							<option value="null" selected="selected">선 택</option>
 							<option value="연차">연차</option>
 							<option value="월차">월차</option>

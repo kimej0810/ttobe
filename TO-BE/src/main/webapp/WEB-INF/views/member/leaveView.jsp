@@ -253,8 +253,14 @@
 	<script>
 	$(document).ready(function(){
 		$(document).on("click","#modifyBtn",function(){
-			var eidx = $("#eidx").val();
-			self.location.href="/member/leaveModify?eidx="+eidx;
+			if($("#e_status").val()=="결재대기"){
+				var eidx = $("#eidx").val();
+				self.location.href="/member/leaveModify?eidx="+eidx;	
+			}else{
+				alert("진행중인 결재는 수정이 불가합니다.");
+				return;
+			}
+			
 			
 		});
 		$(document).on("click","#delBtn",function(){

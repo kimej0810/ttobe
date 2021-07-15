@@ -72,6 +72,16 @@ public class MyServiceImpl implements MyService{
 	public int leaveDelete(int eidx) throws Exception {
 		return dao.leaveDelete(eidx);
 	}
+	@Override
+	public int modifyLeave(LeaveDTO dto) throws Exception {
+		int result1 = dao.modifyLeave(dto);
+		int result2 = dao.modifyLine(dto);
+		int result3 = dao.modifyApproval(dto);
+		if(result1 == 1 && result2 == 1 && result3 == 1) {
+			return 1;
+		}
+		return 0;
+	}
 
 	
 }
