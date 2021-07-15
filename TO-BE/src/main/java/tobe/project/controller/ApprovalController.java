@@ -159,7 +159,7 @@ public class ApprovalController {
 			service.modifyApprovalStatusProgress(eidx);
 		}else{
 			if(to.getStatus().equals("0000")){
-				vo.setS_type(to.getE_rule());
+				vo.setS_type(to.getE_type());
 				vo.setS_title(to.getE_textTitle());
 				vo.setS_startDate(to.getE_draftDate());
 				vo.setS_endDate(to.getE_startDay());
