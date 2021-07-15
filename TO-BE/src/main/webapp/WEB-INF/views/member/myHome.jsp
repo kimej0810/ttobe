@@ -262,6 +262,7 @@ function leaveBtn(){
 							<thead>
 								<tr>
 									<th>발송인</th>
+									<th>수신인</th>
 									<th>제목</th>
 									<th>수신일</th>
 								</tr>
@@ -270,8 +271,9 @@ function leaveBtn(){
 								<c:forEach items="${myEmail}" var="email">
 									<tr>
 										<td>관리자</td>
+										<td>${email.t_name }</td>
 										<td>
-											<a href="/member/emailRead?midx=${email.midx}" onclick="window.open(this.href, '_blank', 'width=800, height=700'); return false;" style="text-decoration : none; color:black;">
+											<a href="/member/emailRead?midx=${email.midx}" style="text-decoration : none; color:black;">
 												${email.m_title}
 											</a>
 										</td>

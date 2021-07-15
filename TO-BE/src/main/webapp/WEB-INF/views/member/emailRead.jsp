@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ include file="/WEB-INF/views/include/new_main.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +20,7 @@
 </head>
 <body>
 	<div class="headerT">
-		<button id="noticeBtn" class="btn btn-outline-secondary" type="button">받은 메일</button>
+		<button id="noticeBtn" class="btn btn-outline-secondary" type="button">수신함</button>
 	</div>
 	<table class="table">
 		<thead>
@@ -49,9 +50,7 @@
 		</tbody>
 	</table>
 	<div>
-		<a href="${path}/email/list${pageMaker.makeSearch(pageMaker.cri.page)}&midx=${emailRead.midx}">
-			<button class="saoneBtn btn btn-primary btn-sm" style="float:right;">목록</button>
-		</a>
+		<button class="saoneBtn btn btn-primary btn-sm" onclick="history.back();" style="float:right;">목록</button>
 	</div>
 </body>
 </html>
