@@ -108,7 +108,7 @@
 			VALUES(
 				EIDX_SEQ.NEXTVAL,
 				EIDX_DOCUMENT_SEQ.NEXTVAL,
-				#{e_type},
+				#{e_rule},
 				#{e_draftdate},
 				#{e_startday},
 				#{e_con},
