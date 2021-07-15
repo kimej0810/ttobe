@@ -52,8 +52,8 @@ function click_ok(){
 	var start = new Date(startDate);
 	var end = new Date(endDate);
 	
-	if($("#s_title").val() == "" || $("#s_title").val().length < 5 || $("#s_title").val().length > 80){
-		alert("제목을 입력해주세요. [5글자 이상 80글자 이하]");
+	if($("#s_title").val() == "" || $("#s_title").val().length < 5 || $("#s_title").val().length > 40){
+		alert("제목을 입력해주세요. [5글자 이상 40글자 이하]");
 		$("#s_title").focus();
 		return false;
 	}else if($("#s_startDate").val() == "" || $("#s_endDate").val() == "" || start > end){
