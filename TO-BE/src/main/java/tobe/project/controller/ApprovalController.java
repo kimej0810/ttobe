@@ -18,10 +18,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import tobe.project.domain.PageMaker;
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.ApprovalDTO;
+import tobe.project.dto.LeaveDTO;
+import tobe.project.dto.MemberDTO;
 import tobe.project.dto.MemberVO;
+import tobe.project.dto.ScheduleVO;
 import tobe.project.service.AdminService;
 import tobe.project.service.ApprovalLineService;
 import tobe.project.service.ApprovalService;
+import tobe.project.service.MemberService;
+import tobe.project.service.MyService;
+import tobe.project.service.ScheduleService;
 
 /**
  * Handles requests for the application home page.
@@ -40,6 +46,15 @@ public class ApprovalController {
 	
 	@Inject
 	private ApprovalLineService lservice;
+	
+	@Inject
+	private MyService myservice;
+	
+	@Inject
+	private MemberService mservice;
+	
+	@Inject
+	private ScheduleService sservice;
 	
 	@RequestMapping(value = "/documentListMain")
 	public String documentMain(Model model, @ModelAttribute("scri")SearchCriteria scri,String t_id) throws Exception{
@@ -126,6 +141,11 @@ public class ApprovalController {
 	@RequestMapping(value = "/documentOk")
 	public ApprovalDTO documentOK(Model model,int eidx) throws Exception{
 		ApprovalDTO to = lservice.selectOneApprovalLine(eidx);
+		LeaveDTO dto = myservice.selectOneLeave(eidx);
+	
+		ScheduleVO vo = new ScheduleVO();
+		MemberDTO memb = mservice.selectOneMemberIdx(to.getTidx());
+		int checkLeave = memb.getT_leave_get() - dto.getA_useddays();
 		
 		if(to.getStatus().equals("3000")) {
 			lservice.modifyApprovalTeamLeader(eidx);
@@ -137,6 +157,19 @@ public class ApprovalController {
 			lservice.modifyApprovalSectionHead(eidx);
 			service.modifyApprovalStatusProgress(eidx);
 		}else{
+			dto.setA_useddays(checkLeave);
+			int mySchedule = myservice.updateLeave(dto);
+			System.out.println("1이냐 0이냐"+mySchedule);
+			if(mySchedule == 1) {
+				vo.setS_type(dto.getE_type());
+				vo.setS_title(dto.getE_texttitle());
+				vo.setS_startDate(dto.getA_startdate());
+				vo.setS_endDate(dto.getA_enddate());
+				vo.setS_content(dto.getE_textcontent());
+				vo.setTidx(dto.getTidx());
+			}
+			sservice.addSchedule(vo);
+			System.out.println(vo);
 			lservice.modifyApprovalLeader(eidx);
 			service.modifyApprovalStatusOk(eidx);
 		}

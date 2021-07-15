@@ -10,6 +10,7 @@
 <%	
 	List<ScheduleVO> list = (List<ScheduleVO>)request.getAttribute("schedule"); 
 	PageMaker paging = (PageMaker)request.getAttribute("paging");
+	List<LeaveDTO> leave = (List<LeaveDTO>)request.getAttribute("leave");
 	
 	if(userTidx == null){
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
@@ -126,7 +127,7 @@
    					},
 					<%
 					  	  	}
-					  	  }
+					}
 					%>
 			        	{
 							title : 'defult',

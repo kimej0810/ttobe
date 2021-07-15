@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import tobe.project.domain.PageMaker;
 import tobe.project.domain.SearchCriteria;
+import tobe.project.dto.LeaveDTO;
 import tobe.project.dto.MemberVO;
 import tobe.project.dto.ScheduleVO;
+import tobe.project.service.MyService;
 import tobe.project.service.ScheduleService;
 
 @Controller
@@ -29,6 +31,8 @@ public class CalendarController {
 	private static final Logger logger = LoggerFactory.getLogger(CalendarController.class);
 	@Inject
 	private ScheduleService service;
+	@Inject
+	private MyService myservice;
  
 	
 	@RequestMapping(value = "/scheduleCalendar")
@@ -36,6 +40,7 @@ public class CalendarController {
 		
 		PageMaker pageMaker = new PageMaker();
 		List<ScheduleVO> schedule = service.showSchedule();
+		List<LeaveDTO> leave = myservice.selectAllLeave2();
 		
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(service.countSchedule(scri));
@@ -43,6 +48,7 @@ public class CalendarController {
 		model.addAttribute("paging",pageMaker);
 		model.addAttribute("scri",scri);
 		model.addAttribute("schedule",schedule);
+		model.addAttribute("leave",leave);
 		return "/schedule/scheduleCalendar";
 	}
 	@RequestMapping(value = "/scheduleBoard")
@@ -90,8 +96,6 @@ public class CalendarController {
 	
 	@RequestMapping(value = "/scheduleContents")
 	public ScheduleVO Contents(Model model, int sidx, int tidx) throws Exception {
-		System.out.println(sidx);
-		System.out.println(tidx);
 		ScheduleVO vo = service.contentsSchedule(sidx);
 		MemberVO mo = service.contentmemberSchedule(tidx);
 		System.out.println(vo);

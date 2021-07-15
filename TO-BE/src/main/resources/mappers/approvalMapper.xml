@@ -50,12 +50,12 @@
     
  	<insert id="writeApprovalDocument" parameterType="ApprovalDTO" keyProperty="eidx">
  		<selectKey keyProperty="eidx" resultType="int" order="BEFORE">
-				SELECT eidx_SEQ.NEXTVAL FROM DUAL
+				SELECT eidx_SEQ.NEXTVAL FROM DUAL 
 		</selectKey>
  		INSERT INTO 
- 			electronic_approval(EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_SEND, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, TIDX)
+ 			electronic_approval(EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_SEND, E_TEXTTITLE, E_TEXTCONTENT, TIDX)
  		VALUES
- 			(eidx_seq.nextval,eidx_document_seq.nextval, #{e_rule}, #{e_draftDate}, #{e_startDay}, #{e_con}, #{e_send}, #{e_textTitle}, #{e_textContent}, #{e_status}, #{tidx})
+ 			(eidx_seq.nextval,eidx_document_seq.nextval, #{e_rule}, #{e_draftDate}, #{e_startDay}, #{e_con}, #{e_send}, #{e_textTitle}, #{e_textContent}, #{tidx})
  	</insert>
  	
  	<select id="selectOneApprovalDocumentContents" resultType="ApprovalDTO" parameterType="ApprovalDTO">

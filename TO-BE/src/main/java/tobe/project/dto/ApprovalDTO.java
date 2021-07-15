@@ -23,7 +23,14 @@ public class ApprovalDTO {
 	private String t_name;
 	private String t_department;
 	private String t_position;
+	private String e_type;
 	
+	public String getE_type() {
+		return e_type;
+	}
+	public void setE_type(String e_type) {
+		this.e_type = e_type;
+	}
 	public String getT_position() {
 		return t_position;
 	}
