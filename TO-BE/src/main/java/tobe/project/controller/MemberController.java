@@ -109,27 +109,14 @@ public class MemberController {
 		return "redirect:/member/login";
 	}
 	@RequestMapping(value = "/myHome")
-	public String myHome(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Model model)throws Exception{
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(searchCriteria);
-		pageMaker.setTotalCount(myService.totalCountEmail(searchCriteria));
+	public String myHome(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Model model,HttpSession session)throws Exception{
+		int tidx = (int)session.getAttribute("userTidx");
+		MemberDTO dto = service.selectOneMemberIdx(tidx);
+		model.addAttribute("member",dto);
 		model.addAttribute("myEmail",myService.selectAllEmail(searchCriteria));
-		model.addAttribute("pageMaker",pageMaker);
-		PageMaker pageMaker2 = new PageMaker();
-		pageMaker2.setCri(searchCriteria);
-		pageMaker2.setTotalCount(myService.totalCountBoard(searchCriteria));
 		model.addAttribute("myBoard",myService.selectAllBoard(searchCriteria));
-		model.addAttribute("pagemaker2",pageMaker2);
-		PageMaker pageMaker3 = new PageMaker();
-		pageMaker3.setCri(searchCriteria);
-		pageMaker3.setTotalCount(myService.totalCountLeave(searchCriteria));
 		model.addAttribute("myLeave",myService.selectAllLeave(searchCriteria));
-		model.addAttribute("pagemaker3",pageMaker3);
-		PageMaker pageMaker4 = new PageMaker();
-		pageMaker4.setCri(searchCriteria);
-		pageMaker4.setTotalCount(myService.totalCountSchedule(searchCriteria));
 		model.addAttribute("mySchedule",myService.selectAllSchedule(searchCriteria));
-		model.addAttribute("pagemaker4",pageMaker4);
 		return "/member/myHome";
 	}
 	@RequestMapping(value="/leave", method = RequestMethod.GET)

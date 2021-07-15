@@ -86,23 +86,32 @@ function leaveBtn(){
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${myBoard}" var="board" end="6">
+							<c:choose>
+								<c:when test="${fn:length(myBoard) == 0}">
 									<tr>
-										<td>
-											<a href="/board/view?bidx=${board.bidx}&pagePort=myhome" onclick="window.open(this.href, '_blank', 'width=600, height=730'); return false;" style="text-decoration : none; color:black;">${board.b_title}</a>
-										</td>
-										<td>
-											<c:set var="boardContent" value="${board.b_content}"/>
-											${fn:substring(boardContent,0,5)}. . .
-										</td>
-										<td>
-											<c:set var="sendDate" value="${board.b_writedate}"/>
-											${fn:substring(sendDate,0,16)}
-											<input type="hidden" value="${board.bidx}">
-										</td>
-										<td>${board.b_hit}</td>
+										<td colspan="4">등록된 내용이 없습니다.</td>
 									</tr>
-								</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<c:forEach items="${myBoard}" var="board" end="6">
+										<tr>
+											<td>
+												<a href="/board/view?bidx=${board.bidx}&pagePort=myhome" onclick="window.open(this.href, '_blank', 'width=600, height=730'); return false;" style="text-decoration : none; color:black;">${board.b_title}</a>
+											</td>
+											<td>
+												<c:set var="boardContent" value="${board.b_content}"/>
+												${fn:substring(boardContent,0,5)}. . .
+											</td>
+											<td>
+												<c:set var="sendDate" value="${board.b_writedate}"/>
+												${fn:substring(sendDate,0,16)}
+												<input type="hidden" value="${board.bidx}">
+											</td>
+											<td>${board.b_hit}</td>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
 							</tbody>
 						</table>
 						<c:if test="${fn:length(myBoard) > 6}">
@@ -192,6 +201,7 @@ function leaveBtn(){
 				</div>
 				<div class="collapse" id="collapseExample3">
 					<div class="card card-body">
+						<span>잔여 연차 : ${member.t_leave_get}</span>
 						<table class="table">
 							<thead>
 								<tr>
@@ -207,7 +217,7 @@ function leaveBtn(){
 							<c:choose>
 							<c:when test="${fn:length(myLeave) == 0}">
 								<tr>
-									<td colspan="5">등록된 내용이 없습니다.</td>
+									<td colspan="6">등록된 내용이 없습니다.</td>
 								</tr>
 							</c:when>
 								<c:otherwise>
@@ -239,12 +249,22 @@ function leaveBtn(){
 						<c:if test="${fn:length(myLeave) > 6}">
 							<div style="text-align:right;">
 							<input type="button" class="btn btn-primary btn-sm" onclick="location.href='/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'"value="더보기">
-							<button type="button" class="btn btn-primary btn-sm" onclick="leaveBtn()">연차 신청</button>
+							<c:if test="${member.t_leave_get > 0 }">
+								<button type="button" class="btn btn-primary btn-sm" onclick="leaveBtn()">연차 신청</button>
+							</c:if>
+							<c:if test="${member.t_leave_get <= 0 }">
+								<span>사용가능한 연차가 없습니다.</span>
+							</c:if>
 						</div>
 						</c:if>
 						<c:if test="${fn:length(myLeave) < 6}">
 							<div style="text-align:right;">
-								<button type="button" class="btn btn-primary btn-sm" onclick="leaveBtn()">연차 신청</button>
+								<c:if test="${member.t_leave_get > 0 }">
+									<button type="button" class="btn btn-primary btn-sm" onclick="leaveBtn()">연차 신청</button>
+								</c:if>
+								<c:if test="${member.t_leave_get <= 0 }">
+									<span>사용가능한 연차가 없습니다.</span>
+								</c:if>
 							</div>
 						</c:if>
 						
