@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	$("#e_draftDate").datetimepicker({
 		disabledWeekDays :[0, 6],
-		dateFormat:"yyyy-mm-dd hh:mm",
+		/*dateFormat:"yyyy-mm-dd hh:mm",*/
 		minDate:'+1d',
 		minTime:'+1h',
 		onChangeDateTime:function(){
@@ -10,7 +10,7 @@ $(document).ready(function(){
 				$("#e_draftDate").val($("#e_startDay").val());
 			}
 		},
-		i18n:{
+		/*i18n:{
 			de:{
 				months:[
 					'Januar','Februar','März','April',
@@ -22,22 +22,22 @@ $(document).ready(function(){
 					"Do", "Fr", "Sa.",
 				]
 			}
-		},
+		}
 		timepicker:false,
-		format:'Y-m-d'
+		format:'Y-m-d hh:mm'*/
 	});
 	$("#e_startDay").datetimepicker({
 		disabledWeekDays :[0, 6],
-		dateFormat:"yyyy-mm-dd hh:mm",
+		/*dateFormat:"yyyy-mm-dd hh:mm",*/
 		minDate:'+1d',
 		minTime:'+1h',
 		onChangeDateTime:function(){
-			if($("#e_startDay").val() > $("#e_draftDate").val()){
+			if($("#e_draftDate").val() > $("#e_startDay").val()){
 				alert("시행일자를 올바르게 선택해주세요.");
 				$("#e_startDay").val($("#e_draftDate").val());
 			}
 		},
-		i18n:{
+		/*i18n:{
 			de:{
 				months:[
 					'Januar','Februar','März','April',
@@ -49,9 +49,9 @@ $(document).ready(function(){
 					"Do", "Fr", "Sa.",
 				]
 			}
-		},
+		}
 		timepicker:false,
-		format:'Y-m-d'
+		format:'Y-m-d hh:mm'*/
 	});
 	jQuery.datetimepicker.setLocale('kr');
 });
