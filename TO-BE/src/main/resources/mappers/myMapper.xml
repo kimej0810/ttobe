@@ -104,7 +104,7 @@
 		<selectKey keyProperty="eidx" resultType="int" order="BEFORE">
 				SELECT EIDX_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO ELECTRONIC_APPROVAL(EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_SEND, E_TEXTTITLE, E_TEXTCONTENT, TIDX)
+		INSERT INTO ELECTRONIC_APPROVAL(EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_SEND, E_TEXTTITLE, E_TEXTCONTENT,E_TYPE,TIDX)
 			VALUES(
 				EIDX_SEQ.NEXTVAL,
 				EIDX_DOCUMENT_SEQ.NEXTVAL,
@@ -115,6 +115,7 @@
 				#{e_send},
 				#{e_texttitle},
 				#{e_textcontent},
+				'개인일정',
 				#{tidx}
 			)
 	</insert>
