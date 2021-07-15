@@ -32,7 +32,7 @@ $(document).ready(function(){
 		minDate:'+1d',
 		minTime:'+1h',
 		onChangeDateTime:function(){
-			if($("#e_startDay").val() > $("#e_draftDate").val()){
+			if($("#e_draftDate").val() > $("#e_startDay").val()){
 				alert("시행일자를 올바르게 선택해주세요.");
 				$("#e_startDay").val($("#e_draftDate").val());
 			}
