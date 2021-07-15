@@ -75,7 +75,6 @@ function click_ok(){
 			dataType : "json",
 			contentType : "application/json; charset=UTF-8",
 			success : function(data) {
-				var result
 				opener.parent.location.reload();
 				window.close();
 			}
