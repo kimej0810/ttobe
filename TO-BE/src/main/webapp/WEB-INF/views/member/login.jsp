@@ -131,7 +131,7 @@
 				<button type="button" onclick="checkLogin();" class="btn btn-primary w-100">LOGIN</button>
 			</div>
 			<div>
-				비밀번호를 잊으셨나요?&nbsp;&nbsp;<a href="/member/findPwd" onclick="window.open(this.href, '비밀번호찾기', 'width=500,height=500,top=200,left=100'); return false;">비밀번호 찾기</a>
+				비밀번호를 잊으셨나요?&nbsp;&nbsp;<a href="/member/findPwd" onclick="window.open(this.href, '비밀번호찾기', 'width=700, height=300, top=200, left=100'); return false;">비밀번호 찾기</a>
 			</div>
 			<div>
 				<%
