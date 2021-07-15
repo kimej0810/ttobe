@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	$("#s_startDate").datetimepicker({
-		dateFormat:"yyyy-mm-dd hh:mm",
+		/*dateFormat:"yyyy-mm-dd hh:mm",*/
 		minDate:'+1d',
 		minTime:'+1h',
 		onChangeDateTime:function(){
@@ -12,7 +12,7 @@ $(document).ready(function(){
 		disabledWeekDays :[0, 6]
 	});
 	$("#s_endDate").datetimepicker({
-		dateFormat:"yyyy-mm-dd hh:mm",
+		/*dateFormat:"yyyy-mm-dd hh:mm",*/
 		minDate:'+1d',
 		minTime:'+1h',
 		onChangeDateTime:function(){
@@ -59,8 +59,8 @@ function click_ok(){
 	}else if($("#s_startDate").val() == "" || $("#s_endDate").val() == "" || start > end){
 		alert("날짜를 올바르게 선택해주세요. [종료날짜보다 시작날짜가 작아야 합니다.]");
 		return false;
-	}else if($("#s_content").val() == "" || $("#s_content").val().length < 10 || $("#s_content").val().length > 2048){
-		alert("내용을 입력해주세요. [10글자 이상 2048글자 이하]");
+	}else if($("#s_content").val() == "" || $("#s_content").val().length < 10 || $("#s_content").val().length > 1024){
+		alert("내용을 입력해주세요. [10글자 이상 1024글자 이하]");
 		$("#s_content").focus();
 		return false;
 	}
