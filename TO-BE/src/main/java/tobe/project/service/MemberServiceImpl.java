@@ -72,11 +72,11 @@ public class MemberServiceImpl implements MemberService{
 		String hostSMTPpwd = "tobe0524!";
 		//보내는 사람 설정
 		String fromEmail = "tobe202105@gmail.com";
-		String fromName = "TO-BE:";
+		String fromName = "AFPS";
 		String subject = "";
 		String msg = "";
 		if(div.equals("findPwd")) {
-			subject = "TO-BE: 임시 비밀번호 입니다.";
+			subject = "AFPS 임시 비밀번호 입니다.";
 			msg += vo.getT_id() + "님의 임시 비밀번호입니다. 비밀번호를 변경하여 사용하세요.";
 			msg += "임시 비밀번호 :";
 			msg += pwd;
