@@ -24,7 +24,7 @@ public class EmailServiceImpl implements EmailService{
 	private static final String FROM_ADDRESS = "tobe202105@gmail.com";
 	
 	@Override
-	public void joinEmail(MemberVO dto) {
+	public void joinEmail(MemberVO dto) throws Exception {
 		try {
 			MailHandler mailHandler = new MailHandler(mailSender);
 			mailHandler.setTo(dto.getT_email());
@@ -35,16 +35,19 @@ public class EmailServiceImpl implements EmailService{
 			mailHandler.setText(htmlContent, true);
 			mailHandler.setInline("joinImg1", "joinImg1.png");
 			mailHandler.setInline("joinImg2", "joinImg2.png");
-			mailHandler.send();
 			EmailDTO edto = new EmailDTO();
 			edto.setM_addressee(dto.getT_email());
 			edto.setM_content(htmlContent);
 			edto.setM_title("귀하의 입사를 축하합니다!");
 			edto.setTidx(dto.getTidx());
-			emailDAO.writeEmail(edto);
+			int result = emailDAO.writeEmail(edto);
+			if(result==1) {
+				mailHandler.send();
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
 	@Override
 	public void sendEmail(EmailDTO emailVO) {

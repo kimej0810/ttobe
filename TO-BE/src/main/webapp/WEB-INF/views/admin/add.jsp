@@ -26,17 +26,16 @@
 			},750);
 			return true;
 		});	
-		$(document).on("click","#subminBtnn",function(){
-		    	if($("#t_department").val()==null || $("#t_department").val()=="부서없음"){
-		    		alert("부서를 선택해주세요.");
-		    		return;
-		    	}else if($("#t_position").val()==null || $("#t_position").val()==""){
-		    		alert("직급을 선택해주세요.");
-		    		return;
-		    	}else{
-					$("#formTag").submit();	
-		    	}
-		    }
+		$("#subminBtnn").on("click",function(){
+	    	if($("#t_department").val()==null || $("#t_department").val()=="부서없음"){
+	    		alert("부서를 선택해주세요.");
+	    		return;
+	    	}else if($("#t_position").val()==null || $("#t_position").val()==""){
+	    		alert("직급을 선택해주세요.");
+	    		return;
+	    	}else{
+				$("#formTag").submit();	
+	    	}
 		});
 		$(document).on("focusout","#t_email",function(){
 			var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -143,94 +142,94 @@
             }
         }).open();
     }
-    var fileArr;
-    var fileInfoArr=[];
-    //썸네일 클릭시 삭제.
-    function fileRemove(index){
-    	fileInfoArr.splice(index,1);
-    	var imgId="#img_id_"+index;
-    	$(imgId).remove();
-    }
-    //썸네일 미리보기
-	function previewImage(targetObj, View_area){
+//썸네일 미리보기
+var fileArr;
+var fileInfoArr=[];
+//썸네일 클릭시 삭제.
+function fileRemove(index){
+	fileInfoArr.splice(index,1);
+	var imgId="#img_id_"+index;
+	$(imgId).remove();
+}
+//썸네일 미리보기
+function previewImage(targetObj, View_area){
+	var files = targetObj.files;
+	fileArr = Array.prototype.slice.call(files);
+	var preview = document.getElementById(View_area);
+	var ua = window.navigator.userAgent;
+	//ie일때
+	if(ua.indexOf("MSIE")>-1){
+		targetObj.select();
+		try {
+            var src = document.selection.createRange().text; // get file full path(IE9, IE10에서 사용 불가)
+            var ie_preview_error = document.getElementById("ie_preview_error_" + View_area);
+            if (ie_preview_error) {
+                preview.removeChild(ie_preview_error); //error가 있으면 delete
+            }
+            var img = document.getElementById(View_area); //이미지가 뿌려질 곳
+            //이미지 로딩, sizingMethod는 div에 맞춰서 사이즈를 자동조절 하는 역할
+            img.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"+src+"', sizingMethod='scale')";
+        } catch (e) {
+            if (!document.getElementById("ie_preview_error_" + View_area)) {
+                var info = document.createElement("<p>");
+                info.id = "ie_preview_error_" + View_area;
+                info.innerHTML = e.name;
+                preview.insertBefore(info, null);
+            }
+        }
+        //ie가 아닐때(크롬,사파리,FF)
+	}else{
 		var files = targetObj.files;
-		fileArr = Array.prototype.slice.call(files);
-		var preview = document.getElementById(View_area);
-		var ua = window.navigator.userAgent;
-		//ie일때
-		if(ua.indexOf("MSIE")>-1){
-			targetObj.select();
-			try {
-	            var src = document.selection.createRange().text; // get file full path(IE9, IE10에서 사용 불가)
-	            var ie_preview_error = document.getElementById("ie_preview_error_" + View_area);
-	            if (ie_preview_error) {
-	                preview.removeChild(ie_preview_error); //error가 있으면 delete
-	            }
-	            var img = document.getElementById(View_area); //이미지가 뿌려질 곳
-	            //이미지 로딩, sizingMethod는 div에 맞춰서 사이즈를 자동조절 하는 역할
-	            img.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"+src+"', sizingMethod='scale')";
-	        } catch (e) {
-	            if (!document.getElementById("ie_preview_error_" + View_area)) {
-	                var info = document.createElement("<p>");
-	                info.id = "ie_preview_error_" + View_area;
-	                info.innerHTML = e.name;
-	                preview.insertBefore(info, null);
-	            }
-	        }
-	        //ie가 아닐때(크롬,사파리,FF)
-		}else{
-			var files = targetObj.files;
-	        for ( var i = 0; i < files.length; i++) {
-	            var file = files[i];
-	            fileInfoArr.push(file);
-	 
-	            var imageType = /image.*/; //이미지 파일일경우만.. 뿌려준다.
-	            if (!file.type.match(imageType))
-	                continue;
-	            var prevImg = document.getElementById("img_id_"+i); //이전에 미리보기가 있다면 삭제
-	            if (prevImg) {
-	            	preview.removeChild(prevImg);
-	            }
-	            var span = document.createElement('span');
-	            span.id="img_id_" +i;
-	            span.style.width = '150px';
-	            span.style.height = '200px';
-	            preview.appendChild(span);
-	 
-	            var img = document.createElement("img");
-	            img.className="addImg";
-	            img.classList.add("obj");
-	            img.file = file;
-	            img.style.width='inherit';
-	            img.style.height='inherit';
-	            img.style.cursor='pointer';
-	            const idx=i;
-	            img.onclick=function(){
-	            	fileRemove(idx);
-	            }
-	            span.appendChild(img);
-	 
-	            if (window.FileReader) { // FireFox, Chrome, Opera 확인.
-	                var reader = new FileReader();
-	                reader.onloadend = (function(aImg) {
-	                    return function(e) {
-	                        aImg.src = e.target.result;
-	                    };
-	                })(img);
-	                reader.readAsDataURL(file);
-	            } else { // safari is not supported FileReader
-	                //alert('not supported FileReader');
-	                if (!document.getElementById("sfr_preview_error_"
-	                    + View_area)) {
-	                    var info = document.createElement("p");
-	                    info.id = "sfr_preview_error_" + View_area;
-	                    info.innerHTML = "not supported FileReader";
-	                    preview.insertBefore(info, null);
-	                }
-	            }
-	        }
-		}
+        for ( var i = 0; i < files.length; i++) {
+            var file = files[i];
+            fileInfoArr.push(file);
+ 
+            var imageType = /image.*/; //이미지 파일일경우만.. 뿌려준다.
+            if (!file.type.match(imageType))
+                continue;
+            var prevImg = document.getElementById("img_id_"+i); //이전에 미리보기가 있다면 삭제
+            if (prevImg) {
+            	preview.removeChild(prevImg);
+            }
+            var span = document.createElement('span');
+            span.id="img_id_" +i;
+            span.style.width = '150px';
+            span.style.height = '200px';
+            preview.appendChild(span);
+ 
+            var img = document.createElement("img");
+            img.className="addImg";
+            img.classList.add("obj");
+            img.file = file;
+            img.style.width='inherit';
+            img.style.cursor='pointer';
+            const idx=i;
+            img.onclick=function(){
+            	fileRemove(idx);
+            }
+            span.appendChild(img);
+ 
+            if (window.FileReader) { // FireFox, Chrome, Opera 확인.
+                var reader = new FileReader();
+                reader.onloadend = (function(aImg) {
+                    return function(e) {
+                        aImg.src = e.target.result;
+                    };
+                })(img);
+                reader.readAsDataURL(file);
+            } else { // safari is not supported FileReader
+                //alert('not supported FileReader');
+                if (!document.getElementById("sfr_preview_error_"
+                    + View_area)) {
+                    var info = document.createElement("p");
+                    info.id = "sfr_preview_error_" + View_area;
+                    info.innerHTML = "not supported FileReader";
+                    preview.insertBefore(info, null);
+                }
+            }
+        }
 	}
+}
 </script>
 <style>
     .infoImg img{

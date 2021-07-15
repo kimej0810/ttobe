@@ -107,6 +107,6 @@
     	</if>
     </sql>
     <select id="selectLastPk" resultType="int">
-    	SELECT TIDX FROM TOBE_MEMBER ORDER BY TIDX DESC
+    	SELECT MAX(TIDX) FROM TOBE_MEMBER ORDER BY TIDX DESC
     </select>
 </mapper>

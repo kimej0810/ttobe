@@ -7,8 +7,8 @@ import tobe.project.dto.EmailDTO;
 import tobe.project.dto.MemberVO;
 
 public interface EmailService {
-	public void joinEmail(MemberVO dto);
-	public void sendEmail(EmailDTO emailVO);
+	public void joinEmail(MemberVO dto) throws Exception;
+	public void sendEmail(EmailDTO emailVO) throws Exception;
 	public int writeEmail(EmailDTO emailVO) throws Exception;
 	public int totalCountEmail(String keyword) throws Exception;
 	List<EmailDTO> searchEmailList(SearchCriteria searchCriteria) throws Exception;
