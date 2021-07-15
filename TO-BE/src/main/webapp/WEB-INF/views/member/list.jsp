@@ -154,7 +154,7 @@
 %>
 	<div class="contentheader" style="box-shadow:0 2px 5px lightgrey;background-color:white;">
 		<div class="mainLogo" >
-			<img src="<c:url value="/resources/static/img/sideLogo.png"/>" style="width:50px;margin:8px 0 0 15px;">
+			<img src="<c:url value="/resources/static/img/sideImg.png"/>" style="width:225px;margin:8px 0 0 15px;">
 		</div>
 		<div class="search">
 			<div class="input-group mb-3">

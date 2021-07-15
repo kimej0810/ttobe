@@ -21,9 +21,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-	<script src="<c:url value="/resources/static/js/bootstrap-datepicker.js"/>"></script>
-	<script src="<c:url value="/resources/static/js/bootstrap-datepicker.ko.min.js"/>"></script>
-	<link rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap-datepicker.css"/>"/>
+	<script src="<c:url value="/resources/static/schedule/js/jquery.datetimepicker.full.min.js"/>"></script>
+	<link rel="stylesheet" href="<c:url value="/resources/static/schedule/css/jquery.datetimepicker.css"/>"/>
 	<style>
 /* 		html{
 			min-width:650px;
@@ -90,40 +89,50 @@
 				$("#e_con").tooltip('hide');
 			}
 		});
+		var startD;
+		var endD;
 		$("#startDay").click(function(){
-			$("#startD").datepicker({
-				format:"yyyy-mm-dd",
-				startDate:'+1d',
-				autoclose:true,
-				daysOfWeekDisabled:[0,6],
-				title:"시작날짜",
-				todayHighlight:true,
-				language:"ko"
-			}).on('changeDate',function(selectedDate){
-					if($("#endD").val()!=""){
-						if($("#startD").val() > $("#endD").val()){
-							$("#startD").datepicker('setDate',new Date($("#endD").val()));
-							return;
-						}
-					}
-			});
-		});
-		$("#endDay").click(function(){
-			$("#endD").datepicker({
-				format:"yyyy-mm-dd",
-				startDate:'+1d',
-				autoclose:true,
-				daysOfWeekDisabled:[0,6],
-				title:"종료날짜",
-				todayHighlight:true,
-				language:"ko"
-			}).on('changeDate',function(){
-				if($(this).val()!=""){
-					if($("#endD").val() < $("#startD").val()){
-						$(this).datepicker('setDate', new Date($("#startD").val()));
+			$("#startD").datetimepicker({
+				dateFormat:"yyyy-MM-dd hh:mm",
+				minDate:'+1d',
+				minTime:'+1h',
+				onChangeDateTime:function(){
+					startD = $("#startD").val();
+					$("#u_useddays").val("");
+					if(startD > endD){
+						alert("시작일 선택이 잘못되었습니다.");
+						$("#startD").val(endD);
 					}
 				}
 			});
+			jQuery.datetimepicker.setLocale('kr');
+		});
+		$("#endDay").click(function(){
+			$("#endD").datetimepicker({
+				dateFormat:"yyyy-MM-dd hh:mm",
+				minDate:'+1d',
+				onChangeDateTime:function(){
+					endD = $("#endD").val();
+					var sTime = new Date(startD);
+					var eTime = new Date(endD);
+					var resultD = eTime - sTime;
+					var resultT = resultD/60/60/1000/24;
+					var resultDa;
+					if(resultT <= 1 && resultT > 0.5){
+						resultDa = 1;
+					}else if(resultT <= 0.5){
+						resultDa = 0.5;
+					}else{
+						resultDa = Math.ceil(resultT);
+					}
+					$("#u_useddays").val(resultDa);
+					if(startD > endD){
+						alert("종료일 선택이 잘못되었습니다.");
+						$("#endD").val(startD);
+					}
+				}
+			});
+			jQuery.datetimepicker.setLocale('kr');
 		});
 		$("#subBtn").on("click",function(){
 			if($("#teamleader").val() =="no" || $("#departmenthead").val() =="no" || $("#sectionhead").val() =="no" || $("#leader").val() =="no"){
@@ -183,6 +192,18 @@
 	</script>
 </head>
 <body>
+	<%
+		if(true){
+			
+	%>
+		<c:if test="${member.t_leave_get <= 0}">
+	<%
+		out.println("<script>alert('사용가능한 연차가 없습니다.');window.close();</script>");
+	%>
+		</c:if>
+	<%
+		}
+	%>
 	<div id="tableDiv">
 		<form class="form" name="frm" action="#">
 			<div id="tableNum">
@@ -281,7 +302,7 @@
 					<td scope="col">
 						<div class="input-group">
 							<label for="startD" style="display: inherit;">
-							<input type="text" class="form-control" id="startD" name="e_startday" required="required">
+							<input type="text" class="form-control" id="startD" name="e_startday" style="background-color:white;" readonly="readonly">
 							<input type="hidden" name="a_startdate" id="a_startdate">
 								<span id="startDay" class="calendar">
 									<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
@@ -296,7 +317,7 @@
 					<td scope="col">
 						<div class="input-group">
 						<label for="endD" style="display: inherit;">
-							<input type="text" class="form-control" name="a_enddate" id="endD" required="required">
+							<input type="text" class="form-control" name="a_enddate" id="endD" style="background-color:white;" readonly="readonly">
 								<span id="endDay" class="calendar">
 									<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-calendar-date-fill" viewBox="0 0 16 16">
 										<path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zm5.402 9.746c.625 0 1.184-.484 1.184-1.18 0-.832-.527-1.23-1.16-1.23-.586 0-1.168.387-1.168 1.21 0 .817.543 1.2 1.144 1.2z"/>
@@ -332,7 +353,7 @@
 				<tr>
 					<th>신 청 일 수</th>
 					<td>
-						<input type="text" class="form-control" name="a_useddays" id="u_useddays" required="required" maxlength="4" onKeyup="this.value=this.value.replace(/[^.0-9]/g,'');">
+						<input type="text" class="form-control" name="a_useddays" id="u_useddays" required="required" readonly="readonly" style="background-color:white;">
 					</td>
 					<th>비상연락망</th>
 					<td>
