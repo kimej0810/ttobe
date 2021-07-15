@@ -254,7 +254,7 @@ public class MemberController {
 		
 		service.modifyMember(vo, mpRequest);
 		model.addAttribute("member", service.selectOneMember(vo.getT_id()));
-		return "/main/mainPage";  
+		return "redirect:/main/mainPage";  
 	}
 	
 	//비밀번호변경 페이지
