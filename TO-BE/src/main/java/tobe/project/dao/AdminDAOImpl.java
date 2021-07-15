@@ -84,4 +84,8 @@ public class AdminDAOImpl implements AdminDAO{
 	public String selectOneId() throws Exception {
 		return sqlSession.selectOne(Namespace+".selectOneId");
 	}
+	@Override
+	public int selectLastPk() throws Exception {
+		return sqlSession.selectOne(Namespace+".selectLastPk");
+	}
 }

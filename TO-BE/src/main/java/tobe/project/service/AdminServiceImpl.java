@@ -92,4 +92,8 @@ public class AdminServiceImpl implements AdminService{
 	public String selectOneId() throws Exception {
 		return dao.selectOneId();
 	}
+	@Override
+	public int selectLastPk() throws Exception {
+		return dao.selectLastPk();
+	}
 }

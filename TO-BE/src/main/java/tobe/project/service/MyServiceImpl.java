@@ -82,6 +82,10 @@ public class MyServiceImpl implements MyService{
 		}
 		return 0;
 	}
+	@Override
+	public List<LeaveDTO> selectAllLeave2() throws Exception {
+		return dao.selectAllLeave2();
+	}
 
 	
 }

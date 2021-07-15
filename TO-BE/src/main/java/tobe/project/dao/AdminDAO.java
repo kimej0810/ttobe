@@ -28,5 +28,6 @@ public interface AdminDAO {
 	public void addFile(Map<String,Object> map)throws Exception;
 	//첨부파일 조회
 	public FileVO selectOneFile(int tidx) throws Exception;
+	public int selectLastPk()throws Exception;
 }
 

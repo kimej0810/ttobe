@@ -65,6 +65,8 @@ public class AdminController{
 		String pwd = pwdEncoder.encode(tid);
 		vo.setT_pwd(pwd);
 		service.addMember2(vo,mpRequest);
+		int last = service.selectLastPk();
+		vo.setTidx(last);
 		emailService.joinEmail(vo);
 		return "redirect:/admin/memberlist";
 	}

@@ -36,7 +36,12 @@ public class EmailServiceImpl implements EmailService{
 			mailHandler.setInline("joinImg1", "joinImg1.png");
 			mailHandler.setInline("joinImg2", "joinImg2.png");
 			mailHandler.send();
-			
+			EmailDTO edto = new EmailDTO();
+			edto.setM_addressee(dto.getT_email());
+			edto.setM_content(htmlContent);
+			edto.setM_title("귀하의 입사를 축하합니다!");
+			edto.setTidx(dto.getTidx());
+			emailDAO.writeEmail(edto);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

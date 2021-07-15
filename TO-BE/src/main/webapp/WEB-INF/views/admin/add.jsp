@@ -26,6 +26,18 @@
 			},750);
 			return true;
 		});	
+		$(document).on("click","#subminBtnn",function(){
+		    	if($("#t_department").val()==null || $("#t_department").val()=="부서없음"){
+		    		alert("부서를 선택해주세요.");
+		    		return;
+		    	}else if($("#t_position").val()==null || $("#t_position").val()==""){
+		    		alert("직급을 선택해주세요.");
+		    		return;
+		    	}else{
+					$("#formTag").submit();	
+		    	}
+		    }
+		});
 		$(document).on("focusout","#t_email",function(){
 			var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 			if(!emailRule.test($("input[id='t_email']").val())){
@@ -219,17 +231,6 @@
 	        }
 		}
 	}
-    function checkFrm(){
-    	if($("#t_department").val()==null || $("#t_department").val()=="부서없음"){
-    		alert("부서를 선택해주세요.");
-    		return false;
-    	}else if($("#t_position").val()==null || $("#t_position").val()==""){
-    		alert("직급을 선택해주세요.");
-    		return false;
-    	}else{
-			return true;    		
-    	}
-    }
 </script>
 <style>
     .infoImg img{
@@ -318,7 +319,7 @@
 	<div class="headerT">
 		<button id="noticeBtn" class="btn btn-outline-secondary" type="button">사원 등록</button>
 	</div>
-	<form id="formTag" action="/admin/addAction" method="post" onsubmit="return checkFrm()" enctype="multipart/form-data">
+	<form id="formTag" action="/admin/addAction" method="post" enctype="multipart/form-data">
 		<table class="table">
 			<tbody>
 				<tr>
@@ -413,7 +414,7 @@
 			</tbody>
 		</table>
 		<div class="tableBtn">
-			<input type="submit" class="btn btn-primary btn-sm" value="사원 등록">
+			<input type="button" id="subminBtnn" class="btn btn-primary btn-sm" value="사원 등록">
 			<input type="button" class="btn btn-danger btn-sm" onclick="history.go(-1)" value="취소">
 		</div>
 	</form>

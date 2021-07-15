@@ -87,5 +87,9 @@ public class MyDAOImpl implements MyDAO{
 	public int modifyApproval(LeaveDTO dto) throws Exception {
 		return sqlSession.update(Namespace+".modifyApproval",dto);
 	}
+	@Override
+	public List<LeaveDTO> selectAllLeave2() throws Exception {
+		return sqlSession.selectList(Namespace+".selectAllLeave2");
+	}
 	
 }

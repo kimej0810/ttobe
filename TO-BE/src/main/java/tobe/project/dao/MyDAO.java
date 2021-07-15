@@ -26,4 +26,5 @@ public interface MyDAO {
 	public int modifyLeave(LeaveDTO dto)throws Exception;
 	public int modifyLine(LeaveDTO dto)throws Exception;
 	public int modifyApproval(LeaveDTO dto)throws Exception;
+	public List<LeaveDTO> selectAllLeave2()throws Exception;
 }

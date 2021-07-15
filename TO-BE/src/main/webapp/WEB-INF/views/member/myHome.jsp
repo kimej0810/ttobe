@@ -261,6 +261,7 @@ function leaveBtn(){
 						<table class="table">
 							<thead>
 								<tr>
+									<th>발송인</th>
 									<th>제목</th>
 									<th>수신일</th>
 								</tr>
@@ -268,10 +269,15 @@ function leaveBtn(){
 							<tbody>
 								<c:forEach items="${myEmail}" var="email">
 									<tr>
-										<td>${email.m_title}</td>
+										<td>관리자</td>
+										<td>
+											<a href="/member/emailRead?midx=${email.midx}" onclick="window.open(this.href, '_blank', 'width=800, height=700'); return false;" style="text-decoration : none; color:black;">
+												${email.m_title}
+											</a>
+										</td>
 										<td>
 											<c:set var="sendDate" value="${email.m_senddate}"/>
-											${fn:substring(sendDate,0,16)}
+												${fn:substring(sendDate,0,16)}
 											<input type="hidden" value="${email.midx}">
 										</td>
 									</tr>

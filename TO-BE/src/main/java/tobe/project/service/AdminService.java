@@ -29,4 +29,5 @@ public interface AdminService {
 	public void addMember2(MemberVO memberVO, MultipartHttpServletRequest mpRequest)throws Exception;
 	//첨부파일 조회
 	public FileVO selectOneFile(int tidx) throws Exception;
+	public int selectLastPk()throws Exception;
 }

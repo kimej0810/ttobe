@@ -22,11 +22,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import tobe.project.domain.PageMaker;
 import tobe.project.domain.SearchCriteria;
+import tobe.project.dto.EmailDTO;
 import tobe.project.dto.LeaveDTO;
 import tobe.project.dto.LoginDTO;
 import tobe.project.dto.MemberDTO;
 import tobe.project.dto.MemberVO;
 import tobe.project.service.AdminService;
+import tobe.project.service.EmailService;
 import tobe.project.service.MemberService;
 import tobe.project.service.MyService;
 
@@ -40,6 +42,8 @@ public class MemberController {
 	private MyService myService;
 	@Inject
 	private AdminService aService;
+	@Inject
+	private EmailService eService;
 	@Inject
 	BCryptPasswordEncoder pwdEncoder;
 	
@@ -183,6 +187,12 @@ public class MemberController {
 	@RequestMapping(value="/leaveModifyAction")
 	public int leaveModifyAction(Model model,HttpSession session,LeaveDTO dto) throws Exception {
 		return myService.modifyLeave(dto);
+	}
+	@RequestMapping(value="/emailRead")
+	public String emailRead(Model model,HttpSession session,EmailDTO dto) throws Exception {
+		EmailDTO reDto = eService.selectOneEmail(dto);
+		model.addAttribute("emailRead",reDto);
+		return "/member/emailRead";
 	}
 	//로그인 페이지불러오기
 	@RequestMapping(value="/login", method = RequestMethod.GET)
