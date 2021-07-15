@@ -5,9 +5,9 @@
  <mapper namespace="tobe.project.mappers.approvalLineMapper">
  	<insert id="writeApprovalLine" parameterType="ApprovalDTO">
  		INSERT INTO 
- 			APPROVAL_LINE(EIDX, TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, TIDX)
+ 			APPROVAL_LINE(EIDX, TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, TIDX)
  		VALUES
- 			(#{eidx}+1, #{teamLeader}, #{departmentHead}, #{sectionHead}, #{leader}, #{status}, #{tidx})
+ 			(#{eidx}+1, #{teamLeader}, #{departmentHead}, #{sectionHead}, #{leader}, #{tidx})
  	</insert>
  	<select id="selectOneApprovalLine" resultType="ApprovalDTO" parameterType="ApprovalDTO">
  		select * from APPROVAL_LINE where EIDX = #{eidx}
