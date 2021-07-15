@@ -154,55 +154,92 @@
 			});
 		</script>
 		<style type="text/css">
-			a{color:black;text-decoration: none;}
-			/* 토요일 색상 */
-			table.fc-col-header>tbody>tr:last-child>th:last-child>div>a{color:blue}
-			table.fc-scrollgrid-sync-table>tbody>tr>td:last-child>.fc-daygrid-day-frame>.fc-daygrid-day-top>a{color:blue}
-			/* 일요일 색상 */
-			table.fc-col-header>tbody>tr:first-child>th:first-child>div>a{color:red}
-			table.fc-scrollgrid-sync-table>tbody>tr>td:first-child>.fc-daygrid-day-frame>.fc-daygrid-day-top>a{color:red}
-			.fc-header-toolbar>div:nth-child(2){margin-right: 13.4%}
+		a{color:black;text-decoration: none;}
+		/* 토요일 색상 */
+		table.fc-col-header>tbody>tr:last-child>th:last-child>div>a{color:blue}
+		table.fc-scrollgrid-sync-table>tbody>tr>td:last-child>.fc-daygrid-day-frame>.fc-daygrid-day-top>a{color:blue}
+		/* 일요일 색상 */
+		table.fc-col-header>tbody>tr:first-child>th:first-child>div>a{color:red}
+		table.fc-scrollgrid-sync-table>tbody>tr>td:first-child>.fc-daygrid-day-frame>.fc-daygrid-day-top>a{color:red}
+		.fc-header-toolbar>div:nth-child(2){margin-right: 13.4%}
+		
+		@media (max-width:1920px) { 
 			#explanation{
 				position: absolute;
-				right: 22.6%;
-    			top: 11.7%;
+				right: 20.6%;
+		  			top: 11.7%;
 			}
-			#explanation1{
-				background-color: #0d6efd;
-			    width: 13px;
-			    height: 13px;
+		}
+		@media (max-width:1820px) { 
+			#explanation{
+				position: absolute;
+				right: 21.2%;
+		  			top: 11.7%;
 			}
-			#explanation2{
-				background-color: red;
-			    width: 13px;
-			    height: 13px;
-			    margin-left: 10px;
+		}
+		@media (max-width:1720px) { 
+			#explanation{
+				position: absolute;
+				right: 20.2%;
+		  			top: 11.7%;
 			}
-			#explanation3{
-				background-color: #FFFF00;
-			    width: 13px;
-			    height: 13px;
-			    margin-left: 10px;
+		}
+		@media (max-width:1620px) { 
+			#explanation{
+				position: absolute;
+				right: 19.7%;
+		  			top: 11.7%;
 			}
-			#explanation4{
-				background-color: black;
-			    width: 13px;
-			    height: 13px;
-			    margin-left: 10px;
+		}
+		@media (max-width:1530px) { 
+			#explanation{
+				position: absolute;
+			    right: 19.7%;
+			    top: 7.7%;
 			}
-			#explanation5{
-				background-color: gray;
-			    width: 13px;
-			    height: 13px;
-			    margin-left: 10px;
+		}
+		@media (max-width:600px) { 
+			#explanation{
+				position: absolute;
+				right: 9.7%;
+				top: 7.7%;
 			}
-			li{
-				display: inline-block;
-			}
+		}
+		#explanation1{
+			background-color: #0d6efd;
+		    width: 13px;
+		    height: 13px;
+		}
+		#explanation2{
+			background-color: red;
+		    width: 13px;
+		    height: 13px;
+		    margin-left: 10px;
+		}
+		#explanation3{
+			background-color: #FFFF00;
+		    width: 13px;
+		    height: 13px;
+		    margin-left: 10px;
+		}
+		#explanation4{
+			background-color: black;
+		    width: 13px;
+		    height: 13px;
+		    margin-left: 10px;
+		}
+		#explanation5{
+			background-color: gray;
+		    width: 13px;
+		    height: 13px;
+		    margin-left: 10px;
+		}
+		li{
+			display: inline-block;
+		}
 		</style>
 	</head>
 	<body>		
-		
 		<div id='calendar' style="position: relative">
 		</div>
 		<ul id="explanation">
@@ -216,7 +253,6 @@
 			<li>외근</li>
 			<li><sub><div id="explanation5"></div></sub></li>
 			<li>출장</li>
-			
 		</ul>
 	</body>
 </html>

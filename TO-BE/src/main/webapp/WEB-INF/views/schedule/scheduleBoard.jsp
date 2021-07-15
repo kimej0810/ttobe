@@ -37,7 +37,7 @@
 						</div>
 				        	<div class="search">
 					        	<div id="searchbox" class="input-group mb-3">
-									<select name="searchType"  class="form-control" id="searchType" style="height:30px; font-size:0.8rem;">
+									<select name="searchType"  class="form-control" id="searchType">
 										<option value="전체"<c:out value="${scri.searchType == null ? 'selected' : '' }"/>>-----</option>
 						 				<option value="유형"<c:out value="${scri.searchType eq '유형' ? 'selected' : '' }"/>>유형</option>
 										<option value="제목"<c:out value="${scri.searchType eq '제목' ? 'selected' : '' }"/>>제목</option>
@@ -45,9 +45,9 @@
 										<option value="제목+내용"<c:out value="${scri.searchType eq '제목+내용' ? 'selected' : '' }"/>>제목+내용</option>
 										<option value="이름"<c:out value="${scri.searchType eq '사원이름' ? 'selected' : '' }"/>>사원이름</option>
 									</select>
-									<input type="text" style="height:30px; width:40%; font-size:0.8rem;" id="keyword" class="form-control" name="keyword" value="${scri.keyword }">
+									<input type="text" id="keyword" class="form-control" name="keyword" value="${scri.keyword }">
 									<div class="input-group-prepend">	
-										<button type="button" id="searchBtn"  style="height:30px; font-size:0.8rem;" class="btn btn-outline-secondary">검색</button>
+										<button type="button" id="searchBtn" class="btn btn-outline-secondary">검색</button>
 									</div>
 								</div>
 							</div>
@@ -81,7 +81,7 @@
 						              			</td>
 						              			<td class="control-label scheduletitle">
 													<input type="hidden" value="${viewAll.sidx}">
-													<a href="scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=830'); return false;" style="text-decoration : none; color:black;">
+													<a id="scheduleLink" href="scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=830'); return false;">
 														<c:set var="content" value="${viewAll.s_title}"/>
 														<c:choose>
 															<c:when test="${fn:length(viewAll.s_title) > 10}">
@@ -110,7 +110,7 @@
 													</c:otherwise>
 												</c:choose>
 												<td class="scheduleContents">
-													<a href="scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=830'); return false;" style="text-decoration : none; color:black;">
+													<a id="scheduleLink" href="scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=830'); return false;">
 														<c:set var="content" value="${viewAll.s_content}"/>
 														${fn:substring(content,0,50)}
 													</a>

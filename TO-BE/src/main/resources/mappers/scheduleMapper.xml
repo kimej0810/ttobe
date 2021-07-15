@@ -38,7 +38,7 @@
     
     <!-- 일정 상세보기 -->
     <select id="contentsSchedule" parameterType="scheduleVO" resultType="scheduleVO">
-    	select A.*,B.T_ID from schedule_management A left join tobe_member B on A.tidx = B.tidx where A.sidx= #{sidx}
+    	select A.*,B.T_ID,B.T_NAME from schedule_management A left join tobe_member B on A.tidx = B.tidx where A.sidx= #{sidx}
     </select>
     <select id="contentmemberSchedule" parameterType="MemberVO" resultType="MemberVO">
  	  	select *

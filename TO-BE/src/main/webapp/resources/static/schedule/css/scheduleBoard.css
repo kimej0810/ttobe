@@ -45,3 +45,20 @@
 	text-decoration : none;
 	color:black;
 }
+#searchType{
+	 height:30px;
+	 font-size:0.8rem;
+}
+#searchBtn{
+	  height:30px;
+	  font-size:0.8rem;
+}
+#keyword{
+	 height:30px;
+	 width:40%;
+	 font-size:0.8rem;
+}
+#scheduleLink{
+	text-decoration:none;
+	color:black;
+}

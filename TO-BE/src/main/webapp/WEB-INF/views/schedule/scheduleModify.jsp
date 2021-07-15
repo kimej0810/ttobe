@@ -67,14 +67,6 @@
 				}
 			}
 		</script>
-		<style type="text/css">
-			img{
-				width: 258px;
-			    position: absolute;
-			    left: 48%;
-			    top: 23%;
-			}
-		</style>
 	</head>
 	<body>
 		<div class="group" id="popupGroup">
@@ -85,24 +77,29 @@
 				<form id="scheduleData">
 				<input type="hidden" name="sidx" id="sidx" value="<%=vo.getSidx()%>">
 				<input type="hidden" name="tidx" id="tidx" value="<%=vo.getTidx()%>">
-					<div class="domain">
+					<div class="domainTitle">
 						<h3 class="zTree-h3">제목</h3>
 					</div>
 					<div class="top">
 						<input type="text" class="s_title form-control" id="s_title" name="s_title" placeholder="제목을 입력하세요" value="<%=vo.getS_title()%>" autocomplete="off">
-						<span id="tootip_area"></span>
+					</div>
+					<div class="domainTitle">
+						<h3 class="zTree-h3">사원이름</h3>
 					</div>
 					<div class="domain">
+						<input type = "text" class="t_name form-control"  name = "t_name" id = "t_name" value="<%=mo.getT_name() %>" readonly>
+					</div>
+					<div class="domainTitle">
 						<h3 class="zTree-h3">사원번호</h3>
 					</div>
 					<div class="domain">
-						<input type = "text" class="t_id form-control"  name = "t_id" id = "t_id" value="<%=mo.getT_id()%>" autocomplete="off"  style="width: 200px" readonly>
+						<input type = "text" class="t_id form-control"  name = "t_id" id = "t_id" value="<%=mo.getT_id()%>" autocomplete="off" readonly>
 					</div>
-					<div class="domain">
+					<div class="domainTitle">
 						<h3 class="zTree-h3">일정 유형</h3>
 					</div>
 					<div  class="domain"> 
-						<select class="s_type form-control" id="s_type" name="s_type" value="<%=vo.getS_type()%>" style="width: 200px">
+						<select class="s_type form-control" id="s_type" name="s_type" value="<%=vo.getS_type()%>">
 							<option value="회사일정">회사일정</option>
 							<option value="중요일정">중요일정</option>
 							<option value="개인">개인용무</option>
@@ -111,37 +108,31 @@
 						</select>
 						<div><img src="/resources/static/img/scheduleLogo.png"></div>
 					</div>
-					
-					<div class="domain">
+					<div class="domainTitle">
 						<h3 class="zTree-h3">시작 날짜</h3>
 					</div>
 					<div class="domain">
-						<input class = "date form-control" id = "s_startDate" type = "text" name = "s_startDate" id = "s_startDate" value="<%=vo.getS_startDate()%>" style="width: 200px" readonly>
-						<span id="tootip_area2"></span>
+						<input class = "date form-control" id = "s_startDate" type = "text" name = "s_startDate" id = "s_startDate" value="<%=vo.getS_startDate()%>" readonly>
 					</div>
-					<div class="domain">
+					<div class="domainTitle">
 						<h3 class="zTree-h3">종료 날짜</h3>
 					</div>
 					<div class="domain">
-						<input class = "date form-control" id = "s_endDate" type = "text" name = "s_endDate" id = "s_endDate" value="<%=vo.getS_endDate()%>" style="width: 200px" readonly>
-						<span id="tootip_area3"></span>
+						<input class = "date form-control" id = "s_endDate" type = "text" name = "s_endDate" id = "s_endDate" value="<%=vo.getS_endDate()%>" readonly>
 					</div>
-					<div class="domain">
+					<div class="domainTitle">
 						<h3 class="zTree-h3">내용</h3>
 					</div>
 					<div class="domain">
 						<textarea class="s_content target form-control" id="s_content" name="s_content" rows="5" cols="20" placeholder="100글자까지 입력 가능합니다" autocomplete="off"><%=vo.getS_content()%></textarea>
-						<span id="tootip_area4"></span>
 					</div>
 					<div class="btngroup">
-						<button type="button" class="cancel-button  btn btn-primary btn-sm float-right" onclick="history.back();" style="margin-top:20px;margin-right:0px;height: 30px;">취소</button> 
-						<button type="button" class="ok-button  btn btn-primary btn-sm float-right" onclick="click_up()" style="margin: 20px 15px 0px 0px; height: 30px;">확인</button>
-						<button type="reset" class="reset-button  btn btn-primary btn-sm float-right" style="margin:20px 15px 0px 0px; width: 80px; height: 30px;">다시쓰기</button>
+						<button type="button" class="cancel-button  btn btn-primary btn-sm float-right" onclick="history.back();">취소</button> 
+						<button type="button" class="ok-button  btn btn-primary btn-sm float-right" onclick="click_up()">확인</button>
+						<button type="reset" class="reset-button  btn btn-primary btn-sm float-right">다시쓰기</button>
 					</div>
 				</form>
-				
 			</div>
 		</div>
-		
 	</body>
 </html>

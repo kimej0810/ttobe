@@ -70,7 +70,6 @@ button {
 	margin: 15px;
 }
 .top {
-	height : 50px;
 	margin-top: 20px;
 }
 
@@ -80,8 +79,17 @@ button {
     height: 35px;
 }
 
+.domainTitle {
+	margin-top : 7px;
+}
+
 .domain {
 	margin-top : 20px;
+}
+
+.s_type{
+	width: 200px;
+    border: 1px solid #34aadc;
 }
 
 .date {
@@ -89,7 +97,7 @@ button {
     background: white;
     border-radius: 5px;
     border: 1px solid #34aadc;
-    width: 300px;
+    width: 200px;
     height: 35px;
 }
 
@@ -99,17 +107,36 @@ button {
 	border : 1px solid #34aadc;
 }
 
-.t_id {
+.t_id,.t_name {
 	border: 1px solid #34aadc;
 	border-radius: 5px;
-    width: 500px;
+    width: 200px;
     height: 35px;
 }
 .target {
     -ms-overflow-style: none;
     scrollbar-width: none;
-   
 }
 .target::-webkit-scrollbar {
     display: none; 
+}
+img{
+	width: 258px;
+    position: absolute;
+    left: 48%;
+    top: 23%;
+}
+.cancel-button{
+	 margin-top:20px;
+	 margin-right:0px;
+	 height: 30px;
+}
+.ok-button{
+	margin: 20px 15px 0px 0px;
+	height: 30px;
+}
+.reset-button{
+	 margin:20px 15px 0px 0px;
+	 width: 80px;
+	 height: 30px;
 }
