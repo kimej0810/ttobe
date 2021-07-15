@@ -19,7 +19,6 @@ pageContext.setAttribute("replace", "<br>");
 <style>
 .main_con{
 	width:90%;
-	height:90vh;
 	margin:20px auto;
 	box-shadow:0 0 5px 5px lightgray;
 	padding:2%;
