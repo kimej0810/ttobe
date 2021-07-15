@@ -159,7 +159,6 @@ public class ApprovalController {
 		}else{
 			dto.setA_useddays(checkLeave);
 			int mySchedule = myservice.updateLeave(dto);
-			System.out.println("1이냐 0이냐"+mySchedule);
 			if(mySchedule == 1) {
 				vo.setS_type(dto.getE_type());
 				vo.setS_title(dto.getE_texttitle());
