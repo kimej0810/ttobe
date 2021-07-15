@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	$("#s_startDate").datetimepicker({
-		dateFormat:"yyyy-mm-dd hh:mm",
+		/*dateFormat:"yyyy-mm-dd hh:mm",*/
 		minDate:'+1d',
 		minTime:'+1h',
 		onChangeDateTime:function(){
@@ -12,7 +12,7 @@ $(document).ready(function(){
 		disabledWeekDays :[0, 6]
 	});
 	$("#s_endDate").datetimepicker({
-		dateFormat:"yyyy-mm-dd hh:mm",
+		/*dateFormat:"yyyy-mm-dd hh:mm",*/
 		minDate:'+1d',
 		minTime:'+1h',
 		onChangeDateTime:function(){
