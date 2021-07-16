@@ -122,7 +122,7 @@
 					if(resultT <= 1 && resultT > 0.5){
 						resultDa = 1;
 					}else if(resultT <= 0.5){
-						resultDa = 0.5;
+						resultDa = 1;
 					}else{
 						resultDa = Math.ceil(resultT);
 					}

@@ -6,6 +6,7 @@
 <%@ page import="tobe.project.dto.*" %>
 <%
 	String userName = (String)session.getAttribute("userName");
+	String userId = (String)session.getAttribute("userId");
 	MemberDTO member = (MemberDTO)request.getAttribute("member");
 	if(userName==null){
 		out.println("<script>alert('잘못된 접근입니다.');window.close();</script>");
@@ -210,7 +211,7 @@
 					<td>
 						${leave.e_con }
 					</td>
-					<th>관 계</th>
+					<th>신청인과의 관계</th>
 					<td>
 						${leave.e_send}
 					</td>
@@ -245,15 +246,52 @@
 					<input type="button" id="modifyBtn" class="btn btn-danger btn-sm" value="수정">
 					<input type="button" id="delBtn" class="btn btn-danger btn-sm" value="삭제">	 
 				</c:if>
+				
+			<%
+				}else if(userId!=null){
+			%>
+				<c:set var="check1" value="<%=userId%>"/>
+				<c:if test="${leave.teamleader == check1}">
+					<c:if test="${leave.status eq '3000' }">
+						<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">승인</button>
+					</c:if>
+				</c:if>
+				<c:if test="${leave.departmenthead == check1}">
+					<c:if test="${leave.status eq '0300' }">
+						<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">승인</button>
+					</c:if>
+				</c:if>
+				<c:if test="${leave.sectionhead == check1}">
+					<c:if test="${leave.status eq '0030' }">
+						<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">승인</button>
+					</c:if>
+				</c:if>
+				<c:if test="${leave.leader == check1}">
+					<c:if test="${leave.status eq '0003' }">
+						<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">승인</button>
+					</c:if>
+				</c:if>
 			<%
 				}
 			%>
+			
 				<input type="button" class="btn btn-primary btn-sm" onclick="window.close();" value="닫기">
 			</div>
 		</form>
 	</div>
 	<script>
+	function ok(){
+		var eidx = $("#eidx").val();
+		var result = confirm("승인 처리 하시겠습니까?");
+		if(result){
+			location.href="/approval/documentOk?eidx="+eidx;
+			alert("승인처리 되었습니다.");
+			opener.parent.location.reload();
+			window.close();
+		}
+	}
 	$(document).ready(function(){
+		
 		$(document).on("click","#modifyBtn",function(){
 			if($("#e_status").val()=="결재대기"){
 				var eidx = $("#eidx").val();
