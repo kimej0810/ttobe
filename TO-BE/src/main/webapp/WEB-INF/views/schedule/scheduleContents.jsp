@@ -15,7 +15,7 @@
 	Integer userTidx = (Integer)session.getAttribute("userTidx");
 	String userGrade = (String) session.getAttribute("userGrade");
 %>
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html> 
 	<head>
 		<meta charset="UTF-8">

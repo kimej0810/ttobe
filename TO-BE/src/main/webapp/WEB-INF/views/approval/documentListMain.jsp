@@ -12,7 +12,7 @@
 %>
 <!DOCTYPE html>
 <html>
-	<head>
+	<head> 
 		<meta charset="UTF-8">
 		<title>모든 결재문서 리스트</title>
 		<link href="<c:url value="/resources/static/form/css/documentListMain.css"/>" rel='stylesheet'/>

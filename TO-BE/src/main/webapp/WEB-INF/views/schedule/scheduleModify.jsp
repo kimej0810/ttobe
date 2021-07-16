@@ -14,7 +14,7 @@
 	Integer userTidx = (Integer)session.getAttribute("userTidx");
 %> 
 <!DOCTYPE html>
-<html>
+<html> 
 	<head>
 		<meta charset="UTF-8">
 		<title>일정 수정</title>

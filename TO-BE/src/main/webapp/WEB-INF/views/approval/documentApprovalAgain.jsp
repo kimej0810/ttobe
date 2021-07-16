@@ -12,7 +12,7 @@
 	Integer userTidx = (Integer)session.getAttribute("userTidx");
 	
 	ApprovalDTO contents = (ApprovalDTO)request.getAttribute("contents");
-%>
+%> 
 <!DOCTYPE html>
 <html>
 	<head>

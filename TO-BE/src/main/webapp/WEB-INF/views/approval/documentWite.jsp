@@ -12,7 +12,7 @@
 	}
 %>
 <!DOCTYPE html>
-<html>
+<html> 
 	<head>
 		<meta charset="UTF-8">
 		<title>결재문서 작성페이지</title>

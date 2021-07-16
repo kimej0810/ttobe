@@ -16,7 +16,7 @@
 	}
 %>
 <!DOCTYPE html>
-<html>
+<html> 
 	<head>
 		<meta charset="utf-8">
 		<title>게시판 일정리스트</title>
