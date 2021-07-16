@@ -14,5 +14,5 @@ $.fn.serializeObject = function(){
             o[name] = value || '';
         }
     });
-    return o;
+    return o; 
 };

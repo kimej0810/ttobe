@@ -12,7 +12,7 @@ $(document).ready(function(){
 				$("#s_startDate").val(endD);
 			}
 		}
-	});
+	}); 
 	$("#s_endDate").datetimepicker({
 		disabledWeekDays :[0, 6],
 		minDate:'+1d',

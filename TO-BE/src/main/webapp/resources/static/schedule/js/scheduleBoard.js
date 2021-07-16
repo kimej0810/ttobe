@@ -15,7 +15,7 @@ $(function(){
 			dataType:"json",
 			contentType : "application/json; charset=UTF-8",
 			success:function(svo){
-				var schedule = "";
+				var schedule = ""; 
 				for(var i=0; i < svo.length; i++){
 					schedule += "<tr><td scope='row'>"+svo[i].s_type+"</td>";
 					schedule += "<td class='control-label scheduletitle'><input type='hidden' value='"+svo[i].sidx+"'>";
