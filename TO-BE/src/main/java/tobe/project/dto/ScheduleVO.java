@@ -19,7 +19,7 @@ public class ScheduleVO {
 		this.tidx = tidx;
 	}
 	private int midx;
-	public int getMidx() {
+	public int getMidx() { 
 		return midx;
 	}
 	public void setMidx(int midx) {

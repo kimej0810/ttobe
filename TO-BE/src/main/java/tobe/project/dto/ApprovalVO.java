@@ -16,7 +16,7 @@ public class ApprovalVO {
 	private String delyn;
 	private String e_status;
 	private String e_approvalnoyn;
-	private String e_reason;
+	private String e_reason; 
 	private int tidx;
 	private MemberVO memberVO;
 	private ApprovalLineVO approvalLineVO;

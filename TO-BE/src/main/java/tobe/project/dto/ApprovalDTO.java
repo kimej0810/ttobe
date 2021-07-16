@@ -15,7 +15,7 @@ public class ApprovalDTO {
 	private String e_con;
 	private String e_send;
 	private String e_textTitle;
-	private String e_textContent;
+	private String e_textContent; 
 	private String delyn;
 	private String e_status;
 	private String e_approvalnoyn;

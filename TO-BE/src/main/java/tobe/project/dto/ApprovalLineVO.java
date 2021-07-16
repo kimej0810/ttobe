@@ -16,7 +16,7 @@ public class ApprovalLineVO {
 	}
 	public void setTeamLeader(String teamLeader) {
 		this.teamLeader = teamLeader;
-	}
+	} 
 	public String getDepartmentHead() {
 		return departmentHead;
 	}
