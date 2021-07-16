@@ -19,7 +19,7 @@ public class ApprovalLineDAOImpl implements ApprovalLineDAO{
 	@Override
 	public void writeApprovalLine(ApprovalDTO dto) throws Exception {
 		sqlSession.insert(Namespace+".writeApprovalLine",dto);
-	}
+	} 
 	@Override
 	public ApprovalDTO selectOneApprovalLine(int eidx) throws Exception {
 		return sqlSession.selectOne(Namespace+".selectOneApprovalLine",eidx);

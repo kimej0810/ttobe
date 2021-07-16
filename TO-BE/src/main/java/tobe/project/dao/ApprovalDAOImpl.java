@@ -23,7 +23,7 @@ public class ApprovalDAOImpl implements ApprovalDAO{
 	@Override
 	public void writeApprovalDocument(ApprovalDTO dto) throws Exception {				
 		sqlSession.insert(Namespace+".writeApprovalDocument",dto);
-	}
+	} 
 	
 	@Override
 	public ApprovalDTO selectOneApprovalDocumentContents(int eidx) throws Exception {		

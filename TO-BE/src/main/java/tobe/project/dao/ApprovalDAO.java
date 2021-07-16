@@ -19,7 +19,7 @@ public interface ApprovalDAO {
 	public int modifyApprovalStatusOk(int eidx) throws Exception;
 	public void modifyApprovalStatusNo(ApprovalDTO dto) throws Exception;
 	public void modifyApprovalDocumentAgain(ApprovalDTO dto) throws Exception;
-	
+	 
 	public List<ApprovalVO> selectAllApprovalDocumentList(SearchCriteria scri) throws Exception;
 	public int totalCountApprovalDocument(SearchCriteria scri) throws Exception;
 

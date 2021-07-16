@@ -24,7 +24,7 @@ public class ScheduleDAOImpl implements ScheduleDAO{
 	@Override
 	public List<ScheduleVO> showSchedule() throws Exception{
 		return sqlSession.selectList(Namespace+".showSchedule");
-	}
+	} 
 	
 	//���� ���
 	@Override

@@ -13,7 +13,7 @@ public interface ApprovalLineDAO {
 	public void modifyApprovalLeader(int eidx) throws Exception;
 	//반려
 	public void modifyApprovalNo(int eidx) throws Exception;
-	//재기안
+	//재기안 
 	public void modifyApprovalDocumentAgainLine(ApprovalDTO dto) throws Exception;
 	//결제대기문서 (결재순서 도착)
 	public int totalCountTeamLeaderApprovalToDo(String t_id) throws Exception;

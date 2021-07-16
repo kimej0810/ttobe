@@ -21,7 +21,7 @@ public interface ScheduleDAO {
 	
 	public MemberVO contentmemberSchedule(int tidx) throws Exception;
 	//----------------------- 占쌉시깍옙占쏙옙!! ------------------------
-	 
+	  
 	public List<ScheduleVO> selectSchedule(SearchCriteria scri) throws Exception;		//占쌉시깍옙 占쏙옙占� 占쏙옙회
 	
 	public int countSchedule(SearchCriteria scri) throws Exception;								//占쌉시깍옙 占쏙옙 占쏙옙占쏙옙
