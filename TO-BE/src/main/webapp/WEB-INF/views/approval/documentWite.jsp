@@ -222,7 +222,6 @@
 								<td class="style3" rowspan="2">합 의 부 서</td>
 								<td class="style38 style43" colspan="2" rowspan="2">
 									<input type="text" id="e_con" name="e_con" autocomplete="off" title="2글자 이상 10글자 이하로 입력해주세요.">
-									<span id="tootip_area4"></span>
 								</td>
 								<td class="style38 style42" colspan="3" rowspan="2">기 안 자</td>
 								<td class="style38 style57" colspan="8" rowspan="2">
