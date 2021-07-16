@@ -133,7 +133,7 @@ public class MemberController {
 		Integer tidx = (Integer)session.getAttribute("userTidx");
 		model.addAttribute("leave",leave);
 		if(tidx!=null) {
-			model.addAttribute("member",service.selectOneMemberIdx(tidx));
+			model.addAttribute("member",service.selectOneMemberIdx(leave.getTidx()));
 			model.addAttribute("memberList",service.selectAllMember2());
 			return "/member/leaveView";
 		}
