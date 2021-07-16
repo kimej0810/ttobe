@@ -77,8 +77,8 @@ public class ApprovalServiceImpl implements ApprovalService{
 	}
 
 	@Override
-	public void modifyApprovalStatusOk(int eidx) throws Exception {
-		dao.modifyApprovalStatusOk(eidx);
+	public int modifyApprovalStatusOk(int eidx) throws Exception {
+		return dao.modifyApprovalStatusOk(eidx);
 	}
 
 	@Override

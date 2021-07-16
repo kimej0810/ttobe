@@ -1,27 +1,29 @@
 $(document).ready(function(){
+	var startD;
+	var endD;
 	$("#s_startDate").datetimepicker({
-		/*dateFormat:"yyyy-mm-dd hh:mm",*/
+		disabledWeekDays :[0, 6],
 		minDate:'+1d',
 		minTime:'+1h',
 		onChangeDateTime:function(){
-			if($("#s_startDate").val() > $("#s_endDate").val()){
+			startD = $("#s_startDate").val();
+			if(startD > endD){
 				alert("시작일을 올바르게 선택해주세요.");
-				$("#s_startDate").val($("#s_endDate").val());
+				$("#s_startDate").val(endD);
 			}
-		},
-		disabledWeekDays :[0, 6]
+		}
 	});
 	$("#s_endDate").datetimepicker({
-		/*dateFormat:"yyyy-mm-dd hh:mm",*/
+		disabledWeekDays :[0, 6],
 		minDate:'+1d',
 		minTime:'+1h',
 		onChangeDateTime:function(){
-			if($("#s_startDate").val() > $("#s_endDate").val()){
-				alert("시작일을 올바르게 선택해주세요.");
-				$("#s_endDate").val($("#s_startDate").val());
+			endD = $("#s_endDate").val();
+			if(startD > endD){
+				alert("종료일을 올바르게 선택해주세요.");
+				$("#s_endDate").val(startD);
 			}
-		},
-		disabledWeekDays :[0, 6]
+		}
 	});
 	jQuery.datetimepicker.setLocale('kr');
 });

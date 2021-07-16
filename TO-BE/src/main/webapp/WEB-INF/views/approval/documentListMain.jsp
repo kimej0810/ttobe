@@ -124,32 +124,56 @@
 							<c:forEach items="${elist}" var="elist" varStatus="status">
 								<tr class="waitingList">
 								<td>
-									<a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">${elist.e_documentNum }</a>
-								</td>
-								<td>
-									<c:set var="content" value="${elist.e_rule}"/>
 									<c:choose>
-										<c:when test="${fn:length(elist.e_rule) > 5}">
-											<c:out value="${fn:substring(content,0,5)}"/>...
+										<c:when test="${elist.e_rule == null}">
+											<a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">${elist.e_documentNum }</a>
 										</c:when>
 										<c:otherwise>
-											<c:out value="${elist.e_rule}"/>
+											<a href="/member/leaveView?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=630'); return false;" style="text-decoration : none; color:black;">${elist.e_documentNum }</a>
+										</c:otherwise> 
+									</c:choose>
+									
+								</td>
+								<td>
+									<c:choose>
+										<c:when test="${elist.e_rule == null}">
+											${elist.e_type}
+										</c:when>
+										<c:otherwise>
+											${elist.e_rule}
 										</c:otherwise> 
 									</c:choose>
 								</td>
 								<td>${elist.memberVO.t_department }</td>
 								<td>${elist.memberVO.t_name }</td>
-								<td><a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">
-									<c:set var="content" value="${elist.e_textTitle}"/>
+								<td>
 									<c:choose>
-										<c:when test="${fn:length(elist.e_textTitle) > 50}">
-											<c:out value="${fn:substring(content,0,50)}"/>...
+										<c:when test="${elist.e_rule == null}">
+											<a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">
+												<c:set var="content" value="${elist.e_textTitle}"/>
+												<c:choose>
+													<c:when test="${fn:length(elist.e_textTitle) > 50}">
+														<c:out value="${fn:substring(content,0,50)}"/>...
+													</c:when>
+													<c:otherwise>
+														<c:out value="${elist.e_textTitle}"/>
+													</c:otherwise> 
+												</c:choose>
+											</a>
 										</c:when>
 										<c:otherwise>
-											<c:out value="${elist.e_textTitle}"/>
+											<a href="/member/leaveView?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=630'); return false;" style="text-decoration : none; color:black;"><c:set var="content" value="${elist.e_textTitle}"/>
+												<c:choose>
+													<c:when test="${fn:length(elist.e_textTitle) > 50}">
+														<c:out value="${fn:substring(content,0,50)}"/>...
+													</c:when>
+													<c:otherwise>
+														<c:out value="${elist.e_textTitle}"/>
+													</c:otherwise> 
+												</c:choose></a>
 										</c:otherwise> 
 									</c:choose>
-									</a>
+									
 								</td>
 								<c:if test="${scri.searchWord eq '결재반려' }">
 								<td>${elist.e_reason }</td>

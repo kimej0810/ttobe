@@ -6,6 +6,7 @@
  	<resultMap type="ApprovalVO" id="approvalResultMap">
 		<id column="EIDX" property="eidx"/>
 	    <result column="E_DOCUMENTNUM" property="e_documentNum"/>
+	    <result column="E_TYPE" property="e_type"/>
 	    <result column="E_RULE" property="e_rule"/>
 	    <result column="E_DRAFTDATE" property="e_draftDate"/>
 	    <result column="E_STARTDAY" property="e_startDay"/>
@@ -53,14 +54,14 @@
 				SELECT eidx_SEQ.NEXTVAL FROM DUAL 
 		</selectKey>
  		INSERT INTO 
- 			electronic_approval(EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_SEND, E_TEXTTITLE, E_TEXTCONTENT, TIDX)
+ 			electronic_approval(EIDX, E_DOCUMENTNUM, E_TYPE, E_DRAFTDATE, E_STARTDAY, E_CON, E_SEND, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, TIDX)
  		VALUES
- 			(eidx_seq.nextval,eidx_document_seq.nextval, #{e_rule}, #{e_draftDate}, #{e_startDay}, #{e_con}, #{e_send}, #{e_textTitle}, #{e_textContent}, #{tidx})
+ 			(eidx_seq.nextval,eidx_document_seq.nextval, #{e_type}, #{e_draftDate}, #{e_startDay}, #{e_con}, #{e_send}, #{e_textTitle}, #{e_textContent}, #{e_status}, #{tidx})
  	</insert>
  	
  	<select id="selectOneApprovalDocumentContents" resultType="ApprovalDTO" parameterType="ApprovalDTO">
  		SELECT
- 			EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_SEND, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, TIDX, T_NAME, T_DEPARTMENT, T_POSITION, TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, DELYN
+ 			EIDX, E_DOCUMENTNUM, E_TYPE, E_DRAFTDATE, E_STARTDAY, E_CON, E_SEND, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, TIDX, T_NAME, T_DEPARTMENT, T_POSITION, TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, DELYN
  		from (
  				select A.*,B.T_NAME, T_DEPARTMENT, T_POSITION,C.TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, ROW_NUMBER() OVER(ORDER BY A.EIDX DESC) AS RNUM
  				FROM ELECTRONIC_APPROVAL A left join TOBE_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX 
@@ -81,7 +82,7 @@
  		update 
  			ELECTRONIC_APPROVAL
  		set
- 			E_RULE = #{e_rule}, E_DRAFTDATE = #{e_draftDate}, E_STARTDAY = #{e_startDay}, E_CON = #{e_con},
+ 			E_TYPE = #{e_type}, E_DRAFTDATE = #{e_draftDate}, E_STARTDAY = #{e_startDay}, E_CON = #{e_con},
  			E_SEND =  #{e_send},E_TEXTTITLE =  #{e_textTitle}, E_TEXTCONTENT = #{e_textContent}
  		where
  			eidx = #{eidx} 			     
@@ -90,7 +91,7 @@
  		update 
  			ELECTRONIC_APPROVAL
  		set
- 			E_RULE = #{e_rule}, E_DRAFTDATE = #{e_draftDate}, E_STARTDAY = #{e_startDay}, E_CON = #{e_con},
+ 			E_TYPE = #{e_type}, E_DRAFTDATE = #{e_draftDate}, E_STARTDAY = #{e_startDay}, E_CON = #{e_con},
  			E_SEND =  #{e_send},E_TEXTTITLE =  #{e_textTitle}, E_TEXTCONTENT = #{e_textContent}, E_STATUS = '결재대기', E_APPROVALNOYN = 'N' , E_REASON = '재기안문서'
  		where
  			eidx = #{eidx} 			     
@@ -105,7 +106,7 @@
  		where
  			eidx = #{eidx} 			     
  	</update>
- 	<update id="modifyApprovalStatusOk" parameterType="ApprovalDTO">
+ 	<update id="modifyApprovalStatusOk">
  		update 
  			ELECTRONIC_APPROVAL
  		set
@@ -152,7 +153,7 @@
  	
  	<!-- 페이징 -->
  	<select id="selectAllApprovalDocumentList" resultMap="approvalResultMap">
- 		 select EIDX, E_DOCUMENTNUM, E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_SEND, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, E_APPROVALNOYN, E_REASON, TIDX, T_NAME, T_DEPARTMENT, T_POSITION,
+ 		 select EIDX, E_DOCUMENTNUM, E_RULE, E_TYPE, E_DRAFTDATE, E_STARTDAY, E_CON, E_SEND, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, E_APPROVALNOYN, E_REASON, TIDX, T_NAME, T_DEPARTMENT, T_POSITION,
  		 		TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, DELYN
  			from (
  				select A.*,B.T_NAME, T_DEPARTMENT, T_POSITION, C.TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, ROW_NUMBER() OVER(ORDER BY A.EIDX DESC) AS RNUM

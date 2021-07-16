@@ -144,8 +144,7 @@
 							</td>
 							<td class="style44 style46" colspan="3">기 안 유 형</td>
 							<td class="style44 style63" colspan="8">
-								<input type="text" id="e_rule" name="e_rule" value="<%=contents.getE_rule()%>" readonly>
-								<span id="tootip_area"></span> 
+								<input type="text" id="e_type" name="e_type" value="<%=contents.getE_type()%>" readonly>
 							</td>
 						</tr>
 						<tr class="row6">
@@ -153,7 +152,6 @@
 							<td class="style2">기 안 일 자</td>
 							<td class="style34 style34" colspan="2">
 								<%=contents.getE_draftDate()%>
-								<span id="tootip_area2"></span>
 							</td>
 							<td class="style33 style33" rowspan="3">결<br><br>재</td>
 							<td class="style35 style36" colspan="2">담당</td>
@@ -185,7 +183,6 @@
 							<td class="style2">시 행 일 자</td>
 							<td class="style34 style34" colspan="2">
 								<%=contents.getE_startDay()%>
-								<span id="tootip_area3"></span>
 							</td>
 							<td class="style38  style43" colspan="2" rowspan="2">
 								<input type="text" id="charge" readonly value="O">
@@ -221,15 +218,16 @@
 						</tr>
 						<tr class="row8">
 							<td></td>
-							<td class="style2 s">보 존 기 한</td>
-							<td class="style34 style34" colspan="2">1년</td>
+							<td class="style2 s">종 료 일 자</td>
+							<td class="style34 style34" colspan="2">
+								<%=contents.getE_send()%>
+							</td>
 						</tr>
 						<tr class="row9">
 							<td></td>
 							<td class="style3" rowspan="2">합 의 부 서</td>
 							<td class="style38 style43" colspan="2" rowspan="2">
 								<input type="text" id="e_con" name="e_con" value="<%=contents.getE_con()%>" readonly>
-								<span id="tootip_area4"></span>
 							</td>
 							<td class="style38 style42" colspan="3" rowspan="2">기 안 자</td>
 							<td class="style38 style57" colspan="8" rowspan="2">
@@ -241,11 +239,8 @@
 						</tr>
 						<tr class="row11">
 							<td></td>
-							<td class="style5">수 신 (참조)</td>
-							<td class="style44 style46" colspan="2">
-								<input type="text" id="e_send" name="e_send" value="<%=contents.getE_send()%>" readonly>
-								<span id="tootip_area5"></span>
-							</td>
+							<td class="style5">보 존 기 한</td>
+							<td class="style44 style46" colspan="2">1년</td>
 							<td class="style44 style45" colspan="3">기 안 부 서</td>
 							<td class="style44 style63" colspan="8">
 								<input type="text" id="t_department" name="t_department" value="${mo.t_department }" readonly>
@@ -256,7 +251,6 @@
 							<td class="style53 style55" colspan="14">
 								<div id="title">제목 </div>
 								<textarea class="target" id="e_textTitle" name="e_textTitle" readonly><%=contents.getE_textTitle()%></textarea>
-								<span id="tootip_area6"></span>
 							</td>
 						</tr>
 						<tr class="row15">
@@ -264,7 +258,6 @@
 							<td class="style15 style17" colspan="14">
 								<div id="contents">내용 </div>
 								<textarea class="target" id="e_textContent" name="e_textContent" readonly><%=contents.getE_textContent()%></textarea>
-								<span id="tootip_area7"></span>
 							</td>
 						</tr>
 					</tbody>

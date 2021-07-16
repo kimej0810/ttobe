@@ -143,10 +143,7 @@ public class ApprovalController {
 		ApprovalDTO to = service.selectOneApprovalDocumentContents(eidx);
 		ApprovalDTO to2 = lservice.selectOneApprovalLine(eidx);
 		LeaveDTO dto = myservice.selectOneLeave(eidx);
-		ScheduleVO vo = new ScheduleVO();
-		ScheduleVO vo2 = new ScheduleVO();
-		MemberDTO memb = mservice.selectOneMemberIdx(to2.getTidx());
-		int checkLeave = memb.getT_leave_get() - dto.getA_useddays();
+		int approvalOk = service.modifyApprovalStatusOk(eidx);
 		
 		if(to2.getStatus().equals("3000")) {
 			lservice.modifyApprovalTeamLeader(eidx);
@@ -158,28 +155,34 @@ public class ApprovalController {
 			lservice.modifyApprovalSectionHead(eidx);
 			service.modifyApprovalStatusProgress(eidx);
 		}else{
-			if(to.getStatus().equals("0000")){
-				vo.setS_type(to.getE_type());
-				vo.setS_title(to.getE_textTitle());
-				vo.setS_startDate(to.getE_draftDate());
-				vo.setS_endDate(to.getE_startDay());
-				vo.setS_content(to.getE_textContent());
-				vo.setTidx(to.getTidx());
-			}
-			dto.setA_useddays(checkLeave);
-			int mySchedule = myservice.updateLeave(dto);
-			if(mySchedule == 1) {
-				vo2.setS_type(dto.getE_type());
-				vo2.setS_title(dto.getE_texttitle());
-				vo2.setS_startDate(dto.getA_startdate());
-				vo2.setS_endDate(dto.getA_enddate());
-				vo2.setS_content(dto.getE_textcontent());
-				vo2.setTidx(dto.getTidx());
-			}
-			sservice.addSchedule(vo);
-			sservice.addSchedule(vo2);
 			lservice.modifyApprovalLeader(eidx);
-			service.modifyApprovalStatusOk(eidx);
+			if(!to.getE_type().equals("개인일정")){
+				if(approvalOk == 1){
+					ScheduleVO vo = new ScheduleVO();
+					vo.setS_type(to.getE_type());
+					vo.setS_title(to.getE_textTitle());
+					vo.setS_startDate(to.getE_startDay());
+					vo.setS_endDate(to.getE_send());
+					vo.setS_content(to.getE_textContent());
+					vo.setTidx(to.getTidx());
+					sservice.addSchedule(vo);
+				}
+			}else {
+				MemberDTO memb = mservice.selectOneMemberIdx(to2.getTidx());
+				int checkLeave = memb.getT_leave_get() - dto.getA_useddays();
+				dto.setA_useddays(checkLeave);
+				int mySchedule = myservice.updateLeave(dto);
+				if(mySchedule == 1) {
+					ScheduleVO vo2 = new ScheduleVO();
+					vo2.setS_type(dto.getE_type());
+					vo2.setS_title(dto.getE_texttitle());
+					vo2.setS_startDate(dto.getA_startdate());
+					vo2.setS_endDate(dto.getA_enddate());
+					vo2.setS_content(dto.getE_textcontent());
+					vo2.setTidx(dto.getTidx());
+					sservice.addSchedule(vo2);
+				}
+			}
 		}
 		return to2;
 	}

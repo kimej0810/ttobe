@@ -81,8 +81,8 @@ public class ApprovalDAOImpl implements ApprovalDAO{
 	}
 
 	@Override
-	public void modifyApprovalStatusOk(int eidx) throws Exception {
-		sqlSession.update(Namespace+".modifyApprovalStatusOk",eidx);
+	public int modifyApprovalStatusOk(int eidx) throws Exception {
+		return sqlSession.update(Namespace+".modifyApprovalStatusOk",eidx);
 	}
 
 	@Override

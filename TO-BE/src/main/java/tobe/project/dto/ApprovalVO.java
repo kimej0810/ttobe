@@ -3,6 +3,7 @@ package tobe.project.dto;
 public class ApprovalVO {
 	private int eidx;
 	private int e_documentNum;
+	private String e_type;
 	private String e_rule;
 	private String e_draftDate;
 	private String e_startDay;
@@ -19,6 +20,13 @@ public class ApprovalVO {
 	private int tidx;
 	private MemberVO memberVO;
 	private ApprovalLineVO approvalLineVO;
+	
+	public String getE_type() {
+		return e_type;
+	}
+	public void setE_type(String e_type) {
+		this.e_type = e_type;
+	}
 	
 	public String getE_approvalNoyn() {
 		return e_approvalnoyn;

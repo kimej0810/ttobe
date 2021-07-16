@@ -68,8 +68,12 @@
 							</td>
 							<td class="style44 style46" colspan="3">기 안 유 형</td> 
 							<td class="style44 style63" colspan="8">
-						 		<input type="text" id="e_rule" name="e_rule" autocomplete="off" title="2글자 이상 10글자 이하로 입력해주세요.">
-						 		<span id="tootip_area"></span>
+								<select id="e_type" name="e_type">
+									<option value="회사일정">회사일정</option>
+									<option value="중요일정">중요일정</option>
+									<option value="외근">외근</option>
+									<option value="출장">출장</option>
+								</select>
 							</td>
 						</tr> 
 						<tr class="row6">
@@ -77,7 +81,6 @@
 							<td class="style2">기 안 일 자</td>
 							<td class="style34 style34" colspan="2">
 								<input type="text" class="date" id="e_draftDate" name="e_draftDate" class="date" autocomplete="off" readonly title="날짜를 선택해주세요.">
-								<span id="tootip_area2"></span>
 							</td>
 							<td class="style33 style33" rowspan="3">결<br><br>재</td>
 							<td class="style35 style36" colspan="2">담당</td>
@@ -91,7 +94,6 @@
 							<td class="style2">시 행 일 자</td>
 							<td class="style34 style34" colspan="2">
 								<input type="text" class="date" id="e_startDay" name="e_startDay" class="date" autocomplete="off" readonly title="날짜를 선택해주세요.">
-								<span id="tootip_area3"></span>
 							</td>
 							<td class="style38  style43" colspan="2" rowspan="2">
 								<input type="text" id="charge" value="<%=userName%>" readonly>
@@ -214,8 +216,10 @@
 							</tr>
 							<tr class="row8">
 								<td></td>
-								<td class="style2 s">보 존 기 한</td>
-								<td class="style34 style34" colspan="2">1년</td>
+								<td class="style2 s">종 료 일 자</td>
+								<td class="style34 style34" colspan="2">
+									<input type="text" class="date" id="e_send" name="e_send" autocomplete="off" readonly title="날짜를 선택해주세요.">
+								</td>
 							</tr>
 							<tr class="row9">
 								<td></td>
@@ -233,11 +237,8 @@
 							</tr>
 							<tr class="row11">
 								<td></td>
-								<td class="style5">수 신 (참조)</td>
-								<td class="style44 style46" colspan="2">
-									<input type="text" id="e_send" name="e_send" autocomplete="off" title="2글자 이상 10글자 이하로 입력해주세요.">
-									<span id="tootip_area5"></span>
-								</td>
+								<td class="style5">보 존 기 한</td>
+								<td class="style44 style46" colspan="2">1년</td>
 								<td class="style44 style45" colspan="3">기 안 부 서</td>
 								<td class="style44 style63" colspan="8">
 									<input type="text" id="t_department" name="t_department" value="<%=userDep%>"readonly>

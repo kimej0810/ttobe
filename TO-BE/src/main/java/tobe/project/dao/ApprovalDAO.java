@@ -16,7 +16,7 @@ public interface ApprovalDAO {
 	public MemberVO selectOneMember(int tidx) throws Exception;
 	
 	public void modifyApprovalStatusProgress(int eidx) throws Exception;
-	public void modifyApprovalStatusOk(int eidx) throws Exception;
+	public int modifyApprovalStatusOk(int eidx) throws Exception;
 	public void modifyApprovalStatusNo(ApprovalDTO dto) throws Exception;
 	public void modifyApprovalDocumentAgain(ApprovalDTO dto) throws Exception;
 	

@@ -32,35 +32,27 @@
 				history.back();
 			}	 
 			function click_up(){
-				var draftDate = $("#e_draftDate").val().replace("-","/");
 				var startDay = $("#e_startDay").val().replace("-","/");
-				var draft = new Date(draftDate);
+				var endDay = $("#e_send").val().replace("-","/");
 				var start = new Date(startDay);
+				var end = new Date(endDay);
 				
-				if($("#e_rule").val() == "" || $("#e_rule").val().length < 2 || $("#e_rule").val().length > 10){
-					alert("유형을 입력해주세요. [2글자 이상 10글자 이하]");
-					$("#e_rule").focus();
-					return false; 
-				}else if($("#e_draftDate").val() == "" || $("#e_startDay").val() == "" || draft>start){
+			if($("#e_draftDate").val() == "" || $("#e_startDay").val() == "" || $("#e_send").val() == "" || start>end){
 					alert("날짜를 올바르게 선택해주세요. [시행일자보다 기안일자가 작아야 합니다.]");
 					return false;
-				}else if($("#e_con").val() == "" || $("#e_con").val().length < 2 || $("#e_con").val().length > 10){
-					alert("합의부서를 입력해주세요. [2글자 이상 10글자 이하]");
-					$("#e_con").focus();
-					return false;
-				}else if($("#e_send").val() == "" || $("#e_send").val().length < 2 || $("#e_send").val().length > 10){
-					alert("수신자를 입력해주세요. [2글자 이상 10글자 이하]");
-					$("#e_send").focus();
-					return false;
-				}else if($("#e_textTitle").val() == "" || $("#e_textTitle").val().length < 10 || $("#e_textTitle").val().length > 40){
-					alert("제목을 입력해주세요. [10글자 이상 40글자 이하]");
-					$("#e_textTitle").focus();
-					return false;
-				}else if($("#e_textContent").val() == "" || $("#e_textContent").val().length < 30 || $("#e_textContent").val().length > 1024){
-					alert("내용을 입력해주세요. [30글자 이상 1024글자 이하]");
-					$("#e_textContent").focus();
-					return false;
-				}
+			}else if($("#e_con").val() == "" || $("#e_con").val().length < 2 || $("#e_con").val().length > 10){
+				alert("합의부서를 입력해주세요. [2글자 이상 10글자 이하]");
+				$("#e_con").focus();
+				return false;
+			}else if($("#e_textTitle").val() == "" || $("#e_textTitle").val().length < 10 || $("#e_textTitle").val().length > 40){
+				alert("제목을 입력해주세요. [10글자 이상 40글자 이하]");
+				$("#e_textTitle").focus();
+				return false;
+			}else if($("#e_textContent").val() == "" || $("#e_textContent").val().length < 30 || $("#e_textContent").val().length > 1024){
+				alert("내용을 입력해주세요. [30글자 이상 1024글자 이하]");
+				$("#e_textContent").focus();
+				return false;
+			}
 				
 				var draftLetterData = JSON.stringify($('form#draftLetterData').serializeObject());
 				var result = confirm("수정하시겠습니까?");
@@ -124,7 +116,7 @@
 							</td>
 							<td class="style44 style46" colspan="3">기 안 유 형</td>
 							<td class="style44 style63" colspan="8">
-								<input type="text" id="e_rule" name="e_rule" title="2글자 이상 10글자 이하로 입력해주세요." value="<%=contents.getE_rule()%>">
+								<input type="text" id="e_type" name="e_type" title="2글자 이상 10글자 이하로 입력해주세요." value="<%=contents.getE_type()%>">
 								<span id="tootip_area"></span>
 							</td>
 						</tr>
@@ -147,7 +139,6 @@
 							<td class="style2">시 행 일 자</td>
 							<td class="style34 style34" colspan="2">
 								<input type="text" id="e_startDay" name="e_startDay" class="date" value="<%=contents.getE_startDay()%>" autocomplete="off">
-								<span id="tootip_area3"></span>
 							</td>
 							<td class="style38  style43" colspan="2" rowspan="2">
 								<input type="text" id="charge" readonly>
@@ -167,15 +158,16 @@
 						</tr>
 						<tr class="row8">
 							<td></td>
-							<td class="style2 s">보 존 기 한</td>
-							<td class="style34 style34" colspan="2">1년</td>
+							<td class="style2 s">종 료 일 자</td>
+							<td class="style34 style34" colspan="2">
+								<input type="text" id="e_send" name="e_send" title="2글자 이상 10글자 이하로 입력해주세요." value="<%=contents.getE_send()%>">
+							</td>
 						</tr>
 						<tr class="row9">
 							<td></td>
 							<td class="style3" rowspan="2">합 의 부 서</td>
 							<td class="style38 style43" colspan="2" rowspan="2">
 								<input type="text" id="e_con" name="e_con" title="2글자 이상 10글자 이하로 입력해주세요." value="<%=contents.getE_con()%>">
-								<span id="tootip_area4"></span>
 							</td>
 							<td class="style38 style42" colspan="3" rowspan="2">기 안 자</td>
 							<td class="style38 style57" colspan="8" rowspan="2">
@@ -187,11 +179,8 @@
 						</tr>
 						<tr class="row11">
 							<td></td>
-							<td class="style5">수 신 (참조)</td>
-							<td class="style44 style46" colspan="2">
-								<input type="text" id="e_send" name="e_send" title="2글자 이상 10글자 이하로 입력해주세요." value="<%=contents.getE_send()%>">
-								<span id="tootip_area5"></span>
-							</td>
+							<td class="style5">보 존 기 한</td>
+							<td class="style44 style46" colspan="2">1년</td>
 							<td class="style44 style45" colspan="3">기 안 부 서</td>
 							<td class="style44 style63" colspan="8">
 								<input type="text" id="t_department" name="t_department" value="${mo.t_department }" readonly>

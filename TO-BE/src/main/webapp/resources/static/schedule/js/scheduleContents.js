@@ -1,9 +1,3 @@
-$(document).ready(function(){
-	$("#s_startDate, #s_endDate").datetimepicker({
-		disabledWeekDays :[0, 6]
-	});
-	jQuery.datetimepicker.setLocale('kr');
-})
 $.fn.serializeObject = function(){
     var o = {};
     var a = this.serializeArray();

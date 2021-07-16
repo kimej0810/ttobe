@@ -1948,13 +1948,13 @@ table.sheet0 tr.row14 {
     width: 100.8%;
     margin-top: 10px;
 }
-#e_rule, #e_draftDate, #e_startDay, #e_con, #t_name, #t_department, #e_send{
+#e_type, #e_draftDate, #e_startDay, #e_con, #t_name, #t_department, #e_send{
 	width: 98%;
 	height: 28px;
 	border: none;
 	font-size: 15px;
 }
-#e_draftDate, #e_startDay{
+#e_draftDate, #e_startDay , #e_send{
 	text-align: center;
 }
 #e_documentNum{ 

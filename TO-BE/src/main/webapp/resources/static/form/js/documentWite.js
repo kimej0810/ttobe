@@ -4,55 +4,32 @@ $(document).ready(function(){
 	$("#e_draftDate").datetimepicker({
 		disabledWeekDays :[0, 6],
 		minDate:'+1d',
-		onChangeDateTime:function(){
-			startD = $("#e_draftDate").val();
-			if(startD > endD){
-				alert("기안일자를 올바르게 선택해주세요.");
-				$("#e_draftDate").val(endD);
-			}
-		},
-		i18n:{
-			de:{
-				months:[
-					'Januar','Februar','März','April',
-					'Mai','Juni','Juli','August',
-					'September','Oktober','November','Dezember',
-				],
-				dayOfWeek:[
-					"So.", "Mo", "Di", "Mi", 
-					"Do", "Fr", "Sa.",
-				]
-			}
-		},
-		timepicker:false,
-		format:'Y-m-d'
+		minTime:'+1h'
 	});
 	$("#e_startDay").datetimepicker({
-		disabledWeekDays :[0, 6],		
+		disabledWeekDays :[0, 6],
 		minDate:'+1d',
+		minTime:'+1h',
 		onChangeDateTime:function(){
-			endD = $("#e_startDay").val();
+			startD = $("#e_startDay").val();
+			if(startD > endD){
+				alert("기안일자를 올바르게 선택해주세요.");
+				$("#e_startDay").val(endD);
+			}
+		}
+	});
+	$("#e_send").datetimepicker({
+		disabledWeekDays :[0, 6],
+		minDate:'+1d',
+		minTime:'+1h',
+		onChangeDateTime:function(){
+			endD = $("#e_send").val();
 			
 			if(startD > endD){
 				alert("시행일자를 올바르게 선택해주세요.");
-				$("#e_startDay").val(startD);
+				$("#e_send").val(startD);
 			}
-		},
-		i18n:{
-			de:{
-				months:[
-					'Januar','Februar','März','April',
-					'Mai','Juni','Juli','August',
-					'September','Oktober','November','Dezember',
-				],
-				dayOfWeek:[
-					"So.", "Mo", "Di", "Mi", 
-					"Do", "Fr", "Sa.",
-				]
-			}
-		},
-		timepicker:false,
-		format:'Y-m-d'
+		}
 	});
 	jQuery.datetimepicker.setLocale('kr');
 });
@@ -75,25 +52,18 @@ jQuery.fn.serializeObject = function(){
 	return o;
 };
 function click_ok(){
-	var draftDate = $("#e_draftDate").val().replace("-","/");
 	var startDay = $("#e_startDay").val().replace("-","/");
-	var draft = new Date(draftDate);
+	var endDay = $("#e_send").val().replace("-","/");
 	var start = new Date(startDay);
+	var end = new Date(endDay);
 	
-	if($("#e_rule").val() == "" || $("#e_rule").val().length < 2 || $("#e_rule").val().length > 10){
-		alert("유형을 입력해주세요. [2글자 이상 10글자 이하]"); 
-		$("#e_rule").focus();
-		return false;
-	}else if($("#e_draftDate").val() == "" || $("#e_startDay").val() == "" || draft>start){
+
+	if($("#e_draftDate").val() == "" || $("#e_startDay").val() == "" || $("#e_send").val() == "" || start>end){
 		alert("날짜를 올바르게 선택해주세요. [시행일자보다 기안일자가 작아야 합니다.]");
 		return false;
 	}else if($("#e_con").val() == "" || $("#e_con").val().length < 2 || $("#e_con").val().length > 10){
 		alert("합의부서을 입력해주세요. [2글자 이상 10글자 이하]");
 		$("#e_con").focus();
-		return false;
-	}else if($("#e_send").val() == "" || $("#e_send").val().length < 2 || $("#e_send").val().length > 10){
-		alert("수신자를 입력해주세요. [2글자 이상 10글자 이하]");
-		$("#e_send").focus();
 		return false;
 	}else if($("#e_textTitle").val() == "" || $("#e_textTitle").val().length < 10 || $("#e_textTitle").val().length > 40){
 		alert("제목을 입력해주세요. [10글자 이상 40글자 이하]");
