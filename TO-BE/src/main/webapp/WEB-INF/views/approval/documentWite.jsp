@@ -85,8 +85,8 @@
 							<td class="style33 style33" rowspan="3">결<br><br>재</td>
 							<td class="style35 style36" colspan="2">담당</td>
 							<td class="style35 style36" colspan="2">팀장</td>
-							<td class="style35 style36" colspan="3">부장</td>
-							<td class="style35 style36" colspan="2">과장</td>
+							<td class="style35 style36" colspan="3">과장</td>
+							<td class="style35 style36" colspan="2">부장</td>
 							<td class="style11 s">대 표</td>
 						</tr> 
 						<tr class="row7">
@@ -104,18 +104,18 @@
 										<input type="text" id="teamLeader" name="teamLeader" value="<%=userName%>" readonly>
 									</td>
 									<td class="style38 style43" colspan="3" rowspan="2">
-										<select id="departmentHead" name="departmentHead">
+										<select id="sectionHead" name="sectionHead">
 											<c:forEach items="${allMember }" var="allMember" varStatus="status">
-												<c:if test="${userDep == allMember.t_department && allMember.t_position == '부장'}">
+												<c:if test="${userDep == allMember.t_department && allMember.t_position == '과장'}">
 													<option value="${allMember.t_id }">${allMember.t_name}</option>
 												</c:if>
 											</c:forEach>
 										</select>
 									</td>
 									<td class="style38 style43" colspan="2" rowspan="2">
-										<select id="sectionHead" name="sectionHead">
+										<select id="departmentHead" name="departmentHead">
 											<c:forEach items="${allMember }" var="allMember" varStatus="status">
-												<c:if test="${userDep == allMember.t_department && allMember.t_position == '과장'}">
+												<c:if test="${userDep == allMember.t_department && allMember.t_position == '부장'}">
 													<option value="${allMember.t_id }">${allMember.t_name}</option>
 												</c:if>
 											</c:forEach>
@@ -130,17 +130,17 @@
 											</c:forEach>
 										</select>
 									</td>
-								<%}else if(userPosition.equals("부장")){ %>
+								<%}else if(userPosition.equals("과장")){ %>
 									<td class="style38 style43" colspan="2" rowspan="2">
 											<input type="text" id="teamLeader" name="teamLeader" value="권한 없음" readonly>
 									</td>
 									<td class="style38 style43" colspan="3" rowspan="2">
-										<input type="text" id="departmentHead" name="departmentHead" value="<%=userName%>" readonly>
+										<input type="text" id="sectionHead" name="sectionHead" value="<%=userName%>" readonly>
 									</td>
 									<td class="style38 style43" colspan="2" rowspan="2">
-									<select id="sectionHead" name="sectionHead">
+									<select id="departmentHead" name="departmentHead">
 										<c:forEach items="${allMember }" var="allMember" varStatus="status">
-											<c:if test="${userDep == allMember.t_department && allMember.t_position == '과장'}">
+											<c:if test="${userDep == allMember.t_department && allMember.t_position == '부장'}">
 												<option value="${allMember.t_id }">${allMember.t_name}</option>
 											</c:if>
 										</c:forEach>
@@ -155,15 +155,15 @@
 											</c:forEach>
 										</select>
 									</td>
-								<%}else if(userPosition.equals("과장")) {%>
+								<%}else if(userPosition.equals("부장")) {%>
 									<td class="style38 style43" colspan="2" rowspan="2">
 											<input type="text" id="teamLeader" name="teamLeader" value="권한 없음" readonly>
 									</td>
 									<td class="style38 style43" colspan="3" rowspan="2">
-										<input type="text" id="departmentHead" name="departmentHead" value="권한 없음" readonly>
+										<input type="text" id="sectionHead" name="sectionHead" value="권한 없음" readonly>
 									</td>
 									<td class="style38 style43" colspan="2" rowspan="2">
-											<input type="text" id="sectionHead" name="sectionHead" value="<%=userName %>" readonly>
+											<input type="text" id="departmentHead" name="departmentHead" value="<%=userName %>" readonly>
 									</td>
 									<td class="style58 style59" rowspan="2">
 										<select id="leader" name="leader">
@@ -174,7 +174,20 @@
 											</c:forEach>
 										</select>
 									</td>
-								<%}else{ %>
+								<%}else if(userPosition.equals("대표")){ %>
+								<td class="style38 style43" colspan="2" rowspan="2">
+											<input type="text" id="teamLeader" name="teamLeader" value="권한 없음" readonly>
+									</td>
+									<td class="style38 style43" colspan="3" rowspan="2">
+										<input type="text" id="sectionHead" name="sectionHead" value="권한 없음" readonly>
+									</td>
+									<td class="style38 style43" colspan="2" rowspan="2">
+											<input type="text" id="departmentHead" name="departmentHead" value="권한 없음" readonly>
+									</td>
+									<td class="style58 style59" rowspan="2">
+										<input type="text" id="leader" name="leader" value="<%=userName %>" readonly>
+									</td>
+								<%}	else{ %>
 									<td class="style38 style43" colspan="2" rowspan="2">
 									<select id="teamLeader" name="teamLeader">
 										<c:forEach items="${allMember}" var="allMember" varStatus="status">
@@ -185,18 +198,18 @@
 									</select>
 									</td>
 									<td class="style38 style43" colspan="3" rowspan="2">
-										<select id="departmentHead" name="departmentHead">
+										<select id="sectionHead" name="sectionHead">
 											<c:forEach items="${allMember }" var="allMember" varStatus="status">
-												<c:if test="${userDep == allMember.t_department && allMember.t_position == '부장'}">
+												<c:if test="${userDep == allMember.t_department && allMember.t_position == '과장'}">
 													<option value="${allMember.t_id }">${allMember.t_name}</option>
 												</c:if>
 											</c:forEach>
 										</select>
 									</td>
 									<td class="style38 style43" colspan="2" rowspan="2">
-										<select id="sectionHead" name="sectionHead">
+										<select id="departmentHead" name="departmentHead">
 											<c:forEach items="${allMember }" var="allMember" varStatus="status">
-												<c:if test="${userDep == allMember.t_department && allMember.t_position == '과장'}">
+												<c:if test="${userDep == allMember.t_department && allMember.t_position == '부장'}">
 													<option value="${allMember.t_id }">${allMember.t_name}</option>
 												</c:if>
 											</c:forEach>

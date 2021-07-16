@@ -25,17 +25,17 @@
 	
 	//멤버리스트에 접근하여 결재라인의 아이디값을 이용해 이름 불러오기
 	String lineTeamLeader = "";
-	String lineDepartmentHead = "";
 	String lineSectionHead = "";
+	String lineDepartmentHead = "";
 	String lineLeader = "";
 	for(int i = 0; i<vo.size(); i ++){
 		MemberVO name = (MemberVO)vo.get(i);
 		if(to.getTeamLeader().equals(name.getT_id()) || to.getTeamLeader().equals(name.getT_name())){
 			lineTeamLeader = name.getT_name();
-		}else if(to.getDepartmentHead().equals(name.getT_id()) || to.getDepartmentHead().equals(name.getT_name())){
-			lineDepartmentHead = name.getT_name();
 		}else if(to.getSectionHead().equals(name.getT_id()) || to.getSectionHead().equals(name.getT_name())){
 			lineSectionHead = name.getT_name();
+		}else if(to.getDepartmentHead().equals(name.getT_id()) || to.getDepartmentHead().equals(name.getT_name())){
+			lineDepartmentHead = name.getT_name();
 		}else if(to.getLeader().equals(name.getT_id()) || to.getLeader().equals(name.getT_name())){
 			lineLeader = name.getT_name();
 		}
@@ -163,17 +163,17 @@
 								<%}%>
 							</td>
 							<td class="style35 style36" colspan="3">
-								<%if(lineDepartmentHead == ""){%>
-										결재권한없음
-								<%}else{%>
-									<%=lineDepartmentHead%>
-								<%}%>
-							</td>
-							<td class="style35 style36" colspan="2">
 								<%if(lineSectionHead == ""){%>
 										결재권한없음
 								<%}else{%>
 									<%=lineSectionHead%>
+								<%}%>
+							</td>
+							<td class="style35 style36" colspan="2">
+							<%if(lineDepartmentHead == ""){%>
+										결재권한없음
+								<%}else{%>
+									<%=lineDepartmentHead%>
 								<%}%>
 							</td>
 							<td class="style11 s"><%=lineLeader %></td>
@@ -196,16 +196,16 @@
 							</td> 
 							<td class="style38 style43" colspan="3" rowspan="2">
 							<%if(contents.getStatus().equals("0030") ||contents.getStatus().equals("0003") || contents.getStatus().equals("0000")){ %>
-								<input type="text" id="departmentHead" readonly value="승인">
+								<input type="text" id="sectionHead" readonly value="승인">
 							<% }else{%>
-								<input type="text" id="departmentHead" readonly value="대기">
+								<input type="text" id="sectionHead" readonly value="대기">
 							<% }%>
 							</td>
 							<td class="style38 style43" colspan="2" rowspan="2">
 							<%if(contents.getStatus().equals("0003") || contents.getStatus().equals("0000")){ %>
-								<input type="text" id="sectionHead" readonly value="승인">
+								<input type="text" id="departmentHead" readonly value="승인">
 							<% }else{%>
-								<input type="text" id="sectionHead" readonly value="대기">
+								<input type="text" id="departmentHead" readonly value="대기">
 							<% }%>
 							</td>
 							<td class="style58 style59" rowspan="2">
@@ -275,11 +275,11 @@
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">승인</button>
 						<button type="button" class="btn btn-outline-danger btn-sm" onclick="no()">반려</button>
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
-					<%}else if(userTidx != mo.getTidx() && userPosition.equals("부장") && userId.equals(to.getDepartmentHead()) && to.getStatus().equals("0300")){ %>
+					<%}else if(userTidx != mo.getTidx() && userPosition.equals("과장") && userId.equals(to.getSectionHead()) && to.getStatus().equals("0300")){ %>
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">승인</button>
 						<button type="button" class="btn btn-outline-danger btn-sm" onclick="no()">반려</button>
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
-					<%}else if(userTidx != mo.getTidx() && userPosition.equals("과장") && userId.equals(to.getSectionHead()) && to.getStatus().equals("0030")){ %>
+					<%}else if(userTidx != mo.getTidx() && userPosition.equals("부장") && userId.equals(to.getDepartmentHead()) && to.getStatus().equals("0030")){ %>
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">승인</button>
 						<button type="button" class="btn btn-outline-danger btn-sm" onclick="no()">반려</button>
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>

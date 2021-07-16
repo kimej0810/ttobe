@@ -109,11 +109,11 @@ public class ApprovalController {
 		}else if(dto.getT_position().equals("팀장")) {
 			dto.setStatus("0300");
 			dto.setE_status("결재대기");
-		}else if(dto.getT_position().equals("부장")) {
+		}else if(dto.getT_position().equals("과장")) {
 			dto.setStatus("0030");
 			dto.setTeamLeader("결재권한없음");
 			dto.setE_status("결재대기");
-		}else if(dto.getT_position().equals("과장")) {
+		}else if(dto.getT_position().equals("부장")) {
 			dto.setStatus("0003");
 			dto.setTeamLeader("결재권한없음");
 			dto.setDepartmentHead("결재권한없음");
@@ -203,6 +203,9 @@ public class ApprovalController {
 	@RequestMapping(value = "/documentModify")
 	public ApprovalDTO documentModify(Model model,int eidx,int tidx) throws Exception{
 		ApprovalDTO dto = service.selectOneApprovalDocumentContents(eidx);
+		List<MemberVO> vo = aservice.selectAllMember();
+		
+		model.addAttribute("allMember",vo);
 		model.addAttribute("mo",aservice.selectOneMember(tidx));
 		model.addAttribute("contents",dto);
 		return dto;
