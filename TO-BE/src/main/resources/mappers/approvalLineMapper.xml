@@ -11,7 +11,7 @@
  	</insert>
  	<select id="selectOneApprovalLine" resultType="ApprovalDTO" parameterType="ApprovalDTO">
  		select * from APPROVAL_LINE where EIDX = #{eidx}
- 	</select>
+ 	</select> 
  	
  	<!-- 결제 대기 문서 및 예정 문서 -->
  	<select id="totalCountTeamLeaderApprovalToDo" resultType="int" parameterType="ApprovalDTO">
