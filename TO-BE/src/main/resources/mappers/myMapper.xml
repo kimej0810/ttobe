@@ -124,8 +124,8 @@
 		VALUES(
 			#{eidx}+1,
 			#{a_type},
-			#{a_startdate},
-			#{a_enddate},
+			TO_DATE(#{a_startdate},'YYYY-MM-DD HH24:MI'),
+			TO_DATE(#{a_enddate},'YYYY-MM-DD HH24:MI'),
 			#{a_useddays},
 			#{tidx}
 		) 

@@ -167,6 +167,15 @@
 							<c:when test="${leave.status eq '3333' }">
 								결재 반려
 							</c:when>
+							<c:when test="${leave.status eq '0300' }">
+								결재 진행
+							</c:when>
+							<c:when test="${leave.status eq '0030' }">
+								결재 진행
+							</c:when>
+							<c:when test="${leave.status eq '0003' }">
+								결재 진행
+							</c:when>
 							<c:otherwise>
 								결재 대기
 							</c:otherwise>

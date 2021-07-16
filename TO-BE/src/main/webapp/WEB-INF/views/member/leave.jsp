@@ -360,7 +360,7 @@
 						<input type="text" class="form-control" name="e_con" id="e_con" required="required" maxlength="15" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');">
 						<span id="tootip_area2"></span>
 					</td>
-					<th>관 계</th>
+					<th>신청인과의 관계</th>
 					<td>
 						<input type="text" class="form-control" name="e_send" id="e_send" required="required">
 					</td>
