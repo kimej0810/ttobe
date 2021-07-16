@@ -71,7 +71,7 @@
 				          				<th width="60px">종료일시</th>
 				          				<th width="150px">내용</th>
 				          				<th width="50px">사원이름</th>
-				          			</tr>
+				          			</tr> 
 				          			</thead>
 				          			<tbody id="scheduleDataTbody">
 					          			<c:forEach items="${viewAll}" var="viewAll">

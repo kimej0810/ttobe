@@ -193,7 +193,7 @@
 							<% }else{%>
 								<input type="text" id="teamLeader" readonly value="대기">
 							<% }%>
-							</td>
+							</td> 
 							<td class="style38 style43" colspan="3" rowspan="2">
 							<%if(contents.getStatus().equals("0030") ||contents.getStatus().equals("0003") || contents.getStatus().equals("0000")){ %>
 								<input type="text" id="departmentHead" readonly value="승인">

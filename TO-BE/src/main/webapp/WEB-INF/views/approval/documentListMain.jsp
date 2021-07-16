@@ -141,7 +141,7 @@
 										<c:otherwise>
 											${elist.e_rule}
 										</c:otherwise> 
-									</c:choose>
+									</c:choose> 
 								</td>
 								<td>${elist.memberVO.t_department }</td>
 								<td>${elist.memberVO.t_name }</td>
