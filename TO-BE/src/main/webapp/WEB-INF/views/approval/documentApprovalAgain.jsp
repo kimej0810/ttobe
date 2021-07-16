@@ -125,7 +125,6 @@
 						<td class="style44 style46" colspan="3">기 안 유 형</td>
 						<td class="style44 style63" colspan="8">
 							<input type="text" id="e_rule" name="e_rule" value="<%=contents.getE_rule()%>" >
-							<span id="tootip_area"></span>
 						</td>
 					</tr>
 					<tr class="row6">
@@ -133,7 +132,6 @@
 						<td class="style2">기 안 일 자</td>
 						<td class="style34 style34" colspan="2">
 							<input type="text" id="e_draftDate" name="e_draftDate" class="date" value="<%=contents.getE_draftDate()%>" autocomplete="off" readonly style="text-align: center;">
-							<span id="tootip_area2"></span>
 						</td>
 						<td class="style33 style33" rowspan="3">결<br><br>재</td>
 						<td class="style35 style36" colspan="2">담당</td>
@@ -147,7 +145,6 @@
 							<td class="style2">시 행 일 자</td>
 							<td class="style34 style34" colspan="2">
 								<input type="text" id="e_startDay" name="e_startDay" class="date" autocomplete="off" style="text-align: center;">
-								<span id="tootip_area3"></span>
 							</td>
 							<td class="style38  style43" colspan="2" rowspan="2">
 								<input type="text" id="charge" value="<%=userName%>">
@@ -199,7 +196,6 @@
 						<td class="style3" rowspan="2">합 의 부 서</td>
 						<td class="style38 style43" colspan="2" rowspan="2">
 							<input type="text" id="e_con" name="e_con" value="<%=contents.getE_con()%>">
-							<span id="tootip_area4"></span>
 						</td>
 						<td class="style38 style42" colspan="3" rowspan="2">기 안 자</td>
 						<td class="style38 style57" colspan="8" rowspan="2">
@@ -214,7 +210,6 @@
 						<td class="style5">수 신 (참조)</td>
 						<td class="style44 style46" colspan="2">
 							<input type="text" id="e_send" name="e_send" value="<%=contents.getE_send()%>">
-							<span id="tootip_area5"></span>
 						</td>
 						<td class="style44 style45" colspan="3">기 안 부 서</td>
 						<td class="style44 style63" colspan="8">
@@ -226,7 +221,6 @@
 						<td class="style53 style55" colspan="14">
 							<div id="title">제목 </div>
 							<textarea class="target" id="e_textTitle" name="e_textTitle"><%=contents.getE_textTitle()%></textarea>
-							<span id="tootip_area6"></span>
 						</td>
 					</tr>
 					<tr class="row15">
@@ -234,7 +228,6 @@
 						<td class="style15 style17" colspan="14">
 							<div id="contents">내용 </div>
 							<textarea class="target" id="e_textContent" name="e_textContent"><%=contents.getE_textContent()%></textarea>
-							<span id="tootip_area7"></span>
 						</td>
 					</tr>
 				</tbody>
