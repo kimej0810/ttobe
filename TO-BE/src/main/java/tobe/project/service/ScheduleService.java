@@ -20,7 +20,7 @@ public interface ScheduleService {
 	public void updateSchedule(ScheduleVO vo) throws Exception;				//占쏙옙占쏙옙 占쏙옙占쏙옙
 	
 	public void deleteSchedule(int sidx) throws Exception;					//占쏙옙占쏙옙 占쏙옙占쏙옙
-	
+	 
 	//----------------------- 占쌉시깍옙占쏙옙!! ------------------------
 	
 	public List<ScheduleVO> selectSchedule(SearchCriteria scri) throws Exception;	//占쌉시깍옙 占쏙옙占� 占쏙옙회

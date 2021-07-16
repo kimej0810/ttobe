@@ -24,7 +24,7 @@ public class ScheduleServiceImpl implements ScheduleService{
 	public List<ScheduleVO> showSchedule() throws Exception{
 		return dao.showSchedule();
 	}
-	
+	 
 	//占쏙옙占쏙옙 占쏙옙占�
 	@Override
 	public void addSchedule(ScheduleVO vo) throws Exception{
