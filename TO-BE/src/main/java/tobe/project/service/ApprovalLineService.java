@@ -11,7 +11,7 @@ public interface ApprovalLineService {
 	public void modifyApprovalDepartmentHead(int eidx) throws Exception;
 	public void modifyApprovalSectionHead(int eidx) throws Exception;
 	public void modifyApprovalLeader(int eidx) throws Exception;
-	//결재반려
+	//결재반려 
 	public void modifyApprovalNo(int eidx) throws Exception;
 	//재기안
 	public void modifyApprovalDocumentAgainLine(ApprovalDTO dto) throws Exception;

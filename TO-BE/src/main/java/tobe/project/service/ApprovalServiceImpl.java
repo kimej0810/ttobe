@@ -26,7 +26,7 @@ public class ApprovalServiceImpl implements ApprovalService{
 	@Override
 	public ApprovalDTO selectOneApprovalDocumentContents(int eidx) throws Exception {
 		return dao.selectOneApprovalDocumentContents(eidx);
-	}
+	} 
 
 	@Override
 	public void modifyApprovalDocument(ApprovalDTO dto) throws Exception{

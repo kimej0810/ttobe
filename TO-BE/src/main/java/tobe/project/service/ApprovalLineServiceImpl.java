@@ -21,7 +21,7 @@ public class ApprovalLineServiceImpl implements ApprovalLineService{
 	public ApprovalDTO selectOneApprovalLine(int eidx) throws Exception {
 		return dao.selectOneApprovalLine(eidx);
 	}
-	
+	 
 	//결재승인
 	@Override
 	public void modifyApprovalTeamLeader(int eidx) throws Exception {
