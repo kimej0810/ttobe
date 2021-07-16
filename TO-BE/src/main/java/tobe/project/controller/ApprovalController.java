@@ -103,7 +103,7 @@ public class ApprovalController {
 		logger.info("Welcome home! addDocumentWite", locale); 
 		System.out.println("dto="+dto);
 		
-		if(dto.getT_position().equals("사원")) {
+		if(dto.getT_position().equals("사원")) { 
 			dto.setE_status("결재대기"); 
 			dto.setStatus("3000");
 		}else if(dto.getT_position().equals("팀장")) {

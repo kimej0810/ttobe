@@ -29,7 +29,7 @@ import tobe.project.service.ScheduleService;
 public class CalendarController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(CalendarController.class);
-	@Inject
+	@Inject 
 	private ScheduleService service;
 	@Inject
 	private MyService myservice;
