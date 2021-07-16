@@ -12,7 +12,7 @@ a.comment-indicator:hover+div.comment {
 	display: block;
 	border: 1px solid black;
 	padding: 0.5em
-}
+} 
 
 a.comment-indicator {
 	background: red;
