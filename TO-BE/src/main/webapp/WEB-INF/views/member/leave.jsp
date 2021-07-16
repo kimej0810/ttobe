@@ -95,7 +95,6 @@
 			$("#startD").datetimepicker({
 				dateFormat:"yyyy-MM-dd hh:mm",
 				minDate:'+1d',
-				minTime:'+1h',
 				onChangeDateTime:function(){
 					startD = $("#startD").val();
 					$("#u_useddays").val("");
@@ -143,7 +142,7 @@
 				alert("원하는 날짜를 선택해주세요.");
 				return;
 			}
-			if($("#e_type").val()==null || $("#e_type").val()=="null"){
+			if($("#e_rule").val()==null || $("#e_rule").val()=="null"){
 				alert("휴가 종류를 선택해주세요.");
 				return;
 			}	
@@ -173,7 +172,7 @@
 			}else{
 				$("#status").val("3000");
 			}
-			$("#a_type").val($("#e_type").val());
+			$("#a_type").val($("#e_rule").val());
 			$("#a_startdate").val($("#startD").val());
 			var result = $("form[name=frm]").serialize();
 			$.ajax({
@@ -331,7 +330,7 @@
 				<tr>
 					<th>휴 가 종 류</th>
 					<td>
-						<select class="form-select" name="e_rule" id="e_type" required="required">
+						<select class="form-select" name="e_rule" id="e_rule" required="required">
 							<option value="null" selected="selected">선 택</option>
 							<option value="연차">연차</option>
 							<option value="월차">월차</option>

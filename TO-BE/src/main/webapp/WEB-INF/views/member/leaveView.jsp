@@ -167,15 +167,6 @@
 							<c:when test="${leave.status eq '3333' }">
 								결재 반려
 							</c:when>
-							<c:when test="${leave.status eq '0300' }">
-								결재 진행
-							</c:when>
-							<c:when test="${leave.status eq '0030' }">
-								결재 진행
-							</c:when>
-							<c:when test="${leave.status eq '0003' }">
-								결재 진행
-							</c:when>
 							<c:otherwise>
 								결재 대기
 							</c:otherwise>
@@ -250,8 +241,10 @@
 			<%
 				if(userName.equals(member.getT_name())){
 			%>
-				<input type="button" id="modifyBtn" class="btn btn-danger btn-sm" value="수정">
-				<input type="button" id="delBtn" class="btn btn-danger btn-sm" value="삭제"> 
+				<c:if test="${fn:trim(e_status) eq '결재대기'}">
+					<input type="button" id="modifyBtn" class="btn btn-danger btn-sm" value="수정">
+					<input type="button" id="delBtn" class="btn btn-danger btn-sm" value="삭제">	 
+				</c:if>
 			<%
 				}
 			%>
