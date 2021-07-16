@@ -131,7 +131,7 @@
 							<td class="style35 style36" colspan="3">부장</td>
 							<td class="style35 style36" colspan="2">과장</td>
 							<td class="style11 s">대 표</td>
-						</tr>
+						</tr> 
 						<tr class="row7">
 							<td></td>
 							<td class="style2">시 행 일 자</td>
