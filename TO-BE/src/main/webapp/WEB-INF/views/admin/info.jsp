@@ -209,7 +209,10 @@
 				<tr>
 					<th>이름</th>
 					<td id="userName">${member.t_name}</td>
-					<td align="right"><input type="button" id="reName" class="btn btn-outline-primary btn-sm" value="이름 변경"></td>
+					<c:set var="del" value="${member.delyn}"/>
+					<c:if test="${del eq 'N' }">
+						<td align="right"><input type="button" id="reName" class="btn btn-outline-primary btn-sm" value="이름 변경"></td>
+					</c:if>
 				</tr>
 				<tr>
 					<th>생년월일</th>
@@ -218,12 +221,16 @@
 				<tr>
 					<th>부서</th>
 					<td id="userDepartment">${member.t_department}</td>
-					<td align="right"><input type="button" id="reDepartment" class="btn btn-outline-primary btn-sm" value="부서 변경"></td>
+					<c:if test="${del eq 'N' }">
+						<td align="right"><input type="button" id="reDepartment" class="btn btn-outline-primary btn-sm" value="부서 변경"></td>
+					</c:if>
 				</tr>
 				<tr>
 					<th>직급</th>
 					<td id="userPosition">${member.t_position}</td>
-					<td align="right" id="positionBtn"><input type="button" id="rePosition" class="btn btn-outline-primary btn-sm" value="직급 변경"></td>
+					<c:if test="${del eq 'N' }">
+						<td align="right" id="positionBtn"><input type="button" id="rePosition" class="btn btn-outline-primary btn-sm" value="직급 변경"></td>
+					</c:if>
 				</tr>
 				<tr>
 					<th>이메일</th>
@@ -248,8 +255,7 @@
 		</table>
 		<div class="tableBtn">
 			<a href="${path}/admin/memberlist${pageMaker.makeSearch(pageMaker.cri.page)}&tidx=${member.tidx}"><input type="button" class="btn btn-primary btn-sm" value="목록"></a>
-			<c:set var="del" value="${member.delyn}"/>
-			<c:if test="del eq 'N'">
+			<c:if test="${del eq 'N' }">
 				<a href="${path}/admin/delete?tidx=${member.tidx}"><input type="button" class="saoneBtn btn btn-danger btn-sm" value="퇴사"></a>
 			</c:if>
 		</div>
