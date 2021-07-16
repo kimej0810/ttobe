@@ -95,6 +95,7 @@
 			$("#startD").datetimepicker({
 				dateFormat:"yyyy-MM-dd hh:mm",
 				minDate:'+1d',
+				disabledWeekDays :[0, 6],
 				onChangeDateTime:function(){
 					startD = $("#startD").val();
 					$("#u_useddays").val("");
@@ -110,6 +111,7 @@
 			$("#endD").datetimepicker({
 				dateFormat:"yyyy-MM-dd hh:mm",
 				minDate:'+1d',
+				disabledWeekDays :[0, 6],
 				onChangeDateTime:function(){
 					endD = $("#endD").val();
 					var sTime = new Date(startD);

@@ -15,14 +15,14 @@
 function scheduleAddPopup(){
 	var url = "/schedule/schedulePopup";
 	var name = "schedulePopup";
-	var option = "width = 600, height = 730 left = 100, top=50,location=no";
+	var option = "width = 600, height = 830 left = 100, top=50,location=no";
 	window.open(url,name,option)
 }
 function leaveBtn(){
 	var t_id = $("#t_id").val();
 	var url = "/member/leave?t_id="+t_id;
 	var name = "leave";
-	var option = "width = 800, height = 730 left = 100, top=50,location=no";
+	var option = "width = 770, height = 630 left = 100, top=50,location=no";
 	window.open(url,name,option)
 }
 </script>
@@ -157,7 +157,7 @@ function leaveBtn(){
 									<tr>
 										<td>${schedule.s_type}</td>
 										<td>
-											<a href="/schedule/scheduleContents?sidx=${schedule.sidx}&tidx=${schedule.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=730'); return false;" style="text-decoration : none; color:black;">
+											<a href="/schedule/scheduleContents?sidx=${schedule.sidx}&tidx=${schedule.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=830'); return false;" style="text-decoration : none; color:black;">
 												${schedule.s_title }
 											</a>
 											
@@ -226,7 +226,7 @@ function leaveBtn(){
 											<td>${leave.a_type}
 											</td>
 											<td>
-												<a href="/member/leaveView?eidx=${leave.eidx}" onclick="window.open(this.href, '_blank', 'width=800, height=700'); return false;" style="text-decoration : none; color:black;">
+												<a href="/member/leaveView?eidx=${leave.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=630'); return false;" style="text-decoration : none; color:black;">
 													${leave.e_texttitle}
 												</a>
 											</td>

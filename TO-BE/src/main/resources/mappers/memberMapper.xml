@@ -66,7 +66,7 @@
  	<select id="selectAllMember2" resultType="memberDTO">
  	<![CDATA[
  		SELECT A.*,B.F_STORED_FILE_NAME,B.F_TYPE
- 		FROM TOBE_MEMBER A LEFT JOIN FILE_INFO B ON A.TIDX = B.TIDX WHERE B.F_TYPE = 'profile'
+ 		FROM TOBE_MEMBER A LEFT JOIN FILE_INFO B ON A.TIDX = B.TIDX WHERE B.F_TYPE = 'profile' AND DELYN = 'N'
  	]]>
  	</select>
 </mapper>
