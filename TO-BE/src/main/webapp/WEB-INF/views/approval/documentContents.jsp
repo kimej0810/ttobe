@@ -185,34 +185,34 @@
 								<%=contents.getE_startDay()%>
 							</td>
 							<td class="style38  style43" colspan="2" rowspan="2">
-								<input type="text" id="charge" readonly value="O">
+								<input type="text" id="charge" readonly value="승인">
 							</td>
 							<td class="style38 style43" colspan="2" rowspan="2">
 							<%if(contents.getStatus().equals("0300") || contents.getStatus().equals("0030") ||contents.getStatus().equals("0003") || contents.getStatus().equals("0000")){ %>
-								<input type="text" id="teamLeader" readonly value="O">
+								<input type="text" id="teamLeader" readonly value="승인">
 							<% }else{%>
-								<input type="text" id="teamLeader" readonly value="X">
+								<input type="text" id="teamLeader" readonly value="대기">
 							<% }%>
 							</td>
 							<td class="style38 style43" colspan="3" rowspan="2">
 							<%if(contents.getStatus().equals("0030") ||contents.getStatus().equals("0003") || contents.getStatus().equals("0000")){ %>
-								<input type="text" id="departmentHead" readonly value="O">
+								<input type="text" id="departmentHead" readonly value="승인">
 							<% }else{%>
-								<input type="text" id="departmentHead" readonly value="X">
+								<input type="text" id="departmentHead" readonly value="대기">
 							<% }%>
 							</td>
 							<td class="style38 style43" colspan="2" rowspan="2">
 							<%if(contents.getStatus().equals("0003") || contents.getStatus().equals("0000")){ %>
-								<input type="text" id="sectionHead" readonly value="O">
+								<input type="text" id="sectionHead" readonly value="승인">
 							<% }else{%>
-								<input type="text" id="sectionHead" readonly value="X">
+								<input type="text" id="sectionHead" readonly value="대기">
 							<% }%>
 							</td>
 							<td class="style58 style59" rowspan="2">
 							<%if(contents.getStatus().equals("0000")){ %>
-								<input type="text" id="leader" readonly value="O">
+								<input type="text" id="leader" readonly value="승인">
 							<% }else{%>
-								<input type="text" id="leader" readonly value="X">
+								<input type="text" id="leader" readonly value="대기">
 							<% }%>
 							</td>
 						</tr>

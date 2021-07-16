@@ -65,11 +65,11 @@
 				          		<table class="table table-hover" id="board">
 				          			<thead>
 				          			<tr>
-				          				<th width="20px">유형</th>
+				          				<th width="50px">유형</th>
 				          				<th width="80px">제목</th>
 				          				<th width="60px">시작일시</th>
 				          				<th width="60px">종료일시</th>
-				          				<th width="200px">내용</th>
+				          				<th width="150px">내용</th>
 				          				<th width="50px">사원이름</th>
 				          			</tr>
 				          			</thead>

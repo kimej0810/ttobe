@@ -132,7 +132,6 @@
 											<a href="/member/leaveView?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=630'); return false;" style="text-decoration : none; color:black;">${elist.e_documentNum }</a>
 										</c:otherwise> 
 									</c:choose>
-									
 								</td>
 								<td>
 									<c:choose>
@@ -173,7 +172,6 @@
 												</c:choose></a>
 										</c:otherwise> 
 									</c:choose>
-									
 								</td>
 								<c:if test="${scri.searchWord eq '결재반려' }">
 								<td>${elist.e_reason }</td>
