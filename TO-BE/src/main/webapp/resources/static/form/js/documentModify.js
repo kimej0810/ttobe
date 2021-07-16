@@ -1,57 +1,35 @@
 $(document).ready(function(){
+var startD;
+	var endD;
 	$("#e_draftDate").datetimepicker({
 		disabledWeekDays :[0, 6],
-		/*dateFormat:"yyyy-mm-dd hh:mm",*/
 		minDate:'+1d',
-		minTime:'+1h',
-		onChangeDateTime:function(){
-			if($("#e_draftDate").val() > $("#e_startDay").val()){
-				alert("기안일자를 올바르게 선택해주세요.");
-				$("#e_draftDate").val($("#e_startDay").val());
-			}
-		}
-		/*i18n:{
-			de:{
-				months:[
-					'Januar','Februar','März','April',
-					'Mai','Juni','Juli','August',
-					'September','Oktober','November','Dezember',
-				],
-				dayOfWeek:[
-					"So.", "Mo", "Di", "Mi", 
-					"Do", "Fr", "Sa.",
-				]
-			}
-		}
-		timepicker:false,
-		format:'Y-m-d hh:mm'*/
+		minTime:'+1h'
 	});
 	$("#e_startDay").datetimepicker({
 		disabledWeekDays :[0, 6],
-		/*dateFormat:"yyyy-mm-dd hh:mm",*/
 		minDate:'+1d',
 		minTime:'+1h',
 		onChangeDateTime:function(){
-			if($("#e_draftDate").val() > $("#e_startDay").val()){
+			startD = $("#e_startDay").val();
+			if(startD > endD){
+				alert("기안일자를 올바르게 선택해주세요.");
+				$("#e_startDay").val(endD);
+			}
+		} 
+	});
+	$("#e_send").datetimepicker({
+		disabledWeekDays :[0, 6],
+		minDate:'+1d',
+		minTime:'+1h',
+		onChangeDateTime:function(){
+			endD = $("#e_send").val();
+			
+			if(startD > endD){
 				alert("시행일자를 올바르게 선택해주세요.");
-				$("#e_startDay").val($("#e_draftDate").val());
+				$("#e_send").val(startD);
 			}
 		}
-		/*i18n:{
-			de:{
-				months:[
-					'Januar','Februar','März','April',
-					'Mai','Juni','Juli','August',
-					'September','Oktober','November','Dezember',
-				],
-				dayOfWeek:[
-					"So.", "Mo", "Di", "Mi", 
-					"Do", "Fr", "Sa.",
-				]
-			}
-		}
-		timepicker:false,
-		format:'Y-m-d hh:mm'*/
 	});
 	jQuery.datetimepicker.setLocale('kr');
 });

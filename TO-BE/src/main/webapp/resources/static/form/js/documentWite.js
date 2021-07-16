@@ -16,7 +16,7 @@ $(document).ready(function(){
 				alert("기안일자를 올바르게 선택해주세요.");
 				$("#e_startDay").val(endD);
 			}
-		}
+		} 
 	});
 	$("#e_send").datetimepicker({
 		disabledWeekDays :[0, 6],
