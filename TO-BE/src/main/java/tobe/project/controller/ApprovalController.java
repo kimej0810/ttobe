@@ -100,7 +100,7 @@ public class ApprovalController {
 	@ResponseBody
 	@RequestMapping(value = "/addDocumentWite", method = RequestMethod.POST)
 	public ApprovalDTO addDocumentWite(@RequestBody ApprovalDTO dto,Locale locale) throws Exception {
-		logger.info("Welcome home! addDocumentWite", locale);
+		logger.info("Welcome home! addDocumentWite", locale); 
 		System.out.println("dto="+dto);
 		
 		if(dto.getT_position().equals("사원")) {
