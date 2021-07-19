@@ -87,7 +87,7 @@
     		FROM AFPS_MEMBER AS A, (SELECT @ROW_NUM := 1) AS B
     		WHERE 1=1
     		<include refid="search"/>
-    		ORDER BY A.TIDX DESC) AFPS LIMIT #{rowStart},#{rowEnd}
+    		ORDER BY A.TIDX DESC) AFPS LIMIT #{pageStart},#{perPageNum}
     </select>
     <select id="totalCountsearchMember" resultType="int">
     	<![CDATA[
@@ -100,13 +100,13 @@
     <sql id="search">
     	<if test="searchType != null">
     		<if test="searchType == 'u'.toString()">
-    			AND A.T_NAME LIKE '%'||#{keyword}||'%'
+    			AND A.T_NAME LIKE CONCAT('%',#{keyword},'%')
     		</if>
  	    	<if test="searchType == 'd'.toString()">
-    			AND A.T_DEPARTMENT LIKE '%'||#{keyword}||'%'
+    			AND A.T_DEPARTMENT LIKE CONCAT('%',#{keyword},'%')
     		</if>
     		<if test="searchType == 'p'.toString()">
-    			AND A.T_POSITION LIKE '%'||#{keyword}||'%'
+    			AND A.T_POSITION LIKE CONCAT('%',#{keyword},'%')
     		</if>
     		
     	</if>

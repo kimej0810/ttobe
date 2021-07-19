@@ -110,7 +110,10 @@ public class MemberController {
 	}
 	@RequestMapping(value = "/myHome")
 	public String myHome(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Model model,HttpSession session)throws Exception{
-		int tidx = (int)session.getAttribute("userTidx");
+		int tidx = 0;
+		if(session.getAttribute("userTidx")!=null) {
+			tidx = (int)session.getAttribute("userTidx");
+		}
 		MemberDTO dto = service.selectOneMemberIdx(tidx);
 		model.addAttribute("member",dto);
 		model.addAttribute("myEmail",myService.selectAllEmail(searchCriteria));
