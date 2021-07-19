@@ -62,8 +62,6 @@
 		</if>
 	</sql>
 
-	
-
 	<!-- 게시글 상세 조회 -->
 	<select id="selectOneBoard" resultMap="selectAllBoardVO">
 		select b.*, m.t_name
