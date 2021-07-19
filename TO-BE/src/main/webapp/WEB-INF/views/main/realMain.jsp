@@ -452,7 +452,7 @@ p {
 	}
 	
 		$(document).ready(function(){
-			$("#wating, #progress, #completed").on("click", function(){
+			$("#wating, #progress, #completed, #rejected").on("click", function(){
 	
 				$.ajax({
 					type : "post",

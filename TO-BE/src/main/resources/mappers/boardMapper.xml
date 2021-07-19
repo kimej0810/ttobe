@@ -24,46 +24,35 @@
 
 	<!-- 게시판 전체 조회() -->
 	<select id="selectAllBoard" resultMap="selectAllBoardVO">
-		SELECT *
-		FROM (
-		SELECT BOARD.BIDX,
-		BOARD.B_TYPE,
-		BOARD.B_TITLE,
-		BOARD.B_CONTENT,
-		BOARD.B_WRITEDATE,
-		BOARD.B_HIT,
-		BOARD.DELYN,
-		BOARD.TIDX,
-		TOBE_MEMBER.T_NAME,
-		ROW_NUMBER() OVER(ORDER BY BOARD.B_TYPE DESC, BIDX DESC) AS RNUM
-		FROM BOARD, TOBE_MEMBER
-		WHERE 1=1
-		<include refid="search"></include>
-		AND BOARD.DELYN='N' AND BOARD.TIDX = TOBE_MEMBER.TIDX
-		)
-		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
-		ORDER BY B_TYPE DESC, BIDX DESC
+		select a.*, m.t_name 
+		from
+		(select *
+		from board as b
+		order by b.b_type desc, b.bidx desc limit #{rowStart},#{rowEnd})as a
+		inner join afps_member as m on a.tidx = m.tidx
+		where a.delyn='N'
 	</select>
 
 	<!-- 페이징 -->
 	<select id="totalCount" resultType="int">
-		SELECT COUNT(BOARD.BIDX)
-		FROM BOARD
-		WHERE 1=1
+		select count(b.bidx)
+		from board as b
+		where 1=1
 		<include refid="search"></include>
-		AND BOARD.BIDX > 0 AND BOARD.DELYN='N'
+		and b.bidx > 0 and b.delyn='N'
 	</select>
 
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 'w'.toString()">
-				AND BOARD.TIDX IN
+				AND b.tidx IN
 				(
-				SELECT TOBE_MEMBER.TIDX
-				FROM TOBE_MEMBER
-				WHERE 1=1
-				AND TOBE_MEMBER.T_NAME LIKE '%' || #{keyword} || '%'
-				AND TOBE_MEMBER.DELYN='N'
+				
+				select m.tidx
+			    from afps_member as m
+			    where 1=1
+			    and m.t_name like '%' || #{keyword} || '%'
+			    and m.delyn='N'
 				)
 			</if>
 			<if test="searchType == 't'.toString()">AND B_TITLE LIKE '%' || #{keyword} || '%'</if>
@@ -77,18 +66,10 @@
 
 	<!-- 게시글 상세 조회 -->
 	<select id="selectOneBoard" resultMap="selectAllBoardVO">
-		SELECT
-		BOARD.BIDX,
-		BOARD.B_TYPE,
-		BOARD.B_TITLE,
-		BOARD.B_CONTENT,
-		BOARD.B_WRITEDATE,
-		BOARD.B_HIT,
-		BOARD.DELYN,
-		BOARD.TIDX,
-		TOBE_MEMBER.T_NAME
-		FROM BOARD, TOBE_MEMBER
-		WHERE BIDX=#{bidx} AND BOARD.TIDX=TOBE_MEMBER.TIDX
+		select b.*, m.t_name
+		from board as b
+		inner join afps_member as m on b.tidx = m.tidx
+		where bidx=#{bidx}
 	</select>
 	
 	<!-- 메인 페이지용 공지사항 -->
@@ -103,14 +84,15 @@
 		BOARD.B_HIT,
 		BOARD.DELYN,
 		BOARD.TIDX,
-		TOBE_MEMBER.T_NAME,
-		ROW_NUMBER() OVER(ORDER BY BOARD.B_TYPE DESC, BIDX DESC) AS RNUM
+		afps_MEMBER.T_NAME,
+		<!-- ROW_NUMBER() OVER(ORDER BY BOARD.B_TYPE DESC, BIDX DESC) AS RNUM -->
 		FROM BOARD,
-		TOBE_MEMBER
-		WHERE 1=1 AND BOARD.DELYN='N' AND BOARD.TIDX = TOBE_MEMBER.TIDX
+		afps_MEMBER
+		WHERE 1=1 AND BOARD.DELYN='N' AND BOARD.TIDX = afps_MEMBER.TIDX
 		AND BOARD.B_WRITEDATE BETWEEN TO_DATE(#{search1}, 'YYYY/MM/DD') AND TO_DATE(#{search2}, 'YYYY/MM/DD')
+		order by board.b_type desc, bidx desc
 		)
-		WHERE RNUM &lt;= 10
+		WHERE limit 10
 		ORDER BY B_TYPE DESC, BIDX DESC
 	</select>
 
