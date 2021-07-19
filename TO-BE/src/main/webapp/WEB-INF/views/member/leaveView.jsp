@@ -84,8 +84,8 @@
 				<tr style="border-top:1px solid lightgray;">
 					<th rowspan="2" style="border-left: 1px solid lightgray;vertical-align:middle;" width="20%" scope="col">결 재</th>
 					<th style="border-left: 1px solid lightgray;" width="16%" scope="col">팀 장</th>
-					<th style="border-left: 1px solid lightgray;" width="16%" scope="col">부 장</th>
 					<th style="border-left: 1px solid lightgray;" width="16%" scope="col">과 장</th>
+					<th style="border-left: 1px solid lightgray;" width="16%" scope="col">부 장</th>
 					<th style="border-left: 1px solid lightgray;" width="16%" scope="col">대 표</th>
 					<th style="border-left: 1px solid lightgray;" width="16%" scope="col">상 태</th>
 				</tr>

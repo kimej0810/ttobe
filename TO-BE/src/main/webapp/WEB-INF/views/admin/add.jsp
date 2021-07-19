@@ -27,13 +27,31 @@
 			return true;
 		});	
 		$("#subminBtnn").on("click",function(){
-	    	if($("#t_department").val()==null || $("#t_department").val()=="부서없음"){
-	    		alert("부서를 선택해주세요.");
+			if($("#t_name").val()==""){
+				alert("사원의 이름을 작성해주세요.");
+				return;
+	    	}else if($("#t_birth").val()==""){
+	    		alert("사원의 생년월일을 작성해주세요.");
+	    		return;
+			}else if($("#t_department").val()==null || $("#t_department").val()=="부서없음"){
+	    		alert("사원의 부서를 선택해주세요.");
 	    		return;
 	    	}else if($("#t_position").val()==null || $("#t_position").val()==""){
-	    		alert("직급을 선택해주세요.");
+	    		alert("사원의 직급을 선택해주세요.");
 	    		return;
-	    	}else{
+	    	}else if($("#t_email").val()==""){
+				alert("사원의 이메일을 작성해주세요.");
+				return;
+			}else if($("#t_phone").val()==""){
+				alert("사원의 연락처를 작성해주세요.");
+				return;
+			}else if($("#postcode").val()=="" || $("#address").val()=="" || $("#detailAddress").val()==""){
+				alert("사원의 주소를 입력해주세요.");
+				return;
+			}else if($("#file").val()==null || $("#file").val()==""){
+				alert("사원의 프로필을 등록해주세요.");
+				return;
+			}else{
 				$("#formTag").submit();	
 	    	}
 		});
@@ -337,7 +355,7 @@ function previewImage(targetObj, View_area){
 				<tr>
 					<th>이름</th>
 					<td>
-						<input type="text" placeholder="이름 작성" name="t_name" class="form-control" required="required">
+						<input type="text" placeholder="이름 작성" name="t_name" id="t_name" class="form-control" required="required">
 					</td>
 				</tr>
 				<tr>

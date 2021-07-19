@@ -20,12 +20,12 @@
 		<property name="password" value = "mySql1234"/>
 	</bean> -->
 	<!-- DB 변경 -->
-<!-- 	<bean id = "dataSource" class = "org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<bean id = "dataSource" class = "org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value = "net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
-		<property name="url" value = "jdbc:log4jdbc:mysql://localhost:3306/member?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;serverTimezone=UTC"/>
-		<property name="username" value ="root"/>
-		<property name="password" value = "mySql1234"/>
-	</bean> -->
+		<property name="url" value = "jdbc:log4jdbc:mysql://jjezen.cafe24.com:3306/ezen20210719_a?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;serverTimezone=UTC"/>
+		<property name="username" value ="user_a"/>
+		<property name="password" value = "user1234!!"/>
+	</bean>
 	<!-- oracle 김륜광 -->
 	<!-- <bean id = "dataSource" class = "org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value = "net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
@@ -34,12 +34,12 @@
 		<property name="password" value = "1234"/>
 	</bean> -->
 	<!-- oracle -->
-	<bean id = "dataSource" class = "org.springframework.jdbc.datasource.DriverManagerDataSource">
+<!-- 	<bean id = "dataSource" class = "org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value = "net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
 		<property name="url" value = "jdbc:log4jdbc:oracle:thin:@192.168.0.101:1521:xe"/>
 		<property name="username" value ="system"/>
 		<property name="password" value = "1234"/>
-	</bean>
+	</bean> -->
 	<!-- mybatis SqlSessionFactoryBean -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>

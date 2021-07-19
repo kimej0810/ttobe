@@ -168,9 +168,9 @@
 			}
 			if($("#t_position").val()=="팀장"){
 				$("#status").val("0300");
-			}else if($("#t_position").val()=="부장"){
-				$("#status").val("0030");
 			}else if($("#t_position").val()=="과장"){
+				$("#status").val("0030");
+			}else if($("#t_position").val()=="부장"){
 				$("#status").val("0003");
 			}else{
 				$("#status").val("3000");
@@ -207,8 +207,8 @@
 					<th rowspan="2" style="border-left: 1px solid lightgray;vertical-align:middle;" width="20%" scope="col">결 재</th>
 					<th style="border-left: 1px solid lightgray;" width="16%" scope="col">담 당</th>
 					<th style="border-left: 1px solid lightgray;" width="16%" scope="col">팀 장</th>
-					<th style="border-left: 1px solid lightgray;" width="16%" scope="col">부 장</th>
 					<th style="border-left: 1px solid lightgray;" width="16%" scope="col">과 장</th>
+					<th style="border-left: 1px solid lightgray;" width="16%" scope="col">부 장</th>
 					<th style="border-left: 1px solid lightgray;" width="16%" scope="col">대 표</th>
 				</tr>
 				<tr>
@@ -238,18 +238,18 @@
 						</select>
 					</td>
 					<td>
-						<select class="form-select" name="departmenthead" id="departmenthead" required="required">
+						<select class="form-select" name="sectionhead" id="sectionhead" required="required">
 							<option value="no">선 택</option>
 							<c:choose>
-								<c:when test="${member.t_position eq '부장' || member.t_position eq '과장'}">
+								<c:when test="${member.t_position eq '과장' || member.t_position eq '부장'}">
 									<option value="결재권한없음" selected="selected">선택불가</option>
 								</c:when>
 								<c:otherwise>
 									<c:forEach items="${memberList}" var="list">
-										<c:if test="${list.t_position eq '부장' }">
+										<c:if test="${list.t_position eq '과장' }">
 											<c:if test="${list.t_department eq member.t_department}">
-												<c:if test="${list.t_id eq leave.departmenthead }">
-													<option value="${list.t_id}"  selected="selected">${list.t_name}</option>
+												<c:if test="${list.t_id eq leave.sectionhead }">
+													<option value="${list.t_id}" selected="selected">${list.t_name}</option>
 												</c:if>
 											</c:if>
 										</c:if>
@@ -259,18 +259,18 @@
 						</select>
 					</td>
 					<td>
-						<select class="form-select" name="sectionhead" id="sectionhead" required="required">
+						<select class="form-select" name="departmenthead" id="departmenthead" required="required">
 							<option value="no">선 택</option>
 							<c:choose>
-								<c:when test="${member.t_position eq '과장'}">
+								<c:when test="${member.t_position eq '부장'}">
 									<option value="결재권한없음" selected="selected">선택불가</option>
 								</c:when>
 								<c:otherwise>
 									<c:forEach items="${memberList}" var="list">
-										<c:if test="${list.t_position eq '과장' }">
+										<c:if test="${list.t_position eq '부장' }">
 											<c:if test="${list.t_department eq member.t_department}">
-												<c:if test="${list.t_id eq leave.sectionhead }">
-													<option value="${list.t_id}" selected="selected">${list.t_name}</option>
+												<c:if test="${list.t_id eq leave.departmenthead }">
+													<option value="${list.t_id}"  selected="selected">${list.t_name}</option>
 												</c:if>
 											</c:if>
 										</c:if>

@@ -1,0 +1,16 @@
+#search{
+	width:100%;
+	display:grid;
+	grid-template-columns:1fr minmax(70px, auto);
+}
+.input-group{
+	grid-column:2/3;
+	margin-top:15px;
+}
+.contentheader{
+	grid-template-columns:1fr 2fr 0.1fr;
+}
+.listProfile{
+	width:60px;
+	height:40px;
+}

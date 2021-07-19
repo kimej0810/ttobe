@@ -1,0 +1,40 @@
+body{
+	background-color: lightgray;
+}
+table th{
+	text-align: center;
+	border-left: 1px solid lightgray;
+}
+form{
+	outline: 2px solid black;
+	font-size: 0.9em;
+	background-color: white;
+}
+#tableDiv{
+	padding: 2%;
+}
+table td{
+	border-left: 1px solid lightgray;
+}
+textarea{
+	resize: none;
+}
+.form-control, .form-select{
+	height: 30px;
+	font-size: 0.7em;
+}
+#tableNum{
+	font-size: 0.75em;
+	margin-right: 1%;
+	padding-top: 1%;
+	text-align:center;
+}
+#tableNum span{
+	float:left;
+}
+.calendar{
+	cursor: pointer;
+}
+.tooltip-inner{
+	background-color: red;
+}

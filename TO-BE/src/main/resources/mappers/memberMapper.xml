@@ -4,45 +4,45 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="tobe.project.mapper.memberMapper">
  	<select id="selectAllMember" resultType="memberVO">
- 		SELECT * FROM TOBE_MEMBER WHERE DELYN = 'N' ORDER BY TIDX DESC
+ 		SELECT * FROM AFPS_MEMBER WHERE DELYN = 'N' ORDER BY TIDX DESC
  	</select>
  	<select id="searchDepartmentMember" resultType="memberDTO">
  		SELECT A.*,B.F_STORED_FILE_NAME,B.F_TYPE
- 		FROM TOBE_MEMBER A LEFT JOIN FILE_INFO B ON A.TIDX = B.TIDX WHERE A.T_DEPARTMENT = #{t_department} AND A.DELYN = 'N'
+ 		FROM AFPS_MEMBER A LEFT JOIN FILE_INFO B ON A.TIDX = B.TIDX WHERE A.T_DEPARTMENT = #{t_department} AND A.DELYN = 'N'
  	</select>
     <select id="selectOneMemberIdx" resultType="memberDTO">
     	SELECT A.*,B.F_STORED_FILE_NAME,B.F_TYPE
- 		FROM TOBE_MEMBER A LEFT JOIN FILE_INFO B ON A.TIDX = B.TIDX WHERE B.F_TYPE = 'profile' AND A.TIDX = #{tidx}
+ 		FROM AFPS_MEMBER A LEFT JOIN FILE_INFO B ON A.TIDX = B.TIDX WHERE B.F_TYPE = 'profile' AND A.TIDX = #{tidx}
  		<!--AND B.F_TYPE = 'profile' -->
     </select>
     <select id="searchMember" resultType="memberVO">
-    	SELECT * FROM TOBE_MEMBER WHERE DELYN = 'N'
+    	SELECT * FROM AFPS_MEMBER WHERE DELYN = 'N'
 		AND T_DEPARTMENT = #{t_department} AND T_NAME LIKE '%'||#{t_name}||'%'
     	ORDER BY TIDX DESC
     </select>
     <!-- 부서 전체 검색 -->
     <select id="searchMember2" resultType="memberVO">
-    	SELECT * FROM TOBE_MEMBER WHERE DELYN = 'N'
+    	SELECT * FROM AFPS_MEMBER WHERE DELYN = 'N'
 		AND T_NAME LIKE '%'||#{t_name}||'%'
     	ORDER BY TIDX DESC
     </select>
  	<!-- 비밀번호 변경 -->
  	<update id="modifyPwd">
- 		update tobe_member set t_pwd = #{t_pwd} where t_id = #{t_id} 
+ 		update AFPS_member set t_pwd = #{t_pwd} where t_id = #{t_id} 
  	</update>	
  	<!-- 비밀번호찾기_아이디체크 -->
  	<select id="checkId" resultType="int">
- 		select count(*) from tobe_member
+ 		select count(*) from AFPS_member
  		where t_id = #{t_id}
  	</select>
  	<!-- 아이디넣고 정보빼기 -->
  	<select id="selectOneMemberId" resultType="memberDTO">
  		SELECT A.*,B.F_STORED_FILE_NAME,B.F_TYPE
- 		FROM TOBE_MEMBER A LEFT JOIN FILE_INFO B ON A.TIDX = B.TIDX WHERE B.F_TYPE = 'profile' AND A.T_ID = #{t_id}
+ 		FROM AFPS_MEMBER A LEFT JOIN FILE_INFO B ON A.TIDX = B.TIDX WHERE B.F_TYPE = 'profile' AND A.T_ID = #{t_id}
  	</select>
  	<!-- 사원정보 수정 -->
  	<update id="modifyMember">
- 		update tobe_member set
+ 		update AFPS_member set
  		t_email = #{t_email},
  		t_phone = #{t_phone},
  		t_addr_zipcode = #{t_addr_zipcode},
@@ -62,7 +62,7 @@
  	<select id="selectAllMember2" resultType="memberDTO">
  	<![CDATA[
  		SELECT A.*,B.F_STORED_FILE_NAME,B.F_TYPE
- 		FROM TOBE_MEMBER A LEFT JOIN FILE_INFO B ON A.TIDX = B.TIDX WHERE B.F_TYPE = 'profile' AND A.DELYN = 'N'
+ 		FROM AFPS_MEMBER A LEFT JOIN FILE_INFO B ON A.TIDX = B.TIDX WHERE B.F_TYPE = 'profile' AND A.DELYN = 'N'
  	]]>
  	</select>
 </mapper>

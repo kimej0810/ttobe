@@ -22,7 +22,7 @@ function leaveBtn(){
 	var t_id = $("#t_id").val();
 	var url = "/member/leave?t_id="+t_id;
 	var name = "leave";
-	var option = "width = 770, height = 630 left = 100, top=50,location=no";
+	var option = "width = 770, height = 700 left = 100, top=50,location=no";
 	window.open(url,name,option)
 }
 </script>

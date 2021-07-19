@@ -7,47 +7,47 @@
 		<selectKey keyProperty="tidx" resultType="int" order="BEFORE">
 			SELECT TIDX_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO TOBE_MEMBER
+		INSERT INTO AFPS_MEMBER
 		(TIDX,T_ID,T_PWD,T_EMAIL,T_ADDR_ZIPCODE,T_ADDR_GENERAL,T_ADDR_DETAIL,T_PHONE,T_NAME,T_BIRTH,T_POSITION,T_DEPARTMENT,T_GRADE,T_JOIN_DATE)
 		VALUES(TIDX_SEQ.NEXTVAL,#{t_id},#{t_pwd},'tobe202105@gmail.com',#{t_addr_zipcode},#{t_addr_general},#{t_addr_detail},#{t_phone},
 			'admin','admin','admin','admin','A',sysdate)
 	</insert>
 	<select id="adminCheck" resultType="int">
-		SELECT COUNT(*) FROM TOBE_MEMBER WHERE T_GRADE = 'A'
+		SELECT COUNT(*) FROM AFPS_MEMBER WHERE T_GRADE = 'A'
 	</select>
 	<select id="selectAllMember" resultType="memberVO">
- 		SELECT * FROM TOBE_MEMBER WHERE DELYN = 'N' ORDER BY TIDX DESC
+ 		SELECT * FROM AFPS_MEMBER WHERE DELYN = 'N' ORDER BY TIDX DESC
  	</select>
  	<select id="selectOneId" resultType="string">
- 		SELECT T_ID FROM TOBE_MEMBER WHERE TIDX = (SELECT MAX(TIDX) FROM TOBE_MEMBER)
+ 		SELECT T_ID FROM AFPS_MEMBER WHERE TIDX = (SELECT MAX(TIDX) FROM AFPS_MEMBER)
  	</select>
 	<insert id="addMember" parameterType="tobe.project.dto.MemberVO" useGeneratedKeys="true" keyProperty="tidx">
 		<selectKey keyProperty="tidx" resultType="int" order="BEFORE">
 			SELECT TIDX_SEQ.NEXTVAL FROM DUAL
 		</selectKey> 
-		INSERT INTO TOBE_MEMBER
+		INSERT INTO AFPS_MEMBER
 		(TIDX,T_ID,T_PWD,T_EMAIL,T_ADDR_ZIPCODE,T_ADDR_GENERAL,T_ADDR_DETAIL,T_PHONE,T_NAME,T_BIRTH,T_POSITION,T_DEPARTMENT,T_JOIN_DATE)
 		VALUES(TIDX_SEQ.NEXTVAL,#{t_id},#{t_pwd},#{t_email},#{t_addr_zipcode},#{t_addr_general},#{t_addr_detail},#{t_phone},
 			#{t_name},#{t_birth},#{t_position},#{t_department},sysdate)
 	</insert>
 	<update id="deleteMember" parameterType="memberVO">
-		UPDATE TOBE_MEMBER SET DELYN = 'Y' WHERE TIDX = #{tidx}	
+		UPDATE AFPS_MEMBER SET DELYN = 'Y' WHERE TIDX = #{tidx}	
 	</update>
 	<select id="selectOneMember" resultType="memberVO">
-    	SELECT * FROM TOBE_MEMBER WHERE TIDX = #{tidx}
+    	SELECT * FROM AFPS_MEMBER WHERE TIDX = #{tidx}
     </select>
     <update id="modifyName" parameterType="memberVO">
-    	UPDATE TOBE_MEMBER SET T_NAME = #{t_name} WHERE TIDX = #{tidx}
+    	UPDATE AFPS_MEMBER SET T_NAME = #{t_name} WHERE TIDX = #{tidx}
     </update>
     <update id="modifyPosition" parameterType="memberVO">
-    	UPDATE TOBE_MEMBER SET T_POSITION = #{t_position} WHERE TIDX = #{tidx}
+    	UPDATE AFPS_MEMBER SET T_POSITION = #{t_position} WHERE TIDX = #{tidx}
     </update>
     <update id="modifyDepartment" parameterType="memberVO">
-    	UPDATE TOBE_MEMBER SET T_DEPARTMENT = #{t_department} WHERE TIDX = #{tidx}
+    	UPDATE AFPS_MEMBER SET T_DEPARTMENT = #{t_department} WHERE TIDX = #{tidx}
     </update>
     <select id="totalCountMember" parameterType="hashmap" resultType="int">
     	SELECT COUNT(*) AS CNT
-    	FROM TOBE_MEMBER 
+    	FROM AFPS_MEMBER 
     	WHERE DELYN = 'N' AND TIDX > 0
     	AND T_NAME LIKE '%'||#{keyword}||'%'
     </select>
@@ -79,7 +79,7 @@
     <!-- file end -->
     <select id="searchMemberList" resultType="memberVO">
     		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY TIDX DESC)NUM,
-    		A.* FROM TOBE_MEMBER A  WHERE 1=1
+    		A.* FROM AFPS_MEMBER A  WHERE 1=1
     		<include refid="search"/>
     		ORDER BY TIDX DESC)
     		<!-- where delyn = 'N' and -->WHERE NUM BETWEEN #{rowStart} AND #{rowEnd}
@@ -87,7 +87,7 @@
     <select id="totalCountsearchMember" resultType="int">
     	<![CDATA[
     		SELECT COUNT(TIDX)
-    		FROM TOBE_MEMBER
+    		FROM AFPS_MEMBER
     		WHERE TIDX > 0
     	]]>
     	<include refid="search"/>
@@ -107,6 +107,6 @@
     	</if>
     </sql>
     <select id="selectLastPk" resultType="int">
-    	SELECT MAX(TIDX) FROM TOBE_MEMBER ORDER BY TIDX DESC
+    	SELECT MAX(TIDX) FROM AFPS_MEMBER ORDER BY TIDX DESC
     </select>
 </mapper>

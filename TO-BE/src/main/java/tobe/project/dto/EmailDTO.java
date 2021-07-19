@@ -11,6 +11,7 @@ public class EmailDTO {
 	private String t_name;
 	private String t_position;
 	private String t_department;
+	private String m_type;
 	public int getMidx() {
 		return midx;
 	}
@@ -70,6 +71,12 @@ public class EmailDTO {
 	}
 	public void setT_department(String t_department) {
 		this.t_department = t_department;
+	}
+	public String getM_type() {
+		return m_type;
+	}
+	public void setM_type(String m_type) {
+		this.m_type = m_type;
 	}
 
 }
