@@ -5,12 +5,13 @@
 <mapper namespace="tobe.project.mapper.adminMapper">
 	<insert id="insertAdmin" parameterType="tobe.project.dto.MemberDTO" useGeneratedKeys="true" keyProperty="tidx">
 		<selectKey keyProperty="tidx" resultType="int" order="BEFORE">
-			SELECT TIDX_SEQ.NEXTVAL FROM DUAL
+			SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES
+			WHERE TABLE_SCHEMA = 'EZEN20210719_A' AND TABLE_NAME = 'AFPS_MEMBER'
 		</selectKey>
 		INSERT INTO AFPS_MEMBER
-		(TIDX,T_ID,T_PWD,T_EMAIL,T_ADDR_ZIPCODE,T_ADDR_GENERAL,T_ADDR_DETAIL,T_PHONE,T_NAME,T_BIRTH,T_POSITION,T_DEPARTMENT,T_GRADE,T_JOIN_DATE)
-		VALUES(TIDX_SEQ.NEXTVAL,#{t_id},#{t_pwd},'tobe202105@gmail.com',#{t_addr_zipcode},#{t_addr_general},#{t_addr_detail},#{t_phone},
-			'admin','admin','admin','admin','A',sysdate)
+		(T_ID,T_PWD,T_EMAIL,T_ADDR_ZIPCODE,T_ADDR_GENERAL,T_ADDR_DETAIL,T_PHONE,T_NAME,T_BIRTH,T_POSITION,T_DEPARTMENT,T_GRADE,T_JOIN_DATE)
+		VALUES(#{t_id},#{t_pwd},'tobe202105@gmail.com',#{t_addr_zipcode},#{t_addr_general},#{t_addr_detail},#{t_phone},
+			'admin','admin','admin','admin','A',NOW())
 	</insert>
 	<select id="adminCheck" resultType="int">
 		SELECT COUNT(*) FROM AFPS_MEMBER WHERE T_GRADE = 'A'
@@ -23,12 +24,13 @@
  	</select>
 	<insert id="addMember" parameterType="tobe.project.dto.MemberVO" useGeneratedKeys="true" keyProperty="tidx">
 		<selectKey keyProperty="tidx" resultType="int" order="BEFORE">
-			SELECT TIDX_SEQ.NEXTVAL FROM DUAL
+			SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES
+			WHERE TABLE_SCHEMA = 'EZEN20210719_A' AND TABLE_NAME = 'AFPS_MEMBER'
 		</selectKey> 
 		INSERT INTO AFPS_MEMBER
-		(TIDX,T_ID,T_PWD,T_EMAIL,T_ADDR_ZIPCODE,T_ADDR_GENERAL,T_ADDR_DETAIL,T_PHONE,T_NAME,T_BIRTH,T_POSITION,T_DEPARTMENT,T_JOIN_DATE)
-		VALUES(TIDX_SEQ.NEXTVAL,#{t_id},#{t_pwd},#{t_email},#{t_addr_zipcode},#{t_addr_general},#{t_addr_detail},#{t_phone},
-			#{t_name},#{t_birth},#{t_position},#{t_department},sysdate)
+		(T_ID,T_PWD,T_EMAIL,T_ADDR_ZIPCODE,T_ADDR_GENERAL,T_ADDR_DETAIL,T_PHONE,T_NAME,T_BIRTH,T_POSITION,T_DEPARTMENT,T_JOIN_DATE)
+		VALUES(#{t_id},#{t_pwd},#{t_email},#{t_addr_zipcode},#{t_addr_general},#{t_addr_detail},#{t_phone},
+			#{t_name},#{t_birth},#{t_position},#{t_department},NOW())
 	</insert>
 	<update id="deleteMember" parameterType="memberVO">
 		UPDATE AFPS_MEMBER SET DELYN = 'Y' WHERE TIDX = #{tidx}	
@@ -54,15 +56,13 @@
     <!-- fild start -->
     <insert id="addFile" parameterType="hashMap">
     	INSERT INTO FILE_INFO(
-    		FIDX,
     		TIDX,
     		F_TYPE,
     		F_ORG_FILE_NAME,
     		F_STORED_FILE_NAME,
     		F_FILE_SIZE
     	) values(
-			F_FILE_SEQ.NEXTVAL,
-			#{tidx}+1,
+			#{tidx},
 			#{F_TYPE},
 			#{F_ORG_FILE_NAME},
 			#{F_STORED_FILE_NAME},
