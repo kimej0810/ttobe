@@ -78,11 +78,13 @@
     </select>
     <!-- file end -->
     <select id="searchMemberList" resultType="memberVO">
-    		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY TIDX DESC)NUM,
+    		<!-- SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY TIDX DESC)NUM,
     		A.* FROM AFPS_MEMBER A  WHERE 1=1
     		<include refid="search"/>
     		ORDER BY TIDX DESC)
-    		<!-- where delyn = 'N' and -->WHERE NUM BETWEEN #{rowStart} AND #{rowEnd}
+    		WHERE NUM BETWEEN #{rowStart} AND #{rowEnd} -->
+    		SELECT AFPS.* FROM(SELECT A.*,@ROW_NUM := @ROW_NUM+1 AS NUM 
+    		FROM AFPS_MEMBER AS A, (SELECT @ROW_NUM := 0) AS B) AFPS LIMIT #{rowStart},#{rowEnd}
     </select>
     <select id="totalCountsearchMember" resultType="int">
     	<![CDATA[

@@ -40,6 +40,7 @@ public class EmailServiceImpl implements EmailService{
 			edto.setM_content(htmlContent);
 			edto.setM_title("귀하의 입사를 축하합니다!");
 			edto.setTidx(dto.getTidx());
+			edto.setM_type("신규");
 			int result = emailDAO.writeEmail(edto);
 			if(result==1) {
 				mailHandler.send();
