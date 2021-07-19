@@ -88,7 +88,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary btn-sm" id="submit"
-						onclick="#">진짜추가</button>
+						onclick="#">업로드</button>
 				</div>
 			</div>
 		</div>

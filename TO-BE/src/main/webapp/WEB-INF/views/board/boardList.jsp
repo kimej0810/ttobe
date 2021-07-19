@@ -35,6 +35,10 @@
 		#writeBtn{
 			grid-column:2/3;
 		}
+		#current a{
+	    	background-color: #cfe2ff;
+	    	color:black;
+ 		}
 	</style>
 </head>
 <body>
@@ -60,8 +64,8 @@
 			<thead>
 				<tr>
 					<th scope="col">번호</th>
-					<th scope="col">제목</th>
-					<th scope="col">작성일</th>
+					<th scope="col" style="width:50%;">제목</th>
+					<th scope="col" style="width:15%;">작성일</th>
 					<th scope="col">작성자</th>
 					<th scope="col">조회수</th>
 				</tr>
@@ -102,10 +106,12 @@
 			    </li>
 		    </c:if> 
 		    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-		    	<li class="page-item"><a class="page-link" href="list${pageMaker.makeSearch(idx)}">${idx}</a></li>
+		    	<li class="page-item" <c:out value="${pageMaker.cri.page == idx ? 'id=current' : ''}"/>>
+		    		<a class="page-link" href="list${pageMaker.makeSearch(idx)}">${idx}</a>
+		    	</li>
 		    </c:forEach>
 		    <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-		    	<li class="page-item">
+		    	<li class="page-item">zz
 			      <a class="page-link" href="list${pageMaker.makeSearch(pageMaker.endPage + 1)}" aria-label="Next">
 			        <span aria-hidden="true">&raquo;</span>
 			        <span class="sr-only"></span>

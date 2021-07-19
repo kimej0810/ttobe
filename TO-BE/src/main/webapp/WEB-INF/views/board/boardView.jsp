@@ -133,10 +133,8 @@ button:disabled {
 			</thead>
 			<tbody>
 				<tr>
-					<td colspan="4">
-						<div style="margin:10px 0;">
-							${boardVO.b_content}
-						</div>
+					<td colspan="4" style="height:150px;">
+						<div style="margin: 10px 0;">${boardVO.b_content}</div>
 					</td>
 				</tr>
 				<tr>
@@ -195,7 +193,7 @@ button:disabled {
 						<div id="replyArea"
 							style="width: 100%; height: 100px; margin: 0 auto;">
 							<textarea id="r_content" name="r_content"
-								style="width: 100%; height: 100%; resize: none;"></textarea>
+								style="width: 100%; height: 100%; resize: none;" class="form-control"></textarea>
 							<button class="btn btn-outline-secondary writeReplyBtn"
 								type="button" style="width: 100%; height: 100px;">작성</button>
 						</div>
@@ -230,14 +228,15 @@ button:disabled {
 		<button type="button" class="btn btn-primary btn-sm float-right"
 			onclick="location.href='modify?bidx=${boardVO.bidx}'">수정</button>
 		<button type="button" class="btn btn-primary btn-sm float-right"
-			onclick="location.href='delete?bidx=${boardVO.bidx}'">삭제</button>
-			<c:if test="${pagePort eq 'board' }">
-				<button type="button" class="btn btn-primary btn-sm float-right list_btn">목록</button>
-			</c:if>
-			<c:if test="${pagePort eq 'myhome' }">
-		<button type="button" class="btn btn-primary btn-sm float-right"
-			onclick="window.close();">닫기</button>
-			</c:if>
+			onclick="fn_delete(${boardVO.bidx})">삭제</button>
+		<c:if test="${pagePort eq 'board' }">
+			<button type="button"
+				class="btn btn-primary btn-sm float-right list_btn">목록</button>
+		</c:if>
+		<c:if test="${pagePort eq 'myhome' }">
+			<button type="button" class="btn btn-primary btn-sm float-right"
+				onclick="window.close();">닫기</button>
+		</c:if>
 		<%
 		}
 		%>
@@ -349,24 +348,27 @@ button:disabled {
 				"click",
 				".deleteReplyBtn",
 				function() {
-
-					$.ajax({
-						type : "post",
-						url : "/reply/delete",
-						data : {
-							"ridx" : $(this).next('#ridx').val(),
-							"bidx" : $("#bidx").val()
-						},
-						dataType : "json",
-						error : function(request, status, error) {
-							console.log("code:" + request.status + "\n"
-									+ "message:" + request.responseText + "\n"
-									+ "error:" + error);
-						},
-						success : function(data) {
-							selectAllReply(data);
-						}
-					});
+					
+					var con_test = confirm("삭제하시겠습니까?");
+					if(con_test == true){
+						$.ajax({
+							type : "post",
+							url : "/reply/delete",
+							data : {
+								"ridx" : $(this).next('#ridx').val(),
+								"bidx" : $("#bidx").val()
+							},
+							dataType : "json",
+							error : function(request, status, error) {
+								console.log("code:" + request.status + "\n"
+										+ "message:" + request.responseText + "\n"
+										+ "error:" + error);
+							},
+							success : function(data) {
+								selectAllReply(data);
+							}
+						});  
+					}
 				});
 
 		//댓글 수정창
@@ -436,6 +438,14 @@ button:disabled {
 				$("#generalBtn").css("color", "white");
 			}
 		});
+		
+		//게시글 삭제
+		function fn_delete(bidx){
+			var con_test = confirm("삭제하시겠습니까?");
+			if(con_test == true){
+				location.href='delete?bidx='+bidx;
+			}		
+		}
 	</script>
 </body>
 </html>

@@ -38,13 +38,13 @@
 			<tr>
 				<th style="width:25%;">글제목</th>
 				<td>
-					<input type="text" name="b_title" id="title">
+					<input type="text" class="form-control" name="b_title" id="title">
 				</td>
 			</tr>
 			<tr>
 				<th style="width:25%;">내용</th>
 				<td>
-					<textarea name="b_content" id="content"></textarea>
+					<textarea name="b_content" id="content" class="form-control"></textarea>
 				</td>
 			</tr>
 			<tr>

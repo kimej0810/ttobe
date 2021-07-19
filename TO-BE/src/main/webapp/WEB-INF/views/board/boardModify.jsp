@@ -36,26 +36,28 @@
 			<tr>
 				<th style="width:25%;">글제목</th>
 				<td>
-					<input type="text" name="b_title" value="${boardVO.b_title}" id="title">
+					<input type="text" class="form-control" name="b_title" value="${boardVO.b_title}" id="title">
 				</td>
 			</tr>
 			<tr>
 				<th style="width:25%;">내용</th>
 				<td>
-					<textarea name="b_content" id="content">${boardVO.b_content}</textarea>
+					<textarea name="b_content" id="content" class="form-control">${boardVO.b_content}</textarea>
 				</td>
 			</tr>
 			<tr>
 				<th style="width:25%;">첨부파일</th>
 				<td id="fileIndex" style="text-align:left;">
+					<c:if test="">
+					</c:if>
 					<c:forEach var="file" items="${file}" varStatus="var">
-					<div id="fileArea">
-						<div style="width:100%; height:28.4px;">
-							<input type="hidden" id="FIDX" name="FIDX" value="${file.FIDX}">
-							<a>${file.F_ORG_FILE_NAME}</a>(${file.F_FILE_SIZE}kb)
-							<button id="fileDelBtn" style="float:right;" onclick="fn_del('${file.FIDX}','${var.index}');" type="button">삭제</button>
+						<div id="fileArea">
+							<div style="width:100%; height:28.4px;">
+								<input type="hidden" id="FIDX" name="FIDX" value="${file.FIDX}">
+								<a>${file.F_ORG_FILE_NAME}</a>(${file.F_FILE_SIZE}kb)
+								<button id="fileDelBtn" style="float:right;" onclick="fn_del('${file.FIDX}','${var.index}');" type="button">삭제</button>
+							</div>
 						</div>
-					</div>
 					</c:forEach>
 				</td>
 			</tr>
@@ -81,19 +83,17 @@
 					formObj.submit();
 				}
 			});
-			
+			//페이지가 모두 로드된 후 생긴 애들한테도 이벤트걸기
 			$(document).on("click","#fileDelBtn", function(){
 				$(this).parent().remove();
 			})
 			
 			fileCount = 1;
-			$("#fileAdd").on("click", function(){
+			$(document).on("click","#fileAdd", function(){
 				$("#fileArea").append("<div><input type='file' name='file_"+(fileCount++)+"'/>"
 						+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
 				
-				$(document).on("click","#fileDelBtn", function(){
-					$(this).parent().remove();
-				});
+				
 			});
 			
 			$(".cancel_btn").on("click", function(){

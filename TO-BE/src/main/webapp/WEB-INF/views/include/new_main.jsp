@@ -125,7 +125,7 @@
 							id="profile"
 							style="padding: 0px; width: 50px; height:50px; border-radius: 70%;">
 						<div id="dropDown" class="list-group"
-							style="width: 100px; height: 50px; position: absolute; right: 25px;">
+							style="width: 130px; height: 50px; position: absolute; right: 25px; text-align:center;">
 							<a href="#" class="list-group-item list-group-item-action"
 								onclick="location.href='/member/mypage?tidx=<%=userTidx%>'">
 								<%=userName %>님
