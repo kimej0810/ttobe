@@ -20,32 +20,24 @@
 	</resultMap>
 	
 	<select id="list" resultMap="selectAllReplyVO">
-		SELECT 
-			REPLY.RIDX,
-			REPLY.R_CONTENT,
-			REPLY.R_WRITEDATE,
-			REPLY.DELYN,
-			REPLY.TIDX,
-			REPLY.BIDX,
-			TOBE_MEMBER.T_NAME
-		FROM REPLY, TOBE_MEMBER
-		WHERE 1=1 AND BIDX=#{bidx} AND REPLY.DELYN='N' AND REPLY.TIDX = TOBE_MEMBER.TIDX
-		ORDER BY RIDX ASC
+		select r.*, m.t_name
+		from reply as r
+		inner join afps_member as m on r.tidx = m.tidx
+        where r.bidx = #{bidx} and r.delyn='N'
+        order by r.ridx asc
 	</select>
 	
 	<!-- 댓글 작성 -->
 	<insert id="create">
 		INSERT INTO REPLY(
-			RIDX,
 			R_CONTENT,
 			R_WRITEDATE,
 			DELYN,
 			TIDX,
 			BIDX
 		) VALUES(
-			RIDX_SEQ.NEXTVAL,
 			#{r_content},
-			sysdate,
+			now(),
 			'N',
 			#{tidx},
 			#{bidx}

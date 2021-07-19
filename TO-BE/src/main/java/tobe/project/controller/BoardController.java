@@ -44,8 +44,7 @@ public class BoardController{
 	
 	@Inject
 	private FileInfoService fileInfoService;
-    
-	//寃����� 紐⑸�
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Locale locale, Model model, SearchCriteria scri, String searchType) throws Exception {
 		 logger.info("BoardList");
@@ -64,7 +63,6 @@ public class BoardController{
 		 return "/board/boardList";
 	}
 	
-	//寃����� ���몃낫湲�
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public String view(int bidx, @ModelAttribute("scri") SearchCriteria scri, Model model, String pagePort) throws Exception {
 		 logger.info("BoardWrite");
@@ -89,7 +87,6 @@ public class BoardController{
 		 
 	}
 
-	//泥⑤����� �ㅼ�대���
 	@RequestMapping(value = "/fileDown")
 	public void fileDown(@RequestParam Map<String, Object> map, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		Map<String, Object> resultMap = fileInfoService.selectOneFile(map);
@@ -106,15 +103,12 @@ public class BoardController{
 		response.getOutputStream().close();
 	}
 	
-	
-	//寃����� 湲��곌린酉�
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String write(Locale locale, Model model) throws Exception {
 		 logger.info("BoardWrite");
 		 return "/board/boardWrite";
 	}
 	
-	//寃����� 湲��곌린
 	@RequestMapping(value = "/writeAction")
 	public String writeAction(BoardVO vo,String grade,HttpServletRequest request, MultipartHttpServletRequest mpRequest) throws Exception {
 		 logger.info("BoardWriteAction");
@@ -132,7 +126,6 @@ public class BoardController{
 		 return "redirect:"+referer;
 	}
 	
-	//寃����� ����酉�
 	@RequestMapping(value = "/modify")
 	public String modify(int bidx, @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
 		 logger.info("BoardModifyView");
@@ -146,7 +139,6 @@ public class BoardController{
 		 return "/board/boardModify";
 	}
 	
-	//寃����� ����
 	@RequestMapping(value = "/modifyAction")
 	public String modifyAction(BoardVO vo, 
 								@ModelAttribute("scri") SearchCriteria scri, 
@@ -157,6 +149,8 @@ public class BoardController{
 		
 		logger.info("BoardModifyAction");
 		
+		
+		System.out.println("왜 bidx없음?~~~~~~~~~~~~~~~~~~`"+vo.getBidx());
 	    service.modifyBoard(vo, files, fileNames, mpRequest);
 	    
 	    rttr.addAttribute("page", scri.getPage());
@@ -166,7 +160,6 @@ public class BoardController{
 	    return "redirect:/board/list";
 	}
 	
-	//寃����� ����
 	@RequestMapping(value = "/delete")
 	public String delete(int bidx, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes rttr) throws Exception {
 		logger.info("BoardDelete");
@@ -178,7 +171,6 @@ public class BoardController{
 	    return "redirect:/board/list";
 	}
 	
-	//��湲� ����
 		@RequestMapping(value = "/writeReply")
 		public String writeReply(ReplyVO vo, SearchCriteria scri, RedirectAttributes rttr) throws Exception {
 			logger.info("writeReply");

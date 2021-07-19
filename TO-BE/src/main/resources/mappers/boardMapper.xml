@@ -113,7 +113,6 @@
 	</insert>
 	<insert id="insertFile" parameterType="hashMap">
 		INSERT INTO FILE_INFO(
-		TIDX,
 		F_TYPE,
 		F_ORG_FILE_NAME,
 		F_STORED_FILE_NAME,
@@ -121,7 +120,6 @@
 		DELYN,
 		BIDX
 		)VALUES(
-		#{tidx},
 		#{F_TYPE},
 		#{ORG_FILE_NAME},
 		#{STORED_FILE_NAME},

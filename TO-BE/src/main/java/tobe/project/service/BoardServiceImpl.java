@@ -75,6 +75,7 @@ public class BoardServiceImpl implements BoardService{
 		int size = list.size();
 		for(int i = 0; i<size; i++) {
 			tempMap = list.get(i);
+			tempMap.put("bidx", vo.getBidx());
 			if(tempMap.get("IS_NEW").equals("Y")) {
 				dao.insertFile(tempMap);
 			}else {

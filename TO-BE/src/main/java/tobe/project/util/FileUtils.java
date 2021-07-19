@@ -227,8 +227,11 @@ public class FileUtils {
 				originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf(".")); 
 				storedFileName = getRandomString() + originalFileExtension; 
 				multipartFile.transferTo(new File(filePath + storedFileName)); 
+				
+				String extension = StringUtils.getFilenameExtension(originalFileName);
 				listMap = new HashMap<String,Object>();
 				listMap.put("IS_NEW", "Y");
+				listMap.put("F_TYPE", extension);
 				listMap.put("BIDX", bidx); 
 				listMap.put("ORG_FILE_NAME", originalFileName);
 				listMap.put("STORED_FILE_NAME", storedFileName); 
