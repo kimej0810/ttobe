@@ -28,7 +28,7 @@
 		from
 		(select *
 		from board as b
-		order by b.b_type desc, b.bidx desc limit #{rowStart},#{rowEnd})as a
+		order by b.bidx desc limit #{pageStart},10)as a
 		inner join afps_member as m on a.tidx = m.tidx
 		where a.delyn='N'
 	</select>
@@ -72,26 +72,14 @@
 	
 	<!-- 메인 페이지용 공지사항 -->
 	<select id="selectNotice" resultMap="selectAllBoardVO" parameterType="hashMap">
-		SELECT *
-		FROM(
-		SELECT BOARD.BIDX,
-		BOARD.B_TYPE,
-		BOARD.B_TITLE,
-		BOARD.B_CONTENT,
-		BOARD.B_WRITEDATE,
-		BOARD.B_HIT,
-		BOARD.DELYN,
-		BOARD.TIDX,
-		afps_MEMBER.T_NAME,
-		<!-- ROW_NUMBER() OVER(ORDER BY BOARD.B_TYPE DESC, BIDX DESC) AS RNUM -->
-		FROM BOARD,
-		afps_MEMBER
-		WHERE 1=1 AND BOARD.DELYN='N' AND BOARD.TIDX = afps_MEMBER.TIDX
-		AND BOARD.B_WRITEDATE BETWEEN TO_DATE(#{search1}, 'YYYY/MM/DD') AND TO_DATE(#{search2}, 'YYYY/MM/DD')
-		order by board.b_type desc, bidx desc
-		)
-		WHERE limit 10
-		ORDER BY B_TYPE DESC, BIDX DESC
+		select a.*, m.t_name 
+		from
+		(select *
+		from board as b
+		order by b.b_type desc, b.bidx desc limit 0,10
+		)as a
+		inner join afps_member as m on a.tidx = m.tidx
+		where a.delyn='N' and a.b_writedate between date_format(#{search1}, '%y-%m-%d') and date_format(#{search2}, '%y-%m-%d');
 	</select>
 
 	<!-- 조회수 업 -->
@@ -105,12 +93,7 @@
 	<!-- 게시글 작성 -->
 	<insert id="writeBoard" parameterType="boardVO"
 		useGeneratedKeys="true" keyProperty="bidx">
-		<selectKey keyProperty="bidx" resultType="int"
-			order="BEFORE">
-			SELECT BIDX_SEQ.NEXTVAL FROM DUAL
-		</selectKey>
 		INSERT INTO BOARD(
-		BIDX,
 		B_TYPE,
 		B_TITLE,
 		B_CONTENT,
@@ -119,11 +102,10 @@
 		DELYN,
 		TIDX
 		) VALUES(
-		#{bidx},
 		#{b_type},
 		#{b_title},
 		#{b_content},
-		sysdate,
+		now(),
 		0,
 		'N',
 		#{tidx}
@@ -131,7 +113,6 @@
 	</insert>
 	<insert id="insertFile" parameterType="hashMap">
 		INSERT INTO FILE_INFO(
-		FIDX,
 		TIDX,
 		F_TYPE,
 		F_ORG_FILE_NAME,
@@ -140,8 +121,7 @@
 		DELYN,
 		BIDX
 		)VALUES(
-		F_FILE_SEQ.NEXTVAL,
-		22,
+		#{tidx},
 		#{F_TYPE},
 		#{ORG_FILE_NAME},
 		#{STORED_FILE_NAME},

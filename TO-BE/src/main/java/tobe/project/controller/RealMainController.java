@@ -58,12 +58,12 @@ public class RealMainController extends HttpServlet {
 			int maxDay = cal.getActualMaximum(cal.DAY_OF_MONTH);
 			
 			if((paramMonth/10)<1) {
-				search1 = paramYear+"/"+"0"+paramMonth+"/01";
-				search2 = paramYear+"/"+"0"+paramMonth+"/"+maxDay;
+				search1 = paramYear+"-"+"0"+paramMonth+"-01";
+				search2 = paramYear+"-"+"0"+paramMonth+"-"+maxDay;
 				
 			}else { 
-				search1 = paramYear+"/"+paramMonth+"/01";
-				search2 = paramYear+"/"+paramMonth+"/"+maxDay;
+				search1 = paramYear+"-"+paramMonth+"-01";
+				search2 = paramYear+"-"+paramMonth+"-"+maxDay;
 			}
 			search.put("search1", search1);
 			search.put("search2", search2);
@@ -71,12 +71,12 @@ public class RealMainController extends HttpServlet {
 		}else { //파라미터로 달력 값을 못받음
 			int maxDay = cal.getActualMaximum(cal.DAY_OF_MONTH);
 			if((month/10)<1) {
-				search1 = year+"/"+"0"+(month+1)+"/01";
-				search2 = year+"/"+"0"+(month+1)+"/"+maxDay;
+				search1 = year+"-"+"0"+(month+1)+"-01";
+				search2 = year+"-"+"0"+(month+1)+"-"+maxDay;
 				
 			}else { 
-				search1 = year+"/"+(month+1)+"/01";
-				search2 = year+"/"+(month+1)+"/"+maxDay;
+				search1 = year+"-"+(month+1)+"-01";
+				search2 = year+"-"+(month+1)+"-"+maxDay;
 			}
 			
 			search.put("search1", search1);

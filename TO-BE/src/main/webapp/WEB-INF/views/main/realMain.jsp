@@ -387,7 +387,7 @@ p {
 				<tbody id="approval">
 					<c:forEach items="${approvalList}" var="approval">
 						<tr>
-							<td>${approval.e_documentNum}</td>
+							<td>${approval.eidx}</td>
 							<td>${approval.e_textTitle}</td>
 							<td>${approval.memberVO.t_name}</td>
 							<td>${approval.e_draftDate}</td>

@@ -50,8 +50,9 @@ public class BoardController{
 	public String list(Locale locale, Model model, SearchCriteria scri, String searchType) throws Exception {
 		 logger.info("BoardList");
 		 
+		 System.out.println(scri.getPageStart());
 		 List<BoardVO> list = service.selectAllBoard(scri);
-		
+		 
 		 model.addAttribute("boardList", list);
 		 PageMaker pageMaker = new PageMaker();
 		 pageMaker.setCri(scri);
