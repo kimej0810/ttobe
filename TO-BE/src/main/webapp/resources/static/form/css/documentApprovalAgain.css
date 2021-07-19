@@ -1957,7 +1957,7 @@ table.sheet0 tr.row14 {
 #e_draftDate, #e_startDay{
 	text-align: center;
 }
-#e_documentNum{ 
+#eidx{ 
 	width:70px;
 	height: 28px;
 	border: none;

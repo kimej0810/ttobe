@@ -35,7 +35,7 @@ public class Criteria {
 		return this.perPageNum;
 	}
 	public int getRowStart() {
-		rowStart = ((page - 1) * perPageNum) + 1;
+		rowStart = ((page - 1) * perPageNum) + 1 -1;
 		
 		return rowStart;
 	}

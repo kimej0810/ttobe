@@ -5,7 +5,6 @@
  <mapper namespace="tobe.project.mappers.approvalMapper">
  	<resultMap type="ApprovalVO" id="approvalResultMap">
 		<id column="EIDX" property="eidx"/>
-	    <result column="E_DOCUMENTNUM" property="e_documentNum"/>
 	    <result column="E_STATUS" property="e_status"/>
 	    <result column="E_TYPE" property="e_type"/>
 	    <result column="E_DRAFTDATE" property="e_draftDate"/>
@@ -50,22 +49,19 @@
     </select>
     
  	<insert id="writeApprovalDocument" parameterType="ApprovalDTO" keyProperty="eidx">
- 		<selectKey keyProperty="eidx" resultType="int" order="BEFORE">
-				SELECT eidx_SEQ.NEXTVAL FROM DUAL 
-		</selectKey>
  		INSERT INTO 
- 			electronic_approval(E_DOCUMENTNUM, E_TYPE, E_DRAFTDATE, E_STARTDAY, E_ENDDAY, E_CON, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, TIDX)
+ 			electronic_approval(E_TYPE, E_DRAFTDATE, E_STARTDAY, E_ENDDAY, E_CON, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, TIDX)
  		VALUES
- 			(eidx_document_seq.nextval, #{e_type}, #{e_draftDate}, #{e_startDay}, #{e_endDay}, #{e_con}, #{e_textTitle}, #{e_textContent}, #{e_status}, #{tidx})
+ 			(#{e_type}, #{e_draftDate}, #{e_startDay}, #{e_endDay}, #{e_con}, #{e_textTitle}, #{e_textContent}, #{e_status}, #{tidx})
  	</insert>
  	
  	<select id="selectOneApprovalDocumentContents" resultType="ApprovalDTO" parameterType="ApprovalDTO">
  		SELECT
- 			EIDX, E_DOCUMENTNUM, E_TYPE, E_DRAFTDATE, E_STARTDAY, E_ENDDAY, E_CON, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, TIDX, T_NAME, T_DEPARTMENT, T_POSITION, TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, DELYN
+ 			 @rownum:=@rownum+1 rnum, EIDX, E_TYPE, E_DRAFTDATE, E_STARTDAY, E_ENDDAY, E_CON, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, TIDX, T_NAME, T_DEPARTMENT, T_POSITION, TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, DELYN
  		from (
- 				select A.*,B.T_NAME, T_DEPARTMENT, T_POSITION,C.TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, ROW_NUMBER() OVER(ORDER BY A.EIDX DESC) AS RNUM
- 				FROM ELECTRONIC_APPROVAL A left join TOBE_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX 
- 					WHERE A.DELYN = 'N')
+ 				select (SELECT @ROWNUM := 0) R, A.*, B.T_NAME, T_DEPARTMENT, T_POSITION,C.TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS
+ 				FROM ELECTRONIC_APPROVAL A left join AFPS_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX 
+ 					WHERE A.DELYN = 'N')a
  		WHERE
  			eidx = #{eidx}
  	</select>
@@ -145,28 +141,29 @@
  	<!-- 총 게시글 개수 -->
  	<select id="totalCountApprovalDocument" resultType="int">
  	select count(eidx) from (
- 				select A.*,B.T_NAME, T_DEPARTMENT, T_POSITION, C.TEAMLEADER, SECTIONHEAD, DEPARTMENTHEAD, LEADER, STATUS, ROW_NUMBER() OVER(ORDER BY A.EIDX DESC) AS RNUM
- 				FROM ELECTRONIC_APPROVAL A left join TOBE_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX
+ 				select A.*,B.T_NAME, B.T_DEPARTMENT, B.T_POSITION, C.TEAMLEADER, C.SECTIONHEAD, C.DEPARTMENTHEAD, C.LEADER, C.STATUS
+ 					FROM ELECTRONIC_APPROVAL A left join AFPS_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX
  					where 1=1 <include refid="searchWord"/> <include refid="search"/>
- 					)where eidx > 0 and delyn = 'N' 
+ 					)a where eidx > 0 and delyn = 'N' 
  	</select>
  	
  	<!-- 페이징 -->
  	<select id="selectAllApprovalDocumentList" resultMap="approvalResultMap">
- 		 select EIDX, E_DOCUMENTNUM, E_TYPE, E_DRAFTDATE, E_STARTDAY, E_ENDDAY, E_CON, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, E_APPROVALNOYN, E_REASON, TIDX, T_NAME, T_DEPARTMENT, T_POSITION,
- 		 		TEAMLEADER, SECTIONHEAD, DEPARTMENTHEAD, LEADER, STATUS, DELYN
- 			from (
- 				select A.*,B.T_NAME, T_DEPARTMENT, T_POSITION, C.TEAMLEADER, SECTIONHEAD, DEPARTMENTHEAD, LEADER, STATUS, ROW_NUMBER() OVER(ORDER BY A.EIDX DESC) AS RNUM
- 				FROM ELECTRONIC_APPROVAL A left join TOBE_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX
- 					WHERE 1=1 <include refid="searchWord"/> <include refid="search"/>and A.DELYN = 'N'
- 					) WHERE delyn ='N' and RNUM BETWEEN #{rowStart} and #{rowEnd}
+ 		 select
+ 		 	@rownum:=@rownum+1 rnum, EIDX, E_TYPE, E_DRAFTDATE, E_STARTDAY, E_ENDDAY, E_CON, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, E_APPROVALNOYN, E_REASON, TIDX, T_NAME, T_DEPARTMENT, T_POSITION,
+ 		 	TEAMLEADER, SECTIONHEAD, DEPARTMENTHEAD, LEADER, STATUS, DELYN
+ 				from (
+ 					select (SELECT @ROWNUM := 0) R, A.*, B.T_NAME, B.T_DEPARTMENT, B.T_POSITION, C.TEAMLEADER, C.SECTIONHEAD, C.DEPARTMENTHEAD, C.LEADER, C.STATUS
+ 					FROM ELECTRONIC_APPROVAL A left join AFPS_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX
+ 						WHERE 1=1 <include refid="searchWord"/> <include refid="search"/>and A.DELYN = 'N'
+ 						)a WHERE delyn ='N' and EIDX LIMIT #{rowStart},#{rowEnd}
  	</select>
  	<!-- 페이징 end -->
  	
  	<!-- sql code 조각 -->
  	<sql id="search">
 		<if test="searchType != null">
-			<if test="searchType == '문서번호'.toString()">AND E_DOCUMENTNUM LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == '문서번호'.toString()">AND EIDX LIKE '%' || #{keyword} || '%'</if>
 			<if test="searchType == '기안부서'.toString()">AND E_TEXTTITLE LIKE '%' || #{keyword} || '%'</if>
 			<if test="searchType == '기안자이름'.toString()">AND T_NAME LIKE '%' || #{keyword} || '%'</if>
 			<if test="searchType == '기안일시'.toString()">AND E_DRAFTDATE LIKE '%' || #{keyword} || '%'</if>

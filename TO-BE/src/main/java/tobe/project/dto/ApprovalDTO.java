@@ -2,7 +2,6 @@ package tobe.project.dto;
 
 public class ApprovalDTO {
 	private int eidx;
-	private int e_documentNum;
 	private String e_status;
 	private String e_type;
 	private String e_draftDate;
@@ -122,12 +121,6 @@ public class ApprovalDTO {
 	}
 	public void setTidx(int tidx) {
 		this.tidx = tidx;
-	}
-	public int getE_documentNum() {
-		return e_documentNum;
-	}
-	public void setE_documentNum(int e_documentNum) {
-		this.e_documentNum = e_documentNum;
 	}
 	public String getE_draftDate() {
 		return e_draftDate;

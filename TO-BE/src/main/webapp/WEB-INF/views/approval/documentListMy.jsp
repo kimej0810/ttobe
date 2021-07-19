@@ -116,29 +116,22 @@
 								<tr class="waitingList">
 								<td>
 									<c:choose>
-										<c:when test="${elist.e_rule == null}">
-											<a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">${elist.e_documentNum }</a>
+										<c:when test="${elist.e_type != '개인일정'}">
+											<a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">${elist.eidx }</a>
 										</c:when>
 										<c:otherwise>
-											<a href="/member/leaveView?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=630'); return false;" style="text-decoration : none; color:black;">${elist.e_documentNum }</a>
+											<a href="/member/leaveView?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=630'); return false;" style="text-decoration : none; color:black;">${elist.eidx }</a>
 										</c:otherwise> 
 									</c:choose>
 								</td> 
 								<td>
-									<c:choose>
-										<c:when test="${elist.e_rule == null}">
-											${elist.e_type}
-										</c:when>
-										<c:otherwise>
-											${elist.e_rule}
-										</c:otherwise> 
-									</c:choose>
+									${elist.e_type}
 								</td>
 								<td>${elist.memberVO.t_department }</td>
 								<td>${elist.memberVO.t_name }</td>
 								<td>
 									<c:choose>
-										<c:when test="${elist.e_rule == null}">
+										<c:when test="${elist.e_type != '개인일정'}">
 											<a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">
 												<c:set var="content" value="${elist.e_textTitle}"/>
 												<c:choose>

@@ -112,7 +112,7 @@
 							<td></td>
 							<td class="style2">문 서 번 호</td>
 							<td class="style44 style46" colspan="2">
-								21-<input type="text" id="e_documentNum" name="e_documentNum" value="<%=contents.getE_documentNum()%>" readonly>
+								21-<input type="text" id="eidx" name="eidx" value="<%=contents.getEidx()%>" readonly>
 							</td>
 							<td class="style44 style46" colspan="3">기 안 유 형</td>
 							<td class="style44 style63" colspan="8">
