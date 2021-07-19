@@ -84,26 +84,29 @@
     		ORDER BY TIDX DESC)
     		WHERE NUM BETWEEN #{rowStart} AND #{rowEnd} -->
     		SELECT AFPS.* FROM(SELECT A.*,@ROW_NUM := @ROW_NUM+1 AS NUM 
-    		FROM AFPS_MEMBER AS A, (SELECT @ROW_NUM := 0) AS B) AFPS LIMIT #{rowStart},#{rowEnd}
+    		FROM AFPS_MEMBER AS A, (SELECT @ROW_NUM := 1) AS B
+    		WHERE 1=1
+    		<include refid="search"/>
+    		ORDER BY A.TIDX DESC) AFPS LIMIT #{rowStart},#{rowEnd}
     </select>
     <select id="totalCountsearchMember" resultType="int">
     	<![CDATA[
     		SELECT COUNT(TIDX)
-    		FROM AFPS_MEMBER
-    		WHERE TIDX > 0
+    		FROM AFPS_MEMBER AS A
+    		WHERE A.TIDX > 0
     	]]>
     	<include refid="search"/>
     </select>
     <sql id="search">
     	<if test="searchType != null">
     		<if test="searchType == 'u'.toString()">
-    			AND T_NAME LIKE '%'||#{keyword}||'%'
+    			AND A.T_NAME LIKE '%'||#{keyword}||'%'
     		</if>
  	    	<if test="searchType == 'd'.toString()">
-    			AND T_DEPARTMENT LIKE '%'||#{keyword}||'%'
+    			AND A.T_DEPARTMENT LIKE '%'||#{keyword}||'%'
     		</if>
     		<if test="searchType == 'p'.toString()">
-    			AND T_POSITION LIKE '%'||#{keyword}||'%'
+    			AND A.T_POSITION LIKE '%'||#{keyword}||'%'
     		</if>
     		
     	</if>
