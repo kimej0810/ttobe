@@ -141,13 +141,16 @@
 			</div>
 			<div>
 				<%
-					Integer admin = (Integer)session.getAttribute("admin");
-					if(admin==0){
-						
+					Integer admin = 0;
+					if(session.getAttribute("admin")!=null){
+						admin = (Integer)session.getAttribute("admin");
+						if(admin==0){
+							
 				%>
 					<span>관리자가 없습니다.?&nbsp;&nbsp;</span>
 					<a href="/admin/findAdmin">관리자등록</a>
 				<%
+						}
 					}
 				%>
 			</div>

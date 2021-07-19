@@ -184,8 +184,8 @@ public class MemberController {
 	//로그인 페이지불러오기
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public void loginGET(@ModelAttribute("dto") LoginDTO dto,HttpSession session) throws Exception {
-		int check = aService.adminCheck();
-		session.setAttribute("admin", check);
+		//int check = aService.adminCheck();
+		//session.setAttribute("admin", check);
 	}
 	//로그인 처리
 	@RequestMapping(value="/loginPost", method = RequestMethod.POST)
