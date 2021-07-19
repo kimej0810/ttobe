@@ -1939,7 +1939,7 @@ table.sheet0 tr.row14 {
 	width: 740px;
 	text-align: right;
 }
-#e_draftDate, #e_startDay, #e_send{
+#e_draftDate, #e_startDay, #e_endDay{
 	text-align: center;
 }
 #title, #contents{
@@ -1951,7 +1951,7 @@ table.sheet0 tr.row14 {
     width: 100.8%;
     margin-top: 10px;
 }
-#e_type, #e_draftDate, #e_startDay, #e_con, #t_name, #t_department, #e_send{
+#e_type, #e_draftDate, #e_startDay, #e_con, #t_name, #t_department, #e_endDay{
 	width: 98%;
 	height: 28px;
 	border: none;

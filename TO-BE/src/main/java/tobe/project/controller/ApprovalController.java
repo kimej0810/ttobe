@@ -116,15 +116,10 @@ public class ApprovalController {
 		}else if(dto.getT_position().equals("부장")) {
 			dto.setStatus("0003");
 			dto.setTeamLeader("결재권한없음");
-			dto.setDepartmentHead("결재권한없음");
-			dto.setE_status("결재대기");
-		}else if(dto.getT_position().equals("대표")) {
-			dto.setStatus("0000");
-			dto.setTeamLeader("결재권한없음");
-			dto.setDepartmentHead("결재권한없음");
 			dto.setSectionHead("결재권한없음");
-			dto.setE_status("결재완료");
+			dto.setE_status("결재대기");
 		}
+		
 		service.writeApprovalDocument(dto);
 		lservice.writeApprovalLine(dto);
 		return dto;
@@ -153,10 +148,10 @@ public class ApprovalController {
 			lservice.modifyApprovalTeamLeader(eidx);
 			service.modifyApprovalStatusProgress(eidx);
 		}else if(to2.getStatus().equals("0300")){
-			lservice.modifyApprovalDepartmentHead(eidx);
+			lservice.modifyApprovalSectionHead(eidx);
 			service.modifyApprovalStatusProgress(eidx);
 		}else if(to2.getStatus().equals("0030")){
-			lservice.modifyApprovalSectionHead(eidx);
+			lservice.modifyApprovalDepartmentHead(eidx);
 			service.modifyApprovalStatusProgress(eidx);
 		}else{
 			lservice.modifyApprovalLeader(eidx);
@@ -166,7 +161,7 @@ public class ApprovalController {
 					vo.setS_type(to.getE_type());
 					vo.setS_title(to.getE_textTitle());
 					vo.setS_startDate(to.getE_startDay());
-					vo.setS_endDate(to.getE_send());
+					vo.setS_endDate(to.getE_endDay());
 					vo.setS_content(to.getE_textContent());
 					vo.setTidx(to.getTidx());
 					sservice.addSchedule(vo);
@@ -180,8 +175,8 @@ public class ApprovalController {
 					ScheduleVO vo2 = new ScheduleVO();
 					vo2.setS_type(dto.getE_type());
 					vo2.setS_title(dto.getE_texttitle());
-					vo2.setS_startDate(dto.getA_startdate());
-					vo2.setS_endDate(dto.getA_enddate());
+					vo2.setS_startDate(dto.getE_startday());
+					vo2.setS_endDate(dto.getE_endday());
 					vo2.setS_content(dto.getE_textcontent());
 					vo2.setTidx(dto.getTidx());
 					sservice.addSchedule(vo2);
@@ -193,8 +188,9 @@ public class ApprovalController {
 	
 	@RequestMapping(value = "/documentNo")
 	public ApprovalDTO documentNo(Model model,ApprovalDTO dto,int eidx) throws Exception{
-		System.out.println("반려 사유 = "+dto);
+		System.out.println("반려 사유와 반려자 = "+dto.getTidx()+dto.getT_name());
 		ApprovalDTO to = service.selectOneApprovalDocumentContents(eidx);
+		
 		lservice.modifyApprovalNo(eidx);
 		service.modifyApprovalStatusNo(dto);
 		return to;

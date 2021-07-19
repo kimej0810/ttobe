@@ -182,9 +182,11 @@
 							</c:forEach>
 						</tbody>
 					</table>
-					<div id="writeBtnBox">
-						<button type="button" id="writeBtn" class="btn btn-primary btn-sm float-right" onclick="documentWite()">기안 작성</button>
-					</div>
+					<c:if test="${userPosition != '대표' && userPosition != 'admin'}">
+						<div id="writeBtnBox">
+							<button type="button" id="writeBtn" class="btn btn-primary btn-sm float-right" onclick="documentWite()">기안 작성</button>
+						</div>
+					</c:if>
 					
 					<div id="paging">
 						<nav aria-label="Page navigation example" id="paging">

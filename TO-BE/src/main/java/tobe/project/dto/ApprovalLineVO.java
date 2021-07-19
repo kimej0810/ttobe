@@ -2,8 +2,8 @@ package tobe.project.dto;
 
 public class ApprovalLineVO {
 	private String teamLeader;
-	private String departmentHead;
 	private String sectionHead;
+	private String departmentHead;
 	private String leader;
 	private String status;
 	private int eidx;

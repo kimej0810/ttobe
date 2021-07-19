@@ -33,11 +33,11 @@
 			}	 
 			function click_up(){
 				var startDay = $("#e_startDay").val().replace("-","/");
-				var endDay = $("#e_send").val().replace("-","/");
+				var endDay = $("#e_endDay").val().replace("-","/");
 				var start = new Date(startDay);
 				var end = new Date(endDay);
 				
-			if($("#e_draftDate").val() == "" || $("#e_startDay").val() == "" || $("#e_send").val() == "" || start>end){
+			if($("#e_draftDate").val() == "" || $("#e_startDay").val() == "" || $("#e_endDay").val() == "" || start>end){
 					alert("날짜를 올바르게 선택해주세요. [시행일자보다 기안일자가 작아야 합니다.]");
 					return false;
 			}else if($("#e_con").val() == "" || $("#e_con").val().length < 2 || $("#e_con").val().length > 10){
@@ -217,20 +217,7 @@
 											</c:forEach>
 										</select>
 									</td>
-								<%}else if(contents.getLeader().equals("대표")){ %>
-								<td class="style38 style43" colspan="2" rowspan="2">
-											<input type="text" id="teamLeader" name="teamLeader" value="권한 없음" readonly>
-									</td>
-									<td class="style38 style43" colspan="3" rowspan="2">
-										<input type="text" id="sectionHead" name="sectionHead" value="권한 없음" readonly>
-									</td>
-									<td class="style38 style43" colspan="2" rowspan="2">
-											<input type="text" id="departmentHead" name="departmentHead" value="권한 없음" readonly>
-									</td>
-									<td class="style58 style59" rowspan="2">
-										<input type="text" id="leader" name="leader" value="<%=contents.getT_name() %>" readonly>
-									</td>
-								<%}	else{ %>
+								<%}else{ %>
 									<td class="style38 style43" colspan="2" rowspan="2">
 									<select id="teamLeader" name="teamLeader">
 										<c:forEach items="${allMember}" var="allMember" varStatus="status">
@@ -274,7 +261,7 @@
 							<td></td>
 							<td class="style2 s">종 료 일 자</td>
 							<td class="style34 style34" colspan="2">
-								<input type="text" id="e_send" name="e_send" value="<%=contents.getE_send()%>" autocomplete="off">
+								<input type="text" id="e_endDay" name="e_endDay" value="<%=contents.getE_endDay()%>" autocomplete="off">
 							</td>
 						</tr>
 						<tr class="row9">

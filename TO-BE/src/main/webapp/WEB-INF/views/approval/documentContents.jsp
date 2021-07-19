@@ -80,7 +80,7 @@
 					if(returnValue){
 						var result = confirm("반려 처리 하시겠습니까?");
 						if(result){
-							location.href = "documentNo?eidx="+"<%=contents.getEidx()%>"+"&e_reason="+returnValue;
+							location.href = "documentNo?eidx="+"<%=contents.getEidx()%>"+"&tidx=<%=userTidx%>"+"&e_reason="+returnValue;
 							alert("반려처리 되었습니다.");
 							opener.parent.location.reload();
 							window.close();
@@ -220,7 +220,7 @@
 							<td></td>
 							<td class="style2 s">종 료 일 자</td>
 							<td class="style34 style34" colspan="2">
-								<%=contents.getE_send()%>
+								<%=contents.getE_endDay()%>
 							</td>
 						</tr>
 						<tr class="row9">

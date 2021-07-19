@@ -18,16 +18,16 @@ $(document).ready(function(){
 			}
 		} 
 	});
-	$("#e_send").datetimepicker({
+	$("#e_endDay").datetimepicker({
 		disabledWeekDays :[0, 6],
 		minDate:'+1d',
 		minTime:'+1h',
 		onChangeDateTime:function(){
-			endD = $("#e_send").val();
+			endD = $("#e_endDay").val();
 			
 			if(startD > endD){
 				alert("시행일자를 올바르게 선택해주세요.");
-				$("#e_send").val(startD);
+				$("#e_endDay").val(startD);
 			}
 		}
 	});

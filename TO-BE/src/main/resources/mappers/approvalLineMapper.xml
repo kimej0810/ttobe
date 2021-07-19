@@ -5,9 +5,9 @@
  <mapper namespace="tobe.project.mappers.approvalLineMapper">
  	<insert id="writeApprovalLine" parameterType="ApprovalDTO">
  		INSERT INTO 
- 			APPROVAL_LINE(EIDX, TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, TIDX)
+ 			APPROVAL_LINE(TEAMLEADER, SECTIONHEAD, DEPARTMENTHEAD, LEADER, STATUS, TIDX)
  		VALUES
- 			(#{eidx}+1, #{teamLeader}, #{departmentHead}, #{sectionHead}, #{leader}, #{status}, #{tidx})
+ 			(#{teamLeader}, #{sectionHead}, #{departmentHead}, #{leader}, #{status}, #{tidx})
  	</insert>
  	<select id="selectOneApprovalLine" resultType="ApprovalDTO" parameterType="ApprovalDTO">
  		select * from APPROVAL_LINE where EIDX = #{eidx}
@@ -17,21 +17,18 @@
  	<select id="totalCountTeamLeaderApprovalToDo" resultType="int" parameterType="ApprovalDTO">
  		SELECT COUNT(EIDX) from APPROVAL_LINE WHERE TEAMLEADER = #{t_id} AND STATUS = '3000'
  	</select>
- 	
- 	<select id="totalCountDepartmentHeadApprovalToDo" resultType="int" parameterType="ApprovalDTO">
- 		SELECT COUNT(EIDX) from APPROVAL_LINE WHERE DEPARTMENTHEAD = #{t_id} AND STATUS = '0300'
- 	</select>
- 	<select id="totalCountDepartmentHeadApprovalMust" resultType="int" parameterType="ApprovalDTO">
- 		SELECT COUNT(EIDX) from APPROVAL_LINE WHERE DEPARTMENTHEAD = #{t_id} AND  STATUS = '3000'
- 	</select>
- 	
  	<select id="totalCountSectionHeadApprovalToDo" resultType="int" parameterType="ApprovalDTO">
- 		SELECT COUNT(EIDX) from APPROVAL_LINE WHERE SECTIONHEAD = #{t_id} AND STATUS = '0030'
+ 		SELECT COUNT(EIDX) from APPROVAL_LINE WHERE SECTIONHEAD = #{t_id} AND STATUS = '0300'
  	</select>
  	<select id="totalCountSectionHeadApprovalMust" resultType="int" parameterType="ApprovalDTO">
- 		select COUNT(EIDX) from APPROVAL_LINE WHERE SECTIONHEAD = #{t_id} and  STATUS = '3000' or STATUS = '0300'
+ 		select COUNT(EIDX) from APPROVAL_LINE WHERE SECTIONHEAD = #{t_id} and  STATUS = '3000' 
  	</select>
- 	
+ 	<select id="totalCountDepartmentHeadApprovalToDo" resultType="int" parameterType="ApprovalDTO">
+ 		SELECT COUNT(EIDX) from APPROVAL_LINE WHERE DEPARTMENTHEAD = #{t_id} AND STATUS = '0030'
+ 	</select>
+ 	<select id="totalCountDepartmentHeadApprovalMust" resultType="int" parameterType="ApprovalDTO">
+ 		SELECT COUNT(EIDX) from APPROVAL_LINE WHERE DEPARTMENTHEAD = #{t_id} AND  STATUS = '3000' or STATUS = '0300'
+ 	</select>
  	<select id="totalCountLeaderApprovalToDo" resultType="int" parameterType="ApprovalDTO">
  		SELECT COUNT(EIDX) from APPROVAL_LINE WHERE LEADER = #{t_id} AND STATUS = '0003'
  	</select>
@@ -48,7 +45,7 @@
  		WHERE 
  			EIDX = #{eidx}
  	</update>
- 	<update id="modifyApprovalDepartmentHead" parameterType="ApprovalDTO">
+ 	<update id="modifyApprovalSectionHead" parameterType="ApprovalDTO">
  		UPDATE
  			APPROVAL_LINE
  		SET
@@ -56,7 +53,7 @@
  		WHERE 
  			EIDX = #{eidx}
  	</update>
- 	<update id="modifyApprovalSectionHead" parameterType="ApprovalDTO">
+ 	<update id="modifyApprovalDepartmentHead" parameterType="ApprovalDTO">
  		UPDATE
  			APPROVAL_LINE
  		SET
@@ -85,7 +82,7 @@
  		UPDATE
  			APPROVAL_LINE
  		SET
- 			TEAMLEADER = #{teamLeader}, DEPARTMENTHEAD = #{departmentHead}, SECTIONHEAD = #{sectionHead}, LEADER = #{leader}, STATUS = '3000'
+ 			TEAMLEADER = #{teamLeader}, SECTIONHEAD = #{sectionHead}, DEPARTMENTHEAD = #{departmentHead}, LEADER = #{leader}, STATUS = '3000'
  		WHERE 
  			EIDX = #{eidx}
  	</update>

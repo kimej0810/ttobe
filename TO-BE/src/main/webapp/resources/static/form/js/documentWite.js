@@ -13,21 +13,21 @@ $(document).ready(function(){
 		onChangeDateTime:function(){
 			startD = $("#e_startDay").val();
 			if(startD > endD){
-				alert("기안일자를 올바르게 선택해주세요.");
+				alert("시행일자를 올바르게 선택해주세요.");
 				$("#e_startDay").val(endD);
 			}
 		} 
 	});
-	$("#e_send").datetimepicker({
+	$("#e_endDay").datetimepicker({
 		disabledWeekDays :[0, 6],
 		minDate:'+1d',
 		minTime:'+1h',
 		onChangeDateTime:function(){
-			endD = $("#e_send").val();
+			endD = $("#e_endDay").val();
 			
 			if(startD > endD){
-				alert("시행일자를 올바르게 선택해주세요.");
-				$("#e_send").val(startD);
+				alert("종료일자를 올바르게 선택해주세요.");
+				$("#e_endDay").val(startD);
 			}
 		}
 	});
@@ -53,12 +53,12 @@ jQuery.fn.serializeObject = function(){
 };
 function click_ok(){
 	var startDay = $("#e_startDay").val().replace("-","/");
-	var endDay = $("#e_send").val().replace("-","/");
+	var endDay = $("#e_endDay").val().replace("-","/");
 	var start = new Date(startDay);
 	var end = new Date(endDay);
 	
 
-	if($("#e_draftDate").val() == "" || $("#e_startDay").val() == "" || $("#e_send").val() == "" || start>end){
+	if($("#e_draftDate").val() == "" || $("#e_startDay").val() == "" || $("#e_endDay").val() == "" || start>end){
 		alert("날짜를 올바르게 선택해주세요. [시행일자보다 기안일자가 작아야 합니다.]");
 		return false;
 	}else if($("#e_con").val() == "" || $("#e_con").val().length < 2 || $("#e_con").val().length > 10){

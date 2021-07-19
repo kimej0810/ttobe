@@ -3,36 +3,52 @@ package tobe.project.dto;
 public class ApprovalVO {
 	private int eidx;
 	private int e_documentNum;
+	private String e_status;
 	private String e_type;
-	private String e_rule;
 	private String e_draftDate;
 	private String e_startDay;
+	private String e_endDay;
 	private String e_con;
-	private String e_member;
-	private String e_send;
-	private String e_buseo;
 	private String e_textTitle;
 	private String e_textContent;
-	private String delyn;
-	private String e_status;
-	private String e_approvalnoyn;
-	private String e_reason; 
 	private int tidx;
+	private String delYn;
+	private String e_approvalNoYn;
+	private String e_approvalNoPerson;
+	private String e_reason; 
 	private MemberVO memberVO;
 	private ApprovalLineVO approvalLineVO;
 	
+	public String getE_endDay() {
+		return e_endDay;
+	}
+	public void setE_endDay(String e_endDay) {
+		this.e_endDay = e_endDay;
+	}
 	public String getE_type() {
 		return e_type;
 	}
-	public void setE_type(String e_type) {
-		this.e_type = e_type;
+	public String getDelYn() {
+		return delYn;
+	}
+	public void setDelYn(String delYn) {
+		this.delYn = delYn;
 	}
 	
-	public String getE_approvalNoyn() {
-		return e_approvalnoyn;
+	public String getE_approvalNoYn() {
+		return e_approvalNoYn;
 	}
-	public void setE_approvalNoyn(String e_approvalnoyn) {
-		this.e_approvalnoyn = e_approvalnoyn;
+	public void setE_approvalNoYn(String e_approvalNoYn) {
+		this.e_approvalNoYn = e_approvalNoYn;
+	}
+	public String getE_approvalNoPerson() {
+		return e_approvalNoPerson;
+	}
+	public void setE_approvalNoPerson(String e_approvalNoPerson) {
+		this.e_approvalNoPerson = e_approvalNoPerson;
+	}
+	public void setE_type(String e_type) {
+		this.e_type = e_type;
 	}
 	public String getE_reason() {
 		return e_reason;
@@ -77,12 +93,6 @@ public class ApprovalVO {
 	public void setE_documentNum(int e_documentNum) {
 		this.e_documentNum = e_documentNum;
 	}
-	public String getE_rule() {
-		return e_rule;
-	}
-	public void setE_rule(String e_rule) {
-		this.e_rule = e_rule;
-	}
 	public String getE_draftDate() {
 		return e_draftDate;
 	}
@@ -101,24 +111,6 @@ public class ApprovalVO {
 	public void setE_con(String e_con) {
 		this.e_con = e_con;
 	}
-	public String getE_member() {
-		return e_member;
-	}
-	public void setE_member(String e_member) {
-		this.e_member = e_member;
-	}
-	public String getE_send() {
-		return e_send;
-	}
-	public void setE_send(String e_send) {
-		this.e_send = e_send;
-	}
-	public String getE_buseo() {
-		return e_buseo;
-	}
-	public void setE_buseo(String e_buseo) {
-		this.e_buseo = e_buseo;
-	}
 	public String getE_textTitle() {
 		return e_textTitle;
 	}
@@ -131,12 +123,4 @@ public class ApprovalVO {
 	public void setE_textContent(String e_textContent) {
 		this.e_textContent = e_textContent;
 	}
-	public String getDelyn() {
-		return delyn;
-	}
-	public void setDelyn(String delyn) {
-		this.delyn = delyn;
-	}
-	
-	
 }

@@ -48,9 +48,9 @@
 					alert("합의부서를 입력해주세요. [2글자 이상 10글자 이하]");
 					$("#e_con").focus();
 					return false;
-				}else if($("#e_send").val() == "" || $("#e_send").val().length < 2 || $("#e_send").val().length > 10){
+				}else if($("#e_endDay").val() == "" || $("#e_endDay").val().length < 2 || $("#e_endDay").val().length > 10){
 					alert("수신자를 입력해주세요. [2글자 이상 10글자 이하]");
-					$("#e_send").focus();
+					$("#e_endDay").focus();
 					return false;
 				}else if($("#e_textTitle").val() == "" || $("#e_textTitle").val().length < 10 || $("#e_textTitle").val().length > 40){
 					alert("제목을 입력해주세요. [10글자 이상 40글자 이하]");
@@ -124,7 +124,7 @@
 						</td>
 						<td class="style44 style46" colspan="3">기 안 유 형</td>
 						<td class="style44 style63" colspan="8">
-							<input type="text" id="e_rule" name="e_rule" value="<%=contents.getE_rule()%>" >
+							<input type="text" id="e_type" name="e_type" value="<%=contents.getE_type()%>">
 						</td>
 					</tr>
 					<tr class="row6">
@@ -209,7 +209,7 @@
 						<td></td>
 						<td class="style5">수 신 (참조)</td>
 						<td class="style44 style46" colspan="2">
-							<input type="text" id="e_send" name="e_send" value="<%=contents.getE_send()%>">
+							<input type="text" id="e_endDay" name="e_endDay" value="<%=contents.getE_endDay()%>">
 						</td>
 						<td class="style44 style45" colspan="3">기 안 부 서</td>
 						<td class="style44 style63" colspan="8">

@@ -2,29 +2,55 @@ package tobe.project.dto;
 
 public class ApprovalDTO {
 	private int eidx;
-	private int tidx;
 	private int e_documentNum;
-	private String teamLeader;
-	private String departmentHead;
-	private String sectionHead;
-	private String leader;
-	private String status;
-	private String e_rule;
+	private String e_status;
+	private String e_type;
 	private String e_draftDate;
 	private String e_startDay;
+	private String e_endDay;
 	private String e_con;
-	private String e_send;
 	private String e_textTitle;
 	private String e_textContent; 
-	private String delyn;
-	private String e_status;
-	private String e_approvalnoyn;
+	private int tidx;
+	private String delYn;
+	private String e_approvalNoYn;
+	private String e_approvalNoPerson;
 	private String e_reason;
+	
+	private String teamLeader;
+	private String sectionHead;
+	private String departmentHead;
+	private String leader;
+	private String status;
+	
 	private String t_name;
 	private String t_department;
 	private String t_position;
-	private String e_type;
 	
+	public String getE_endDay() {
+		return e_endDay;
+	}
+	public void setE_endDay(String e_endDay) {
+		this.e_endDay = e_endDay;
+	}
+	public String getDelYn() {
+		return delYn;
+	}
+	public void setDelYn(String delYn) {
+		this.delYn = delYn;
+	}
+	public String getE_approvalNoYn() {
+		return e_approvalNoYn;
+	}
+	public void setE_approvalNoYn(String e_approvalNoYn) {
+		this.e_approvalNoYn = e_approvalNoYn;
+	}
+	public String getE_approvalNoPerson() {
+		return e_approvalNoPerson;
+	}
+	public void setE_approvalNoPerson(String e_approvalNoPerson) {
+		this.e_approvalNoPerson = e_approvalNoPerson;
+	}
 	public String getE_type() {
 		return e_type;
 	}
@@ -48,12 +74,6 @@ public class ApprovalDTO {
 	}
 	public void setT_department(String t_department) {
 		this.t_department = t_department;
-	}
-	public String getE_approvalnoyn() {
-		return e_approvalnoyn;
-	}
-	public void setE_approvalnoyn(String e_approvalnoyn) {
-		this.e_approvalnoyn = e_approvalnoyn;
 	}
 	public String getE_reason() {
 		return e_reason;
@@ -109,12 +129,6 @@ public class ApprovalDTO {
 	public void setE_documentNum(int e_documentNum) {
 		this.e_documentNum = e_documentNum;
 	}
-	public String getE_rule() {
-		return e_rule;
-	}
-	public void setE_rule(String e_rule) {
-		this.e_rule = e_rule;
-	}
 	public String getE_draftDate() {
 		return e_draftDate;
 	}
@@ -133,12 +147,6 @@ public class ApprovalDTO {
 	public void setE_con(String e_con) {
 		this.e_con = e_con;
 	}
-	public String getE_send() {
-		return e_send;
-	}
-	public void setE_send(String e_send) {
-		this.e_send = e_send;
-	}
 	public String getE_textTitle() {
 		return e_textTitle;
 	}
@@ -150,12 +158,6 @@ public class ApprovalDTO {
 	}
 	public void setE_textContent(String e_textContent) {
 		this.e_textContent = e_textContent;
-	}
-	public String getDelyn() {
-		return delyn;
-	}
-	public void setDelyn(String delyn) {
-		this.delyn = delyn;
 	}
 	public String getE_status() {
 		return e_status;

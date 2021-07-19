@@ -174,19 +174,6 @@
 											</c:forEach>
 										</select>
 									</td>
-								<%}else if(userPosition.equals("대표")){ %>
-								<td class="style38 style43" colspan="2" rowspan="2">
-											<input type="text" id="teamLeader" name="teamLeader" value="권한 없음" readonly>
-									</td>
-									<td class="style38 style43" colspan="3" rowspan="2">
-										<input type="text" id="sectionHead" name="sectionHead" value="권한 없음" readonly>
-									</td>
-									<td class="style38 style43" colspan="2" rowspan="2">
-											<input type="text" id="departmentHead" name="departmentHead" value="권한 없음" readonly>
-									</td>
-									<td class="style58 style59" rowspan="2">
-										<input type="text" id="leader" name="leader" value="<%=userName %>" readonly>
-									</td>
 								<%}	else{ %>
 									<td class="style38 style43" colspan="2" rowspan="2">
 									<select id="teamLeader" name="teamLeader">
@@ -231,7 +218,7 @@
 								<td></td>
 								<td class="style2 s">종 료 일 자</td>
 								<td class="style34 style34" colspan="2">
-									<input type="text" class="date" id="e_send" name="e_send" autocomplete="off" readonly title="날짜를 선택해주세요.">
+									<input type="text" class="date" id="e_endDay" name="e_endDay" autocomplete="off" readonly title="날짜를 선택해주세요.">
 								</td>
 							</tr>
 							<tr class="row9">
