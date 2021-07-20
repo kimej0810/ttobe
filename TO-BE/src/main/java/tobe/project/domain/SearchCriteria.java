@@ -7,6 +7,7 @@ public class SearchCriteria extends Criteria {
 	private String searchWord;
 	private String userId;
 	private int userIdx; 
+	private int rowStartBoard;
 	
 	public String getSearchWord() {
 		return searchWord;
@@ -37,5 +38,12 @@ public class SearchCriteria extends Criteria {
 	}
 	public void setUserIdx(int userIdx) {
 		this.userIdx = userIdx;
+	}
+	public int getRowStartBoard() {
+		rowStartBoard = ((getPage() - 1) * getPerPageNum()) + 1 -1;
+		if(rowStartBoard!=0) {
+			rowStartBoard -= 3;
+		}
+		return rowStartBoard;
 	}
 }

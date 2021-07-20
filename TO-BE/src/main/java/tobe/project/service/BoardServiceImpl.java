@@ -99,4 +99,9 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardVO> selectNotice(Map<String, String> search) throws Exception {
 		return dao.selectNotice(search);
 	}
+
+	@Override
+	public List<BoardVO> selectSearch(SearchCriteria scri) throws Exception {
+		return dao.selectSearch(scri);
+	}
 }

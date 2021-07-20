@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +29,6 @@ import tobe.project.dto.ReplyVO;
 import tobe.project.service.BoardService;
 import tobe.project.service.FileInfoService;
 import tobe.project.service.ReplyService;
-import tobe.project.util.FileUtils;
 
 @Controller
 @RequestMapping(value = "/board")
@@ -46,13 +45,27 @@ public class BoardController{
 	private FileInfoService fileInfoService;
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Locale locale, Model model, SearchCriteria scri, String searchType) throws Exception {
+	public String list(Locale locale, Model model, SearchCriteria scri) throws Exception {
 		 logger.info("BoardList");
 		 
 		 System.out.println(scri.getPageStart());
-		 List<BoardVO> list = service.selectAllBoard(scri);
+		 List<BoardVO> list;
 		 
-		 model.addAttribute("boardList", list);
+		 String keyword = scri.getKeyword();
+		 String searchType = scri.getSearchType();
+		 
+		 if((keyword==""||keyword==null)&&(searchType==""||searchType==null)) {
+			 System.out.println("그냥 출력함");
+			 list = service.selectAllBoard(scri);
+		 }else if((searchType=="w"||searchType=="t"||searchType=="c")&&(keyword==""||keyword==null)){
+			 System.out.println("그냥 출력함");
+			 list = service.selectAllBoard(scri);
+		 } else {
+			 System.out.println("검색해서 출력함");
+			 list = service.selectSearch(scri);
+		 }
+			 model.addAttribute("boardList", list);
+		 
 		 PageMaker pageMaker = new PageMaker();
 		 pageMaker.setCri(scri);
 		 pageMaker.setTotalCount(service.totalCount(scri));
@@ -61,6 +74,14 @@ public class BoardController{
 		 model.addAttribute("scri", scri);
 		 model.addAttribute("flag", searchType);
 		 return "/board/boardList";
+	}
+	
+	@RequestMapping(value = "/listSearch", method = RequestMethod.GET)
+	public List<BoardVO> listSearch(Locale locale, SearchCriteria scri, String searchType) throws Exception{
+		
+		List<BoardVO> list = service.selectSearch(scri);
+		return list;
+		
 	}
 	
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
@@ -149,8 +170,6 @@ public class BoardController{
 		
 		logger.info("BoardModifyAction");
 		
-		
-		System.out.println("왜 bidx없음?~~~~~~~~~~~~~~~~~~`"+vo.getBidx());
 	    service.modifyBoard(vo, files, fileNames, mpRequest);
 	    
 	    rttr.addAttribute("page", scri.getPage());

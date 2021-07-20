@@ -24,28 +24,44 @@
 
 	<!-- 게시판 전체 조회() -->
 	<select id="selectAllBoard" resultMap="selectAllBoardVO">
-		select a.*, m.t_name 
+		select a.*, m.t_name
 		from
+		((select * 
+		from board
+		where b_type='N'
+		order by bidx desc limit 0,3)
+		union all
 		(select *
-		from board as b
-		order by b.bidx desc limit #{pageStart},10)as a
+		from board
+		where b_type='G'
+		order by bidx desc limit #{rowStartBoard},7
+		))as a
 		inner join afps_member as m on a.tidx = m.tidx
-		where a.delyn='N' <include refid="search"></include>
+		where a.delyn='N'
+	</select>
+
+	<!-- 게시판 검색 -->
+	<select id="selectSearch" resultMap="selectAllBoardVO">
+		select b.*, m.t_name
+		from board as b
+		inner join afps_member as m on b.tidx = m.tidx
+		where b.delyn = 'N' <include refid="search"></include>
+		order by b.b_type desc, b.bidx desc limit #{pageStart},10
 	</select>
 
 	<!-- 페이징 -->
 	<select id="totalCount" resultType="int">
-		select count(a.bidx)
-		from board as a
+		select count(b.bidx)
+		from board as b
 		where 1=1
 		<include refid="search"></include>
-		and a.bidx > 0 and a.delyn='N'
+		and b.bidx > 0 and b.delyn='N'
 	</select>
 
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 'w'.toString()">
-				AND a.tidx IN
+				AND b.tidx IN
 				(
 				select m.tidx
 			    from afps_member as m
@@ -54,10 +70,10 @@
 			    and m.delyn='N'
 				)
 			</if>
-			<if test="searchType == 't'.toString()">AND a.B_TITLE LIKE concat('%',#{keyword},'%')</if>
-			<if test="searchType == 'c'.toString()">AND a.B_CONTENT LIKE concat('%',#{keyword},'%')</if>
-			<if test="searchType == 'n'.toString()">AND a.B_TYPE = 'N'</if>
-			<if test="searchType == 'g'.toString()">AND a.B_TYPE = 'G'</if>
+			<if test="searchType == 't'.toString()">AND b.B_TITLE LIKE concat('%',#{keyword},'%')</if>
+			<if test="searchType == 'c'.toString()">AND b.B_CONTENT LIKE concat('%',#{keyword},'%')</if>
+			<if test="searchType == 'n'.toString()">AND b.B_TYPE = 'N'</if>
+			<if test="searchType == 'g'.toString()">AND b.B_TYPE = 'G'</if>
 		</if>
 	</sql>
 

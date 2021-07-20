@@ -9,6 +9,8 @@ import tobe.project.dto.BoardVO;
 public interface BoardDAO {
 	//寃���湲� 紐⑸� 議고��
 	public List<BoardVO> selectAllBoard(SearchCriteria scri) throws Exception;
+	//게시판 검색
+	public List<BoardVO> selectSearch(SearchCriteria scri) throws Exception;
 	//寃���湲� 珥� 媛���
 	public int totalCount(SearchCriteria scri) throws Exception;
 	//硫��명���댁� 怨듭��ы�� 議고��

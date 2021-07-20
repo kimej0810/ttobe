@@ -25,6 +25,10 @@ public class Criteria {
 		}
 		this.perPageNum = perPageNum;
 	}
+	
+	public void setRowStart(int rowStart) {
+		this.rowStart = rowStart;
+	}
 	public int getPage() {
 		return page;
 	}
@@ -36,7 +40,6 @@ public class Criteria {
 	}
 	public int getRowStart() {
 		rowStart = ((page - 1) * perPageNum) + 1 -1;
-		
 		return rowStart;
 	}
 	public int getRowEnd() {

@@ -10,6 +10,7 @@ import tobe.project.dto.BoardVO;
 
 public interface BoardService {
 	public List<BoardVO> selectAllBoard(SearchCriteria scri) throws Exception; 
+	public List<BoardVO> selectSearch(SearchCriteria scri) throws Exception; 
 	public int totalCount(SearchCriteria scri) throws Exception;
 	public void writeBoard(BoardVO vo, MultipartHttpServletRequest mpRequest) throws Exception; 
 	public BoardVO selectOneBoard(int bidx)throws Exception; 

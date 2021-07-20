@@ -68,4 +68,9 @@ public class BoardDAOImpl implements BoardDAO{
 	public List<BoardVO> selectNotice(Map<String, String> search) throws Exception {
 		return sqlSession.selectList(Namespace+".selectNotice", search);
 	}
+
+	@Override
+	public List<BoardVO> selectSearch(SearchCriteria scri) throws Exception {
+		return sqlSession.selectList(Namespace+".selectSearch", scri);
+	}
 }
