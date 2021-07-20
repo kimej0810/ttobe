@@ -41,10 +41,12 @@
 		AND A.TIDX = #{userIdx}
 		ORDER BY MIDX DESC)
 		WHERE DELYN = 'N' AND NUM BETWEEN #{rowStart} and #{rowEnd} -->
-		SELECT BB.* FROM (SELECT A.*,B.T_NAME,B.T_DEPARTMENT,B.T_POSITION,@ROW_NUM := @ROW_NUM+1 AS NUM FROM MANAGER_EMAIL A
+		<!-- SELECT BB.* FROM (SELECT A.*,B.T_NAME,B.T_DEPARTMENT,B.T_POSITION,@ROW_NUM := @ROW_NUM+1 AS NUM FROM MANAGER_EMAIL A
 		LEFT JOIN AFPS_MEMBER B ON A.TIDX = B.TIDX
 		WHERE 1=1 AND A.TIDX = #{userIdx} ORDER BY MIDX DESC) BB
-		WHERE DELYN = 'N' AND NUM LIMIT #{pageStart},#{perPageNum}
+		WHERE DELYN = 'N' AND NUM LIMIT #{pageStart},#{perPageNum} -->
+		SELECT * FROM MANAGER_EMAIL A LEFT JOIN AFPS_MEMBER B ON A.TIDX = B.TIDX
+		WHERE A.TIDX = #{userIdx} AND A.DELYN = 'N' ORDER BY A.MIDX DESC
 	</select>
 	
 <!-- 	<select id="totalCountBoard" resultType="int">
@@ -53,10 +55,12 @@
 		WHERE BIDX > 0 AND DELYN= 'N' AND TIDX = #{userIdx}
 	</select> -->
 	<select id="selectAllBoard" resultMap="selectAllBoardVO">
-		SELECT aa.* FROM (SELECT A.*,B.T_NAME,@ROW_NUM := @ROW_NUM+1 AS NUM FROM BOARD A
+		<!-- SELECT aa.* FROM (SELECT A.*,B.T_NAME,@ROW_NUM := @ROW_NUM+1 AS NUM FROM BOARD A
 		LEFT JOIN AFPS_MEMBER B ON A.TIDX = B.TIDX
-		WHERE A.TIDX = 1 ORDER BY BIDX DESC) aa
-		WHERE DELYN = 'N' AND NUM LIMIT #{pageStart},#{perPageNum}
+		WHERE A.TIDX = #{userIdx} ORDER BY BIDX DESC) aa
+		WHERE DELYN = 'N' AND NUM LIMIT #{pageStart},#{perPageNum} -->
+		SELECT * FROM BOARD A LEFT JOIN AFPS_MEMBER B ON A.TIDX = B.TIDX
+		WHERE A.TIDX = #{userIdx} AND A.DELYN = 'N' ORDER BY A.BIDX DESC
 	</select>
 <!-- 	<select id="totalCountLeave" resultType="int">
 		SELECT COUNT(EIDX)
@@ -77,10 +81,13 @@
 		A.*,B.T_LEAVE_GET FROM ANNUAL_LEAVE A LEFT JOIN AFPS_MEMBER B ON A.TIDX = B.TIDX
 		WHERE A.TIDX = #{userIdx} ORDER BY EIDX DESC) A JOIN ELECTRONIC_APPROVAL C ON A.EIDX = C.EIDX
 		WHERE C.DELYN = 'N' AND NUM BETWEEN #{rowStart} AND #{rowEnd} -->
-		SELECT A.*,C.* FROM (SELECT A.*,@ROW_NUM := @ROW_NUM+1 AS NUM FROM ANNUAL_LEAVE A
+		<!-- SELECT A.*,C.* FROM (SELECT A.*,@ROW_NUM := @ROW_NUM+1 AS NUM FROM ANNUAL_LEAVE A
 		LEFT JOIN AFPS_MEMBER B ON A.TIDX = B.TIDX WHERE A.TIDX = #{userIdx} ORDER BY EIDX DESC) A
 		JOIN ELECTRONIC_APPROVAL C ON A.EIDX = C.EIDX
-		WHERE C.DELYN = 'N' AND NUM LIMIT #{pageStart},#{perPageNum}
+		WHERE C.DELYN = 'N' AND NUM LIMIT #{pageStart},#{perPageNum} -->
+		SELECT * FROM ANNUAL_LEAVE A LEFT JOIN AFPS_MEMBER B ON A.TIDX = B.TIDX 
+		JOIN ELECTRONIC_APPROVAL C ON A.EIDX = C.EIDX
+		WHERE A.TIDX = #{userIdx} AND C.DELYN = 'N' ORDER BY A.EIDX DESC
 	</select>
 <!-- 	<select id="totalCountSchedule" resultType="int">
 		SELECT COUNT(SIDX) 
@@ -95,10 +102,12 @@
 		SELECT A.*, B.T_NAME, T_ID, ROW_NUMBER() OVER(ORDER BY SIDX DESC) AS RNUM
 		FROM SCHEDULE_MANAGEMENT A LEFT JOIN AFPS_MEMBER B ON A.TIDX = B.TIDX WHERE A.TIDX = #{userIdx} 
 		AND A.DELYN = 'N') WHERE DELYN ='N' AND RNUM BETWEEN #{rowStart} AND #{rowEnd} -->
-		SELECT CC.* FROM (
+		<!-- SELECT CC.* FROM (
 		SELECT A.*, B.T_NAME, T_ID, @ROW_NUM := @ROW_NUM+1 AS RNUM
 		FROM SCHEDULE_MANAGEMENT A LEFT JOIN AFPS_MEMBER B ON A.TIDX = B.TIDX WHERE A.TIDX = #{userIdx}
-		AND A.DELYN = 'N') cc WHERE DELYN ='N' AND RNUM LIMIT #{rowStart},#{rowEnd}
+		AND A.DELYN = 'N') cc WHERE DELYN ='N' AND RNUM LIMIT #{rowStart},#{rowEnd} -->
+		SELECT * FROM SCHEDULE_MANAGEMENT A LEFT JOIN AFPS_MEMBER B ON A.TIDX = B.TIDX
+		WHERE A.TIDX = #{userIdx} AND A.DELYN = 'N' ORDER BY A.SIDX DESC
 	</select>
 	<insert id="writeApproval" keyProperty="eidx">
 		<selectKey keyProperty="eidx" resultType="int" order="BEFORE">
@@ -106,37 +115,39 @@
 				SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES
 				WHERE TABLE_SCHEMA = 'EZEN20210719_A' AND TABLE_NAME = 'ELECTRONIC_APPROVAL'
 		</selectKey>
-		INSERT INTO ELECTRONIC_APPROVAL(E_RULE, E_DRAFTDATE, E_STARTDAY, E_CON, E_SEND, E_TEXTTITLE, E_TEXTCONTENT,E_TYPE,TIDX)
+		INSERT INTO ELECTRONIC_APPROVAL(E_TYPE,E_DRAFTDATE,E_STARTDAY,E_ENDDAY,E_CON,E_TEXTTITLE,E_TEXTCONTENT,TIDX)
 			VALUES(
-				#{e_rule},
+				#{e_type},
 				#{e_draftdate},
 				#{e_startday},
+				#{e_endday},
 				#{e_con},
-				#{e_send},
 				#{e_texttitle},
 				#{e_textcontent},
-				'개인일정',
 				#{tidx}
 			)
 	</insert>
 	<insert id="writeLeave"  keyProperty="eidx">
-		INSERT INTO ANNUAL_LEAVE(EIDX,A_TYPE,A_STARTDATE,A_ENDDATE,A_USEDDAYS,TIDX)
+		INSERT INTO ANNUAL_LEAVE(EIDX,A_TYPE,FRIEND_PHONE,FRIEND_NAME,A_USEDDAYS,TIDX)
 		VALUES(
 			#{eidx},
 			#{a_type},
-			TO_DATE(#{a_startdate},'YYYY-MM-DD HH24:MI'),
-			TO_DATE(#{a_enddate},'YYYY-MM-DD HH24:MI'),
+			#{friend_phone},
+			#{friend_name},
 			#{a_useddays},
 			#{tidx}
 		) 
+			<!-- TO_DATE(#{a_startdate},'YYYY-MM-DD HH24:MI'),
+			TO_DATE(#{a_enddate},'YYYY-MM-DD HH24:MI'), -->
+			
 	</insert>
 	<insert id="writeLine"  keyProperty="eidx">
-		INSERT INTO APPROVAL_LINE(EIDX,TEAMLEADER,DEPARTMENTHEAD,SECTIONHEAD,LEADER,STATUS,TIDX)
+		INSERT INTO APPROVAL_LINE(EIDX,TEAMLEADER,SECTIONHEAD,DEPARTMENTHEAD,LEADER,STATUS,TIDX)
 			VALUES(
 				#{eidx},
 				#{teamleader},
-				#{departmenthead},
 				#{sectionhead},
+				#{departmenthead},
 				#{leader},
 				#{status},
 				#{tidx}
@@ -157,10 +168,10 @@
 	</update>
 	<update id="modifyApproval">
 		UPDATE ELECTRONIC_APPROVAL
-		SET E_RULE = #{e_rule},
+		SET E_TYPE = #{e_tyle},
 		E_STARTDAY = #{e_startday},
+		E_ENDDAY = #{e_endday},
 		E_CON = #{e_con},
-		E_SEND = #{e_send},
 		E_TEXTTITLE = #{e_texttitle},
 		E_TEXTCONTENT = #{e_textcontent}
 		WHERE EIDX = #{eidx}
@@ -168,15 +179,15 @@
 	<update id="modifyLine">
 		UPDATE APPROVAL_LINE
 		SET TEAMLEADER = #{teamleader},
-		DEPARTMENTHEAD = #{departmenthead},
-		SECTIONHEAD = #{sectionhead}
+		SECTIONHEAD = #{sectionhead},
+		DEPARTMENTHEAD = #{departmenthead}
 		WHERE EIDX = #{eidx}
 	</update>
 	<update id="modifyLeave">
 		UPDATE ANNUAL_LEAVE
 		SET A_TYPE = #{a_type},
-		A_STARTDATE = #{a_startdate},
-		A_ENDDATE = #{a_enddate},
+		FRIEND_PHONE = #{friend_phone},
+		FRIEND_NAME = #{friend_name},
 		A_USEDDAYS = #{a_useddays}
 		WHERE EIDX = #{eidx}
 	</update>

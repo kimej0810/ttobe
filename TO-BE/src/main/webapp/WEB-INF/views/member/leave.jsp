@@ -62,7 +62,7 @@
 						<select class="form-select" name="teamleader" id="teamleader" required="required">
 							<option value="no">선 택</option>
 							<c:choose>
-								<c:when test="${member.t_position eq '팀장' || member.t_position eq '부장' || member.t_position eq '과장'}">
+								<c:when test="${member.t_position eq '팀장' || member.t_position eq '부장' || member.t_position eq '과장' || member.t_position eq '대표'}">
 									<option value="결재권한없음" selected="selected">선택불가</option>
 								</c:when>
 								<c:otherwise>
@@ -81,7 +81,7 @@
 						<select class="form-select" name="sectionhead" id="sectionhead" required="required">
 							<option value="no">선 택</option>
 							<c:choose>
-								<c:when test="${member.t_position eq '과장' || member.t_position eq '부장'}">
+								<c:when test="${member.t_position eq '과장' || member.t_position eq '부장' || member.t_position eq '대표'}">
 									<option value="결재권한없음" selected="selected">선택불가</option>
 								</c:when>
 								<c:otherwise>
@@ -100,7 +100,7 @@
 						<select class="form-select" name="departmenthead" id="departmenthead" required="required">
 							<option value="no">선 택</option>
 							<c:choose>
-								<c:when test="${member.t_position eq '부장'}">
+								<c:when test="${member.t_position eq '부장' || member.t_position eq '대표'}">
 									<option value="결재권한없음" selected="selected">선택불가</option>
 								</c:when>
 								<c:otherwise>
@@ -179,6 +179,8 @@
 						<input type="hidden" name="t_name" id="t_name" value="${member.t_name }">
 						<input type="hidden" name="tidx" value="${member.tidx }">
 						<input type="hidden" name="t_position" id="t_position" value="${member.t_position }">
+						<input type="hidden" name="e_type" value="연차">
+						<input type="hidden" name="e_con" value="없음">
 						<input type="hidden" name="status" id="status">
 					</td>
 					<th>부 서</th>

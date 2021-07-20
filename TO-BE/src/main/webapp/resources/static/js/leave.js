@@ -27,7 +27,7 @@
 				disabledWeekDays :[0, 6],
 				onChangeDateTime:function(){
 					startD = $("#startD").val();
-					$("#u_useddays").val("");
+					$("#a_useddays").val("");
 					if(startD > endD){
 						alert("시작일 선택이 잘못되었습니다.");
 						$("#startD").val(endD);
@@ -55,7 +55,7 @@
 					}else{
 						resultDa = Math.ceil(resultT);
 					}
-					$("#u_useddays").val(resultDa);
+					$("#a_useddays").val(resultDa);
 					if(startD > endD){
 						alert("종료일 선택이 잘못되었습니다.");
 						$("#endD").val(startD);
@@ -74,7 +74,7 @@
 			}else if($("#a_type").val()==null || $("#a_type").val()=="null"){
 				alert("휴가 종류를 선택해주세요.");
 				return;
-			}else if($("#u_useddays").val()==null){
+			}else if($("#a_useddays").val()==null){
 				alert("신청 일수를 작성해주세요.");
 				return;
 			}else if($("#friend_phone").val()==null || $("#friend_name").val() == null){
