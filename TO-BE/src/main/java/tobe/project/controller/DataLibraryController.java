@@ -41,14 +41,7 @@ public class DataLibraryController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Locale locale, Model model, SearchCriteria scri, String searchType) throws Exception {
 		
-		System.out.println("searchType->"+searchType);
-		System.out.println(scri.toString());
-		
 		List<DataLibraryVO> list = service.selectAllData(scri);
-		
-		for(int i=0; i<list.size(); i++) {
-			System.out.println(list.get(i).getD_title());
-		}
 		
 		model.addAttribute("dataList", list);
 		

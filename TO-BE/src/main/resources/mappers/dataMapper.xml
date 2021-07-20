@@ -43,11 +43,11 @@
 				select m.tidx
 				from afps_member as m
 				where 1=1
-				and m.t_name like '%' || #{keyword} || '%'
+				and m.t_name like concat('%',#{keyword},'%')
 				and m.delyn='N'
 				)
     		</if>
-    		<if test="searchType == 't'.toString()">AND a.d_title LIKE '%' || #{keyword} || '%'</if>
+    		<if test="searchType == 't'.toString()">AND a.d_title LIKE concat('%',#{keyword},'%')</if>
     	</if>
     </sql>
     
