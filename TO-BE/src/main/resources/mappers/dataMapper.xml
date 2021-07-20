@@ -19,44 +19,35 @@
 	</resultMap>
 	
 	<select id="selectAllData" resultMap="selectAllDataVO">
-		SELECT * 
-        FROM (
-		        SELECT DATA_LIBRARY.DIDX,
-                        DATA_LIBRARY.D_TITLE,
-                        DATA_LIBRARY.D_WRITEDATE,
-                        DATA_LIBRARY.D_DOWNLOAD,
-                        DATA_LIBRARY.DELYN,
-                        DATA_LIBRARY.TIDX,
-                        TOBE_MEMBER.T_NAME,
-		               ROW_NUMBER() OVER(ORDER BY DIDX DESC) AS RNUM
-		         FROM data_library, tobe_member
-		         WHERE 1=1 <include refid="search"></include> AND data_library.delyn='N' and data_library.tidx = tobe_member.tidx
-		      )
-		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd} 
-		ORDER BY DIDX DESC	
+		select a.*, m.t_name
+		from
+		(select *
+		from data_library as d
+		order by d.didx desc limit #{pageStart},10)as a
+		inner join afps_member as m on a.tidx = m.tidx
+		where a.delyn='N' <include refid="search"></include>
 	</select>
 	
 	<select id="dataCount" resultType="int">
-		SELECT COUNT(DATA_LIBRARY.DIDX)
-			FROM DATA_LIBRARY
-			WHERE 1=1
-			<include refid="search"></include>
-		 	AND DATA_LIBRARY.DIDX > 0 AND DATA_LIBRARY.DELYN='N'
+		select count(a.didx)
+		from data_library as a
+		where 1=1
+		<include refid="search"></include>
+		and a.delyn='N';
 	</select>
 	
 	<sql id="search">
     	<if test="searchType != null">
     		<if test="searchType == 'w'.toString()">
-    			AND DATA_LIBRARY.TIDX IN
-    			(
-	    			SELECT TOBE_MEMBER.TIDX
-		            FROM TOBE_MEMBER
-		            WHERE 1=1
-		            AND TOBE_MEMBER.T_NAME LIKE '%' || #{keyword} || '%'
-	           		AND TOBE_MEMBER.DELYN='N'
-	           	) 
+    			and a.tidx in(
+				select m.tidx
+				from afps_member as m
+				where 1=1
+				and m.t_name like '%' || #{keyword} || '%'
+				and m.delyn='N'
+				)
     		</if>
-    		<if test="searchType == 't'.toString()">AND D_TITLE LIKE '%' || #{keyword} || '%'</if>
+    		<if test="searchType == 't'.toString()">AND a.d_title LIKE '%' || #{keyword} || '%'</if>
     	</if>
     </sql>
     
@@ -70,20 +61,15 @@
 	
 	<!-- 데이터 업로드 -->
 	<insert id="addData" parameterType="dataVO" useGeneratedKeys="true" keyProperty="didx">
-	    <selectKey keyProperty="didx" resultType="int" order="BEFORE">
-	    	SELECT DIDX_SEQ.NEXTVAL FROM DUAL
-	    </selectKey>
-	    INSERT INTO DATA_LIBRARY(    
-	    	DIDX,
+	    INSERT INTO DATA_LIBRARY( 
 			D_TITLE,
 			D_WRITEDATE,
 			D_DOWNLOAD,
 			DELYN,
 			TIDX
 		) VALUES(
-			#{didx}, 
 		    #{d_title}, 
-		    sysdate, 
+		    now(), 
 		    0, 
 		    'N',
 		    #{tidx}
@@ -100,7 +86,6 @@
     
     <insert id="insertFile" parameterType="hashMap">
     	INSERT INTO FILE_INFO(
-    		FIDX,
 			TIDX,
 			F_TYPE,
 			F_ORG_FILE_NAME,
@@ -109,7 +94,6 @@
 			DELYN,
 			DIDX
     	)VALUES(
-    		F_FILE_SEQ.NEXTVAL,
     		1,
     		#{F_TYPE},
     		#{ORG_FILE_NAME},
