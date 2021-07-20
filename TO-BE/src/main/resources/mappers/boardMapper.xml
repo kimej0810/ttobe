@@ -30,35 +30,34 @@
 		from board as b
 		order by b.bidx desc limit #{pageStart},10)as a
 		inner join afps_member as m on a.tidx = m.tidx
-		where a.delyn='N'
+		where a.delyn='N' <include refid="search"></include>
 	</select>
 
 	<!-- 페이징 -->
 	<select id="totalCount" resultType="int">
-		select count(b.bidx)
-		from board as b
+		select count(a.bidx)
+		from board as a
 		where 1=1
 		<include refid="search"></include>
-		and b.bidx > 0 and b.delyn='N'
+		and a.bidx > 0 and a.delyn='N'
 	</select>
 
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 'w'.toString()">
-				AND b.tidx IN
+				AND a.tidx IN
 				(
-				
 				select m.tidx
 			    from afps_member as m
 			    where 1=1
-			    and m.t_name like '%' || #{keyword} || '%'
+			    and m.t_name like concat('%',#{keyword},'%')
 			    and m.delyn='N'
 				)
 			</if>
-			<if test="searchType == 't'.toString()">AND B_TITLE LIKE '%' || #{keyword} || '%'</if>
-			<if test="searchType == 'c'.toString()">AND B_CONTENT LIKE '%' || #{keyword} || '%'</if>
-			<if test="searchType == 'n'.toString()">AND B_TYPE = 'N'</if>
-			<if test="searchType == 'g'.toString()">AND B_TYPE = 'G'</if>
+			<if test="searchType == 't'.toString()">AND a.B_TITLE LIKE concat('%',#{keyword},'%')</if>
+			<if test="searchType == 'c'.toString()">AND a.B_CONTENT LIKE concat('%',#{keyword},'%')</if>
+			<if test="searchType == 'n'.toString()">AND a.B_TYPE = 'N'</if>
+			<if test="searchType == 'g'.toString()">AND a.B_TYPE = 'G'</if>
 		</if>
 	</sql>
 
