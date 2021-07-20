@@ -150,7 +150,7 @@
 						<tr class="row6">
 							<td></td>
 							<td class="style2">기 안 일 자</td>
-							<td class="style34 style34" colspan="2">
+ 							<td class="style34 style34" colspan="2" id="e_draftDate">
 								<%=contents.getE_draftDate()%>
 							</td>
 							<td class="style33 style33" rowspan="3">결<br><br>재</td>
@@ -181,45 +181,53 @@
 						<tr class="row7">
 							<td></td>
 							<td class="style2">시 행 일 자</td>
-							<td class="style34 style34" colspan="2">
+							<td class="style34 style34" colspan="2" id="e_startDay">
 								<%=contents.getE_startDay()%>
 							</td>
 							<td class="style38  style43" colspan="2" rowspan="2">
 								<input type="text" id="charge" readonly value="승인">
 							</td>
 							<td class="style38 style43" colspan="2" rowspan="2">
-							<%if(contents.getStatus().equals("0300") || contents.getStatus().equals("0030") ||contents.getStatus().equals("0003") || contents.getStatus().equals("0000")){ %>
+							<%if(contents.getStatus().equals("0300") || contents.getStatus().equals("0030") ||contents.getStatus().equals("0003") || contents.getStatus().equals("0000") || !lineTeamLeader.equals(contents.getE_approvalNoPerson())){ %>
 								<input type="text" id="teamLeader" readonly value="승인">
-							<% }else{%>
+							<%}else if(lineTeamLeader.equals(contents.getE_approvalNoPerson())){%>
+								<input type="text" id="teamLeader" readonly value="반려">
+							<%}else{%>
 								<input type="text" id="teamLeader" readonly value="대기">
-							<% }%>
+							<%}%>
 							</td> 
 							<td class="style38 style43" colspan="3" rowspan="2">
-							<%if(contents.getStatus().equals("0030") ||contents.getStatus().equals("0003") || contents.getStatus().equals("0000")){ %>
+							<%if(contents.getStatus().equals("0030") ||contents.getStatus().equals("0003") || contents.getStatus().equals("0000") || !lineSectionHead.equals(contents.getE_approvalNoPerson())){ %>
 								<input type="text" id="sectionHead" readonly value="승인">
-							<% }else{%>
+							<%}else if(lineSectionHead.equals(contents.getE_approvalNoPerson())){%>
+								<input type="text" id="sectionHead" readonly value="반려">
+							<%}else{%>
 								<input type="text" id="sectionHead" readonly value="대기">
-							<% }%>
+							<%}%>
 							</td>
 							<td class="style38 style43" colspan="2" rowspan="2">
-							<%if(contents.getStatus().equals("0003") || contents.getStatus().equals("0000")){ %>
+							<%if(contents.getStatus().equals("0003") || contents.getStatus().equals("0000") || !lineDepartmentHead.equals(contents.getE_approvalNoPerson())){ %>
 								<input type="text" id="departmentHead" readonly value="승인">
-							<% }else{%>
+							<%}else if(lineDepartmentHead.equals(contents.getE_approvalNoPerson())){%>
+								<input type="text" id="departmentHead" readonly value="반려">
+							<%}else{%>
 								<input type="text" id="departmentHead" readonly value="대기">
-							<% }%>
+							<%} %>
 							</td>
 							<td class="style58 style59" rowspan="2">
-							<%if(contents.getStatus().equals("0000")){ %>
+							<%if(contents.getStatus().equals("0000") && !lineLeader.equals(contents.getE_approvalNoPerson())){ %>
 								<input type="text" id="leader" readonly value="승인">
-							<% }else{%>
+							<%}else if(lineLeader.equals(contents.getE_approvalNoPerson())){%>
+								<input type="text" id="leader" readonly value="반려">
+							<%}else{%>
 								<input type="text" id="leader" readonly value="대기">
-							<% }%>
+							<%} %>
 							</td>
 						</tr>
 						<tr class="row8">
 							<td></td>
 							<td class="style2 s">종 료 일 자</td>
-							<td class="style34 style34" colspan="2">
+							<td class="style34 style34" colspan="2" id="e_endDay">
 								<%=contents.getE_endDay()%>
 							</td>
 						</tr>
@@ -227,7 +235,7 @@
 							<td></td>
 							<td class="style3" rowspan="2">합 의 부 서</td>
 							<td class="style38 style43" colspan="2" rowspan="2">
-								<input type="text" id="e_con" name="e_con" value="<%=contents.getE_con()%>" readonly>
+								<%=contents.getE_con()%>
 							</td>
 							<td class="style38 style42" colspan="3" rowspan="2">기 안 자</td>
 							<td class="style38 style57" colspan="8" rowspan="2">
@@ -250,14 +258,14 @@
 							<td></td>
 							<td class="style53 style55" colspan="14">
 								<div id="title">제목 </div>
-								<textarea class="target" id="e_textTitle" name="e_textTitle" readonly><%=contents.getE_textTitle()%></textarea>
+								<textarea class="target" id="e_textTitle" name="e_textTitle" readonly> <%=contents.getE_textTitle()%></textarea>
 							</td>
 						</tr>
 						<tr class="row15">
 							<td></td>
 							<td class="style15 style17" colspan="14">
 								<div id="contents">내용 </div>
-								<textarea class="target" id="e_textContent" name="e_textContent" readonly><%=contents.getE_textContent()%></textarea>
+								<textarea class="target" id="e_textContent" name="e_textContent" readonly> <%=contents.getE_textContent()%></textarea>
 							</td>
 						</tr>
 					</tbody>

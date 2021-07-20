@@ -62,12 +62,11 @@
 						<input type="hidden" id="searchWord" value="${scri.searchWord}">
 						<select id="searchType" class="form-control" name="searchType" style="height:30px; font-size:0.5rem;">
 							<option value="전체보기"  <c:out value = "${scri.searchType == null ? 'selected' : '' }"/>>전체보기</option>
-							<option value="문서번호"  <c:out value = "${scri.searchType eq '문서 번호' ? 'selected' : '' }"/>>문서 번호</option>
-							<option value="기안부서"  <c:out value = "${scri.searchType eq '기안 부서' ? 'selected' : '' }"/>>기안 부서</option>
+ 							<option value="기안부서"  <c:out value = "${scri.searchType eq '기안 부서' ? 'selected' : '' }"/>>기안 부서</option>
 							<option value="기안자이름" <c:out value = "${scri.searchType eq '기안자 이름' ? 'selected' : '' }"/>>기안자 이름</option>
 							<option value="기안일시"  <c:out value = "${scri.searchType eq '기안 일시' ? 'selected' : '' }"/>>기안 일시</option>
 							<option value="결재상태"  <c:out value = "${scri.searchType eq '결재 상태' ? 'selected' : '' }"/>>결재 상태</option>
-							<option value="기안제목"  <c:out value = "${scri.searchType eq '기안 제목' ? 'selected' : '' }"/>>기안 제목</option>
+							<option value="기안 제목"  <c:out value = "${scri.searchType eq '기안 제목' ? 'selected' : '' }"/>>기안 제목</option>
 							<option value="기안내용"  <c:out value = "${scri.searchType eq '기안 내용' ? 'selected' : '' }"/>>기안 내용</option>
 							<option value="제목+내용" <c:out value = "${scri.searchType eq '제목+내용' ? 'selected' : '' }"/>>제목+내용</option>
 						</select>
@@ -87,7 +86,7 @@
 					$(function(){
 						$('#searchBtn').on("click",function(){
 							var check = $("#searchWord").val();
-							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=" + check + "&searchType=" + $('select option:selected').val() 
+							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=" + check + "&searchType=" + $("select option:selected").val() 
 							+ "&keyword=" + encodeURIComponent($('#keyword').val()) + "&t_id=<%=userId%>";
 						});
 						$('#waitingDocument').on("click",function(){
@@ -114,7 +113,8 @@
 								<th width="100px">기안자</th> 
 								<th>제목</th>
 								<c:if test="${scri.searchWord eq '결재반려' }">
-								<th width="600px">반려사유</th>
+								<th width="300px">반려자</th>
+								<th width="300px">반려사유</th>
 								</c:if>
 								<th width="150px">기안 일시</th>
 								<th width="70px">상태</th>
@@ -167,6 +167,7 @@
 									</c:choose>
 								</td>
 								<c:if test="${scri.searchWord eq '결재반려' }">
+								<td>${elist.e_approvalNoPerson}</td>
 								<td>${elist.e_reason }</td>
 								</c:if>
 								<td>${elist.e_draftDate }</td>

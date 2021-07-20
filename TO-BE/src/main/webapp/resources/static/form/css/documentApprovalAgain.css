@@ -1954,7 +1954,7 @@ table.sheet0 tr.row14 {
 	border: none;
 	font-size: 15px;
 }
-#e_draftDate, #e_startDay{
+#e_draftDate, #e_startDay, #e_endDay{
 	text-align: center;
 }
 #eidx{ 
@@ -1968,7 +1968,7 @@ table.sheet0 tr.row14 {
 	width: 80px; 
 	height:50px;
 	border:none;
-	text-align: center;
+	text-align: center; 
 }
 .btngroup{
 	margin-left:1px;

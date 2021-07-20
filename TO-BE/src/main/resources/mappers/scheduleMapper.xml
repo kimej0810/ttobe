@@ -92,11 +92,11 @@
  	<!-- sql code 조각 -->
  	<sql id="search">
 		<if test="searchType != null">
-			<if test="searchType == '유형'.toString()">AND S_TYPE LIKE '%' || #{keyword} || '%'</if>
-			<if test="searchType == '제목'.toString()">AND S_TITLE LIKE '%' || #{keyword} || '%'</if>
-			<if test="searchType == '내용'.toString()">AND S_CONTENT	 LIKE '%' || #{keyword} || '%'</if>
-			<if test="searchType == '제목+내용'.toString()">AND (S_TITLE LIKE '%' || #{keyword} || '%') or (S_CONTENT LIKE '%' || #{keyword} || '%')</if>
-			<if test="searchType == '이름'.toString()">AND T_NAME LIKE '%' || #{keyword} || '%'</if>
+ 			<if test="searchType == '유형'.toString()">AND S_TYPE LIKE CONCAT('%',#{keyword},'%')</if>
+			<if test="searchType == '제목'.toString()">AND S_TITLE LIKE CONCAT('%',#{keyword},'%')</if>
+			<if test="searchType == '내용'.toString()">AND S_CONTENT	 LIKE CONCAT('%',#{keyword},'%')</if>
+			<if test="searchType == '제목+내용'.toString()">AND (S_TITLE LIKE CONCAT('%',#{keyword},'%')) or (S_CONTENT LIKE CONCAT('%',#{keyword},'%'))</if>
+			<if test="searchType == '이름'.toString()">AND T_NAME LIKE CONCAT('%',#{keyword},'%')</if>
 			<if test="searchType == '나의 일정보기'.toString()">AND T_ID = #{userId} </if>
 		</if>
 	</sql>

@@ -1917,16 +1917,19 @@ table.sheet0 tr.row14 {
 	width:100%;
 	margin:0px 6px auto;
 }
+.row9>td:nth-child(3n){
+	width: 160px;
+}
 #e_textTitle{
 	width: 99.5%;
 	height: 25px;
 	border: none;
 	resize: none;
-	font-size: 15px;
+	font-size: 15px; 
 	margin-top:5px;
 }
 #e_textContent{
-	width: 99.5%;
+	width: 100%;
 	height: 425px;
 	border: none;
 	resize: none; 
@@ -1941,7 +1944,7 @@ table.sheet0 tr.row14 {
 }
 #title, #contents{
 	width: 35px;
-    margin: 5px 0px 0px 15px;
+    margin: 5px 0px 0px 5px;
 }
 #documentBtn{
 	text-align: right;
@@ -1949,12 +1952,13 @@ table.sheet0 tr.row14 {
     margin-top: 10px;
 }
 #e_type, #e_draftDate, #e_startDay, #e_con, #t_name, #t_department, #e_endDay{
-	width: 98%;
 	height: 28px;
 	border: none;
-	font-size: 15px;
+	font-size: 14px;
 }
-
+ #t_name, #t_department, #e_type{
+ 	width: 98%;
+ }
 #eidx{ 
 	width:70px;
 	height: 28px;

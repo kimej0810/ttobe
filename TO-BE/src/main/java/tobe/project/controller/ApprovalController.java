@@ -188,9 +188,8 @@ public class ApprovalController {
 	
 	@RequestMapping(value = "/documentNo")
 	public ApprovalDTO documentNo(Model model,ApprovalDTO dto,int eidx) throws Exception{
-		System.out.println("반려 사유와 반려자 = "+dto.getTidx()+dto.getT_name());
-		ApprovalDTO to = service.selectOneApprovalDocumentContents(eidx);
-		
+ 		ApprovalDTO to = service.selectOneApprovalDocumentContents(eidx);
+		dto.setE_approvalNoPerson(service.selectOneMember(dto.getTidx()).getT_name());
 		lservice.modifyApprovalNo(eidx);
 		service.modifyApprovalStatusNo(dto);
 		return to;

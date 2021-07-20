@@ -57,7 +57,8 @@
  	
  	<select id="selectOneApprovalDocumentContents" resultType="ApprovalDTO" parameterType="ApprovalDTO">
  		SELECT
- 			 @rownum:=@rownum+1 rnum, EIDX, E_TYPE, E_DRAFTDATE, E_STARTDAY, E_ENDDAY, E_CON, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, TIDX, T_NAME, T_DEPARTMENT, T_POSITION, TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, DELYN
+  			 @rownum:=@rownum+1 rnum, EIDX, E_TYPE, E_DRAFTDATE, E_STARTDAY, E_ENDDAY, E_CON, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS,
+ 			 TIDX, E_APPROVALNOYN, E_APPROVALNOPERSON, E_REASON, T_NAME, T_DEPARTMENT, T_POSITION, TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, DELYN
  		from (
  				select (SELECT @ROWNUM := 0) R, A.*, B.T_NAME, T_DEPARTMENT, T_POSITION,C.TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS
  				FROM ELECTRONIC_APPROVAL A left join AFPS_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX 
@@ -114,7 +115,7 @@
  		update 
  			ELECTRONIC_APPROVAL
  		set
- 			E_STATUS = '결재반려', E_APPROVALNOYN = 'Y' , E_APPROVALNOPERSON = #{e_approvalNoPerson},  E_REASON = #{e_reason}, 
+ 			E_STATUS = '결재반려', E_APPROVALNOYN = 'Y' , E_APPROVALNOPERSON = #{e_approvalNoPerson},  E_REASON = #{e_reason}
  		where
  			eidx = #{eidx} 			     
  	</update>
@@ -140,37 +141,35 @@
     
  	<!-- 총 게시글 개수 -->
  	<select id="totalCountApprovalDocument" resultType="int">
- 	select count(eidx) from (
+ 	select count(eidx) as cnt from (
  				select A.*,B.T_NAME, B.T_DEPARTMENT, B.T_POSITION, C.TEAMLEADER, C.SECTIONHEAD, C.DEPARTMENTHEAD, C.LEADER, C.STATUS
  					FROM ELECTRONIC_APPROVAL A left join AFPS_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX
- 					where 1=1 <include refid="searchWord"/> <include refid="search"/>
- 					)a where eidx > 0 and delyn = 'N' 
+ 					where 1=1 <include refid="searchWord"/><include refid="search"/>)a where eidx > 0 and delyn = 'N' 
  	</select>
  	
  	<!-- 페이징 -->
  	<select id="selectAllApprovalDocumentList" resultMap="approvalResultMap">
  		 select
- 		 	@rownum:=@rownum+1 rnum, EIDX, E_TYPE, E_DRAFTDATE, E_STARTDAY, E_ENDDAY, E_CON, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, E_APPROVALNOYN, E_REASON, TIDX, T_NAME, T_DEPARTMENT, T_POSITION,
+ 		 	 EIDX, E_TYPE, E_DRAFTDATE, E_STARTDAY, E_ENDDAY, E_CON, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, E_APPROVALNOYN, E_APPROVALNOPERSON, E_REASON, TIDX, T_NAME, T_DEPARTMENT, T_POSITION,
  		 	TEAMLEADER, SECTIONHEAD, DEPARTMENTHEAD, LEADER, STATUS, DELYN
  				from (
- 					select (SELECT @ROWNUM := 0) R, A.*, B.T_NAME, B.T_DEPARTMENT, B.T_POSITION, C.TEAMLEADER, C.SECTIONHEAD, C.DEPARTMENTHEAD, C.LEADER, C.STATUS
+ 					select A.*, B.T_NAME, B.T_DEPARTMENT, B.T_POSITION, C.TEAMLEADER, C.SECTIONHEAD, C.DEPARTMENTHEAD, C.LEADER, C.STATUS,(SELECT @ROWNUM := 0) R
  					FROM ELECTRONIC_APPROVAL A left join AFPS_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX
  						WHERE 1=1 <include refid="searchWord"/> <include refid="search"/>and A.DELYN = 'N'
- 						)a WHERE delyn ='N' and EIDX LIMIT #{rowStart},#{rowEnd}
+ 						ORDER BY A.EIDX desc)a WHERE delyn ='N' and EIDX LIMIT #{rowStart},#{rowEnd}
  	</select>
  	<!-- 페이징 end -->
  	
  	<!-- sql code 조각 -->
  	<sql id="search">
 		<if test="searchType != null">
-			<if test="searchType == '문서번호'.toString()">AND EIDX LIKE '%' || #{keyword} || '%'</if>
-			<if test="searchType == '기안부서'.toString()">AND E_TEXTTITLE LIKE '%' || #{keyword} || '%'</if>
-			<if test="searchType == '기안자이름'.toString()">AND T_NAME LIKE '%' || #{keyword} || '%'</if>
-			<if test="searchType == '기안일시'.toString()">AND E_DRAFTDATE LIKE '%' || #{keyword} || '%'</if>
-			<if test="searchType == '결재상태'.toString()">AND E_STATUS LIKE '%' || #{keyword} || '%'</if>
-			<if test="searchType == '기안제목'.toString()">AND E_TEXTTITLE LIKE '%' || #{keyword} || '%'</if>
-			<if test="searchType == '기안내용'.toString()">AND E_TEXTCONTENT LIKE '%' || #{keyword} || '%'</if>
-			<if test="searchType == '제목+내용'.toString()">AND (E_TEXTTITLE LIKE '%' || #{keyword} || '%') or (E_TEXTCONTENT LIKE '%' || #{keyword} || '%')</if>
+			<if test="searchType == '기안부서'.toString()">AND T_DEPARTMENT LIKE CONCAT('%',#{keyword},'%')</if>
+			<if test="searchType == '기안자이름'.toString()">AND T_NAME LIKE CONCAT('%',#{keyword},'%')</if>
+			<if test="searchType == '기안일시'.toString()">AND E_DRAFTDATE LIKE CONCAT('%',#{keyword},'%')</if>
+			<if test="searchType == '결재상태'.toString()">AND E_STATUS LIKE CONCAT('%',#{keyword},'%')</if>
+			<if test="searchType == '기안 제목'.toString()">AND E_TEXTTITLE LIKE CONCAT('%',#{keyword},'%')</if>
+			<if test="searchType == '기안내용'.toString()">AND E_TEXTCONTENT LIKE CONCAT('%',#{keyword},'%')</if>
+			<if test="searchType == '제목+내용'.toString()">AND (E_TEXTTITLE LIKE CONCAT('%',#{keyword},'%')) or (E_TEXTCONTENT LIKE CONCAT('%',#{keyword},'%'))</if>
 		</if>
 	</sql> 
 	<sql id="searchWord">
