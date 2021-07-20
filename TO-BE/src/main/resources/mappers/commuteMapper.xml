@@ -7,13 +7,11 @@ PUBLIC "-//mybatis/org//DTD Config 3.0//EN"
 	<!-- 출근시간 등록 -->
 	<insert id="addStartWork" parameterType="CommuteVO">
 		insert into commute_management (
-			cidx,
 			c_type,
 			c_date,
 			c_starttime,
 			tidx
 		)values(
-			cidx_seq.nextval,
 			#{c_type},
 			#{c_date},
 			#{c_starttime},
@@ -23,29 +21,41 @@ PUBLIC "-//mybatis/org//DTD Config 3.0//EN"
 	
 	<!-- 퇴근시간 등록 -->
 	<update id="addEndWork" parameterType="CommuteVO">
+<!-- 		update commute_management set c_endtime = #{c_endtime}, c_worktime = #{c_worktime} 
+		where rownum = 1 and tidx = #{tidx} and to_char(sysdate, 'YY/MM/DD') = c_date -->
 		update commute_management set c_endtime = #{c_endtime}, c_worktime = #{c_worktime} 
-		where rownum = 1 and tidx = #{tidx} and to_char(sysdate, 'YY/MM/DD') = c_date
+		where tidx = #{tidx} and c_date = curdate()
 	</update>
 	
 	<!-- 출근기록 조회 -->
 	<select id="selectStartWork" resultType="String">
-		select c_starttime from (
+	<!-- 	select c_starttime from (
 			select * from commute_management 
 			order by rownum desc
-			)where rownum = 1 and tidx = #{tidx} and to_char(sysdate, 'YY/MM/DD') = c_date
+			)where rownum = 1 and tidx = #{tidx} and to_char(sysdate, 'YY/MM/DD') = c_date -->
+			select c_starttime from (
+			select * from commute_management 
+			order by cidx desc
+			)tb_commute where tidx = #{tidx} and c_date = curdate()
 	</select>
 	
 	<!-- 퇴근기록 조회 -->
 	<select id="selectEndWork" resultType="String">
-		select c_endtime from (
+	<!-- 	select c_endtime from (
 			select * from commute_management 
 			order by rownum desc
-			)where rownum = 1 and tidx = #{tidx} and to_char(sysdate, 'YY/MM/DD') = c_date
+			)where rownum = 1 and tidx = #{tidx} and to_char(sysdate, 'YY/MM/DD') = c_date -->
+			select c_endtime from (
+			select * from commute_management 
+			order by cidx desc
+			)tb_commute where tidx = #{tidx} and c_date = curdate()
 	</select>
 	
 	<!-- 근태목록 조회 -->
 	<select id="selectAllCommute2" resultType="commuteVO" parameterType="Map">
-		select * from commute_management where c_date like '%' || #{month} || '%' and tidx = #{tidx} order by cidx desc
+	<![CDATA[
+		select * from commute_management where c_date like concat('%',#{month},'%') and tidx = #{tidx} order by cidx desc
+	]]>	
 	</select>
 	
 </mapper>	

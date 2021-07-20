@@ -76,7 +76,8 @@
 			prevM = viewYear+"년&nbsp;"+(viewMonth+1)+"월";
 			$("#dateSpan").html(prevM);
 			
-			var str = viewYear+"/"+("0"+(viewMonth+1)).slice(-2);
+			//var str = viewYear+"/"+("0"+(viewMonth+1)).slice(-2);
+			var str = viewYear+"-"+("0"+(viewMonth+1)).slice(-2);
 			var str2 = str.slice(2);
 			var tid = $("#t_id").val();
 			
@@ -112,7 +113,8 @@
 			nextM = viewYear+"년&nbsp;"+(viewMonth+1)+"월";
 			$("#dateSpan").html(nextM);
 			//날짜
-			var str = viewYear+"/"+("0"+(viewMonth+1)).slice(-2);
+			//var str = viewYear+"/"+("0"+(viewMonth+1)).slice(-2);
+			var str = viewYear+"-"+("0"+(viewMonth+1)).slice(-2);
 			var str2 = str.slice(2);
 			var tid = $("#t_id").val();
 			$.ajax({

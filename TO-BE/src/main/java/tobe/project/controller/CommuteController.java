@@ -87,7 +87,8 @@ public class CommuteController {
 
 		System.out.println("t_id: " + t_id);
 
-		SimpleDateFormat format1 = new SimpleDateFormat("yy/MM");
+		//SimpleDateFormat format1 = new SimpleDateFormat("yy/MM");
+		SimpleDateFormat format1 = new SimpleDateFormat("yy-MM");
 		Date date = new Date();
 		String current = format1.format(date);
 		System.out.println("current: " + current);
