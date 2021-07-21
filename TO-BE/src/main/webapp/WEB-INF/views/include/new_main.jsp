@@ -6,7 +6,7 @@
 <html lang="kr">
 <head>
 <meta charset="UTF-8">
-<title>메인메인메인메인</title>
+<title>메인</title>
 <script type="text/javascript"
 	src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 <script type="text/javascript"
