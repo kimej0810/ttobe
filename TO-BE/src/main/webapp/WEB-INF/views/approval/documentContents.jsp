@@ -154,7 +154,7 @@
 								<%=contents.getE_draftDate()%>
 							</td>
 							<td class="style33 style33" rowspan="3">결<br><br>재</td>
-							<td class="style35 style36" colspan="2">담당</td>
+							<td class="style35 style36" colspan="2"><%=contents.getT_name()%></td>
 							<td class="style35 style36" colspan="2">
 								<%if(lineTeamLeader == ""){%>
 									결재권한없음
@@ -188,34 +188,46 @@
 								<input type="text" id="charge" readonly value="승인">
 							</td>
 							<td class="style38 style43" colspan="2" rowspan="2">
-							<%if(contents.getStatus().equals("0300") || contents.getStatus().equals("0030") ||contents.getStatus().equals("0003") || contents.getStatus().equals("0000") || !lineTeamLeader.equals(contents.getE_approvalNoPerson())){ %>
-								<input type="text" id="teamLeader" readonly value="승인">
+							<%if(lineTeamLeader == ""){%>
+								<input type="text" id="teamLeader" readonly value="권한없음">
+							<%}else if(contents.getStatus().equals("3000")){ %>
+								<input type="text" id="teamLeader" readonly value="예정">
 							<%}else if(lineTeamLeader.equals(contents.getE_approvalNoPerson())){%>
 								<input type="text" id="teamLeader" readonly value="반려">
 							<%}else{%>
-								<input type="text" id="teamLeader" readonly value="대기">
+								<input type="text" id="teamLeader" readonly value="승인">
 							<%}%>
 							</td> 
 							<td class="style38 style43" colspan="3" rowspan="2">
-							<%if(contents.getStatus().equals("0030") ||contents.getStatus().equals("0003") || contents.getStatus().equals("0000") || !lineSectionHead.equals(contents.getE_approvalNoPerson())){ %>
-								<input type="text" id="sectionHead" readonly value="승인">
+							<% if(lineSectionHead == ""){%>
+								<input type="text" id="sectionHead" readonly value="권한없음">
+							<%}else if(contents.getStatus().equals("3000")){ %>
+								<input type="text" id="sectionHead" readonly value="대기">
+							<%}else if(contents.getStatus().equals("0300")){ %>
+								<input type="text" id="sectionHead" readonly value="예정">
 							<%}else if(lineSectionHead.equals(contents.getE_approvalNoPerson())){%>
 								<input type="text" id="sectionHead" readonly value="반려">
 							<%}else{%>
-								<input type="text" id="sectionHead" readonly value="대기">
+								<input type="text" id="sectionHead" readonly value="승인">
 							<%}%>
 							</td>
 							<td class="style38 style43" colspan="2" rowspan="2">
-							<%if(contents.getStatus().equals("0003") || contents.getStatus().equals("0000") || !lineDepartmentHead.equals(contents.getE_approvalNoPerson())){ %>
-								<input type="text" id="departmentHead" readonly value="승인">
+							<% if(lineSectionHead == ""){%>
+								<input type="text" id="departmentHead" readonly value="권한없음">
+							<%}else if(contents.getStatus().equals("3000") || contents.getStatus().equals("0300")){ %>
+								<input type="text" id="departmentHead" readonly value="대기">
+							<%}else if(contents.getStatus().equals("0030")){ %>
+								<input type="text" id="departmentHead" readonly value="예정">
 							<%}else if(lineDepartmentHead.equals(contents.getE_approvalNoPerson())){%>
 								<input type="text" id="departmentHead" readonly value="반려">
 							<%}else{%>
-								<input type="text" id="departmentHead" readonly value="대기">
+								<input type="text" id="departmentHead" readonly value="승인">
 							<%} %>
 							</td>
 							<td class="style58 style59" rowspan="2">
-							<%if(contents.getStatus().equals("0000") && !lineLeader.equals(contents.getE_approvalNoPerson())){ %>
+							<%if(contents.getStatus().equals("0003")){ %>
+								<input type="text" id="leader" readonly value="예정">
+							<%}else if(contents.getStatus().equals("0000")){%>
 								<input type="text" id="leader" readonly value="승인">
 							<%}else if(lineLeader.equals(contents.getE_approvalNoPerson())){%>
 								<input type="text" id="leader" readonly value="반려">

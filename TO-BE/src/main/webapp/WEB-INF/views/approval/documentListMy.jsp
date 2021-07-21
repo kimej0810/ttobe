@@ -125,7 +125,7 @@
 											<a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">${elist.eidx }</a>
 										</c:when>
 										<c:otherwise>
-											<a href="/member/leaveView?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=630'); return false;" style="text-decoration : none; color:black;">${elist.eidx }</a>
+											<a href="/member/leaveView?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=650'); return false;" style="text-decoration : none; color:black;">${elist.eidx }</a>
 										</c:otherwise> 
 									</c:choose>
 								</td> 
@@ -150,7 +150,7 @@
 											</a>
 										</c:when>
 										<c:otherwise>
-											<a href="/member/leaveView?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=630'); return false;" style="text-decoration : none; color:black;"><c:set var="content" value="${elist.e_textTitle}"/>
+											<a href="/member/leaveView?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=650'); return false;" style="text-decoration : none; color:black;"><c:set var="content" value="${elist.e_textTitle}"/>
 												<c:choose>
 													<c:when test="${fn:length(elist.e_textTitle) > 50}">
 														<c:out value="${fn:substring(content,0,50)}"/>...

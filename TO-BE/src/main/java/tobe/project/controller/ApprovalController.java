@@ -155,7 +155,7 @@ public class ApprovalController {
 			service.modifyApprovalStatusProgress(eidx);
 		}else{
 			lservice.modifyApprovalLeader(eidx);
-			if(!to.getE_type().equals("개인일정")){
+			if(!to.getE_type().equals("연차") && !to.getE_type().equals("월차") && !to.getE_type().equals("병가") && !to.getE_type().equals("반차")){
 				if(approvalOk == 1){
 					ScheduleVO vo = new ScheduleVO();
 					vo.setS_type(to.getE_type());
