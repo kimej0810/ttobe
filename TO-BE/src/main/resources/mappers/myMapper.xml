@@ -176,11 +176,31 @@
 		E_TEXTCONTENT = #{e_textcontent}
 		WHERE EIDX = #{eidx}
 	</update>
+	<update id="modifyReApproval">
+		UPDATE ELECTRONIC_APPROVAL
+		SET E_TYPE = #{e_type},
+		E_STATUS = '결재대기',
+		E_STARTDAY = #{e_startday},
+		E_ENDDAY = #{e_endday},
+		E_CON = #{e_con},
+		E_TEXTTITLE = #{e_texttitle},
+		E_TEXTCONTENT = #{e_textcontent},
+		E_APPROVALNOYN = 'N'		
+		WHERE EIDX = #{eidx}
+	</update>
 	<update id="modifyLine">
 		UPDATE APPROVAL_LINE
 		SET TEAMLEADER = #{teamleader},
 		SECTIONHEAD = #{sectionhead},
-		DEPARTMENTHEAD = #{departmenthead}
+		DEPARTMENTHEAD = #{departmenthead}	
+		WHERE EIDX = #{eidx}
+	</update>
+	<update id="modifyReLine">
+		UPDATE APPROVAL_LINE
+		SET TEAMLEADER = #{teamleader},
+		SECTIONHEAD = #{sectionhead},
+		DEPARTMENTHEAD = #{departmenthead},
+		STATUS = #{status}	
 		WHERE EIDX = #{eidx}
 	</update>
 	<update id="modifyLeave">
@@ -189,6 +209,19 @@
 		FRIEND_PHONE = #{friend_phone},
 		FRIEND_NAME = #{friend_name},
 		A_USEDDAYS = #{a_useddays}
+		WHERE EIDX = #{eidx}
+	</update>
+	<update id="leaveNo">
+		UPDATE ELECTRONIC_APPROVAL
+		SET E_APPROVALNOYN = 'Y',
+		E_APPROVALNOPERSON = #{e_approvalNoPerson},
+		E_REASON = #{e_reason},
+		E_STATUS = '결재반려'
+		WHERE EIDX = #{eidx}
+	</update>
+	<update id="updateLine">
+		UPDATE APPROVAL_LINE
+		SET STATUS = '3333'
 		WHERE EIDX = #{eidx}
 	</update>
 </mapper>

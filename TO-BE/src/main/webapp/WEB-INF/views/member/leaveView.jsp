@@ -7,6 +7,7 @@
 <%
 	String userName = (String)session.getAttribute("userName");
 	String userId = (String)session.getAttribute("userId");
+	Integer userIdx = (Integer)session.getAttribute("userTidx");
 	MemberDTO member = (MemberDTO)request.getAttribute("member");
 	if(userName==null){
 		out.println("<script>alert('잘못된 접근입니다.');window.close();</script>");
@@ -63,10 +64,43 @@
 		.tooltip-inner{
 			background-color: red;
 		}
+		#noNO{
+			position: fixed;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			background: rgba(0,0,0,0.4);
+			width: 100%;
+			height: 100vh;
+			text-align: center;
+			display: none;
+		}
+		#noNO form{
+		    position: absolute;
+	    	top: 30%;
+	    	left: 20%;
+	    	width:60%;
+		}
+		#noCheck{
+			position: fixed;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			background: rgba(0,0,0,0.4);
+			width: 100%;
+			height: 100vh;
+			text-align: center;
+			display: inline;
+		}
+		#noCheck form{
+			position: absolute;
+	    	top: 30%;
+	    	left: 20%;
+	    	width:60%;
+		}
 	</style>
-	<script>
-
-	</script>
 </head>
 <body>
 	<div id="tableDiv">
@@ -242,8 +276,12 @@
 			<%
 				if(userName.equals(member.getT_name())){
 			%>
-				<c:if test="${fn:trim(e_status) eq '결재대기'}">
+				<c:if test="${leave.e_status eq '결재대기'}">
 					<input type="button" id="modifyBtn" class="btn btn-danger btn-sm" value="수정">
+					<input type="button" id="delBtn" class="btn btn-danger btn-sm" value="삭제">	 
+				</c:if>
+				<c:if test="${leave.e_status eq '결재반려' }">
+					<input type="button" id="modifyBtn" class="btn btn-danger btn-sm" value="재등록">
 					<input type="button" id="delBtn" class="btn btn-danger btn-sm" value="삭제">	 
 				</c:if>
 				
@@ -254,21 +292,25 @@
 				<c:if test="${leave.teamleader == check1}">
 					<c:if test="${leave.status eq '3000' }">
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">승인</button>
+						<button type="button" class="btn btn-danger btn-sm noNO">반려</button>
 					</c:if>
 				</c:if>
 				<c:if test="${leave.sectionhead == check1}">
 					<c:if test="${leave.status eq '0300' }">
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">승인</button>
+						<button type="button" class="btn btn-danger btn-sm noNO">반려</button>
 					</c:if>
 				</c:if>
 				<c:if test="${leave.departmenthead == check1}">
 					<c:if test="${leave.status eq '0030' }">
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">승인</button>
+						<button type="button" class="btn btn-danger btn-sm noNO">반려</button>
 					</c:if>
 				</c:if>
 				<c:if test="${leave.leader == check1}">
 					<c:if test="${leave.status eq '0003' }">
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">승인</button>
+						<button type="button" class="btn btn-danger btn-sm noNO">반려</button>
 					</c:if>
 				</c:if>
 			<%
@@ -279,6 +321,47 @@
 			</div>
 		</form>
 	</div>
+	<div id="noNO">
+		<form name="noFrm">
+			<table class="table">
+				<tr>
+					<th>반려자</th>
+					<td><%=userName%>
+						<input type="hidden" name="e_approvalNoPerson" value="<%=userName%>">
+						<input type="hidden" name="eidx" value="${leave.eidx}">
+					</td>
+				</tr>
+				<tr>
+					<th>반려 사유</th>
+					<td>
+						<input type="text" name="e_reason" id="e_reason" class="form-control" required="required">
+					</td>
+				</tr>
+			</table>
+			<div style="float:right;margin:0 5px 5px 0;">
+				<input type="button" class="btn btn-danger btn-sm noCheck" value="반려">
+			</div>
+		</form>
+	</div>
+	<c:if test="${leave.e_status eq '결재반려'}">
+		<div id="noCheck">
+			<form>
+				<table class="table chk">
+					<tr>
+						<th>반려자</th>
+						<td>${leave.e_approvalnoperson}</td>
+					</tr>
+					<tr>
+						<th>반려 사유</th>
+						<td>${leave.e_reason}</td>
+					</tr>
+				</table>
+				<div style="float:right;margin:0 5px 5px 0;">
+					<input type="button" id="yesBtn" class="btn btn-primary btn-sm" value="확인">
+				</div>
+			</form>
+		</div>
+	</c:if>
 	<script>
 	function ok(){
 		var eidx = $("#eidx").val();
@@ -291,20 +374,21 @@
 		}
 	}
 	$(document).ready(function(){
-		
+		$(document).on("click","#yesBtn",function(){
+			$("#noCheck").css("display","none");
+		});
 		$(document).on("click","#modifyBtn",function(){
-			if($("#e_status").val()=="결재대기"){
+			if($("#e_status").val()=="결재대기" || $("#e_status").val()=="결재반려"){
 				var eidx = $("#eidx").val();
+				alert("수정페이지로 이동합니다.");
 				self.location.href="/member/leaveModify?eidx="+eidx;	
 			}else{
 				alert("진행중인 결재는 수정이 불가합니다.");
 				return;
 			}
-			
-			
 		});
 		$(document).on("click","#delBtn",function(){
-			if($("#e_status").val()=="결재대기"){
+			if($("#e_status").val()=="결재대기" || $("#e_status").val()=="결재반려"){
 				if(confirm("해당 결재를 취소하시겠습니까?")){
 					if(confirm("취소된 결재내역은 삭제됩니다.")){
 						var eidx = $("#eidx").val();
@@ -323,6 +407,31 @@
 						});
 					}
 				}
+			}
+		});
+		$(document).on("click",".noNO",function(){
+			if(confirm("반려처리 하시겠습니까?")){
+				$("#noNO").css("display","inline");	
+			}
+		});
+		$(document).on("click",".noCheck",function(){
+			var checkStr = $("#e_reason").val();
+			if(confirm("[반려사유 : "+checkStr+"] 반려처리 하시겠습니까?")){
+				var result = $("form[name=noFrm]").serialize();
+				$.ajax({
+					url: "/member/leaveNo",
+					data:result,
+					dataType:"JSON",
+					success:function(e){
+						if(e==1){
+							alert("반려처리 되었습니다.");
+							opener.parent.location.reload();
+							window.close();
+						}else{
+							
+						}
+					}
+				});
 			}
 		});
 	});

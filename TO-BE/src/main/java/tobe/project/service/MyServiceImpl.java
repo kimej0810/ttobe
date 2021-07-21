@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import tobe.project.dao.MyDAO;
 import tobe.project.domain.SearchCriteria;
+import tobe.project.dto.ApprovalDTO;
 import tobe.project.dto.BoardVO;
 import tobe.project.dto.EmailDTO;
 import tobe.project.dto.LeaveDTO;
@@ -83,8 +84,27 @@ public class MyServiceImpl implements MyService{
 		return 0;
 	}
 	@Override
+	public int modifyReLeave(LeaveDTO dto) throws Exception {
+		int result1 = dao.modifyLeave(dto);
+		int result2 = dao.modifyReLine(dto);
+		int result3 = dao.modifyReApproval(dto);
+		if(result1 == 1 && result2 == 1 && result3 == 1) {
+			return 1;
+		}
+		return 0;
+	}
+	@Override
 	public List<LeaveDTO> selectAllLeave2() throws Exception {
 		return dao.selectAllLeave2();
+	}
+	@Override
+	public int leaveNo(ApprovalDTO dto) throws Exception {
+		int check = dao.leaveNo(dto);
+		if(check==1) {
+			return dao.updateLine(dto);
+		}else {
+			return 0;
+		}
 	}
 
 	

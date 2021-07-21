@@ -24,7 +24,7 @@ public class LeaveDTO {
 	private String delyn;
 	private String e_approvalnoyn;
 	private String e_approvalnoperson;
-	private String e_reasone;
+	private String e_reason;
 	private int t_leave_get;
 	public int getEidx() {
 		return eidx;
@@ -164,11 +164,11 @@ public class LeaveDTO {
 	public void setE_approvalnoperson(String e_approvalnoperson) {
 		this.e_approvalnoperson = e_approvalnoperson;
 	}
-	public String getE_reasone() {
-		return e_reasone;
+	public String getE_reason() {
+		return e_reason;
 	}
-	public void setE_reasone(String e_reasone) {
-		this.e_reasone = e_reasone;
+	public void setE_reason(String e_reason) {
+		this.e_reason = e_reason;
 	}
 	public int getT_leave_get() {
 		return t_leave_get;

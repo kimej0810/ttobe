@@ -184,11 +184,28 @@
 				alert("신청자와 이름이 다릅니다.");
 				return;
 			}
+			if($("#t_position").val()=="팀장"){
+				$("#status").val("0300");
+			}else if($("#t_position").val()=="과장"){
+				$("#status").val("0030");
+			}else if($("#t_position").val()=="부장"){
+				$("#status").val("0003");
+			}else{
+				$("#status").val("3000");
+			}
 			$("#a_type").val($("#e_type").val());
 			$("#a_startdate").val($("#startD").val());
 			var result = $("form[name=frm]").serialize();
+			var url1 = "/member/leaveModifyAction";
+			var url2 = "/member/leaveReModifyAction";
+			var resultUrl = "";
+			if($("#e_status").val()=="결재반려"){
+				resultUrl = url2;
+			}else{
+				resultUrl = url1;
+			}
 			$.ajax({
-				url: "/member/leaveModifyAction",
+				url: resultUrl,
 				data:result,
 				type:"POST",
 				dataType: "json",
@@ -371,6 +388,7 @@
 						<input type="hidden" name="t_name" id="t_name" value="${member.t_name }">
 						<input type="hidden" name="tidx" value="${member.tidx }">
 						<input type="hidden" name="t_position" id="t_position" value="${member.t_position }">
+						<input type="hidden" id="e_status" value="${leave.e_status}">
 						<input type="hidden" name="status" id="status">
 					</td>
 					<th>부 서</th>
