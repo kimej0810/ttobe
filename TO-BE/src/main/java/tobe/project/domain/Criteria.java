@@ -39,11 +39,11 @@ public class Criteria {
 		return this.perPageNum;
 	}
 	public int getRowStart() {
-		rowStart = ((page - 1) * perPageNum) + 1 -1;
+		rowStart = ((page - 1) * perPageNum);
 		return rowStart;
 	}
 	public int getRowEnd() {
-		rowEnd = rowStart + perPageNum - 1;
+		rowEnd = rowStart + perPageNum;
 		return rowEnd;
 	}
 	
