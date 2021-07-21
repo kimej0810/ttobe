@@ -131,11 +131,11 @@
 								<tr class="waitingList">
 								<td>
 									<c:choose>
-										<c:when test="${elist.e_type == '중요일정' || elist.e_type == '회사일정' || elist.e_type == '외근' || elist.e_type == '출잘'}">
+										<c:when test="${elist.e_type == '중요일정' || elist.e_type == '회사일정' || elist.e_type == '외근' || elist.e_type == '출장'}">
 											<a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">${elist.eidx }</a>
 										</c:when>
 										<c:otherwise>
-											<a href="/member/leaveView?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=630'); return false;" style="text-decoration : none; color:black;">${elist.eidx }</a>
+											<a href="/member/leaveView?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=650'); return false;" style="text-decoration : none; color:black;">${elist.eidx }</a>
 										</c:otherwise> 
 									</c:choose>
 								</td>
@@ -146,7 +146,7 @@
 								<td>${elist.memberVO.t_name }</td>
 								<td>
 									<c:choose>
-										<c:when test="${elist.e_type != '연자' && elist.e_type != '월차' && elist.e_type != '병가' && elist.e_type != '기타' && elist.e_type != '반차' }">
+										<c:when test="${elist.e_type == '중요일정' || elist.e_type == '회사일정' || elist.e_type == '외근' || elist.e_type == '출장'}">
 											<a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">
 												<c:set var="content" value="${elist.e_textTitle}"/>
 												<c:choose>
@@ -160,7 +160,7 @@
 											</a>
 										</c:when>
 										<c:otherwise>
-											<a href="/member/leaveView?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=630'); return false;" style="text-decoration : none; color:black;"><c:set var="content" value="${elist.e_textTitle}"/>
+											<a href="/member/leaveView?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=650'); return false;" style="text-decoration : none; color:black;"><c:set var="content" value="${elist.e_textTitle}"/>
 												<c:choose>
 													<c:when test="${fn:length(elist.e_textTitle) > 50}">
 														<c:out value="${fn:substring(content,0,50)}"/>...
