@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page import="java.util.*"%>
+<%@page import="java.text.*"%>
 <%
+	Date Date = new Date();
+	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
+	String toDate = simpleDate.format(Date);
 	String userName = (String)session.getAttribute("userName");
 	String userDep = (String)session.getAttribute("userDep");
 	Object userTidx = session.getAttribute("userTidx");
@@ -80,7 +85,7 @@
 							<td></td>
 							<td class="style2">기 안 일 자</td>
 							<td class="style34 style34" colspan="2">
-								<input type="text" class="date" id="e_draftDate" name="e_draftDate" class="date" autocomplete="off" readonly title="날짜를 선택해주세요.">
+								<input type="text" class="date" id="e_draftDate" name="e_draftDate" autocomplete="off" readonly title="날짜를 선택해주세요." value="<%=toDate%>">
 							</td>
 							<td class="style33 style33" rowspan="3">결<br><br>재</td>
 							<td class="style35 style36" colspan="2">담당</td>

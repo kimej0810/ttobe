@@ -1,9 +1,14 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="tobe.project.dto.ApprovalDTO"%>
 <%@page import="tobe.project.dto.ApprovalVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
+	Date Date = new Date();
+	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
+	String toDate = simpleDate.format(Date);
 	if(session.getAttribute("userTidx") == null){
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
 	}
@@ -143,7 +148,7 @@
 						<td></td>
 						<td class="style2">시 행 일 자</td>
 						<td class="style34 style34" colspan="2">
-							<input type="text" class="date" id="e_startDay" name="e_startDay" class="date" autocomplete="off" readonly title="날짜를 선택해주세요.">
+							<input type="text" class="date" id="e_startDay" name="e_startDay" class="date" autocomplete="off" readonly title="날짜를 선택해주세요." value="<%=contents.getE_startDay()%>">
 						</td>
 						<td class="style38  style43" colspan="2" rowspan="2">
 							<input type="text" id="charge" value="<%=userName%>">
@@ -298,14 +303,14 @@
 						<td></td>
 						<td class="style53 style55" colspan="14">
 							<div id="title">제목 </div>
-							<textarea class="target" id="e_textTitle" name="e_textTitle"><%=contents.getE_textTitle()%></textarea>
+							<textarea class="target" id="e_textTitle" name="e_textTitle"> <%=contents.getE_textTitle()%></textarea>
 						</td>
 					</tr>
 					<tr class="row15">
 						<td></td>
 						<td class="style15 style17" colspan="14">
 							<div id="contents">내용 </div>
-							<textarea class="target" id="e_textContent" name="e_textContent"><%=contents.getE_textContent()%></textarea>
+							<textarea class="target" id="e_textContent" name="e_textContent"> <%=contents.getE_textContent()%></textarea>
 						</td>
 					</tr>
 				</tbody>

@@ -1,11 +1,6 @@
 $(document).ready(function(){
 	var startD;
 	var endD;
-	$("#e_draftDate").datetimepicker({
-		disabledWeekDays :[0, 6],
-		minDate:'+1d',
-		minTime:'+1h'
-	});
 	$("#e_startDay").datetimepicker({
 		disabledWeekDays :[0, 6],
 		minDate:'+1d',

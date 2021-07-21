@@ -26,6 +26,9 @@
 					<button type="button" class="btn btn-outline-secondary" id="progressDocument">결재진행문서</button>
 					<button type="button" class="btn btn-outline-secondary" id="completedDocument">결재완료문서</button>
 					<button type="button" class="btn btn-outline-secondary" id="NoDocument">결재반려문서</button>
+					<%if(userPosition != "대표" || userGrade != "A"){ %>
+						<button type="button" class="btn btn-outline-secondary" id="myWriteDocument">내가 쓴 결재문서</button>
+					<%}%>
 				</div>
 				<div id="statusGroup">
 					<table id="statusTable">
@@ -95,7 +98,9 @@
 						$('#NoDocument').on("click",function(){
 							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재반려"+"&t_id=<%=userId%>";
 						});
-						
+						$('#myWriteDocument').on("click",function(){
+							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=내가 쓴 결재문서"+"&userId=<%=userId%>"+"&t_id=<%=userId%>";
+						});
 					});
 				</script>
 				<div id="documentTable">

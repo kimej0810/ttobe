@@ -32,6 +32,9 @@
 							onclick="location.href='/approval/documentListMy${paging.makeQuery(1)}&searchWord=<%=userPosition %>&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재문서</button>
 						<%}%>
 					<%}%>
+					<%if(userPosition != "대표" || userGrade != "A"){ %>
+						<button type="button" class="btn btn-outline-secondary" id="myWriteDocument">내가 쓴 결재문서</button>
+					<%} %>
 				</div>
 				<div id="statusGroup">
 					<table id="statusTable">
@@ -101,6 +104,9 @@
 						$('#NoDocument').on("click",function(){
 							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재반려"+"&t_id=<%=userId%>";
 						});
+						$('#myWriteDocument').on("click",function(){
+							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=내가 쓴 결재문서"+"&userId=<%=userId%>"+"&t_id=<%=userId%>";
+						});
 					});
 				</script>
 				<div id="documentTable">
@@ -113,8 +119,8 @@
 								<th width="100px">기안자</th> 
 								<th>제목</th>
 								<c:if test="${scri.searchWord eq '결재반려' }">
-								<th width="300px">반려자</th>
-								<th width="300px">반려사유</th>
+								<th>반려자</th>
+								<th>반려사유</th>
 								</c:if>
 								<th width="150px">기안 일시</th>
 								<th width="70px">상태</th>
@@ -125,7 +131,7 @@
 								<tr class="waitingList">
 								<td>
 									<c:choose>
-										<c:when test="${elist.e_type != '개인일정'}">
+										<c:when test="${elist.e_type == '중요일정' || elist.e_type == '회사일정' || elist.e_type == '외근' || elist.e_type == '출잘'}">
 											<a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">${elist.eidx }</a>
 										</c:when>
 										<c:otherwise>
@@ -140,7 +146,7 @@
 								<td>${elist.memberVO.t_name }</td>
 								<td>
 									<c:choose>
-										<c:when test="${elist.e_type != '개인일정'}">
+										<c:when test="${elist.e_type != '연자' && elist.e_type != '월차' && elist.e_type != '병가' && elist.e_type != '기타' && elist.e_type != '반차' }">
 											<a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">
 												<c:set var="content" value="${elist.e_textTitle}"/>
 												<c:choose>

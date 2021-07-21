@@ -58,9 +58,9 @@
  	<select id="selectOneApprovalDocumentContents" resultType="ApprovalDTO" parameterType="ApprovalDTO">
  		SELECT
   			 @rownum:=@rownum+1 rnum, EIDX, E_TYPE, E_DRAFTDATE, E_STARTDAY, E_ENDDAY, E_CON, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS,
- 			 TIDX, E_APPROVALNOYN, E_APPROVALNOPERSON, E_REASON, T_NAME, T_DEPARTMENT, T_POSITION, TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, DELYN
+ 			 TIDX, E_APPROVALNOYN, E_APPROVALNOPERSON, E_REASON, T_NAME, T_ID, T_DEPARTMENT, T_POSITION, TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, DELYN
  		from (
- 				select (SELECT @ROWNUM := 0) R, A.*, B.T_NAME, T_DEPARTMENT, T_POSITION,C.TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS
+ 				select (SELECT @ROWNUM := 0) R, A.*, B.T_NAME, T_ID, T_DEPARTMENT, T_POSITION,C.TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS
  				FROM ELECTRONIC_APPROVAL A left join AFPS_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX 
  					WHERE A.DELYN = 'N')a
  		WHERE
@@ -142,7 +142,7 @@
  	<!-- 총 게시글 개수 -->
  	<select id="totalCountApprovalDocument" resultType="int">
  	select count(eidx) as cnt from (
- 				select A.*,B.T_NAME, B.T_DEPARTMENT, B.T_POSITION, C.TEAMLEADER, C.SECTIONHEAD, C.DEPARTMENTHEAD, C.LEADER, C.STATUS
+ 				select A.*,B.T_NAME, B.T_ID, B.T_DEPARTMENT, B.T_POSITION, C.TEAMLEADER, C.SECTIONHEAD, C.DEPARTMENTHEAD, C.LEADER, C.STATUS
  					FROM ELECTRONIC_APPROVAL A left join AFPS_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX
  					where 1=1 <include refid="searchWord"/><include refid="search"/>)a where eidx > 0 and delyn = 'N' 
  	</select>
@@ -150,10 +150,10 @@
  	<!-- 페이징 -->
  	<select id="selectAllApprovalDocumentList" resultMap="approvalResultMap">
  		 select
- 		 	 EIDX, E_TYPE, E_DRAFTDATE, E_STARTDAY, E_ENDDAY, E_CON, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, E_APPROVALNOYN, E_APPROVALNOPERSON, E_REASON, TIDX, T_NAME, T_DEPARTMENT, T_POSITION,
+ 		 	 EIDX, E_TYPE, E_DRAFTDATE, E_STARTDAY, E_ENDDAY, E_CON, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, E_APPROVALNOYN, E_APPROVALNOPERSON, E_REASON, TIDX, T_NAME, T_ID, T_DEPARTMENT, T_POSITION,
  		 	TEAMLEADER, SECTIONHEAD, DEPARTMENTHEAD, LEADER, STATUS, DELYN
  				from (
- 					select A.*, B.T_NAME, B.T_DEPARTMENT, B.T_POSITION, C.TEAMLEADER, C.SECTIONHEAD, C.DEPARTMENTHEAD, C.LEADER, C.STATUS,(SELECT @ROWNUM := 0) R
+ 					select A.*, B.T_NAME, B.T_ID, B.T_DEPARTMENT, B.T_POSITION, C.TEAMLEADER, C.SECTIONHEAD, C.DEPARTMENTHEAD, C.LEADER, C.STATUS,(SELECT @ROWNUM := 0) R
  					FROM ELECTRONIC_APPROVAL A left join AFPS_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX
  						WHERE 1=1 <include refid="searchWord"/> <include refid="search"/>and A.DELYN = 'N'
  						ORDER BY A.EIDX desc)a WHERE delyn ='N' and EIDX LIMIT #{rowStart},#{rowEnd}
@@ -185,6 +185,7 @@
 			<if test="searchWord == '결재진행'.toString()">AND E_STATUS = '결재진행'</if>
 			<if test="searchWord == '결재완료'.toString()">AND E_STATUS = '결재완료'</if>
 			<if test="searchWord == '결재반려'.toString()">AND E_STATUS = '결재반려'</if>
+			<if test="searchWord == '내가 쓴 결재문서'.toString()">AND T_ID = #{userId}</if>
 		</if>
 	</sql>
  </mapper>
