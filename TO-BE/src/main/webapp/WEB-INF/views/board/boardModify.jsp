@@ -48,17 +48,19 @@
 			<tr>
 				<th style="width:25%;">첨부파일</th>
 				<td id="fileIndex" style="text-align:left;">
+					<div id="fileArea">
 					<c:if test="">
 					</c:if>
 					<c:forEach var="file" items="${file}" varStatus="var">
-						<div id="fileArea">
+						
 							<div style="width:100%; height:28.4px;">
 								<input type="hidden" id="FIDX" name="FIDX" value="${file.FIDX}">
 								<a>${file.F_ORG_FILE_NAME}</a>(${file.F_FILE_SIZE}kb)
 								<button id="fileDelBtn" style="float:right;" onclick="fn_del('${file.FIDX}','${var.index}');" type="button">삭제</button>
 							</div>
-						</div>
+						
 					</c:forEach>
+					</div>
 				</td>
 			</tr>
 		</table>

@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import tobe.project.domain.PageMaker;
 import tobe.project.domain.SearchCriteria;
+import tobe.project.dto.ApprovalDTO;
 import tobe.project.dto.EmailDTO;
 import tobe.project.dto.LeaveDTO;
 import tobe.project.dto.LoginDTO;
@@ -143,6 +143,17 @@ public class MemberController {
 		return "redirect:/member/login";
 	}
 	@ResponseBody
+	@RequestMapping(value="/leaveNo")
+	public int leaveNo(Model model,HttpSession session,ApprovalDTO dto) throws Exception {
+		int check = myService.leaveNo(dto);
+		if(check==1) {
+			return 1;
+		}else {
+			return 0;
+		}
+		
+	}
+	@ResponseBody
 	@RequestMapping(value="/leaveAction")
 	public int leaveAction(Model model,HttpSession session,LeaveDTO dto) throws Exception {
 		int checkck = myService.writeLeave(dto); 
@@ -178,6 +189,11 @@ public class MemberController {
 	public int leaveModifyAction(Model model,HttpSession session,LeaveDTO dto) throws Exception {
 		return myService.modifyLeave(dto);
 	}
+	@ResponseBody
+	@RequestMapping(value="/leaveReModifyAction")
+	public int leaveReModifyAction(Model model,HttpSession session,LeaveDTO dto) throws Exception {
+		return myService.modifyReLeave(dto);
+	}
 	@RequestMapping(value="/emailRead")
 	public String emailRead(Model model,HttpSession session,EmailDTO dto) throws Exception {
 		EmailDTO reDto = eService.selectOneEmail(dto);
@@ -187,8 +203,8 @@ public class MemberController {
 	//로그인 페이지불러오기
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public void loginGET(@ModelAttribute("dto") LoginDTO dto,HttpSession session) throws Exception {
-		//int check = aService.adminCheck();
-		//session.setAttribute("admin", check);
+		int check = aService.adminCheck();
+		session.setAttribute("admin", check);
 	}
 	//로그인 처리
 	@RequestMapping(value="/loginPost", method = RequestMethod.POST)

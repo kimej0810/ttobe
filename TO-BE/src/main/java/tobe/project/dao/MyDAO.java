@@ -3,6 +3,7 @@ package tobe.project.dao;
 import java.util.List;
 
 import tobe.project.domain.SearchCriteria;
+import tobe.project.dto.ApprovalDTO;
 import tobe.project.dto.BoardVO;
 import tobe.project.dto.EmailDTO;
 import tobe.project.dto.LeaveDTO;
@@ -26,5 +27,9 @@ public interface MyDAO {
 	public int modifyLeave(LeaveDTO dto)throws Exception;
 	public int modifyLine(LeaveDTO dto)throws Exception;
 	public int modifyApproval(LeaveDTO dto)throws Exception;
+	public int modifyReLine(LeaveDTO dto)throws Exception;
+	public int modifyReApproval(LeaveDTO dto)throws Exception;
 	public List<LeaveDTO> selectAllLeave2()throws Exception;
+	public int leaveNo(ApprovalDTO dto)throws Exception;
+	public int updateLine(ApprovalDTO dto)throws Exception;
 }

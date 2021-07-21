@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import tobe.project.domain.SearchCriteria;
+import tobe.project.dto.ApprovalDTO;
 import tobe.project.dto.BoardVO;
 import tobe.project.dto.EmailDTO;
 import tobe.project.dto.LeaveDTO;
@@ -88,8 +89,23 @@ public class MyDAOImpl implements MyDAO{
 		return sqlSession.update(Namespace+".modifyApproval",dto);
 	}
 	@Override
+	public int modifyReLine(LeaveDTO dto) throws Exception {
+		return sqlSession.update(Namespace+".modifyReLine",dto);
+	}
+	@Override
+	public int modifyReApproval(LeaveDTO dto) throws Exception {
+		return sqlSession.update(Namespace+".modifyReApproval",dto);
+	}
+	@Override
 	public List<LeaveDTO> selectAllLeave2() throws Exception {
 		return sqlSession.selectList(Namespace+".selectAllLeave2");
 	}
-	
+	@Override
+	public int leaveNo(ApprovalDTO dto) throws Exception {
+		return sqlSession.update(Namespace+".leaveNo",dto);
+	}
+	@Override
+	public int updateLine(ApprovalDTO dto) throws Exception {
+		return sqlSession.update(Namespace+".updateLine",dto);
+	}
 }

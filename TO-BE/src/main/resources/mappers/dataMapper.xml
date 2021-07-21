@@ -22,18 +22,18 @@
 		select a.*, m.t_name
 		from
 		(select *
-		from data_library as d
-		order by d.didx desc limit #{pageStart},10)as a
+		from data_library
+		where delyn='N'
+		order by didx desc limit #{pageStart},10)as a
 		inner join afps_member as m on a.tidx = m.tidx
-		where a.delyn='N' <include refid="search"></include>
+        where 1=1 <include refid="search"></include>
 	</select>
 	
 	<select id="dataCount" resultType="int">
 		select count(a.didx)
 		from data_library as a
-		where 1=1
-		<include refid="search"></include>
-		and a.delyn='N';
+		where 1=1 <include refid="search"></include>
+		and a.delyn='N'
 	</select>
 	
 	<sql id="search">
@@ -47,7 +47,7 @@
 				and m.delyn='N'
 				)
     		</if>
-    		<if test="searchType == 't'.toString()">AND a.d_title LIKE concat('%',#{keyword},'%')</if>
+    		<if test="searchType == 't'.toString()">and a.d_title LIKE concat('%',#{keyword},'%')</if>
     	</if>
     </sql>
     
