@@ -156,25 +156,25 @@
 							<td class="style33 style33" rowspan="3">결<br><br>재</td>
 							<td class="style35 style36" colspan="2"><%=contents.getT_name()%></td>
 							<td class="style35 style36" colspan="2">
-								<%if(lineTeamLeader == ""){%>
-									결재권한없음
-								<%}else{%>
-									<%=lineTeamLeader%>
-								<%}%>
+							<%if(lineTeamLeader == ""){%>
+								결재권한없음
+							<%}else{%>
+								<%=lineTeamLeader%>
+							<%}%>
 							</td>
 							<td class="style35 style36" colspan="3">
-								<%if(lineSectionHead == ""){%>
-										결재권한없음
-								<%}else{%>
-									<%=lineSectionHead%>
-								<%}%>
+							<%if(lineSectionHead == ""){%>
+								결재권한없음
+							<%}else{%>
+								<%=lineSectionHead%>
+							<%}%>
 							</td>
 							<td class="style35 style36" colspan="2">
 							<%if(lineDepartmentHead == ""){%>
-										결재권한없음
-								<%}else{%>
-									<%=lineDepartmentHead%>
-								<%}%>
+								결재권한없음
+							<%}else{%>
+								<%=lineDepartmentHead%>
+							<%}%>
 							</td>
 							<td class="style11 s"><%=lineLeader %></td>
 						</tr>
