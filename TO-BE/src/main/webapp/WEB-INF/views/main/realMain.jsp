@@ -345,14 +345,15 @@ p {
 	<div id="box3" class="inner_content"
 		style="width: 100%; height: 100%; font-size: 50px;">
 		<div class="conTitle">근태관리</div>
-		<div class="conCon" style="display:grid; grid-template-columns:1fr 1fr;">
-		
+		<div class="conCon"
+			style="display: grid; grid-template-columns: 1fr 1fr;">
+
 			<input type="hidden" id="tidx" value="<%=userTidx%>">
-			<button style="grid-columns:1/2; margin:0 5px;"
-				id="startWork" type="button" class="btn btn-outline-primary btn-lg float-right"
+			<button style="grid-columns: 1/2; margin: 0 5px;" id="startWork"
+				type="button" class="btn btn-outline-primary btn-lg float-right"
 				onclick="location.href='/commute/startCommute?tidx=<%=userTidx%>'">출근</button>
-			<button style="grid-columns:2/3; margin:0 5px;" 
-				id="endWork" type="button" class="btn btn-outline-danger btn-lg float-right"
+			<button style="grid-columns: 2/3; margin: 0 5px;" id="endWork"
+				type="button" class="btn btn-outline-danger btn-lg float-right"
 				onclick="location.href='/commute/endCommute?tidx=<%=userTidx%>'">퇴근</button>
 		</div>
 	</div>
@@ -388,7 +389,19 @@ p {
 					<c:forEach items="${approvalList}" var="approval">
 						<tr>
 							<td>${approval.eidx}</td>
-							<td>${approval.e_textTitle}</td>
+							<td><c:choose>
+									<c:when test="${approval.e_type != '개인일정'}">
+										<a
+											href="/approval/documentContents?eidx=${approval.eidx}&tidx=${approval.tidx}"
+											onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;"
+											style="text-decoration: none; color: black;">${approval.e_textTitle }</a>
+									</c:when>
+									<c:otherwise>
+										<a href="/member/leaveView?eidx=${approval.eidx}"
+											onclick="window.open(this.href, '_blank', 'width=770, height=630'); return false;"
+											style="text-decoration: none; color: black;">${approval.e_textTitle }</a>
+									</c:otherwise>
+								</c:choose></td>
 							<td>${approval.memberVO.t_name}</td>
 							<td>${approval.e_draftDate}</td>
 							<td>${approval.e_status}</td>
@@ -420,59 +433,80 @@ p {
 	</div>
 	<div id="box6" class="inner_content space">&nbsp;</div>
 	<script>
-	function selectApproval(data) {
-		var approval = "";
+		function selectApproval(data) {
+			var approval = "";
 
-		if (data.length > 0) {
-			for (var i = 0; i < data.length; i++) {
-
-				approval += "<tr>";
-				approval += "<td>";
-				approval += data[i].e_documentNum;
-				approval += "</td>";
-				approval += "<td>";
-				approval += data[i].e_textTitle;
-				approval += "</td>";
-				approval += "<td>";
-				approval += data[i].memberVO.t_name;
-				approval += "</td>";
-				approval += "<td>";
-				approval += data[i].e_draftDate;
-				approval += "</td>";
-				approval += "<td>";
-				approval += data[i].e_status;
-				approval += "</td>";
-				approval += "</tr>";
-			}
-
-			$("#approval").html(approval);
-		} else {
-			$("#approval").html("<tr><td colspan='6'>해당하는 문서가 존재하지 않습니다.</td></tr>");
-		}
-	}
-	
-		$(document).ready(function(){
-			$("#wating, #progress, #completed, #rejected").on("click", function(){
-	
-				$.ajax({
-					type : "post",
-					url : "/main/approval",
-					data : {
-						"state" : $(this).attr("id")
-					},
-					dataType : "json",
-					error : function(request, status, error) {
-						console.log("code:" + request.status + "\n"
-								+ "message:" + request.responseText + "\n"
-								+ "error:" + error);
-					},
-					success : function(data) {
-						selectApproval(data);
+			if (data.length > 0) {
+				for (var i = 0; i < data.length; i++) {
+					approval += "<tr>";
+					approval += "<td>";
+					approval += data[i].eidx;
+					approval += "</td>";
+					approval += "<td>";
+					if((data[i].e_type)!="개인일정"){
+						approval+="<a href='/approval/documentContents?eidx=";
+						approval+=data[i].eidx;
+						approval+="&tidx=";
+						approval+=data[i].tidx;
+						approval+="' onclick='#'";
+						approval+="style='text-decoration: none; color: black;'>";
+						approval+=data[i].e_textTitle;
+						approval+="</a>";	
+					}else{
+						approval+="<a href='/member/leaveView?eidx=";
+						approval+=data[i].eidx;
+						approval+="' onclick='#'";
+						approval+="style='text-decoration: none; color: black;'>";
+						approval+=data[i].e_textTitle;
+						approval+="</a>";	
 					}
+					approval += "</td>";
+					approval += "<td>";
+					approval += data[i].memberVO.t_name;
+					approval += "</td>";
+					approval += "<td>";
+					approval += data[i].e_draftDate;
+					approval += "</td>";
+					approval += "<td>";
+					approval += data[i].e_status;
+					approval += "</td>";
+					approval += "</tr>";
+				}
+
+				$("#approval").html(approval);
+				$("#approval").find("a").attr("onclick","window.open(this.href, '_blank', 'width=770, height=915'); return false;");
+			} else {
+				$("#approval").html(
+						"<tr><td colspan='6'>해당하는 문서가 존재하지 않습니다.</td></tr>");
+			}
+		}
+
+		$(document).ready(
+				function() {
+					$("#wating, #progress, #completed, #rejected").on(
+							"click",
+							function() {
+
+								$.ajax({
+									type : "post",
+									url : "/main/approval",
+									data : {
+										"state" : $(this).attr("id")
+									},
+									dataType : "json",
+									error : function(request, status, error) {
+										console.log("code:" + request.status
+												+ "\n" + "message:"
+												+ request.responseText + "\n"
+												+ "error:" + error);
+									},
+									success : function(data) {
+										selectApproval(data);
+									}
+								});
+
+							});
 				});
-				
-			});
-		});
 	</script>
 </body>
 </html>
