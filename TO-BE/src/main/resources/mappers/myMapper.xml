@@ -168,7 +168,7 @@
 	</update>
 	<update id="modifyApproval">
 		UPDATE ELECTRONIC_APPROVAL
-		SET E_TYPE = #{e_tyle},
+		SET E_TYPE = #{e_type},
 		E_STARTDAY = #{e_startday},
 		E_ENDDAY = #{e_endday},
 		E_CON = #{e_con},

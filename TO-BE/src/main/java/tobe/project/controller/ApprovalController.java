@@ -168,7 +168,7 @@ public class ApprovalController {
 				}
 			}else {
 				MemberDTO memb = mservice.selectOneMemberIdx(to2.getTidx());
-				int checkLeave = memb.getT_leave_get() - dto.getA_useddays();
+				double checkLeave = memb.getT_leave_get() - dto.getA_useddays();
 				dto.setA_useddays(checkLeave);
 				int mySchedule = myservice.updateLeave(dto);
 				if(mySchedule == 1) {

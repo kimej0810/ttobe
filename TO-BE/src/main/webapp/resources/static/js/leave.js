@@ -20,14 +20,29 @@
 		});
 		var startD;
 		var endD;
-		$("#startDay").click(function(){
+		$(document).on("click","#startD",function(){
 			$("#startD").datetimepicker({
 				dateFormat:"yyyy-MM-dd hh:mm",
 				minDate:'+1d',
 				disabledWeekDays :[0, 6],
 				onChangeDateTime:function(){
 					startD = $("#startD").val();
-					$("#a_useddays").val("");
+					/*$("#a_useddays").val("");*/
+					if($("#endD").val()!=null){
+						var sTime = new Date(startD);
+						var eTime = new Date(endD);
+						var resultD = eTime - sTime;
+						var resultT = resultD/60/60/1000/24;
+						var resultDa = 0.0;
+						if(resultT <= 1 && resultT > 0.5){
+							resultDa = 1;
+						}else if(resultT <= 0.5){
+							resultDa = 1/2;
+						}else if(resultT > 1){
+							resultDa = Math.ceil(resultT);
+						}
+						$("#a_useddays").val(resultDa);
+					}
 					if(startD > endD){
 						alert("시작일 선택이 잘못되었습니다.");
 						$("#startD").val(endD);
@@ -36,7 +51,7 @@
 			});
 			jQuery.datetimepicker.setLocale('kr');
 		});
-		$("#endDay").click(function(){
+		$(document).on("click","#endD",function(){
 			$("#endD").datetimepicker({
 				dateFormat:"yyyy-MM-dd hh:mm",
 				minDate:'+1d',
@@ -47,18 +62,20 @@
 					var eTime = new Date(endD);
 					var resultD = eTime - sTime;
 					var resultT = resultD/60/60/1000/24;
-					var resultDa;
+					var resultDa = 0.0;
 					if(resultT <= 1 && resultT > 0.5){
 						resultDa = 1;
 					}else if(resultT <= 0.5){
-						resultDa = 1;
-					}else{
+						resultDa = 1/2;
+					}else if(resultT > 1){
 						resultDa = Math.ceil(resultT);
 					}
+					
 					$("#a_useddays").val(resultDa);
-					if(startD > endD){
-						alert("종료일 선택이 잘못되었습니다.");
-						$("#endD").val(startD);
+					if(endD != null){
+						if(startD > endD){
+							$("#endD").val(startD);
+						}
 					}
 				}
 			});
@@ -96,6 +113,7 @@
 			}else{
 				$("#status").val("3000");
 			}
+			$("#e_type").val($("#a_type").val());
 			$("#a_startdate").val($("#startD").val());
 			var result = $("form[name=frm]").serialize();
 			$.ajax({

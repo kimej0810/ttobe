@@ -5,7 +5,7 @@ public class LeaveDTO {
 	private String a_type;
 	private String friend_phone;
 	private String friend_name;
-	private Integer a_useddays;
+	private double a_useddays;
 	private int tidx;
 	private String teamleader;
 	private String sectionhead;
@@ -50,10 +50,10 @@ public class LeaveDTO {
 	public void setFriend_name(String friend_name) {
 		this.friend_name = friend_name;
 	}
-	public Integer getA_useddays() {
+	public double getA_useddays() {
 		return a_useddays;
 	}
-	public void setA_useddays(Integer a_useddays) {
+	public void setA_useddays(double a_useddays) {
 		this.a_useddays = a_useddays;
 	}
 	public int getTidx() {

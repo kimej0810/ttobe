@@ -226,16 +226,16 @@ function leaveBtn(){
 											<td>${leave.a_type}
 											</td>
 											<td>
-												<a href="/member/leaveView?eidx=${leave.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=630'); return false;" style="text-decoration : none; color:black;">
+												<a href="/member/leaveView?eidx=${leave.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=700'); return false;" style="text-decoration : none; color:black;">
 													${leave.e_texttitle}
 												</a>
 											</td>
 											<td>
-												<c:set var="startdate" value="${leave.a_startdate}"/>
+												<c:set var="startdate" value="${leave.e_startday}"/>
 												${fn:substring(startdate,0,10)}
 											</td>
 											<td>
-												<c:set var="enddate" value="${leave.a_enddate}"/>
+												<c:set var="enddate" value="${leave.e_endday}"/>
 												${fn:substring(enddate,0,10)}
 											</td>
 											<td>${leave.a_useddays}</td>

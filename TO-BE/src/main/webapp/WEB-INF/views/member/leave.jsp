@@ -179,7 +179,7 @@
 						<input type="hidden" name="t_name" id="t_name" value="${member.t_name }">
 						<input type="hidden" name="tidx" value="${member.tidx }">
 						<input type="hidden" name="t_position" id="t_position" value="${member.t_position }">
-						<input type="hidden" name="e_type" value="휴가">
+						<input type="hidden" name="e_type" id="e_type">
 						<input type="hidden" name="e_con" value="없음">
 						<input type="hidden" name="status" id="status">
 					</td>

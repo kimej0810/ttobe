@@ -182,12 +182,12 @@
 					</td>
 					<th scope="col" width="14%">시 작 일 자</th>
 					<td scope="col">
-						<c:set var="startDate" value="${leave.a_startdate}"/>
+						<c:set var="startDate" value="${leave.e_startday}"/>
 						${fn:substring(startDate,0,10)}
 					</td>
 					<th scope="col" width="14%">종 료 일 자</th>
 					<td scope="col">
-						<c:set var="endDate" value="${leave.a_enddate}"/>
+						<c:set var="endDate" value="${leave.e_endday}"/>
 						${fn:substring(endDate,0,10)}
 						
 					</td>
@@ -195,7 +195,7 @@
 				<tr>
 					<th>휴 가 종 류</th>
 					<td>
-						${leave.e_rule}
+						${leave.a_type}
 					</td>
 					<th>신 청 자</th>
 					<td>${member.t_name }</td>
@@ -209,11 +209,11 @@
 					</td>
 					<th>비상연락망</th>
 					<td>
-						${leave.e_con }
+						${leave.friend_phone }
 					</td>
 					<th>신청인과의 관계</th>
 					<td>
-						${leave.e_send}
+						${leave.friend_name}
 					</td>
 				</tr>
 				<tr>
