@@ -133,22 +133,22 @@ button:disabled {
 			</thead>
 			<tbody>
 				<tr>
-					<td colspan="4" style="height:150px;">
+					<td colspan="4" style="height: 150px;">
+						<div id="fileBtn" style="cursor: pointer; text-align: right;">
+							<img src='<c:url value='/resources/static/img/folder.png'/>'
+								style="width: 10px;"> 첨부파일
+						</div>
+						<div id="fileDrop" class="list-group"
+							style="width: 100px; height: 50px; position: absolute; right: 52px; text-align: right;">
+							<c:forEach var="file" items="${file}">
+								<a href="#" class="list-group-item list-group-item-action" onclick="fn_fileDown('${file.FIDX}'); return false;"
+									style="font-size: 0.8rem; text-decoration: none;">${file.F_ORG_FILE_NAME}</a>
+							</c:forEach>
+						</div> 
+
+						</div>
 						<div style="margin: 10px 0;">${boardVO.b_content}</div>
 					</td>
-				</tr>
-				<tr>
-					<td colspan="4"><c:forEach var="file" items="${file}">
-							<div class="thumbNail">
-								<div class="thumbNailContent">
-									<img
-										src="<c:url value="/resources/static/file/${file.F_STORED_FILE_NAME}"/>"
-										style="width: 100px;"> <a href="#"
-										onclick="fn_fileDown('${file.FIDX}'); return false;"
-										style="font-size: 0.8rem; text-decoration: none;">${file.F_ORG_FILE_NAME}</a>
-								</div>
-							</div>
-						</c:forEach></td>
 				</tr>
 				<tr>
 					<table id="reply" style="width: 100%;">
@@ -193,7 +193,8 @@ button:disabled {
 						<div id="replyArea"
 							style="width: 100%; height: 100px; margin: 0 auto;">
 							<textarea id="r_content" name="r_content"
-								style="width: 100%; height: 100%; resize: none;" class="form-control"></textarea>
+								style="width: 100%; height: 100%; resize: none;"
+								class="form-control"></textarea>
 							<button class="btn btn-outline-secondary writeReplyBtn"
 								type="button" style="width: 100%; height: 100px;">작성</button>
 						</div>
@@ -437,6 +438,11 @@ button:disabled {
 				$("#generalBtn").css("background-color", "rgb(108, 117, 125)");
 				$("#generalBtn").css("color", "white");
 			}
+			
+			$("#fileDrop").toggle();
+			$("#fileBtn").on('click',function(){
+				$("#fileDrop").toggle();
+			});
 		});
 		
 		//게시글 삭제

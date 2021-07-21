@@ -94,7 +94,7 @@
 		order by b.b_type desc, b.bidx desc limit 0,10
 		)as a
 		inner join afps_member as m on a.tidx = m.tidx
-		where a.delyn='N' and a.b_writedate between date_format(#{search1}, '%y-%m-%d') and date_format(#{search2}, '%y-%m-%d');
+		where a.delyn='N' and a.b_writedate between date_format(#{search1}, '%y-%m-%d') and date_format(#{search2}, '%y-%m-%d')
 	</select>
 
 	<!-- 조회수 업 -->

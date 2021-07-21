@@ -349,10 +349,10 @@ p {
 			style="display: grid; grid-template-columns: 1fr 1fr;">
 
 			<input type="hidden" id="tidx" value="<%=userTidx%>">
-			<button style="grid-columns: 1/2; margin: 0 5px;" id="startWork"
+			<button style="grid-columns: 1/2; margin: 0 5px; height:70%;" id="startWork"
 				type="button" class="btn btn-outline-primary btn-lg float-right"
 				onclick="location.href='/commute/startCommute?tidx=<%=userTidx%>'">출근</button>
-			<button style="grid-columns: 2/3; margin: 0 5px;" id="endWork"
+			<button style="grid-columns: 2/3; margin: 0 5px; height:70%;" id="endWork"
 				type="button" class="btn btn-outline-danger btn-lg float-right"
 				onclick="location.href='/commute/endCommute?tidx=<%=userTidx%>'">퇴근</button>
 		</div>
@@ -390,7 +390,7 @@ p {
 						<tr>
 							<td>${approval.eidx}</td>
 							<td><c:choose>
-									<c:when test="${approval.e_type != '개인일정'}">
+									<c:when test="${approval.e_type == '중요일정' || approval.e_type == '회사일정' || approval.e_type == '외근' || approval.e_type == '출장'}">
 										<a
 											href="/approval/documentContents?eidx=${approval.eidx}&tidx=${approval.tidx}"
 											onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;"
