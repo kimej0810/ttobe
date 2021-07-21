@@ -12,10 +12,8 @@
 	if(session.getAttribute("userTidx") == null){
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
 	}
-	String userName = (String)session.getAttribute("userName");;
-	String userDep =  (String)session.getAttribute("userDep");
+	
 	Integer userTidx = (Integer)session.getAttribute("userTidx");
-	String userPosition = (String)session.getAttribute("userPosition"); 
 	
 	ApprovalDTO contents = (ApprovalDTO)request.getAttribute("contents");
 %> 
@@ -44,10 +42,7 @@
 				var start = new Date(startDay);
 				
 				
-				if($("#e_draftDate").val() == "" || $("#e_startDay").val() == "" || $("#e_endDay").val() == "" || start>end){
-					alert("날짜를 올바르게 선택해주세요. [시행일자보다 기안일자가 작아야 합니다.]");
-					return false;
-				}else if($("#e_con").val() == "" || $("#e_con").val().length < 2 || $("#e_con").val().length > 10){
+				if($("#e_con").val() == "" || $("#e_con").val().length < 2 || $("#e_con").val().length > 10){
 					alert("합의부서를 입력해주세요. [2글자 이상 10글자 이하]");
 					$("#e_con").focus();
 					return false;
@@ -66,7 +61,7 @@
 				if(result){
 					$.ajax({
 						type:'POST',
-						url:"/approval/documentApprovalAgainOk?eidx="+<%=contents.getEidx()%>+"&tidx="+<%=contents.getTidx()%>,
+						url:"/approval/documentApprovalAgainOk",
 						dataType:'JSON',
 						data: draftLetterData,
 						contentType : "application/json; charset=UTF-8",
@@ -83,7 +78,6 @@
 	<body>
 		<form id="draftLetterData" name="draftLetterData">
 		<input type="hidden" name="e_status" id="e_status" value="<%=contents.getE_status()%>">
-		<input type="hidden" name="eidx" id="eidx" value="<%=contents.getEidx() %>">
 		<div id="documentWrite">
 			<table id="sheet0" class="sheet0">
 				<col class="col0">
@@ -123,7 +117,7 @@
 						</td>
 						<td class="style44 style46" colspan="3">기 안 유 형</td>
 						<td class="style44 style63" colspan="8">
-							<select id="e_type" name="e_type" value="<%=contents.getE_type()%>">
+							<select id="e_type" name="e_type">
 									<option value="회사일정">회사일정</option>
 									<option value="중요일정">중요일정</option>
 									<option value="외근">외근</option>
@@ -139,9 +133,19 @@
 						</td>
 						<td class="style33 style33" rowspan="3">결<br><br>재</td>
 						<td class="style35 style36" colspan="2">담당</td>
-						<td class="style35 style36" colspan="2">팀장</td>		
+						<%if(contents.getT_position().equals("과장")){ %>
+						<td class="style35 style36" colspan="2">권한 없음</td>
 						<td class="style35 style36" colspan="3">과장</td>
 						<td class="style35 style36" colspan="2">부장</td>
+						<%}else if(contents.getT_position().equals("부장")){%>
+						<td class="style35 style36" colspan="2">권한 없음</td>
+						<td class="style35 style36" colspan="3">권한 없음</td>
+						<td class="style35 style36" colspan="2">부장</td>
+						<%}else{%>
+						<td class="style35 style36" colspan="2">팀장</td>
+						<td class="style35 style36" colspan="3">과장</td>
+						<td class="style35 style36" colspan="2">부장</td>
+						<%}%>
 						<td class="style11 s">대 표</td>
 					</tr> 
 					<tr class="row7">
@@ -151,17 +155,17 @@
 							<input type="text" class="date" id="e_startDay" name="e_startDay" class="date" autocomplete="off" readonly title="날짜를 선택해주세요." value="<%=contents.getE_startDay()%>">
 						</td>
 						<td class="style38  style43" colspan="2" rowspan="2">
-							<input type="text" id="charge" value="<%=userName%>">
+							<input type="text" id="charge" value="<%=contents.getT_name()%>">
 						</td>
-						<%if(userPosition != null){ %>
-							<%if(userPosition.equals("팀장")){ %>
+						<%if(contents.getT_position() != null){ %>
+							<%if(contents.getT_position().equals("팀장")){ %>
 								<td class="style38 style43" colspan="2" rowspan="2">
-									<input type="text" id="teamLeader" name="teamLeader" value="<%=userName%>" readonly>
+									<input type="text" id="teamLeader" name="teamLeader" value="<%=contents.getT_name()%>" readonly>
 								</td>
 								<td class="style38 style43" colspan="3" rowspan="2">
 									<select id="sectionHead" name="sectionHead">
 										<c:forEach items="${allMember }" var="allMember" varStatus="status">
-											<c:if test="${userDep == allMember.t_department && allMember.t_position == '과장'}">
+											<c:if test="${contents.t_department == allMember.t_department && allMember.t_position == '과장'}">
 												<option value="${allMember.t_id }">${allMember.t_name}</option>
 											</c:if>
 										</c:forEach>
@@ -170,47 +174,45 @@
 								<td class="style38 style43" colspan="2" rowspan="2">
 									<select id="departmentHead" name="departmentHead">
 										<c:forEach items="${allMember }" var="allMember" varStatus="status">
-											<c:if test="${userDep == allMember.t_department && allMember.t_position == '부장'}">
+											<c:if test="${contents.t_department == allMember.t_department && allMember.t_position == '부장'}">
 												<option value="${allMember.t_id }">${allMember.t_name}</option>
 											</c:if>
 										</c:forEach>
 									</select>
 								</td>
 								<td class="style58 style59" rowspan="2">
-									<select id="leader" name="leader">
-										<c:forEach items="${allMember }" var="allMember" varStatus="status">
-											<c:if test="${allMember.t_position == '대표'}">
-												<option value="${allMember.t_id }">${allMember.t_name}</option>
-											</c:if>
-										</c:forEach>
-									</select>
+									<c:forEach items="${allMember }" var="allMember" varStatus="status">
+										<c:if test="${allMember.t_position == '대표'}">
+											<input type="hidden" id="leader" name="leader" value="${allMember.t_id}">
+											<input type="text" id="leaderRead" value="${allMember.t_name}" readonly>
+										</c:if>
+									</c:forEach>
 								</td>
-							<%}else if(userPosition.equals("과장")){ %>
+							<%}else if(contents.getT_position().equals("과장")){ %>
 								<td class="style38 style43" colspan="2" rowspan="2">
 										<input type="text" id="teamLeader" name="teamLeader" value="권한 없음" readonly>
 								</td>
 								<td class="style38 style43" colspan="3" rowspan="2">
-									<input type="text" id="sectionHead" name="sectionHead" value="<%=userName%>" readonly>
+									<input type="text" id="sectionHead" name="sectionHead" value="<%=contents.getT_name()%>" readonly>
 								</td>
 								<td class="style38 style43" colspan="2" rowspan="2">
 									<select id="departmentHead" name="departmentHead">
 										<c:forEach items="${allMember }" var="allMember" varStatus="status">
-											<c:if test="${userDep == allMember.t_department && allMember.t_position == '부장'}">
+											<c:if test="${contents.t_department == allMember.t_department && allMember.t_position == '부장'}">
 												<option value="${allMember.t_id }">${allMember.t_name}</option>
 											</c:if>
 										</c:forEach>
 									</select>
 								</td>
 								<td class="style58 style59" rowspan="2">
-									<select id="leader" name="leader">
-										<c:forEach items="${allMember }" var="allMember" varStatus="status">
-											<c:if test="${allMember.t_position == '대표'}">
-												<option value="${allMember.t_id }">${allMember.t_name}</option>
-											</c:if>
-										</c:forEach>
-									</select>
+									<c:forEach items="${allMember }" var="allMember" varStatus="status">
+										<c:if test="${allMember.t_position == '대표'}">
+											<input type="hidden" id="leader" name="leader" value="${allMember.t_id}">
+											<input type="text" id="leaderRead" value="${allMember.t_name}" readonly>
+										</c:if>
+									</c:forEach>
 								</td>
-							<%}else if(userPosition.equals("부장")) {%>
+							<%}else if(contents.getT_position().equals("부장")) {%>
 								<td class="style38 style43" colspan="2" rowspan="2">
 									<input type="text" id="teamLeader" name="teamLeader" value="권한 없음" readonly>
 								</td>
@@ -218,22 +220,21 @@
 									<input type="text" id="sectionHead" name="sectionHead" value="권한 없음" readonly>
 								</td>
 								<td class="style38 style43" colspan="2" rowspan="2">
-									<input type="text" id="departmentHead" name="departmentHead" value="<%=userName %>" readonly>
+									<input type="text" id="departmentHead" name="departmentHead" value="<%=contents.getT_name() %>" readonly>
 								</td>
 								<td class="style58 style59" rowspan="2">
-									<select id="leader" name="leader">
-										<c:forEach items="${allMember }" var="allMember" varStatus="status">
-											<c:if test="${allMember.t_position == '대표'}">
-												<option value="${allMember.t_id }">${allMember.t_name}</option>
-											</c:if>
-										</c:forEach>
-									</select>
+									<c:forEach items="${allMember }" var="allMember" varStatus="status">
+										<c:if test="${allMember.t_position == '대표'}">
+											<input type="hidden" id="leader" name="leader" value="${allMember.t_id}">
+											<input type="text" id="leaderRead" value="${allMember.t_name}" readonly>
+										</c:if>
+									</c:forEach>
 								</td>
 							<%}	else{ %>
 								<td class="style38 style43" colspan="2" rowspan="2">
 									<select id="teamLeader" name="teamLeader">
 										<c:forEach items="${allMember}" var="allMember" varStatus="status">
-											<c:if test="${userDep == allMember.t_department && allMember.t_position == '팀장'}">
+											<c:if test="${contents.t_department == allMember.t_department && allMember.t_position == '팀장'}">
 												<option value="${allMember.t_id}">${allMember.t_name}</option>
 											</c:if>
 										</c:forEach>
@@ -242,7 +243,7 @@
 								<td class="style38 style43" colspan="3" rowspan="2">
 									<select id="sectionHead" name="sectionHead">
 										<c:forEach items="${allMember }" var="allMember" varStatus="status">
-											<c:if test="${userDep == allMember.t_department && allMember.t_position == '과장'}">
+											<c:if test="${contents.t_department == allMember.t_department && allMember.t_position == '과장'}">
 												<option value="${allMember.t_id }">${allMember.t_name}</option>
 											</c:if>
 										</c:forEach>
@@ -251,20 +252,19 @@
 								<td class="style38 style43" colspan="2" rowspan="2">
 									<select id="departmentHead" name="departmentHead">
 										<c:forEach items="${allMember }" var="allMember" varStatus="status">
-											<c:if test="${userDep == allMember.t_department && allMember.t_position == '부장'}">
+											<c:if test="${contents.t_department == allMember.t_department && allMember.t_position == '부장'}">
 												<option value="${allMember.t_id }">${allMember.t_name}</option>
 											</c:if>
 										</c:forEach>
 									</select>
 								</td>
 								<td class="style58 style59" rowspan="2">
-									<select id="leader" name="leader">
-										<c:forEach items="${allMember }" var="allMember" varStatus="status">
-											<c:if test="${allMember.t_position == '대표'}">
-												<option value="${allMember.t_id }">${allMember.t_name}</option>
-											</c:if>
-										</c:forEach>
-									</select>
+									<c:forEach items="${allMember }" var="allMember" varStatus="status">
+										<c:if test="${allMember.t_position == '대표'}">
+											<input type="hidden" id="leader" name="leader" value="${allMember.t_id}">
+											<input type="text" id="leaderRead" value="${allMember.t_name}" readonly>
+										</c:if>
+									</c:forEach>
 								</td>
 							<%} %>
 						<%} %>

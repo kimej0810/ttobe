@@ -1952,13 +1952,17 @@ table.sheet0 tr.row14 {
     margin-top: 10px;
 }
 #e_type, #e_draftDate, #e_startDay, #e_con, #t_name, #t_department, #e_endDay{
+	width: 98%;
 	height: 28px;
 	border: none;
-	font-size: 14px;
+	font-size: 15px;
 }
- #t_name, #t_department, #e_type{
+#e_draftDate, #e_startDay , #e_endDay{
+	text-align: center;
+}
+#t_name, #t_department, #e_type{
  	width: 98%;
- }
+}
 #eidx{ 
 	width:70px;
 	height: 28px;
@@ -1971,7 +1975,6 @@ table.sheet0 tr.row14 {
 	height:50px;
 	border:none;
 	text-align: center;
-	font-size: 15px; 
 }
 .btngroup{
 	margin-left:1px;

@@ -89,9 +89,19 @@
 							</td>
 							<td class="style33 style33" rowspan="3">결<br><br>재</td>
 							<td class="style35 style36" colspan="2">담당</td>
-							<td class="style35 style36" colspan="2">팀장</td>
-							<td class="style35 style36" colspan="3">과장</td>
-							<td class="style35 style36" colspan="2">부장</td>
+							<%if(userPosition.equals("과장")){ %>
+								<td class="style35 style36" colspan="2">권한 없음</td>
+								<td class="style35 style36" colspan="3">과장</td>
+								<td class="style35 style36" colspan="2">부장</td>
+							<%}else if(userPosition.equals("부장")){%>
+								<td class="style35 style36" colspan="2">권한 없음</td>
+								<td class="style35 style36" colspan="3">권한 없음</td>
+								<td class="style35 style36" colspan="2">부장</td>
+							<%}else{%>
+								<td class="style35 style36" colspan="2">팀장</td>
+								<td class="style35 style36" colspan="3">과장</td>
+								<td class="style35 style36" colspan="2">부장</td>
+							<%}%>
 							<td class="style11 s">대 표</td>
 						</tr> 
 						<tr class="row7">

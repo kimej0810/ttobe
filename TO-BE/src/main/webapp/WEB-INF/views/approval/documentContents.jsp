@@ -150,28 +150,28 @@
 						<tr class="row6">
 							<td></td>
 							<td class="style2">기 안 일 자</td>
- 							<td class="style34 style34" colspan="2" id="e_draftDate">
-								<%=contents.getE_draftDate()%>
+ 							<td class="style34 style34" colspan="2">
+								<input type="text" id="e_draftDate" name="e_draftDate" value="<%=contents.getE_draftDate()%>" autocomplete="off" readonly>
 							</td>
 							<td class="style33 style33" rowspan="3">결<br><br>재</td>
 							<td class="style35 style36" colspan="2"><%=contents.getT_name()%></td>
 							<td class="style35 style36" colspan="2">
 							<%if(lineTeamLeader == ""){%>
-								결재권한없음
+								권한 없음
 							<%}else{%>
 								<%=lineTeamLeader%>
 							<%}%>
 							</td>
 							<td class="style35 style36" colspan="3">
 							<%if(lineSectionHead == ""){%>
-								결재권한없음
+								권한 없음
 							<%}else{%>
 								<%=lineSectionHead%>
 							<%}%>
 							</td>
 							<td class="style35 style36" colspan="2">
 							<%if(lineDepartmentHead == ""){%>
-								결재권한없음
+								권한 없음
 							<%}else{%>
 								<%=lineDepartmentHead%>
 							<%}%>
@@ -181,15 +181,15 @@
 						<tr class="row7">
 							<td></td>
 							<td class="style2">시 행 일 자</td>
-							<td class="style34 style34" colspan="2" id="e_startDay">
-								<%=contents.getE_startDay()%>
+							<td class="style34 style34" colspan="2">
+								<input type="text" id="e_startDay" name="e_startDay" value="<%=contents.getE_startDay()%>" readonly>
 							</td>
 							<td class="style38  style43" colspan="2" rowspan="2">
 								<input type="text" id="charge" readonly value="승인">
 							</td>
 							<td class="style38 style43" colspan="2" rowspan="2">
 							<%if(lineTeamLeader == ""){%>
-								<input type="text" id="teamLeader" readonly value="권한없음">
+								<input type="text" id="teamLeader" readonly value="권한 없음">
 							<%}else if(contents.getStatus().equals("3000")){ %>
 								<input type="text" id="teamLeader" readonly value="예정">
 							<%}else if(lineTeamLeader.equals(contents.getE_approvalNoPerson())){%>
@@ -200,7 +200,7 @@
 							</td> 
 							<td class="style38 style43" colspan="3" rowspan="2">
 							<% if(lineSectionHead == ""){%>
-								<input type="text" id="sectionHead" readonly value="권한없음">
+								<input type="text" id="sectionHead" readonly value="권한 없음">
 							<%}else if(contents.getStatus().equals("3000")){ %>
 								<input type="text" id="sectionHead" readonly value="대기">
 							<%}else if(contents.getStatus().equals("0300")){ %>
@@ -212,8 +212,8 @@
 							<%}%>
 							</td>
 							<td class="style38 style43" colspan="2" rowspan="2">
-							<% if(lineSectionHead == ""){%>
-								<input type="text" id="departmentHead" readonly value="권한없음">
+							<% if(lineDepartmentHead == ""){%>
+								<input type="text" id="departmentHead" readonly value="권한 없음">
 							<%}else if(contents.getStatus().equals("3000") || contents.getStatus().equals("0300")){ %>
 								<input type="text" id="departmentHead" readonly value="대기">
 							<%}else if(contents.getStatus().equals("0030")){ %>
@@ -239,15 +239,15 @@
 						<tr class="row8">
 							<td></td>
 							<td class="style2 s">종 료 일 자</td>
-							<td class="style34 style34" colspan="2" id="e_endDay">
-								<%=contents.getE_endDay()%>
+							<td class="style34 style34" colspan="2">
+								<input type="text" id="e_endDay" name="e_endDay" value="<%=contents.getE_endDay()%>" readonly>
 							</td>
 						</tr>
 						<tr class="row9">
 							<td></td>
 							<td class="style3" rowspan="2">합 의 부 서</td>
 							<td class="style38 style43" colspan="2" rowspan="2">
-								<%=contents.getE_con()%>
+								<input type="text" id="e_con" name="e_con" value="<%=contents.getE_con()%>" readonly>
 							</td>
 							<td class="style38 style42" colspan="3" rowspan="2">기 안 자</td>
 							<td class="style38 style57" colspan="8" rowspan="2">

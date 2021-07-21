@@ -91,7 +91,7 @@
  		UPDATE
  			APPROVAL_LINE
  		SET
- 			TEAMLEADER = #{teamLeader}, SECTIONHEAD = #{sectionHead}, DEPARTMENTHEAD = #{departmentHead}, LEADER = #{leader}, STATUS = '3000'
+ 			TEAMLEADER = #{teamLeader}, SECTIONHEAD = #{sectionHead}, DEPARTMENTHEAD = #{departmentHead}, LEADER = #{leader}
  		WHERE 
  			EIDX = #{eidx}
  	</update>

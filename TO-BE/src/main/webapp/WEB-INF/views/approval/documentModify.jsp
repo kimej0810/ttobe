@@ -63,7 +63,7 @@
 						success: function(data){
 							alert("수정이 완료되었습니다.");
 							opener.parent.location.reload();
-							window.close();
+							location.href="documentContents?eidx="+"<%=contents.getEidx()%>&tidx=<%=contents.getTidx()%>";
 						},
 						error:function(data){
 							
@@ -116,27 +116,42 @@
 							</td>
 							<td class="style44 style46" colspan="3">기 안 유 형</td>
 							<td class="style44 style63" colspan="8">
-								<input type="text" id="e_type" name="e_type" title="2글자 이상 10글자 이하로 입력해주세요." value="<%=contents.getE_type()%>">
+								<select id="e_type" name="e_type">
+									<option value="회사일정">회사일정</option>
+									<option value="중요일정">중요일정</option>
+									<option value="외근">외근</option>
+									<option value="출장">출장</option>
+								</select>
 							</td>
 						</tr>
 						<tr class="row6">
 							<td></td>
 							<td class="style2">기 안 일 자</td>
 							<td class="style34 style34" colspan="2">
-								<input type="text" id="e_draftDate" name="e_draftDate" class="date" value="<%=contents.getE_draftDate()%>" autocomplete="off" readonly>
+								<input type="text" id="e_draftDate" name="e_draftDate" value="<%=contents.getE_draftDate()%>" autocomplete="off" readonly>
 							</td>
 							<td class="style33 style33" rowspan="3">결<br><br>재</td>
 							<td class="style35 style36" colspan="2">담당</td>
-							<td class="style35 style36" colspan="2">팀장</td>
-							<td class="style35 style36" colspan="3">과장</td>
-							<td class="style35 style36" colspan="2">부장</td>
+							<%if(contents.getT_position().equals("과장")){ %>
+								<td class="style35 style36" colspan="2">권한 없음</td>
+								<td class="style35 style36" colspan="3">과장</td>
+								<td class="style35 style36" colspan="2">부장</td>
+							<%}else if(contents.getT_position().equals("부장")){%>
+								<td class="style35 style36" colspan="2">권한 없음</td>
+								<td class="style35 style36" colspan="3">권한 없음</td>
+								<td class="style35 style36" colspan="2">부장</td>
+							<%}else{%>
+								<td class="style35 style36" colspan="2">팀장</td>
+								<td class="style35 style36" colspan="3">과장</td>
+								<td class="style35 style36" colspan="2">부장</td>
+							<%}%>
 							<td class="style11 s">대 표</td>
 						</tr> 
 						<tr class="row7">
 							<td></td>
 							<td class="style2">시 행 일 자</td>
 							<td class="style34 style34" colspan="2">
-								<input type="text" id="e_startDay" name="e_startDay" class="date" value="<%=contents.getE_startDay()%>" autocomplete="off">
+								<input type="text" id="e_startDay" name="e_startDay" value="<%=contents.getE_startDay()%>" autocomplete="off">
 							</td>
 							<td class="style38  style43" colspan="2" rowspan="2">
 								<input type="text" id="charge" value="${mo.t_name }" readonly>
@@ -149,7 +164,7 @@
 									<td class="style38 style43" colspan="3" rowspan="2">
 										<select id="sectionHead" name="sectionHead">
 											<c:forEach items="${allMember }" var="allMember" varStatus="status">
-												<c:if test="${userDep == allMember.t_department && allMember.t_position == '과장'}">
+												<c:if test="${contents.t_department == allMember.t_department && allMember.t_position == '과장'}">
 													<option value="${allMember.t_id }">${allMember.t_name}</option>
 												</c:if>
 											</c:forEach>
@@ -158,7 +173,7 @@
 									<td class="style38 style43" colspan="2" rowspan="2">
 										<select id="departmentHead" name="departmentHead">
 											<c:forEach items="${allMember }" var="allMember" varStatus="status">
-												<c:if test="${userDep == allMember.t_department && allMember.t_position == '부장'}">
+												<c:if test="${contents.t_department == allMember.t_department && allMember.t_position == '부장'}">
 													<option value="${allMember.t_id }">${allMember.t_name}</option>
 												</c:if>
 											</c:forEach>
@@ -182,7 +197,7 @@
 									<td class="style38 style43" colspan="2" rowspan="2">
 									<select id="departmentHead" name="departmentHead">
 										<c:forEach items="${allMember }" var="allMember" varStatus="status">
-											<c:if test="${userDep == allMember.t_department && allMember.t_position == '부장'}">
+											<c:if test="${contents.t_department == allMember.t_department && allMember.t_position == '부장'}">
 												<option value="${allMember.t_id }">${allMember.t_name}</option>
 											</c:if>
 										</c:forEach>
@@ -218,7 +233,7 @@
 									<td class="style38 style43" colspan="2" rowspan="2">
 									<select id="teamLeader" name="teamLeader">
 										<c:forEach items="${allMember}" var="allMember" varStatus="status">
-											<c:if test="${userDep == allMember.t_department && allMember.t_position == '팀장'}">
+											<c:if test="${contents.t_department == allMember.t_department && allMember.t_position == '팀장'}">
 												<option value="${allMember.t_id}">${allMember.t_name}</option>
 											</c:if>
 										</c:forEach>
@@ -227,7 +242,7 @@
 									<td class="style38 style43" colspan="3" rowspan="2">
 										<select id="sectionHead" name="sectionHead">
 											<c:forEach items="${allMember }" var="allMember" varStatus="status">
-												<c:if test="${userDep == allMember.t_department && allMember.t_position == '과장'}">
+												<c:if test="${contents.t_department == allMember.t_department && allMember.t_position == '과장'}">
 													<option value="${allMember.t_id }">${allMember.t_name}</option>
 												</c:if>
 											</c:forEach>
@@ -236,7 +251,7 @@
 									<td class="style38 style43" colspan="2" rowspan="2">
 										<select id="departmentHead" name="departmentHead">
 											<c:forEach items="${allMember }" var="allMember" varStatus="status">
-												<c:if test="${userDep == allMember.t_department && allMember.t_position == '부장'}">
+												<c:if test="${contents.t_department == allMember.t_department && allMember.t_position == '부장'}">
 													<option value="${allMember.t_id }">${allMember.t_name}</option>
 												</c:if>
 											</c:forEach>

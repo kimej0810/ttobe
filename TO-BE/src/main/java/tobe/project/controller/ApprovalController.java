@@ -126,14 +126,14 @@ public class ApprovalController {
 	}
 	
 	@RequestMapping(value = "/documentContents")
-	public ApprovalDTO documentContents(Model model,int eidx, int tidx) throws Exception{
-		ApprovalDTO dto = lservice.selectOneApprovalLine(eidx);
+	public ApprovalDTO documentContents(Model model,ApprovalDTO dto) throws Exception{
+		ApprovalDTO dto2 = lservice.selectOneApprovalLine(dto.getEidx());
 		List<MemberVO> vo = aservice.selectAllMember();
 		
 		model.addAttribute("vo",vo);
-		model.addAttribute("to",dto);
-		model.addAttribute("mo",aservice.selectOneMember(tidx));
-		model.addAttribute("contents",service.selectOneApprovalDocumentContents(eidx));
+		model.addAttribute("to",dto2);
+		model.addAttribute("mo",aservice.selectOneMember(dto2.getTidx()));
+		model.addAttribute("contents",service.selectOneApprovalDocumentContents(dto2.getEidx()));
 		return dto;
 	}
 	
@@ -172,38 +172,36 @@ public class ApprovalController {
 				dto.setA_useddays(checkLeave);
 				int mySchedule = myservice.updateLeave(dto);
 				if(mySchedule == 1) {
-					ScheduleVO vo2 = new ScheduleVO();
-					vo2.setS_type(dto.getE_type());
-					vo2.setS_title(dto.getE_texttitle());
-					vo2.setS_startDate(dto.getE_startday());
-					vo2.setS_endDate(dto.getE_endday());
-					vo2.setS_content(dto.getE_textcontent());
-					vo2.setTidx(dto.getTidx());
-					sservice.addSchedule(vo2);
+					ScheduleVO vo = new ScheduleVO();
+					vo.setS_type(dto.getE_type());
+					vo.setS_title(dto.getE_texttitle());
+					vo.setS_startDate(dto.getE_startday());
+					vo.setS_endDate(dto.getE_endday());
+					vo.setS_content(dto.getE_textcontent());
+					vo.setTidx(dto.getTidx());
+					sservice.addSchedule(vo);
 				}
 			}
 		}
 		return to2;
 	}
-	
 	@RequestMapping(value = "/documentNo")
-	public ApprovalDTO documentNo(Model model,ApprovalDTO dto,int eidx) throws Exception{
- 		ApprovalDTO to = service.selectOneApprovalDocumentContents(eidx);
+	public ApprovalDTO documentNo(Model model,ApprovalDTO dto) throws Exception{
+ 		service.selectOneApprovalDocumentContents(dto.getEidx());
 		dto.setE_approvalNoPerson(service.selectOneMember(dto.getTidx()).getT_name());
-		lservice.modifyApprovalNo(eidx);
+		lservice.modifyApprovalNo(dto.getEidx());
 		service.modifyApprovalStatusNo(dto);
-		return to;
+		return dto;
 	}
-	
 	@RequestMapping(value = "/documentModify")
-	public ApprovalDTO documentModify(Model model,int eidx,int tidx) throws Exception{
-		ApprovalDTO dto = service.selectOneApprovalDocumentContents(eidx);
+	public ApprovalDTO documentModify(Model model, ApprovalDTO dto) throws Exception{
+		ApprovalDTO dto2 = service.selectOneApprovalDocumentContents(dto.getEidx());
 		List<MemberVO> vo = aservice.selectAllMember();
 		
 		model.addAttribute("allMember",vo);
-		model.addAttribute("mo",aservice.selectOneMember(tidx));
-		model.addAttribute("contents",dto);
-		return dto;
+		model.addAttribute("mo",aservice.selectOneMember(dto2.getTidx()));
+		model.addAttribute("contents",dto2);
+		return dto2;
 	}
 	@ResponseBody
 	@RequestMapping(value = "/ModifyDocumentWite", method = RequestMethod.POST)
@@ -214,18 +212,29 @@ public class ApprovalController {
 	}
 	
 	@RequestMapping(value = "/documentApprovalAgain")
-	public ApprovalDTO documentApprovalAgain(Model model,int eidx,int tidx) throws Exception{
-		ApprovalDTO dto = service.selectOneApprovalDocumentContents(eidx);
+	public ApprovalDTO documentApprovalAgain(Model model,ApprovalDTO dto) throws Exception{
+		ApprovalDTO dto2 = service.selectOneApprovalDocumentContents(dto.getEidx());
 		List<MemberVO> vo = aservice.selectAllMember();
 		
 		model.addAttribute("allMember",vo);
-		model.addAttribute("mo",aservice.selectOneMember(tidx));
-		model.addAttribute("contents",dto);
-		return dto;
+		model.addAttribute("mo",aservice.selectOneMember(dto2.getTidx()));
+		model.addAttribute("contents",dto2);
+		return dto2;
 	}
 	@ResponseBody
 	@RequestMapping(value = "/documentApprovalAgainOk")
 	public ApprovalDTO documentApprovalAgainOk(Model model,@RequestBody ApprovalDTO dto) throws Exception{
+		MemberDTO mo = mservice.selectOneMemberIdx(dto.getTidx());
+		
+		if(mo.getT_position().equals("팀장")) {
+			dto.setStatus("0300");
+		}else if(mo.getT_position().equals("과장")) {
+			dto.setStatus("0030");
+		}else if(mo.getT_position().equals("부장")) {
+			dto.setStatus("0003");
+		}else {
+			dto.setStatus("3000");
+		}
 		service.modifyApprovalDocumentAgain(dto);
 		lservice.modifyApprovalDocumentAgainLine(dto);
 		return dto;
