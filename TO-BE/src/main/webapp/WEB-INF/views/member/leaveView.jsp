@@ -256,12 +256,12 @@
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">승인</button>
 					</c:if>
 				</c:if>
-				<c:if test="${leave.departmenthead == check1}">
+				<c:if test="${leave.sectionhead == check1}">
 					<c:if test="${leave.status eq '0300' }">
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">승인</button>
 					</c:if>
 				</c:if>
-				<c:if test="${leave.sectionhead == check1}">
+				<c:if test="${leave.departmenthead == check1}">
 					<c:if test="${leave.status eq '0030' }">
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">승인</button>
 					</c:if>

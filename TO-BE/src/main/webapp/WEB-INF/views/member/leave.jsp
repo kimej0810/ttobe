@@ -171,7 +171,7 @@
 							<option value="연차">연차</option>
 							<option value="월차">월차</option>
 							<option value="병가">병가</option>
-							<option value="기타">기타</option>
+							<option value="반차">반차</option>
 						</select>
 					</td>
 					<th>신 청 자</th>

@@ -11,11 +11,10 @@
 		select count(*) as cnt from manager_email where delyn = 'N' and m_title like '%'||#{keyword}||'%'
 	</select>
 	<select id="searchEmailList" resultType="emailDTO">
-		select * from (select row_number() over (PARTITION BY A.DELYN order by midx desc)num,
-		A.*,B.T_NAME,B.T_DEPARTMENT,B.T_POSITION from manager_email A LEFT JOIN AFPS_MEMBER B ON A.TIDX = B.TIDX where 1=1
+		SELECT MAIL.* FROM(SELECT A.*,B.T_NAME,B.T_POSITION,B.T_DEPARTMENT,@ROW_NUM := @ROW_NUM+1 AS NUM
+		FROM MANAGER_EMAIL AS A LEFT JOIN AFPS_MEMBER B ON A.TIDX = B.TIDX WHERE A.DELYN = 'N'
 		<include refid="search"/>
-		order by midx desc)
-		where delyn = 'N' and num between #{rowStart} and #{rowEnd}
+		ORDER BY A.MIDX DESC) MAIL LIMIT #{pageStart},#{perPageNum}
 	</select>
 	<select id="totalCountsearchEmail" resultType="int">
 		<![CDATA[
@@ -32,13 +31,13 @@
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 't'.toString()">
-				and A.m_title like '%'||#{keyword}||'%'
+				and A.m_title like CONCAT('%',#{keyword},'%')
 			</if>
 			<if test="searchType == 'c'.toString()">
-				and A.m_content like '%'||#{keyword}||'%'
+				and A.m_content like CONCAT('%',#{keyword},'%')
 			</if>
 			<if test="searchType == 'w'.toString()">
-			  AND B.T_NAME LIKE '%'||#{keyword}||'%'
+			  AND B.T_NAME LIKE CONCAT('%',#{keyword},'%')
 			</if>
 		</if>
 	</sql>

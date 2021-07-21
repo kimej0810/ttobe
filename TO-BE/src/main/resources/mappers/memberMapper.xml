@@ -17,13 +17,13 @@
     </select>
     <select id="searchMember" resultType="memberVO">
     	SELECT * FROM AFPS_MEMBER WHERE DELYN = 'N'
-		AND T_DEPARTMENT = #{t_department} AND T_NAME LIKE '%'||#{t_name}||'%'
+		AND T_DEPARTMENT = #{t_department} AND T_NAME LIKE CONCAT('%',#{t_name},'%')
     	ORDER BY TIDX DESC
     </select>
     <!-- 부서 전체 검색 -->
     <select id="searchMember2" resultType="memberVO">
     	SELECT * FROM AFPS_MEMBER WHERE DELYN = 'N'
-		AND T_NAME LIKE '%'||#{t_name}||'%'
+		AND T_NAME LIKE CONCAT('%',#{t_name},'%')
     	ORDER BY TIDX DESC
     </select>
  	<!-- 비밀번호 변경 -->

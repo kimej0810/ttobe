@@ -343,25 +343,25 @@
 								<option value="연차" selected="selected">연차</option>
 								<option value="월차">월차</option>
 								<option value="병가">병가</option>
-								<option value="기타">기타</option>
+								<option value="반차">반차</option>
 							</c:if>
 							<c:if test="${leave.a_type eq '월차' }">
 								<option value="연차">연차</option>
 								<option value="월차" selected="selected">월차</option>
 								<option value="병가">병가</option>
-								<option value="기타">기타</option>
+								<option value="반차">반차</option>
 							</c:if>
 							<c:if test="${leave.a_type eq '병가' }">
 								<option value="연차">연차</option>
 								<option value="월차">월차</option>
 								<option value="병가" selected="selected">병가</option>
-								<option value="기타">기타</option>
+								<option value="반차">반차</option>
 							</c:if>
-							<c:if test="${leave.a_type eq '기타' }">
+							<c:if test="${leave.a_type eq '반차' }">
 								<option value="연차">연차</option>
 								<option value="월차">월차</option>
 								<option value="병가">병가</option>
-								<option value="기타" selected="selected">기타</option>
+								<option value="반차" selected="selected">반차</option>
 							</c:if>
 						</select>
 						<input type="hidden" name="a_type" id="a_type">

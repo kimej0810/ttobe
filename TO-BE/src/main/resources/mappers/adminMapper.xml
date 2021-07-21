@@ -51,7 +51,7 @@
     	SELECT COUNT(*) AS CNT
     	FROM AFPS_MEMBER 
     	WHERE DELYN = 'N' AND TIDX > 0
-    	AND T_NAME LIKE '%'||#{keyword}||'%'
+    	AND T_NAME LIKE CONCAT('%',#{keyword},'%')
     </select>
     <!-- fild start -->
     <insert id="addFile" parameterType="hashMap">
