@@ -11,6 +11,8 @@ public interface ApprovalLineDAO {
 	public void modifyApprovalDepartmentHead(int eidx) throws Exception;
 	public void modifyApprovalSectionHead(int eidx) throws Exception;
 	public void modifyApprovalLeader(int eidx) throws Exception;
+	//결재라인 수정
+	public void modifyApprovalLine(ApprovalDTO dto) throws Exception;
 	//반려
 	public void modifyApprovalNo(int eidx) throws Exception;
 	//재기안 

@@ -209,6 +209,7 @@ public class ApprovalController {
 	@RequestMapping(value = "/ModifyDocumentWite", method = RequestMethod.POST)
 	public ApprovalDTO modifyApprovalDocument(@RequestBody ApprovalDTO dto) throws Exception {
 		service.modifyApprovalDocument(dto);
+		lservice.modifyApprovalLine(dto);
 		return dto;
 	}
 	

@@ -44,6 +44,11 @@ public class ApprovalLineServiceImpl implements ApprovalLineService{
 	public void modifyApprovalNo(int eidx) throws Exception {
 		dao.modifyApprovalNo(eidx);
 	}
+	//결재 라인 수정
+	@Override
+	public void modifyApprovalLine(ApprovalDTO dto) throws Exception {
+		dao.modifyApprovalLine(dto);
+	}
 	//재기안
 	@Override
 	public void modifyApprovalDocumentAgainLine(ApprovalDTO dto) throws Exception {
@@ -83,6 +88,4 @@ public class ApprovalLineServiceImpl implements ApprovalLineService{
 		return dao.totalCountLeaderApprovalMust(t_id);
 	}
 	//결제예정문서 끝
-	
-	
 }

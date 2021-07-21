@@ -39,6 +39,11 @@ public class ApprovalLineDAOImpl implements ApprovalLineDAO{
 	public void modifyApprovalLeader(int eidx) throws Exception {
 		sqlSession.update(Namespace+".modifyApprovalLeader",eidx);
 	}
+	//결재 라인 수정
+	@Override
+	public void modifyApprovalLine(ApprovalDTO dto) throws Exception {
+		sqlSession.update(Namespace+".modifyApprovalLine",dto);
+	}
 	//반려
 	@Override
 	public void modifyApprovalNo(int eidx) throws Exception {
@@ -82,6 +87,7 @@ public class ApprovalLineDAOImpl implements ApprovalLineDAO{
 		return sqlSession.selectOne(Namespace+".totalCountLeaderApprovalMust",t_id);
 	}
 	//결제예정문서 끝
+	
 	
 	
 }

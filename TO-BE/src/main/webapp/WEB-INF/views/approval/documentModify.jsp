@@ -36,30 +36,27 @@
 				var endDay = $("#e_endDay").val().replace("-","/");
 				var start = new Date(startDay);
 				var end = new Date(endDay);
-				
-			if($("#e_draftDate").val() == "" || $("#e_startDay").val() == "" || $("#e_endDay").val() == "" || start>end){
-					alert("날짜를 올바르게 선택해주세요. [시행일자보다 기안일자가 작아야 합니다.]");
+					
+				if($("#e_con").val() == "" || $("#e_con").val().length < 2 || $("#e_con").val().length > 10){
+					alert("합의부서를 입력해주세요. [2글자 이상 10글자 이하]");
+					$("#e_con").focus();
 					return false;
-			}else if($("#e_con").val() == "" || $("#e_con").val().length < 2 || $("#e_con").val().length > 10){
-				alert("합의부서를 입력해주세요. [2글자 이상 10글자 이하]");
-				$("#e_con").focus();
-				return false;
-			}else if($("#e_textTitle").val() == "" || $("#e_textTitle").val().length < 10 || $("#e_textTitle").val().length > 40){
-				alert("제목을 입력해주세요. [10글자 이상 40글자 이하]");
-				$("#e_textTitle").focus();
-				return false;
-			}else if($("#e_textContent").val() == "" || $("#e_textContent").val().length < 30 || $("#e_textContent").val().length > 1024){
-				alert("내용을 입력해주세요. [30글자 이상 1024글자 이하]");
-				$("#e_textContent").focus();
-				return false;
-			}
+				}else if($("#e_textTitle").val() == "" || $("#e_textTitle").val().length < 10 || $("#e_textTitle").val().length > 40){
+					alert("제목을 입력해주세요. [10글자 이상 40글자 이하]");
+					$("#e_textTitle").focus();
+					return false;
+				}else if($("#e_textContent").val() == "" || $("#e_textContent").val().length < 30 || $("#e_textContent").val().length > 1024){
+					alert("내용을 입력해주세요. [30글자 이상 1024글자 이하]");
+					$("#e_textContent").focus();
+					return false;
+				}
 				
 				var draftLetterData = JSON.stringify($('form#draftLetterData').serializeObject());
 				var result = confirm("수정하시겠습니까?");
 				if(result){
 					$.ajax({
 						type:'POST',
-						url:"/approval/ModifyDocumentWite?eidx="+"<%=contents.getEidx()%>&tidx=<%=contents.getTidx()%>",
+						url:"/approval/ModifyDocumentWite",
 						dataType:'JSON',
 						data: draftLetterData,
 						contentType : "application/json; charset=UTF-8",
@@ -67,6 +64,10 @@
 							alert("수정이 완료되었습니다.");
 							opener.parent.location.reload();
 							window.close();
+						},
+						error:function(data){
+							
+							alert(data);
 						}
 					});
 				}
@@ -76,7 +77,6 @@
 	<body>
 		<form id="draftLetterData" name="draftLetterData">
 			<input type="hidden" name="e_status" id="e_status" value="<%=contents.getE_status()%>">
-			<input type="hidden" name="eidx" id="eidx" value="<%=contents.getEidx() %>">
 			<div id="documentWrite">
 				<table id="sheet0" class="sheet0">
 					<col class="col0">
@@ -142,7 +142,7 @@
 								<input type="text" id="charge" value="${mo.t_name }" readonly>
 							</td>
 							<%if(contents.getT_position() != null){ %>
-								<%if(contents.getTeamLeader().equals("팀장")){ %>
+								<%if(contents.getT_position().equals("팀장")){ %>
 									<td class="style38 style43" colspan="2" rowspan="2">
 										<input type="text" id="teamLeader" name="teamLeader" value="<%=contents.getT_name()%>" readonly>
 									</td>
@@ -165,15 +165,14 @@
 										</select>
 									</td>
 									<td class="style58 style59" rowspan="2">
-										<select id="leader" name="leader">
-											<c:forEach items="${allMember }" var="allMember" varStatus="status">
-												<c:if test="${allMember.t_position == '대표'}">
-													<option value="${allMember.t_id }">${allMember.t_name}</option>
-												</c:if>
-											</c:forEach>
-										</select>
+										<c:forEach items="${allMember }" var="allMember" varStatus="status">
+											<c:if test="${allMember.t_position == '대표'}">
+												<input type="hidden" id="leader" name="leader" value="${allMember.t_id}">
+												<input type="text" id="leaderRead" value="${allMember.t_name}" readonly>
+											</c:if>
+										</c:forEach>
 									</td>
-								<%}else if(contents.getSectionHead().equals("과장")){ %>
+								<%}else if(contents.getT_position().equals("과장")){ %>
 									<td class="style38 style43" colspan="2" rowspan="2">
 											<input type="text" id="teamLeader" name="teamLeader" value="권한 없음" readonly>
 									</td>
@@ -190,15 +189,14 @@
 									</select>
 									</td>
 									<td class="style58 style59" rowspan="2">
-										<select id="leader" name="leader">
-											<c:forEach items="${allMember }" var="allMember" varStatus="status">
-												<c:if test="${allMember.t_position == '대표'}">
-													<option value="${allMember.t_id }">${allMember.t_name}</option>
-												</c:if>
-											</c:forEach>
-										</select>
+										<c:forEach items="${allMember }" var="allMember" varStatus="status">
+											<c:if test="${allMember.t_position == '대표'}">
+												<input type="hidden" id="leader" name="leader" value="${allMember.t_id}">
+												<input type="text" id="leaderRead" value="${allMember.t_name}" readonly>
+											</c:if>
+										</c:forEach>
 									</td>
-								<%}else if(contents.getDepartmentHead().equals("부장")) {%>
+								<%}else if(contents.getT_position().equals("부장")) {%>
 									<td class="style38 style43" colspan="2" rowspan="2">
 											<input type="text" id="teamLeader" name="teamLeader" value="권한 없음" readonly>
 									</td>
@@ -209,13 +207,12 @@
 											<input type="text" id="departmentHead" name="departmentHead" value="<%=contents.getT_name() %>" readonly>
 									</td>
 									<td class="style58 style59" rowspan="2">
-										<select id="leader" name="leader">
-											<c:forEach items="${allMember }" var="allMember" varStatus="status">
-												<c:if test="${allMember.t_position == '대표'}">
-													<option value="${allMember.t_id }">${allMember.t_name}</option>
-												</c:if>
-											</c:forEach>
-										</select>
+										<c:forEach items="${allMember }" var="allMember" varStatus="status">
+											<c:if test="${allMember.t_position == '대표'}">
+												<input type="hidden" id="leader" name="leader" value="${allMember.t_id}">
+												<input type="text" id="leaderRead" value="${allMember.t_name}" readonly>
+											</c:if>
+										</c:forEach>
 									</td>
 								<%}else{ %>
 									<td class="style38 style43" colspan="2" rowspan="2">
@@ -246,13 +243,12 @@
 										</select>
 									</td>
 									<td class="style58 style59" rowspan="2">
-										<select id="leader" name="leader">
-											<c:forEach items="${allMember }" var="allMember" varStatus="status">
-												<c:if test="${allMember.t_position == '대표'}">
-													<option value="${allMember.t_id }">${allMember.t_name}</option>
-												</c:if>
-											</c:forEach>
-										</select>
+										<c:forEach items="${allMember }" var="allMember" varStatus="status">
+											<c:if test="${allMember.t_position == '대표'}">
+												<input type="hidden" id="leader" name="leader" value="${allMember.t_id}">
+												<input type="text" id="leaderRead" value="${allMember.t_name}" readonly>
+											</c:if>
+										</c:forEach>
 									</td>
 								<%} %>
 							<%} %>

@@ -1964,7 +1964,7 @@ table.sheet0 tr.row14 {
 	font-size: 15px;
 	text-align: center;
 }
-#charge, #teamLeader, #departmentHead, #sectionHead, #leader{
+#charge, #teamLeader, #departmentHead, #sectionHead, #leaderRead{
 	width: 80px; 
 	height:50px;
 	border:none;

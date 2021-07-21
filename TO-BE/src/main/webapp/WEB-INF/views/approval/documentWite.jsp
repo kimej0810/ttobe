@@ -127,13 +127,12 @@
 										</select>
 									</td>
 									<td class="style58 style59" rowspan="2">
-										<select id="leader" name="leader">
-											<c:forEach items="${allMember }" var="allMember" varStatus="status">
-												<c:if test="${allMember.t_position == '대표'}">
-													<option value="${allMember.t_id }">${allMember.t_name}</option>
-												</c:if>
-											</c:forEach>
-										</select>
+										<c:forEach items="${allMember }" var="allMember" varStatus="status">
+											<c:if test="${allMember.t_position == '대표'}">
+												<input type="hidden" id="leader" name="leader" value="${allMember.t_id}">
+												<input type="text" id="leaderRead" value="${allMember.t_name}" readonly>
+											</c:if>
+										</c:forEach>
 									</td>
 								<%}else if(userPosition.equals("과장")){ %>
 									<td class="style38 style43" colspan="2" rowspan="2">
@@ -152,13 +151,12 @@
 										</select>
 									</td>
 									<td class="style58 style59" rowspan="2">
-										<select id="leader" name="leader">
-											<c:forEach items="${allMember }" var="allMember" varStatus="status">
-												<c:if test="${allMember.t_position == '대표'}">
-													<option value="${allMember.t_id }">${allMember.t_name}</option>
-												</c:if>
-											</c:forEach>
-										</select>
+										<c:forEach items="${allMember }" var="allMember" varStatus="status">
+											<c:if test="${allMember.t_position == '대표'}">
+												<input type="hidden" id="leader" name="leader" value="${allMember.t_id}">
+												<input type="text" id="leaderRead" value="${allMember.t_name}" readonly>
+											</c:if>
+										</c:forEach>
 									</td>
 								<%}else if(userPosition.equals("부장")) {%>
 									<td class="style38 style43" colspan="2" rowspan="2">
@@ -171,13 +169,12 @@
 										<input type="text" id="departmentHead" name="departmentHead" value="<%=userName %>" readonly>
 									</td>
 									<td class="style58 style59" rowspan="2">
-										<select id="leader" name="leader">
-											<c:forEach items="${allMember }" var="allMember" varStatus="status">
-												<c:if test="${allMember.t_position == '대표'}">
-													<option value="${allMember.t_id }">${allMember.t_name}</option>
-												</c:if>
-											</c:forEach>
-										</select>
+										<c:forEach items="${allMember }" var="allMember" varStatus="status">
+											<c:if test="${allMember.t_position == '대표'}">
+												<input type="hidden" id="leader" name="leader" value="${allMember.t_id}">
+												<input type="text" id="leaderRead" value="${allMember.t_name}" readonly>
+											</c:if>
+										</c:forEach>
 									</td>
 								<%}	else{ %>
 									<td class="style38 style43" colspan="2" rowspan="2">
@@ -208,13 +205,12 @@
 										</select>
 									</td>
 									<td class="style58 style59" rowspan="2">
-										<select id="leader" name="leader">
-											<c:forEach items="${allMember }" var="allMember" varStatus="status">
-												<c:if test="${allMember.t_position == '대표'}">
-													<option value="${allMember.t_id }">${allMember.t_name}</option>
-												</c:if>
-											</c:forEach>
-										</select>
+										<c:forEach items="${allMember }" var="allMember" varStatus="status">
+											<c:if test="${allMember.t_position == '대표'}">
+												<input type="hidden" id="leader" name="leader" value="${allMember.t_id}">
+												<input type="text" id="leaderRead" value="${allMember.t_name}" readonly>
+											</c:if>
+										</c:forEach>
 									</td>
 								<%} %>
 							<%} %>

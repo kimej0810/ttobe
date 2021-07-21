@@ -13,6 +13,8 @@ public interface ApprovalLineService {
 	public void modifyApprovalLeader(int eidx) throws Exception;
 	//결재반려 
 	public void modifyApprovalNo(int eidx) throws Exception;
+	//결재라인수정
+	public void modifyApprovalLine(ApprovalDTO dto) throws Exception;
 	//재기안
 	public void modifyApprovalDocumentAgainLine(ApprovalDTO dto) throws Exception;
 	//결제대기문서 (결재순서 도착)

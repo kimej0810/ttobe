@@ -23,9 +23,17 @@ public class ApprovalDTO {
 	private String status;
 	
 	private String t_name;
+	private String t_id;
 	private String t_department;
 	private String t_position;
 	
+	
+	public String getT_id() {
+		return t_id;
+	}
+	public void setT_id(String t_id) {
+		this.t_id = t_id;
+	}
 	public String getE_endDay() {
 		return e_endDay;
 	}
