@@ -288,22 +288,31 @@ function leaveBtn(){
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${myEmail}" var="email">
-									<tr>
-										<td>관리자</td>
-										<td>${email.t_name }</td>
-										<td>
-											<a href="/member/emailRead?midx=${email.midx}" style="text-decoration : none; color:black;">
-												${email.m_title}
-											</a>
-										</td>
-										<td>
-											<c:set var="sendDate" value="${email.m_senddate}"/>
-												${fn:substring(sendDate,0,16)}
-											<input type="hidden" value="${email.midx}">
-										</td>
-									</tr>
-								</c:forEach>
+								<c:choose>
+									<c:when test="${fn:length(myEmail) == 0}">
+										<tr>
+											<td colspan="6">등록된 내용이 없습니다.</td>
+										</tr>
+									</c:when>
+									<c:otherwise>
+										<c:forEach items="${myEmail}" var="email">
+											<tr>
+												<td>관리자</td>
+												<td>${email.t_name }</td>
+												<td>
+													<a href="/member/emailRead?midx=${email.midx}" style="text-decoration : none; color:black;">
+														${email.m_title}
+													</a>
+												</td>
+												<td>
+													<c:set var="sendDate" value="${email.m_senddate}"/>
+														${fn:substring(sendDate,0,16)}
+													<input type="hidden" value="${email.midx}">
+												</td>
+											</tr>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
 							</tbody>
 						</table>
 					</div>

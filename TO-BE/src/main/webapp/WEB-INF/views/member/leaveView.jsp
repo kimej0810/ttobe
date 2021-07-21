@@ -75,7 +75,7 @@
 				<div>
 					<h2>휴 가 신 청 서</h2>
 				</div>
-				<span>문서 번호 : ${leave.e_documentnum }</span>
+				<span>문서 번호 : ${leave.eidx}</span>
 			</div>
 			<c:set var="e_status" value="${leave.e_status}"/>
 			<input type="hidden" id="e_status" value="${fn:trim(e_status)}">

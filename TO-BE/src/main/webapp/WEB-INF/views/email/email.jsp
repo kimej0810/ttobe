@@ -125,6 +125,7 @@ $(document).ready(function(){
 		<div style="float:right;">
 			<input type="submit" class="btn btn-primary btn-sm" value="전송">
 			<input type="button" class="btn btn-danger btn-sm" onclick="history.go(-1)" value="취소">
+			<input type="hidden" name="m_type" value="일반">
 		</div>
 	</form>
 </body>

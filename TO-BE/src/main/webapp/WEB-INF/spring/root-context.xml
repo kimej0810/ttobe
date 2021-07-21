@@ -12,19 +12,18 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 	
 	<!-- DB 변경 -->
-	<bean id = "dataSource" class = "org.springframework.jdbc.datasource.DriverManagerDataSource">
+<!-- 	<bean id = "dataSource" class = "org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value = "net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
 		<property name="url" value = "jdbc:log4jdbc:mysql://jjezen.cafe24.com:3306/ezen20210719_a?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;serverTimezone=UTC"/>
 		<property name="username" value ="user_a"/>
 		<property name="password" value = "user1234!!"/>
-	</bean>
-	<!-- oracle -->
-<!-- 	<bean id = "dataSource" class = "org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value = "net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
-		<property name="url" value = "jdbc:log4jdbc:oracle:thin:@jjezen.cafe24.com:3306"/>
-		<property name="username" value ="user_a"/>
-		<property name="password" value = "user1234!!"/>
 	</bean> -->
+<bean id = "dataSource" class = "org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value = "com.mysql.jdbc.Driver"/>
+		<property name="url" value = "jdbc:mysql://jjezen.cafe24.com:3306/ezen20210719_a"/>
+		<property name="username" value = "user_a"/>
+		<property name="password" value = "user1234!!"/>
+	</bean>
 	<!-- mybatis SqlSessionFactoryBean -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
