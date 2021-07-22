@@ -3,40 +3,6 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="tobe.project.mappers.approvalMapper">
- 	<resultMap type="ApprovalVO" id="approvalResultMap">
-		<id column="EIDX" property="eidx"/>
-	    <result column="E_STATUS" property="e_status"/>
-	    <result column="E_TYPE" property="e_type"/>
-	    <result column="E_DRAFTDATE" property="e_draftDate"/>
-	    <result column="E_STARTDAY" property="e_startDay"/>
-	    <result column="E_ENDDAY" property="e_endDay"/> 
-	    <result column="E_CON" property="e_con"/>
-	    <result column="E_TEXTTITLE" property="e_textTitle"/> 
-	    <result column="E_TEXTCONTENT" property="e_textContent"/>
-	    <result column="TIDX" property="tidx"/>
-	    <result column="DELYN" property="delYn"/>
-	    <result column="E_APPROVALNOYN" property="e_approvalNoYn"/>
-	    <result column="E_APPROVALNOPERSON" property="e_approvalNoPerson"/>
-	    <result column="E_REASON" property="e_reason"/>
-	    <collection property="memberVO" resultMap="MemberResultMap"/>
-	    <collection property="approvalLineVO" resultMap="ApprovalLineResultMap"/>
-	</resultMap>
-	
-	<resultMap type="memberVO" id="MemberResultMap">
-	    <id column="TIDX" property="tidx"/>
-	    <result column="T_NAME" property="t_name"/>
-	    <result column="T_DEPARTMENT" property="t_department"/>
-	</resultMap>
-	
-	<resultMap type="approvalLineVO" id="ApprovalLineResultMap">
-		<id column="EIDX" property="eidx"/>
-		<result column="TEAMLEADER" property="teamLeader"/>
-		<result column="SECTIONHEAD" property="sectionHead"/>
-		<result column="DEPARTMENTHEAD" property="departmentHead"/>
-		<result column="LEADER" property="leader"/>
-		<result column="STATUS" property="status"/>
-	</resultMap>
-	
 	<select id="selectOneMember" parameterType="MemberVO" resultType="MemberVO">
  	  	select *
  		from afps_member
