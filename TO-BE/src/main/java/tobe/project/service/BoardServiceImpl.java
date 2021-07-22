@@ -17,24 +17,24 @@ import tobe.project.util.FileUtils;
 import tobe.project.util.RemoveHtml;
 
 @Service
-public class BoardServiceImpl implements BoardService{
-	@Resource(name="removeHtml")
+public class BoardServiceImpl implements BoardService {
+	@Resource(name = "removeHtml")
 	private RemoveHtml removeHtml;
-	
-	@Resource(name="fileUtils")
+
+	@Resource(name = "fileUtils")
 	private FileUtils fileUtils;
-	
+
 	@Inject
-    private BoardDAO dao;
-	
+	private BoardDAO dao;
+
 	@Inject
 	private FileInfoDAO fdao;
-	
+
 	@Override
 	public List<BoardVO> selectAllBoard(SearchCriteria scri) throws Exception {
 		return dao.selectAllBoard(scri);
 	}
-	
+
 	@Override
 	public int totalCount(SearchCriteria scri) throws Exception {
 		return dao.totalCount(scri);
@@ -42,20 +42,13 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public void writeBoard(BoardVO vo, MultipartHttpServletRequest mpRequest) throws Exception {
-		
+
 		vo.setB_content(removeHtml.removeHtml(vo.getB_content()));
 		dao.writeBoard(vo);
-		
-		System.out.println("----------------------------------");
-		System.out.println("vo의 bidx->"+vo.getBidx());
-		System.out.println("----------------------------------");
-		
-		List<Map<String, Object>> list = fileUtils.parseInsertFileInfoBoard(vo, mpRequest); 
+
+		List<Map<String, Object>> list = fileUtils.parseInsertFileInfoBoard(vo, mpRequest);
 		int size = list.size();
-		for(int i=0; i<size; i++) {
-			System.out.println("----------------------------------");
-			System.out.println(list.get(i).get("ORG_FILE_NAME"));
-			System.out.println("----------------------------------");
+		for (int i = 0; i < size; i++) {
 			dao.insertFile(list.get(i));
 		}
 	}
@@ -67,18 +60,19 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public void modifyBoard(BoardVO vo, String[] files, String[] fileNames, MultipartHttpServletRequest mpRequest) throws Exception {
+	public void modifyBoard(BoardVO vo, String[] files, String[] fileNames, MultipartHttpServletRequest mpRequest)
+			throws Exception {
 		dao.modifyBoard(vo);
-		
+
 		List<Map<String, Object>> list = fileUtils.parseUpdateFileInfo(vo, files, fileNames, mpRequest);
 		Map<String, Object> tempMap = null;
 		int size = list.size();
-		for(int i = 0; i<size; i++) {
+		for (int i = 0; i < size; i++) {
 			tempMap = list.get(i);
 			tempMap.put("bidx", vo.getBidx());
-			if(tempMap.get("IS_NEW").equals("Y")) {
+			if (tempMap.get("IS_NEW").equals("Y")) {
 				dao.insertFile(tempMap);
-			}else {
+			} else {
 				dao.modifyFile(tempMap);
 			}
 		}
@@ -91,7 +85,6 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public String buttonState(String searchType) throws Exception {
-
 		return null;
 	}
 
