@@ -165,6 +165,9 @@
     #byeMember{
   	background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="100%" x2="100%" y2="0" stroke="gray" /></svg>');
   }
+  .content{
+		height:0px;
+	}
 </style>
 <body>
 <%

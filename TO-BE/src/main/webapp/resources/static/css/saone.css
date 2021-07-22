@@ -8,7 +8,7 @@ body, html{
 .content{
 	display:grid;
 	min-width:500px;
-	grid-template-columns:1fr 2fr;
+	grid-template-columns:1.5fr 2fr;
 	grid-template-rows: 500px;
 	background-color: white;
 }
