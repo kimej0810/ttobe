@@ -378,7 +378,7 @@ p {
 					<col width="20%">
 					<col width="10%">
 				</colgroup>
-				<tr>
+				<tr> 
 					<th>문서번호</th>
 					<th>제목</th>
 					<th>기안자</th>
