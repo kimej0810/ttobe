@@ -237,7 +237,7 @@ public class ApprovalController {
 		}
 		service.modifyApprovalDocumentAgain(dto);
 		lservice.modifyApprovalDocumentAgainLine(dto);
-		return dto;
+		return dto; 
 	}
 	
 	@RequestMapping(value = "/documentDelete")

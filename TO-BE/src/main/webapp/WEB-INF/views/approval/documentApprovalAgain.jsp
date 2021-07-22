@@ -78,6 +78,8 @@
 	<body>
 		<form id="draftLetterData" name="draftLetterData">
 		<input type="hidden" name="e_status" id="e_status" value="<%=contents.getE_status()%>">
+		<input type="hidden">
+		<input type="hidden" name="tidx" id="tidx" value="<%=contents.getTidx() %>">
 		<div id="documentWrite">
 			<table id="sheet0" class="sheet0">
 				<col class="col0">
@@ -134,12 +136,12 @@
 						<td class="style33 style33" rowspan="3">결<br><br>재</td>
 						<td class="style35 style36" colspan="2">담당</td>
 						<%if(contents.getT_position().equals("과장")){ %>
-						<td class="style35 style36" colspan="2">권한 없음</td>
+						<td class="style35 style36" colspan="2">결재권한없음</td>
 						<td class="style35 style36" colspan="3">과장</td>
 						<td class="style35 style36" colspan="2">부장</td>
 						<%}else if(contents.getT_position().equals("부장")){%>
-						<td class="style35 style36" colspan="2">권한 없음</td>
-						<td class="style35 style36" colspan="3">권한 없음</td>
+						<td class="style35 style36" colspan="2">결재권한없음</td>
+						<td class="style35 style36" colspan="3">결재권한없음</td>
 						<td class="style35 style36" colspan="2">부장</td>
 						<%}else{%>
 						<td class="style35 style36" colspan="2">팀장</td>
@@ -190,7 +192,7 @@
 								</td>
 							<%}else if(contents.getT_position().equals("과장")){ %>
 								<td class="style38 style43" colspan="2" rowspan="2">
-										<input type="text" id="teamLeader" name="teamLeader" value="권한 없음" readonly>
+										<input type="text" id="teamLeader" name="teamLeader" value="결재권한없음" readonly>
 								</td>
 								<td class="style38 style43" colspan="3" rowspan="2">
 									<input type="text" id="sectionHead" name="sectionHead" value="<%=contents.getT_name()%>" readonly>
@@ -214,10 +216,10 @@
 								</td>
 							<%}else if(contents.getT_position().equals("부장")) {%>
 								<td class="style38 style43" colspan="2" rowspan="2">
-									<input type="text" id="teamLeader" name="teamLeader" value="권한 없음" readonly>
+									<input type="text" id="teamLeader" name="teamLeader" value="결재권한없음" readonly>
 								</td>
 								<td class="style38 style43" colspan="3" rowspan="2">
-									<input type="text" id="sectionHead" name="sectionHead" value="권한 없음" readonly>
+									<input type="text" id="sectionHead" name="sectionHead" value="결재권한없음" readonly>
 								</td>
 								<td class="style38 style43" colspan="2" rowspan="2">
 									<input type="text" id="departmentHead" name="departmentHead" value="<%=contents.getT_name() %>" readonly>

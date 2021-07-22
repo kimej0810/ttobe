@@ -27,7 +27,6 @@ public class ApprovalDTO {
 	private String t_department;
 	private String t_position;
 	
-	
 	public String getT_id() {
 		return t_id;
 	}

@@ -157,21 +157,21 @@
 							<td class="style35 style36" colspan="2"><%=contents.getT_name()%></td>
 							<td class="style35 style36" colspan="2">
 							<%if(lineTeamLeader == ""){%>
-								권한 없음
+								결재권한없음
 							<%}else{%>
 								<%=lineTeamLeader%>
 							<%}%>
 							</td>
 							<td class="style35 style36" colspan="3">
 							<%if(lineSectionHead == ""){%>
-								권한 없음
+								결재권한없음
 							<%}else{%>
 								<%=lineSectionHead%>
 							<%}%>
 							</td>
 							<td class="style35 style36" colspan="2">
 							<%if(lineDepartmentHead == ""){%>
-								권한 없음
+								결재권한없음
 							<%}else{%>
 								<%=lineDepartmentHead%>
 							<%}%>
@@ -189,7 +189,7 @@
 							</td>
 							<td class="style38 style43" colspan="2" rowspan="2">
 							<%if(lineTeamLeader == ""){%>
-								<input type="text" id="teamLeader" readonly value="권한 없음">
+								<input type="text" id="teamLeader" readonly value="결재권한없음">
 							<%}else if(contents.getStatus().equals("3000")){ %>
 								<input type="text" id="teamLeader" readonly value="예정">
 							<%}else if(lineTeamLeader.equals(contents.getE_approvalNoPerson())){%>
@@ -200,7 +200,7 @@
 							</td> 
 							<td class="style38 style43" colspan="3" rowspan="2">
 							<% if(lineSectionHead == ""){%>
-								<input type="text" id="sectionHead" readonly value="권한 없음">
+								<input type="text" id="sectionHead" readonly value="결재권한없음">
 							<%}else if(contents.getStatus().equals("3000")){ %>
 								<input type="text" id="sectionHead" readonly value="대기">
 							<%}else if(contents.getStatus().equals("0300")){ %>
@@ -213,7 +213,7 @@
 							</td>
 							<td class="style38 style43" colspan="2" rowspan="2">
 							<% if(lineDepartmentHead == ""){%>
-								<input type="text" id="departmentHead" readonly value="권한 없음">
+								<input type="text" id="departmentHead" readonly value="결재권한없음">
 							<%}else if(contents.getStatus().equals("3000") || contents.getStatus().equals("0300")){ %>
 								<input type="text" id="departmentHead" readonly value="대기">
 							<%}else if(contents.getStatus().equals("0030")){ %>

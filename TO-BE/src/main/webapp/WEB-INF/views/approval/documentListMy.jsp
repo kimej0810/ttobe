@@ -111,7 +111,7 @@
 								<th width="100px">기안 유형</th>
 								<th width="100px">기안 부서</th>
 								<th width="100px">기안자</th>
-								<th>제목</th> 
+								<th>제목</th>
 								<th width="150px">기안 일시</th>
 								<th width="70px">상태</th>
 							</tr>
@@ -125,7 +125,7 @@
 											<a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">${elist.eidx }</a>
 										</c:when>
 										<c:otherwise>
-											<a href="/member/leaveView?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=650'); return false;" style="text-decoration : none; color:black;">${elist.eidx }</a>
+											<a href="/leave/view?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=650'); return false;" style="text-decoration : none; color:black;">${elist.eidx }</a>
 										</c:otherwise> 
 									</c:choose>
 								</td> 
@@ -150,7 +150,7 @@
 											</a>
 										</c:when>
 										<c:otherwise>
-											<a href="/member/leaveView?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=650'); return false;" style="text-decoration : none; color:black;"><c:set var="content" value="${elist.e_textTitle}"/>
+											<a href="/leave/view?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=650'); return false;" style="text-decoration : none; color:black;"><c:set var="content" value="${elist.e_textTitle}"/>
 												<c:choose>
 													<c:when test="${fn:length(elist.e_textTitle) > 50}">
 														<c:out value="${fn:substring(content,0,50)}"/>...

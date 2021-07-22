@@ -118,10 +118,8 @@
 								<th width="100px">기안 부서</th>
 								<th width="100px">기안자</th> 
 								<th>제목</th>
-								<c:if test="${scri.searchWord eq '결재반려' }">
-								<th>반려자</th>
-								<th>반려사유</th>
-								</c:if>
+								<th width="150px">반려자</th>
+								<th width="300px">반려사유</th>
 								<th width="150px">기안 일시</th>
 								<th width="70px">상태</th>
 							</tr>
@@ -135,15 +133,15 @@
 											<a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">${elist.eidx }</a>
 										</c:when>
 										<c:otherwise>
-											<a href="/member/leaveView?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=650'); return false;" style="text-decoration : none; color:black;">${elist.eidx }</a>
+											<a href="/leave/view?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=650'); return false;" style="text-decoration : none; color:black;">${elist.eidx }</a>
 										</c:otherwise> 
 									</c:choose>
 								</td>
 								<td>
 									${elist.e_type}
 								</td>
-								<td>${elist.memberVO.t_department }</td>
-								<td>${elist.memberVO.t_name }</td>
+								<td>${elist.t_department }</td>
+								<td>${elist.t_name }</td>
 								<td>
 									<c:choose>
 										<c:when test="${elist.e_type == '중요일정' || elist.e_type == '회사일정' || elist.e_type == '외근' || elist.e_type == '출장'}">
@@ -160,7 +158,7 @@
 											</a>
 										</c:when>
 										<c:otherwise>
-											<a href="/member/leaveView?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=650'); return false;" style="text-decoration : none; color:black;"><c:set var="content" value="${elist.e_textTitle}"/>
+											<a href="/leave/view?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=650'); return false;" style="text-decoration : none; color:black;"><c:set var="content" value="${elist.e_textTitle}"/>
 												<c:choose>
 													<c:when test="${fn:length(elist.e_textTitle) > 50}">
 														<c:out value="${fn:substring(content,0,50)}"/>...
@@ -172,10 +170,24 @@
 										</c:otherwise> 
 									</c:choose>
 								</td>
-								<c:if test="${scri.searchWord eq '결재반려' }">
-								<td>${elist.e_approvalNoPerson}</td>
-								<td>${elist.e_reason }</td>
-								</c:if>
+								<c:choose>
+									<c:when test="${scri.searchWord eq '결재반려' || elist.status eq '3333'}">	
+										<td>${elist.e_approvalNoPerson}</td>
+										<c:set var="content" value="${elist.e_reason}"/>
+										<c:choose>
+											<c:when test="${fn:length(elist.e_reason) > 10}">
+												<td><c:out value="${fn:substring(content,0,10)}"/>...</td>
+											</c:when>
+											<c:otherwise>
+												<td><c:out value="${elist.e_reason}"/></td>	
+											</c:otherwise>
+										</c:choose>
+									</c:when>
+									<c:otherwise>
+										<td></td>
+										<td></td>
+									</c:otherwise>
+								</c:choose>
 								<td>${elist.e_draftDate }</td>
 								<td>${elist.e_status }</td>
 								</tr>

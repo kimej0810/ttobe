@@ -89,7 +89,7 @@
  			ELECTRONIC_APPROVAL
  		set
  			E_TYPE = #{e_type}, E_DRAFTDATE = #{e_draftDate}, E_STARTDAY = #{e_startDay}, E_ENDDAY =  #{e_endDay},
- 			E_CON = #{e_con},E_TEXTTITLE =  #{e_textTitle}, E_TEXTCONTENT = #{e_textContent}, E_STATUS = '결재대기', E_APPROVALNOYN = 'N' , E_REASON = '재기안문서'
+ 			E_CON = #{e_con},E_TEXTTITLE =  #{e_textTitle}, E_TEXTCONTENT = #{e_textContent}, E_STATUS = '결재대기', E_APPROVALNOYN = 'N' , E_APPROVALNOPERSON = '' , E_REASON = ''
  		where
  			eidx = #{eidx} 			     
  	</update>
@@ -148,7 +148,7 @@
  	</select>
  	
  	<!-- 페이징 -->
- 	<select id="selectAllApprovalDocumentList" resultMap="approvalResultMap">
+ 	<select id="selectAllApprovalDocumentList" resultType="ApprovalDTO" parameterType="ApprovalDTO">
  		 select
  		 	 EIDX, E_TYPE, E_DRAFTDATE, E_STARTDAY, E_ENDDAY, E_CON, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, E_APPROVALNOYN, E_APPROVALNOPERSON, E_REASON, TIDX, T_NAME, T_ID, T_DEPARTMENT, T_POSITION,
  		 	TEAMLEADER, SECTIONHEAD, DEPARTMENTHEAD, LEADER, STATUS, DELYN
