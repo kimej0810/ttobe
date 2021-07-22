@@ -397,7 +397,7 @@ p {
 											style="text-decoration: none; color: black;">${approval.e_textTitle }</a>
 									</c:when>
 									<c:otherwise>
-										<a href="/member/leaveView?eidx=${approval.eidx}"
+										<a href="/leave/view?eidx=${approval.eidx}"
 											onclick="window.open(this.href, '_blank', 'width=770, height=630'); return false;"
 											style="text-decoration: none; color: black;">${approval.e_textTitle }</a>
 									</c:otherwise>
