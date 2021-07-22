@@ -20,6 +20,7 @@
 	<title>휴가 신청서</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	<style>
 /* 		html{
 			min-width:650px;
@@ -340,6 +341,7 @@
 			</table>
 			<div style="float:right;margin:0 5px 5px 0;">
 				<input type="button" class="btn btn-danger btn-sm noCheck" value="반려">
+				<input type="button" class="btn btn-danger btn-sm noBack" value="취소">
 			</div>
 		</form>
 	</div>
@@ -365,74 +367,141 @@
 	<script>
 	function ok(){
 		var eidx = $("#eidx").val();
-		var result = confirm("승인 처리 하시겠습니까?");
+		/* var result = confirm("승인 처리 하시겠습니까?");
 		if(result){
 			location.href="/approval/documentOk?eidx="+eidx;
 			alert("승인처리 되었습니다.");
 			opener.parent.location.reload();
 			window.close();
-		} 
+		}  */
+		Swal.fire({
+			title:"결재 승인",
+			text:"승인 처리 하시겠습니까?",
+			icon:"question",
+			showCancelButton:true,
+			confirmButtonText:"승인",
+			cancelButtonText:"취소"
+		}).then(result => {
+			if(result.isConfirmed){
+				Swal.fire("결재 승인","승인되었습니다.","success")
+				.then(result => {
+					opener.parent.location.reload();
+					window.close();	
+				});
+			}
+		});
 	}
 	$(document).ready(function(){
-		$(document).on("click","#yesBtn",function(){
-			$("#noCheck").css("display","none");
-		});
 		$(document).on("click","#modifyBtn",function(){
 			if($("#e_status").val()=="결재대기" || $("#e_status").val()=="결재반려"){
 				var eidx = $("#eidx").val();
-				alert("수정페이지로 이동합니다.");
-				self.location.href="/leave/modify?eidx="+eidx;	
+				Swal.fire({
+					title:"결재수정",
+					text:"수정페이지로 이동할까요?",
+					icon:"question",
+					showCancelButton:true,
+					confirmButtonText:"이동",
+					cancelButtonText:"취소"
+				}).then(result => {
+					if(result.isConfirmed){
+						self.location.href="/leave/modify?eidx="+eidx;
+					}
+				});
 			}else{
-				alert("진행중인 결재는 수정이 불가합니다.");
+				Swal.fire({
+					title:"결재수정",
+					text:"진행중인 결재는 수정이 불가능합니다.",
+					icon:"warning"
+				});
 				return;
 			}
 		});
+		$(document).on("click",".noBack",function(){
+			$("#noNO").css("display","none");
+		});
 		$(document).on("click","#delBtn",function(){
 			if($("#e_status").val()=="결재대기" || $("#e_status").val()=="결재반려"){
-				if(confirm("해당 결재를 취소하시겠습니까?")){
-					if(confirm("취소된 결재내역은 삭제됩니다.")){
-						var eidx = $("#eidx").val();
-						$.ajax({
-							url:"/leave/delete?eidx="+eidx,
-							dataType:'json',
-							success:function(e){
-								if(e==1){
-									alert("삭제되었습니다.");
-									opener.parent.location.reload();
-									window.close();
-								}else if(e==0){
-									alert("삭제실패");
-								}
+				Swal.fire({
+					title:"결재취소",
+					text:"해당 결재를 취소하시겠습니까?",
+					icon:"warning",
+					showCancelButton:true,
+					confirmButtonText:"확인",
+					cancelButtonText:"취소"
+				}).then(result => {
+					if(result.isConfirmed){
+						Swal.fire({
+							title:"결재취소",
+							text:"취소된 결재내역은 삭제됩니다.",
+							icon:"warning",
+							showCancelButton:true,
+							confirmButtonText:"확인",
+							cancelButtonText:"취소"
+						}).then(result => {
+							if(result.isConfirmed){
+								var eidx = $("#eidx").val();
+								$.ajax({
+									url:"/leave/delete?eidx="+eidx,
+									dataType:'json',
+									success:function(e){
+										if(e==1){
+											opener.parent.location.reload();
+											window.close();
+										}else if(e==0){
+											alert("삭제실패");
+										}
+									}
+								});
+								
 							}
-						});
-					}
-				}
-			}
-		});
-		$(document).on("click",".noNO",function(){
-			if(confirm("반려처리 하시겠습니까?")){
-				$("#noNO").css("display","inline");	
-			}
-		});
-		$(document).on("click",".noCheck",function(){
-			var checkStr = $("#e_reason").val();
-			if(confirm("[반려사유 : "+checkStr+"] 반려처리 하시겠습니까?")){
-				var result = $("form[name=noFrm]").serialize();
-				$.ajax({
-					url: "/leave/no",
-					data:result,
-					dataType:"JSON",
-					success:function(e){
-						if(e==1){
-							alert("반려처리 되었습니다.");
-							opener.parent.location.reload();
-							window.close();
-						}else{
-							
-						}
+						})
 					}
 				});
 			}
+		});
+		$(document).on("click",".noNO",function(){
+			Swal.fire({
+				title:"결재반려",
+				text:"반려처리 하시겠습니까?",
+				icon:"warning",
+				showCancelButton:true,
+				confirmButtonText:"확인",
+				cancelButtonText:"취소"
+			}).then(result => {
+				if(result.isConfirmed){
+					$("#noNO").css("display","inline");	
+				}
+			});
+		});
+		$(document).on("click",".noCheck",function(){
+			var checkStr = $("#e_reason").val();
+			Swal.fire({
+				title:"결재반려",
+				text:"반려 사유  ["+checkStr+"] 가 맞습니까?",
+				icon:"warning",
+				showCancelButton:true,
+				confirmButtonText:"확인",
+				cancelButtonText:"취소"
+			}).then(result => {
+				if(result.isConfirmed){
+					var result = $("form[name=noFrm]").serialize();
+					$.ajax({
+						url: "/leave/no",
+						data:result,
+						dataType:"JSON",
+						success:function(e){
+							if(e==1){
+								Swal.fire("결재반려","반려처리 되었습니다.","success").then(result => {
+									opener.parent.location.reload();
+									window.close();	
+								});
+							}else{
+								
+							}
+						}
+					});
+				}
+			});
 		});
 	});
 	</script>
