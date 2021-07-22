@@ -402,7 +402,7 @@ p {
 											style="text-decoration: none; color: black;">${approval.e_textTitle }</a>
 									</c:otherwise>
 								</c:choose></td>
-							<td>${approval.memberVO.t_name}</td>
+							<td>${approval.t_name}</td>
 							<td>${approval.e_draftDate}</td>
 							<td>${approval.e_status}</td>
 						</tr>
