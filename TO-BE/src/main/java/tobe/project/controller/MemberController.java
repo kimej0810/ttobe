@@ -21,9 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import tobe.project.domain.SearchCriteria;
-import tobe.project.dto.ApprovalDTO;
 import tobe.project.dto.EmailDTO;
-import tobe.project.dto.LeaveDTO;
 import tobe.project.dto.LoginDTO;
 import tobe.project.dto.MemberDTO;
 import tobe.project.dto.MemberVO;
@@ -121,78 +119,6 @@ public class MemberController {
 		model.addAttribute("myLeave",myService.selectAllLeave(searchCriteria));
 		model.addAttribute("mySchedule",myService.selectAllSchedule(searchCriteria));
 		return "/member/myHome";
-	}
-	@RequestMapping(value="/leave", method = RequestMethod.GET)
-	public String leave(Model model,HttpSession session,String t_id) throws Exception {
-		MemberDTO vo = service.selectOneMember(t_id);
-		List<MemberDTO> dto = service.selectAllMember2();
-		model.addAttribute("memberList",dto);
-		model.addAttribute("member",vo);
-		return "/member/leave";
-	}
-	@RequestMapping(value="/leaveView", method = RequestMethod.GET)
-	public String leave(Model model,HttpSession session,int eidx) throws Exception {
-		LeaveDTO leave = myService.selectOneLeave(eidx);
-		Integer tidx = (Integer)session.getAttribute("userTidx");
-		model.addAttribute("leave",leave);
-		if(tidx!=null) {
-			model.addAttribute("member",service.selectOneMemberIdx(leave.getTidx()));
-			model.addAttribute("memberList",service.selectAllMember2());
-			return "/member/leaveView";
-		}
-		return "redirect:/member/login";
-	}
-	@ResponseBody
-	@RequestMapping(value="/leaveNo")
-	public int leaveNo(Model model,HttpSession session,ApprovalDTO dto) throws Exception {
-		int check = myService.leaveNo(dto);
-		if(check==1) {
-			return 1;
-		}else {
-			return 0;
-		}
-		
-	}
-	@ResponseBody
-	@RequestMapping(value="/leaveAction")
-	public int leaveAction(Model model,HttpSession session,LeaveDTO dto) throws Exception {
-		int checkck = myService.writeLeave(dto); 
-		if(checkck==1) {
-			MemberDTO memb = service.selectOneMemberIdx(dto.getTidx());
-			//int checkLeave = memb.getT_leave_get() - dto.getA_useddays();
-			//dto.setA_useddays(checkLeave);
-			//myService.updateLeave(dto)
-			return 1;
-		}else {
-			return 0;
-		}
-	}
-	@ResponseBody
-	@RequestMapping(value="/leaveDelete")
-	public int leaveDelete(Model model,int eidx) throws Exception {
-		return myService.leaveDelete(eidx);
-	}
-	@RequestMapping(value="/leaveModify")
-	public String leaveModify(Model model,HttpSession session,int eidx) throws Exception {
-		LeaveDTO leave = myService.selectOneLeave(eidx);
-		Integer tidx = (Integer)session.getAttribute("userTidx");
-		model.addAttribute("leave",leave);
-		if(tidx!=null) {
-			model.addAttribute("member",service.selectOneMemberIdx(tidx));
-			model.addAttribute("memberList",service.selectAllMember2());
-			return "/member/leaveModify";
-		}
-		return "/member/login";
-	}
-	@ResponseBody
-	@RequestMapping(value="/leaveModifyAction")
-	public int leaveModifyAction(Model model,HttpSession session,LeaveDTO dto) throws Exception {
-		return myService.modifyLeave(dto);
-	}
-	@ResponseBody
-	@RequestMapping(value="/leaveReModifyAction")
-	public int leaveReModifyAction(Model model,HttpSession session,LeaveDTO dto) throws Exception {
-		return myService.modifyReLeave(dto);
 	}
 	@RequestMapping(value="/emailRead")
 	public String emailRead(Model model,HttpSession session,EmailDTO dto) throws Exception {

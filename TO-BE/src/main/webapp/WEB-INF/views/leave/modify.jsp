@@ -196,8 +196,8 @@
 			$("#a_type").val($("#e_type").val());
 			$("#a_startdate").val($("#startD").val());
 			var result = $("form[name=frm]").serialize();
-			var url1 = "/member/leaveModifyAction";
-			var url2 = "/member/leaveReModifyAction";
+			var url1 = "/leave/modifyAction";
+			var url2 = "/leave/reModifyAction";
 			var resultUrl = "";
 			if($("#e_status").val()=="결재반려"){
 				resultUrl = url2;

@@ -381,7 +381,7 @@
 			if($("#e_status").val()=="결재대기" || $("#e_status").val()=="결재반려"){
 				var eidx = $("#eidx").val();
 				alert("수정페이지로 이동합니다.");
-				self.location.href="/member/leaveModify?eidx="+eidx;	
+				self.location.href="/leave/modify?eidx="+eidx;	
 			}else{
 				alert("진행중인 결재는 수정이 불가합니다.");
 				return;
@@ -393,7 +393,7 @@
 					if(confirm("취소된 결재내역은 삭제됩니다.")){
 						var eidx = $("#eidx").val();
 						$.ajax({
-							url:"/member/leaveDelete?eidx="+eidx,
+							url:"/leave/delete?eidx="+eidx,
 							dataType:'json',
 							success:function(e){
 								if(e==1){
@@ -419,7 +419,7 @@
 			if(confirm("[반려사유 : "+checkStr+"] 반려처리 하시겠습니까?")){
 				var result = $("form[name=noFrm]").serialize();
 				$.ajax({
-					url: "/member/leaveNo",
+					url: "/leave/no",
 					data:result,
 					dataType:"JSON",
 					success:function(e){

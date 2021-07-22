@@ -226,7 +226,7 @@ function leaveBtn(){
 											<td>${leave.a_type}
 											</td>
 											<td>
-												<a href="/member/leaveView?eidx=${leave.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=700'); return false;" style="text-decoration : none; color:black;">
+												<a href="/leave/view?eidx=${leave.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=700'); return false;" style="text-decoration : none; color:black;">
 													${leave.e_texttitle}
 												</a>
 											</td>

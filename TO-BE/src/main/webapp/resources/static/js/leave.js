@@ -117,7 +117,7 @@
 			$("#a_startdate").val($("#startD").val());
 			var result = $("form[name=frm]").serialize();
 			$.ajax({
-				url: "/member/leaveAction",
+				url: "/leave/writeAction",
 				data:result,
 				type:"POST",
 				dataType: "json",
