@@ -371,7 +371,7 @@
 			alert("승인처리 되었습니다.");
 			opener.parent.location.reload();
 			window.close();
-		}
+		} 
 	}
 	$(document).ready(function(){
 		$(document).on("click","#yesBtn",function(){

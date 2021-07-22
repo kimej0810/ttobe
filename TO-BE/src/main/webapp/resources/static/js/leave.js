@@ -14,7 +14,7 @@
 				$("#friend_phone").tooltip('show');
 				$("#friend_phone").val("");
 				$("#friend_phone").focus();
-			}else{
+			}else{ 
 				$("#friend_phone").tooltip('hide');
 			}
 		});
