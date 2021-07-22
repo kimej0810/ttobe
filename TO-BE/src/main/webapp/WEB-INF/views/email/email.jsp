@@ -50,7 +50,9 @@ $(document).ready(function(){
 		top: 50vh;
 		color: white;
 	}
-	
+	.content{
+		height:0px;
+	}
 </style>
 </head>
 <body>

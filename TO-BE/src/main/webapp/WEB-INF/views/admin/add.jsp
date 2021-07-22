@@ -313,6 +313,9 @@ function previewImage(targetObj, View_area){
 		top: 50vh;
 		color: white;
 	}
+	.content{
+		height:0px;
+	}
 </style>
 <body>
 <%
