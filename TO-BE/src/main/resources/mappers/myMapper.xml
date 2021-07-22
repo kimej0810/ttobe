@@ -124,6 +124,8 @@
 		E_CON = #{e_con},
 		E_TEXTTITLE = #{e_texttitle},
 		E_TEXTCONTENT = #{e_textcontent},
+		E_APPROVALNOPERSON = '',
+		E_REASON = '',
 		E_APPROVALNOYN = 'N'		
 		WHERE EIDX = #{eidx}
 	</update>
