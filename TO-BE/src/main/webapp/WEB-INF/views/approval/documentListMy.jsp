@@ -132,8 +132,8 @@
 								<td>
 									${elist.e_type}
 								</td>
-								<td>${elist.memberVO.t_department }</td>
-								<td>${elist.memberVO.t_name }</td>
+								<td>${elist.t_department }</td>
+								<td>${elist.t_name }</td>
 								<td>
 									<c:choose>
 										<c:when test="${elist.e_type == '중요일정' || elist.e_type == '회사일정' || elist.e_type == '외근' || elist.e_type == '출장'}">
