@@ -154,14 +154,4 @@ public class AdminController{
 		service.insertAdmin(vo,mpRequest);
 		return "redirect:/member/login";
 	}
-	//ajax test
-	@RequestMapping(value="/test")
-	@ResponseBody
-	public Object testAdmin(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Locale locale, Model model) throws Exception {
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(searchCriteria);
-		pageMaker.setTotalCount(service.totalCountsearchMember(searchCriteria));
-		List<MemberVO> mvo = service.searchMemberList(searchCriteria);
-		return mvo;
-	}
 }
