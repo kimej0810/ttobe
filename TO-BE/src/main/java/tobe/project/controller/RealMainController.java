@@ -38,7 +38,7 @@ public class RealMainController extends HttpServlet {
 	private ApprovalService approvalService;
 
 	// 硫��명���댁�
-	@RequestMapping(value = "/mainPage")
+	@RequestMapping(value = "/mainPage", produces = "application/text; charset=utf8")
 	public String list(Locale locale, Model model, HttpServletRequest request, @RequestParam Map<String, String> param) throws Exception {
 		System.out.println("~~~~~~~메인 컨트롤러~~~~~~");
 		
@@ -84,7 +84,6 @@ public class RealMainController extends HttpServlet {
 			boardList = boardService.selectNotice(search);
 		}
 		
-		
 		// 오늘의명언
 		JSONParser parser = new JSONParser();
 		String path = request.getSession().getServletContext().getRealPath("/resources/static/data/");
@@ -98,6 +97,7 @@ public class RealMainController extends HttpServlet {
 
 		String author = (String) jsonObject.get("author");
 		String message = (String) jsonObject.get("message");
+	
 
 		// 전자결재 다섯개만 뽑아옴
 		SearchCriteria scri = new SearchCriteria();
@@ -107,6 +107,7 @@ public class RealMainController extends HttpServlet {
 		List<ApprovalVO> approvalList = approvalService.selectAllApprovalDocumentList(scri);
 		
 		// 넘겨주자
+		request.setCharacterEncoding("utf-8");
 		model.addAttribute("year", year);
 		model.addAttribute("month", month);
 		model.addAttribute("author", author);
