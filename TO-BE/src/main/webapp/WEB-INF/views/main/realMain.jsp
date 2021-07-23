@@ -462,7 +462,7 @@ p {
 					}
 					approval += "</td>";
 					approval += "<td>";
-					approval += data[i].memberVO.t_name;
+					approval += data[i].t_name;
 					approval += "</td>";
 					approval += "<td>";
 					approval += data[i].e_draftDate;
