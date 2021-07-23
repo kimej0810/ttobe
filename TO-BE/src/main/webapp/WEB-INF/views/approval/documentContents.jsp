@@ -104,13 +104,13 @@
 								data: returnValue,
 								dateType:"json",
 								success:function(){
-									Swal.fire("결재 반려","반려처리 되었습니다.","success").then(result => {
+									Swal.fire("결재 반려","반려 처리되었습니다.","success").then(result => {
 										opener.parent.location.reload();
 										window.close();	
 									});
 								},
 								error:function(){
-									Swal.fire("결재 반려","반려 실패","error").then(result => {
+									Swal.fire("결재 반려","반려 실패되었습니다.","error").then(result => {
 										opener.parent.location.reload();
 										window.close();	
 									});
@@ -139,6 +139,12 @@
 									opener.parent.location.reload();
 									window.close();	
 								});
+							},
+							error:function(){
+								Swal.fire("결재 승인","승인 실패되었습니다.","error").then(result => {
+									opener.parent.location.reload();
+									window.close();	
+								});
 							}
 						})
 					}
@@ -159,7 +165,13 @@
 							url:"/approval/documentOk?eidx="+"<%=contents.getEidx()%>",
 							dataType:'json',
 							success:function(){
-								Swal.fire("결재 승인","최종 승인 처리되었습니다.","success").then(result => {
+								Swal.fire("결재 승인","최종승인 처리되었습니다.","success").then(result => {
+									opener.parent.location.reload();
+									window.close();	
+								});
+							},
+							error:function(){
+								Swal.fire("결재 승인","최종승인 실패되었습니다.","error").then(result => {
 									opener.parent.location.reload();
 									window.close();	
 								});

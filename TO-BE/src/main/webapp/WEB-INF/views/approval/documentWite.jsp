@@ -29,6 +29,7 @@
 		<link href="<c:url value="/resources/static/form/css/documentWite.css"/>" rel='stylesheet' />
 		<script src="<c:url value="/resources/static/form/js/documentWite.js"/>"></script>
 		<link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>">
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	</head>
 	<body>
 		<form id="documentWiteData" name="documentWiteData" method="POST">

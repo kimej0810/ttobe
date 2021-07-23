@@ -69,23 +69,35 @@ function click_ok(){
 		$("#e_textContent").focus();
 		return false;
 	}
-	var documentWiteData = JSON.stringify($("form#documentWiteData").serializeObject());
-	var result = confirm("결제요청 하시겠습니까?");
-	
-	if(result){
+	Swal.fire({
+		title:"결재 요청",
+		text:"결재요청 하시겠습니까?",
+		icon:"question",
+		showCancelButton:true,
+		confirmButtonText:"확인",
+		cancelButtonText:"취소"
+	}).then(result => {
+		var draftLetterData = JSON.stringify($('form#documentWiteData').serializeObject());
 		
-		$.ajax({
-			data: documentWiteData,
-			url:"/approval/addDocumentWite",
-			type:'POST',
-			dataType:'JSON',
-			contentType : "application/json; charset=UTF-8",
-			success: function(data){
-				alert("결제요청이 완료되었습니다.");
-				opener.parent.location.reload();
-				window.close();
-			}
-		});
-	}
-	
-};
+		if(result.isConfirmed){
+			$.ajax({
+				data: draftLetterData,
+				url:"/approval/addDocumentWite",
+				type:'POST',
+				dataType:'JSON',
+				contentType : "application/json; charset=UTF-8",
+				success: function(data){
+					Swal.fire("결재요청 완료","결재요청이 완료되었습니다.","success").then(result => {
+						opener.parent.location.reload();
+						window.close();	
+					});
+				},
+				error:function(){
+					Swal.fire("결재 요청 실패","결재요청이 실패되였습니다","error").then(result => {
+						opener.parent.location.reload();
+					});
+				}
+			});
+		}
+	});
+}

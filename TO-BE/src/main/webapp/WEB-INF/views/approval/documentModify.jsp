@@ -18,6 +18,7 @@
 		<meta charset="UTF-8">
 		<title>결제문서 수정페이지</title>
 		<script src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	 	
 		<!-- datepicker -->
 		<link href="<c:url value="/resources/static/form/css/jquery.datetimepicker.css"/>" rel="stylesheet">
@@ -51,27 +52,37 @@
 					return false;
 				}
 				
-				var draftLetterData = JSON.stringify($('form#draftLetterData').serializeObject());
-				var result = confirm("수정하시겠습니까?");
-				if(result){
-					$.ajax({
-						type:'POST',
-						url:"/approval/ModifyDocumentWite",
-						dataType:'JSON',
-						data: draftLetterData, 
-						contentType : "application/json; charset=UTF-8",
-						success: function(data){
-							alert("수정이 완료되었습니다.");
-							opener.parent.location.reload();
-							location.href="documentContents?eidx="+"<%=contents.getEidx()%>&tidx=<%=contents.getTidx()%>";
-						},
-						error:function(data){
-							
-							alert(data);
-						}
-					});
-				}
-			};
+				Swal.fire({
+					title:"결재 수정",
+					text:"결재문서를 수정하시겠습니까?",
+					icon:"question",
+					showCancelButton:true,
+					confirmButtonText:"확인",
+					cancelButtonText:"취소"
+				}).then(result => {
+					var draftLetterData = JSON.stringify($('form#draftLetterData').serializeObject());
+					if(result.isConfirmed){
+						$.ajax({
+							data: draftLetterData,
+							url:"/approval/ModifyDocumentWite",
+							type:'POST',
+							dataType:'JSON',
+							contentType : "application/json; charset=UTF-8",
+							success: function(data){
+								Swal.fire("결재 수정 완료","문서 수정이 완료되었습니다.","success").then(result => {
+									opener.parent.location.reload();
+									location.href="documentContents?eidx="+"<%=contents.getEidx()%>&tidx=<%=contents.getTidx()%>";
+								});
+							},
+							error:function(){
+								Swal.fire("결재 수정 실패","문서 수정에 실패했습니다.","error").then(result => {
+									opener.parent.location.reload();
+								});
+							}
+						});
+					}
+				});
+			}
 		</script>
 	</head>
 	<body>

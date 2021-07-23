@@ -19,6 +19,7 @@
 		<script src="<c:url value="/resources/static/schedule/js/jquery.datetimepicker.full.min.js"/>"></script>
 		<link href="<c:url value="/resources/static/schedule/css/jquery.datetimepicker.css"/>" rel="stylesheet">
 		<link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>">
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 		
 		<script src="<c:url value="/resources/static/schedule/js/schedulepop.js"/>"  type="text/javascript"></script>
 		<link href="<c:url value="/resources/static/schedule/css/schedulePopup.css"/>" rel='stylesheet' />

@@ -24,6 +24,7 @@
 		<title>결제문서 수정페이지</title>
 		<script src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 		<link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>">
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 		<!-- datepicker -->
 		<link href="<c:url value="/resources/static/form/css/jquery.datetimepicker.css"/>" rel="stylesheet">
 		<script src="<c:url value="/resources/static/form/js/jquery.datetimepicker.full.min.js"/>"></script>
@@ -57,7 +58,7 @@
 				}
 				
 				Swal.fire({
-					title:"재기안 페이지 이동",
+					title:"재기안 ",
 					text:"재기안 하시겠습니까?",
 					icon:"question",
 					showCancelButton:true,
@@ -77,28 +78,17 @@
 									opener.parent.location.reload();
 									window.close();	
 								});
+							},
+							error:function(){
+								Swal.fire("재기안 실패","재기안에 실패했습니다.","error").then(result => {
+									opener.parent.location.reload();
+									window.close();	
+								});
 							}
 						});
 					}
 				});
-				
-				/* var draftLetterData = JSON.stringify($('form#draftLetterData').serializeObject());
-				var result = confirm("재기안 하시겠습니까?");
-				if(result){
-					$.ajax({
-						type:'POST',
-						url:"/approval/documentApprovalAgainOk",
-						dataType:'JSON',
-						data: draftLetterData,
-						contentType : "application/json; charset=UTF-8",
-						success: function(data){
-							alert("재기안이 완료되었습니다.");
-							opener.parent.location.reload();
-							window.close();
-						}
-					});
-				} */
-			};
+			}
 		</script>
 	</head>
 	<body>

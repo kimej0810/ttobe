@@ -81,10 +81,9 @@ public class CalendarController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/addSchedule", method = RequestMethod.POST) 
-	public Map<Object,Object> addSchedule(@RequestBody ScheduleVO vo) throws Exception{
-		 Map<Object,Object> map = new HashMap<Object,Object>();
-		 service.addSchedule(vo); 
-		 return map; 
+	public ScheduleVO addSchedule(@RequestBody ScheduleVO vo) throws Exception{
+		 service.addSchedule(vo);
+		return vo;
 	}
 	
 	@ResponseBody
