@@ -39,7 +39,7 @@
         <property name="host" value="smtp.gmail.com" /> <!-- gmail을 사용 -->
         <property name="port" value="587" />
         <property name="username" value="tobe202105@gmail.com" />
-        <property name="password" value="tobe0524!" />
+        <property name="password" value="kwwrsgmkncburfmf" />
         <property name="javaMailProperties">
             <props>
                 <prop key="mail.transport.protocol">smtp</prop>
