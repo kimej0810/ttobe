@@ -112,6 +112,7 @@ button:disabled {
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
 		} */
 	%>
+	<input type="hidden" value="${pageContext.request.contextPath}" id="domain">
 	<div class="category">
 		<input type="hidden" id="boardType" value="${boardVO.b_type}">
 		<button id="noticeBtn" class="btn btn-outline-secondary" type="button">공지사항</button>
@@ -227,7 +228,7 @@ button:disabled {
 		} else {
 		%>
 		<button type="button" class="btn btn-primary btn-sm float-right"
-			onclick="location.href='modify?bidx=${boardVO.bidx}'">수정</button>
+			onclick="location.href='${pageContext.request.contextPath}/modify?bidx=${boardVO.bidx}'">수정</button>
 		<button type="button" class="btn btn-primary btn-sm float-right"
 			onclick="fn_delete(${boardVO.bidx})">삭제</button>
 		<c:if test="${pagePort eq 'board' }">
@@ -320,7 +321,6 @@ button:disabled {
 				"click",
 				".writeReplyBtn",
 				function() {
-
 					var form = {
 						tidx : $("#tidx").val(),
 						r_content : $("#r_content").val(),
@@ -329,7 +329,7 @@ button:disabled {
 
 					$.ajax({
 						type : "post",
-						url : "/reply/write",
+						url : $("#domain").val()+"/reply/write",
 						data : form,
 						dataType : "json",
 						error : function(request, status, error) {
@@ -349,12 +349,11 @@ button:disabled {
 				"click",
 				".deleteReplyBtn",
 				function() {
-					
 					var con_test = confirm("삭제하시겠습니까?");
 					if(con_test == true){
 						$.ajax({
 							type : "post",
-							url : "/reply/delete",
+							url : $("#domain").val()+"/reply/delete",
 							data : {
 								"ridx" : $(this).next('#ridx').val(),
 								"bidx" : $("#bidx").val()
@@ -394,7 +393,7 @@ button:disabled {
 
 					$.ajax({
 						type : "post",
-						url : "/reply/modify",
+						url : $("#domain").val()+"/reply/modify",
 						data : {
 							"r_content" : modifyVal,
 							"ridx" : ridx,
@@ -417,7 +416,7 @@ button:disabled {
 						"click",
 						function() {
 
-							location.href = "/board/list?page=${scri.page}"
+							location.href = $("#domain").val()+"/board/list?page=${scri.page}"
 									+ "&perPageNum=${scri.perPageNum}"
 									+ "&searchType=${scri.searchType}&keyword=${scri.keyword}";
 						})
@@ -426,7 +425,7 @@ button:disabled {
 		function fn_fileDown(fidx) {
 			var formObj = $("form[name='readForm']");
 			$('#FIDX').attr("value", fidx);
-			formObj.attr("action", "/board/fileDown");
+			formObj.attr("action", $("#domain").val()+"/board/fileDown");
 			formObj.submit();
 		}
 

@@ -157,6 +157,7 @@ p {
 	<%
 	String t_id = (String) session.getAttribute("userId");
 	%>
+	<input type="hidden" value="${pageContext.request.contextPath}" id="domain">
 	<div id="box1" class="inner_content" style="width: 100%; height: 100%;">
 		<div class="conTitle">통합게시판</div>
 		<div class="conCon">
@@ -192,7 +193,7 @@ p {
 								</c:if>
 								<td scope="row">${board.bidx}</td>
 								<td><a
-									href="/board/view?bidx=${board.bidx}&page=1&perPageNum=10&searchType=&keyword=&pagePort=board"
+									href="${pageContext.request.contextPath}/board/view?bidx=${board.bidx}&page=1&perPageNum=10&searchType=&keyword=&pagePort=board"
 									style="text-decoration: none; color: black;">${board.b_title}</a></td>
 								<td><fmt:parseDate var="writedate"
 										value="${board.b_writedate}" pattern="yyyy-MM-dd" /> <fmt:formatDate
@@ -331,10 +332,10 @@ p {
 			<input type="hidden" id="tidx" value="<%=userTidx%>">
 			<button style="grid-columns: 1/2; margin: 0 5px; height:70%;" id="startWork"
 				type="button" class="btn btn-outline-primary btn-lg float-right"
-				onclick="location.href='/commute/startCommute?tidx=<%=userTidx%>'">출근</button>
+				onclick="location.href='${pageContext.request.contextPath}/commute/startCommute?tidx=<%=userTidx%>'">출근</button>
 			<button style="grid-columns: 2/3; margin: 0 5px; height:70%;" id="endWork"
 				type="button" class="btn btn-outline-danger btn-lg float-right"
-				onclick="location.href='/commute/endCommute?tidx=<%=userTidx%>'">퇴근</button>
+				onclick="location.href='${pageContext.request.contextPath}/commute/endCommute?tidx=<%=userTidx%>'">퇴근</button>
 		</div>
 	</div>
 	<div id="box4" class="inner_content"
@@ -372,12 +373,12 @@ p {
 							<td><c:choose>
 									<c:when test="${approval.e_type == '중요일정' || approval.e_type == '회사일정' || approval.e_type == '외근' || approval.e_type == '출장'}">
 										<a
-											href="/approval/documentContents?eidx=${approval.eidx}&tidx=${approval.tidx}"
+											href="${pageContext.request.contextPath}/approval/documentContents?eidx=${approval.eidx}&tidx=${approval.tidx}"
 											onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;"
 											style="text-decoration: none; color: black;">${approval.e_textTitle }</a>
 									</c:when>
 									<c:otherwise>
-										<a href="/leave/view?eidx=${approval.eidx}"
+										<a href="${pageContext.request.contextPath}/leave/view?eidx=${approval.eidx}"
 											onclick="window.open(this.href, '_blank', 'width=770, height=630'); return false;"
 											style="text-decoration: none; color: black;">${approval.e_textTitle }</a>
 									</c:otherwise>
@@ -415,7 +416,6 @@ p {
 	<script>
 		function selectApproval(data) {
 			var approval = "";
-
 			if (data.length > 0) {
 				for (var i = 0; i < data.length; i++) {
 					approval += "<tr>";
@@ -424,7 +424,9 @@ p {
 					approval += "</td>";
 					approval += "<td>";
 					if((data[i].e_type)!="개인일정"){
-						approval+="<a href='/approval/documentContents?eidx=";
+						approval+="<a href='
+						approval+= $("#domain").val();
+						approval+= "/approval/documentContents?eidx=";
 						approval+=data[i].eidx;
 						approval+="&tidx=";
 						approval+=data[i].tidx;
@@ -433,7 +435,9 @@ p {
 						approval+=data[i].e_textTitle;
 						approval+="</a>";	
 					}else{
-						approval+="<a href='/member/leaveView?eidx=";
+						approval+="<a href='
+						approval+= $("#domain").val();
+						approval+="/member/leaveView?eidx=";
 						approval+=data[i].eidx;
 						approval+="' onclick='#'";
 						approval+="style='text-decoration: none; color: black;'>";
@@ -469,7 +473,7 @@ p {
 
 								$.ajax({
 									type : "post",
-									url : "/main/approval",
+									url : $("#domain").val()+"/main/approval",
 									data : {
 										"state" : $(this).attr("id")
 									},

@@ -132,10 +132,10 @@ table th{
 					<div class="dataBtn">
 						<c:set var="userTidx" value="<%=userTidx%>"/>
 						<c:if test="${data.memberVO.tidx eq userTidx}">
-							<button type="button" class="btn btn-primary btn-sm" style="float:right; margin-left:5px;" onclick="location.href='/data/delete?didx=${data.didx}'">삭제</button>
+							<button type="button" class="btn btn-primary btn-sm" style="float:right; margin-left:5px;" onclick="location.href='${pageContext.request.contextPath}/data/delete?didx=${data.didx}'">삭제</button>
 						</c:if>
 						<button type="button" class="btn btn-primary btn-sm" 
-						 onclick="location.href='/data/fileDown?didx=${data.didx}'"
+						 onclick="location.href='${pageContext.request.contextPath}/data/fileDown?didx=${data.didx}'"
 						 style="float:right;">다운로드</button>
 					</div>
 				</td>
@@ -171,7 +171,7 @@ table th{
 		$(document).ready(function(){
 			$('#searchBtn').click(
 					function() {
-						self.location = "list" + '${pageMaker.makeQuery(1)}'
+						self.location = $("#domain").val()+"list" + '${pageMaker.makeQuery(1)}'
 								+ "&searchType="
 								+ $("select option:selected").val()
 								+ "&keyword="

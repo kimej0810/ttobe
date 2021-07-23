@@ -59,7 +59,7 @@
 	String userName = (String) session.getAttribute("userName");
 	String userGrade = (String) session.getAttribute("userGrade");
 	if (session.getAttribute("userTidx") == null) {
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='${pageContext.request.contextPath}/member/login';</script>");
 	}
 	%>
 	<!-- Modal -->
@@ -72,7 +72,7 @@
 					<h4 class="modal-title">업로드</h4>
 				</div>
 				<div class="modal-body">
-					<form id="fileForm" action="/data/transport" method="post"
+					<form id="fileForm" action="${pageContext.request.contextPath}/data/transport" method="post"
 						enctype="multipart/form-data"
 						style="height: 30px; text-align: center;">
 						<input type="hidden" name="tidx" value="<%=userTidx%>">
@@ -101,21 +101,21 @@
 					style="width: 215px;">
 				<ul class="sidebar-menu">
 					<li class="sidebar-menu-item"
-						onclick="location.href='/schedule/scheduleCalendar'">
+						onclick="location.href='${pageContext.request.contextPath}/schedule/scheduleCalendar'">
 						<p class="menu-name">일정관리</p>
 					</li>
 					<li class="sidebar-menu-item"
-						onclick="location.href='/commute/commute?t_id=<%=userId%>'">
+						onclick="location.href='${pageContext.request.contextPath}/commute/commute?t_id=<%=userId%>'">
 						<p class="menu-name">근태관리</p>
 					</li>
-					<li class="sidebar-menu-item" onclick="location.href='/board/list'">
+					<li class="sidebar-menu-item" onclick="location.href='${pageContext.request.contextPath}/board/list'">
 						<p class="menu-name">게시판</p>
 					</li>
 					<li class="sidebar-menu-item"
-						onclick="location.href='/approval/documentListMain?t_id=<%=userId%>'">
+						onclick="location.href='${pageContext.request.contextPath}/approval/documentListMain?t_id=<%=userId%>'">
 						<p class="menu-name">전자결재</p>
 					</li>
-					<li class="sidebar-menu-item" onclick="location.href='/data/list'">
+					<li class="sidebar-menu-item" onclick="location.href='${pageContext.request.contextPath}/data/list'">
 						<p class="menu-name">자료실</p>
 					</li>
 					<%
@@ -123,14 +123,14 @@
 						if (userGrade.equals("A")) {
 					%>
 					<li class="sidebar-menu-item"
-						onclick="location.href='/admin/memberlist'">
+						onclick="location.href='${pageContext.request.contextPath}/admin/memberlist'">
 						<p class="menu-name">사원정보</p>
 					</li>
 					<%
 					} else {
 					%>
 					<li class="sidebar-menu-item"
-						onclick="window.open('/member/list','사원정보','width=900,height=630,location=no,status=no');">
+						onclick="window.open('${pageContext.request.contextPath}/member/list','사원정보','width=900,height=630,location=no,status=no');">
 						<p class="menu-name">사원정보</p>
 					</li>
 					<%
@@ -149,7 +149,7 @@
 						class="navbar-toggle sidebar-collapse"> 
 						<img
 						src="<c:url value="/resources/static/img/realLogo.png"/>"
-						onclick="location.href='/main/mainPage'"
+						onclick="location.href='${pageContext.request.contextPath}/main/mainPage'"
 						style="width: 90px; grid-column: 2/3; text-align: center; margin: auto; cursor: pointer;">
 					<div>
 						<c:set var="profile" value="<%=userProfile%>" />
@@ -159,23 +159,23 @@
 						<div id="dropDown" class="list-group"
 							style="width: 100px; height: 50px; position: absolute; right: 25px;">
 							<a href="#" class="list-group-item list-group-item-action"
-								onclick="location.href='/member/mypage?tidx=<%=userTidx%>'">
+								onclick="location.href='${pageContext.request.contextPath}/member/mypage?tidx=<%=userTidx%>'">
 								<%=userName%>님
 							</a> <a href="#" class="list-group-item list-group-item-action"
-								onclick="location.href='/member/myHome?userIdx=<%=userTidx%>'">
+								onclick="location.href='${pageContext.request.contextPath}/member/myHome?userIdx=<%=userTidx%>'">
 								정보 </a>
 							<%
 							if (userGrade != null) {
 								if (userGrade.equals("A")) {
 							%>
 							<a href="#" class="list-group-item list-group-item-action"
-								onclick="location.href='/email/list'">메일함</a>
+								onclick="location.href='${pageContext.request.contextPath}/email/list'">메일함</a>
 							<%
 							}
 							}
 							%>
 							<a href="#" class="list-group-item list-group-item-action"
-								onclick="location.href='/member/logout'"> 로그아웃 </a>
+								onclick="location.href='${pageContext.request.contextPath}/member/logout'"> 로그아웃 </a>
 						</div>
 					</div>
 

@@ -32,6 +32,7 @@
 		<input type="hidden" value="G" name="b_type">
 		<input type="hidden" id="fileNoDel" name="fileNoDel[]" value="">
 		<input type="hidden" id="fileNameDel" name="fileNameDel[]" value="">
+		<input type="hidden" value="${pageContext.request.contextPath}" id="domain">
 		<table id="modify" class="table">
 			<tr>
 				<th style="width:25%;">글제목</th>
@@ -72,6 +73,7 @@
 	</form>
 	<script type="text/javascript">
 		$(document).ready(function(){
+			var domain = $("#domain").val();
 			var formObj = $("form[name='modifyForm']");
 			
 			$("#submitBtn").on("click", function(){
@@ -100,7 +102,8 @@
 			
 			$(".cancel_btn").on("click", function(){
 				event.preventDefault();
-				location.href = "/board/view?bidx=${boardVO.bidx}"
+				location.href = $("#domain").val()
+					   + "/board/view?bidx=${boardVO.bidx}"
 					   + "&page=${scri.page}"
 					   + "&perPageNum=${scri.perPageNum}"
 					   + "&searchType=${scri.searchType}"
