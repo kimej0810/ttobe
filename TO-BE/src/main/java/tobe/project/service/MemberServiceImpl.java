@@ -67,7 +67,7 @@ public class MemberServiceImpl implements MemberService{
 	public void sendEmail(MemberVO vo, String div,String pwd) throws Exception {
 		//메일 서버 설정
 		String charSet = "UTF-8";
-		String hostSMTP = "smtp.gmail.com";
+		String hostSMTP = "smtp.cafe24.com";
 		String hostSMTPid = "tobe202105@gmail.com";
 		String hostSMTPpwd = "tobe0524!";
 		//보내는 사람 설정
