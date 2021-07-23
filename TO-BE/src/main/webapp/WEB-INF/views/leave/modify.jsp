@@ -9,9 +9,10 @@
 	Date date = new Date();
 	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
 	String toDate = simpleDate.format(date);
+	String domain = request.getContextPath();
 	String userName = (String)session.getAttribute("userName");
 	if(userName==null){
-		out.println("<script>alert('잘못된 접근입니다.');location.href='/member/login';</script>");
+		out.println("<script>alert('잘못된 접근입니다.');location.href='"+domain+"/member/login';</script>");
 	}
 %>
 <!DOCTYPE html>
@@ -194,8 +195,8 @@
 			$("#a_type").val($("#e_type").val());
 			$("#a_startdate").val($("#startD").val());
 			var formData = $("form[name=frm]").serialize();
-			var url1 = "/leave/modifyAction";
-			var url2 = "/leave/reModifyAction";
+			var url1 = $("#domain").val()+"/leave/modifyAction";
+			var url2 = $("#domain").val()+"/leave/reModifyAction";
 			var resultUrl = "";
 			if($("#e_status").val()=="결재반려"){
 				resultUrl = url2;
@@ -229,6 +230,7 @@
 	</script>
 </head>
 <body>
+<input type="hidden" value="${pageContext.request.contextPath}" id="domain">
 	<div id="tableDiv">
 		<form class="form" name="frm" action="#">
 			<div id="tableNum">

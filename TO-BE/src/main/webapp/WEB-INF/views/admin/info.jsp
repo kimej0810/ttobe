@@ -37,13 +37,13 @@
 			var reName = $("#t_name").val();
 			var tidx = $("#tidx").val();
 			$.ajax({
-				url:"/admin/modifyName",
+				url:$("#domain").val()+"/admin/modifyName",
 				data:"&reName="+reName+"&tidx="+tidx,
 				dataType:"json",
 				success:function(result){
 					if(result==1){
 						alert("정보가 변경되었습니다.");
-						location.replace("/admin/info?tidx="+tidx);
+						location.replace($("#domain").val()+"/admin/info?tidx="+tidx);
 					}else{
 						alert("정보변경실패");
 					}
@@ -80,13 +80,13 @@
 			var result = $("#t_department").val();
 			var tidx = $("#tidx").val();
 			$.ajax({
-				url:"/admin/modifyDepartment",
+				url:$("#domain").val()+"/admin/modifyDepartment",
 				data:"&reDepartment="+result+"&tidx="+tidx,
 				dataType:"json",
 				success:function(result){
 					if(result==1){
 						alert("정보가 변경되었습니다.");
-						location.replace("/admin/info?tidx="+tidx);
+						location.replace($("#domain").val()+"/admin/info?tidx="+tidx);
 					}else{
 						alert("정보변경실패");
 					}
@@ -122,13 +122,13 @@
 			var result = $("#t_position").val();
 			var tidx = $("#tidx").val();
 			$.ajax({
-				url:"/admin/modifyPosition",
+				url:$("#domain").val()+"/admin/modifyPosition",
 				data:"&rePosition="+result+"&tidx="+tidx,
 				dataType:"json",
 				success:function(result){
 					if(result==1){
 						alert("정보가 변경되었습니다.");
-						location.replace("/admin/info?tidx="+tidx);
+						location.replace($("#domain").val()+"/admin/info?tidx="+tidx);
 					}else{
 						alert("정보변경실패");
 					}
@@ -170,6 +170,7 @@
 	}
 </style>
 <body>
+<input type="hidden" value="${pageContext.request.contextPath}" id="domain">
 <%
 	if(session.getAttribute("userName")!=null){
 		String uName = (String)session.getAttribute("userName");

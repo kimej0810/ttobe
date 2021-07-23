@@ -14,11 +14,13 @@
 <link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>"/>
 </head>
 <body>
+<input type="hidden" value="${pageContext.request.contextPath}" id="domain">
 <%
+	String domain = request.getContextPath();
 	if(session.getAttribute("userName")!=null){
 		String uName = (String)session.getAttribute("userName");
 	}else{
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+domain+"/member/login';</script>");
 	}
 %>
 	<div class="contentheader" style="box-shadow:0 2px 5px lightgrey;background-color:white;">

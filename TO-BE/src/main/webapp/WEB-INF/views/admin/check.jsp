@@ -10,10 +10,11 @@
 <%
 	String message = (String)request.getAttribute("message");
 	String check = (String)request.getAttribute("check");
+	String domain = request.getContextPath();
 	if(check.equals("0")){
-		out.println("<script>alert('"+message+"');location.href='/admin/join';</script>");
+		out.println("<script>alert('"+message+"');location.href='"+domain+"/admin/join';</script>");
 	}else if(check.equals("1")){
-		out.println("<script>alert('"+message+"');location.href='/member/login';</script>");
+		out.println("<script>alert('"+message+"');location.href='"+domain+"/member/login';</script>");
 	}
 %>
 </body>

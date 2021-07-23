@@ -104,6 +104,7 @@
 	</style>
 </head>
 <body>
+<input type="hidden" value="${pageContext.request.contextPath}" id="domain">
 	<div id="tableDiv">
 		<form class="form" name="frm" action="#">
 			<div id="tableNum">
@@ -377,7 +378,7 @@
 		}).then(result => {
 			if(result.isConfirmed){
 				$.ajax({
-					url:"/approval/documentOk?eidx="+eidx,
+					url:$("#domain").val()+"/approval/documentOk?eidx="+eidx,
 					dataType:"json",
 					success:function(e){
 						Swal.fire("결재 승인","승인되었습니다.","success").then(result => {
@@ -402,7 +403,7 @@
 					cancelButtonText:"취소"
 				}).then(result => {
 					if(result.isConfirmed){
-						self.location.href="/leave/modify?eidx="+eidx;
+						self.location.href= $("#domain").val()+"/leave/modify?eidx="+eidx;
 					}
 				});
 			}else{
@@ -442,7 +443,7 @@
 							if(result.isConfirmed){
 								var eidx = $("#eidx").val();
 								$.ajax({
-									url:"/leave/delete?eidx="+eidx,
+									url: $("#domain").val()+"/leave/delete?eidx="+eidx,
 									dataType:'json',
 									success:function(e){
 										if(e==1){
@@ -487,7 +488,7 @@
 				if(result.isConfirmed){
 					var result = $("form[name=noFrm]").serialize();
 					$.ajax({
-						url: "/leave/no",
+						url: $("#domain").val()+"/leave/no",
 						data:result,
 						dataType:"JSON",
 						success:function(e){

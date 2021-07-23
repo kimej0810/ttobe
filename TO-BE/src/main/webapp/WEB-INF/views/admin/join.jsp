@@ -257,11 +257,12 @@ function joinAdmin(){
 </head>
 <body>
 <%-- <%
+	String domain = request.getContextPath();
 	String check = (String)session.getAttribute("result");
 	if(check==null){
-		out.println("<script>alert('잘못된 접근입니다.');location.href='/member/login';</script>");
+		out.println("<script>alert('잘못된 접근입니다.');location.href='"+domain+"/member/login';</script>");
 	}else if(check.equals("false")){
-		out.println("<script>alert('관리자가 이미 존재합니다.');location.href='/member/login';</script>");
+		out.println("<script>alert('관리자가 이미 존재합니다.');location.href='"+domain+"/member/login';</script>");
 	}
 	
 %> --%>
@@ -269,7 +270,7 @@ function joinAdmin(){
 		<div class="header" style="text-align:center;">
 			<img src="<c:url value="/resources/static/img/loginlogo.png"/>" style="width:190px;margin-bottom:10px;" alt="회사로고이미지">
 		</div>
-		<form action="/admin/joinAction" method="post" name="frm" class="form" onsubmit="return joinAdmin()" enctype="multipart/form-data">
+		<form action="${path}/admin/joinAction" method="post" name="frm" class="form" onsubmit="return joinAdmin()" enctype="multipart/form-data">
 			<div>
 				<span>아이디</span>
 				<div class="col-auto input-group" style="margin-bottom:10px;">

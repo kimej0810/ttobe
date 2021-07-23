@@ -3,7 +3,7 @@
 <%@ page session="false" %>
 <html>
 <head>
-<title>되는거야마는거야</title> 
+<title>Afps</title> 
 <script type="text/javascript" src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>

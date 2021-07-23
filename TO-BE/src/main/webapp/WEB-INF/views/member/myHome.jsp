@@ -13,20 +13,20 @@
 <script src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 <script>
 function scheduleAddPopup(){
-	var url = "/schedule/schedulePopup";
+	var url = $("#domain").val()+"/schedule/schedulePopup";
 	var name = "schedulePopup";
 	var option = "width = 600, height = 830 left = 100, top=50,location=no";
 	window.open(url,name,option)
 }
 function leaveBtn(){
 	var t_id = $("#t_id").val();
-	var url = "/leave/write?t_id="+t_id;
+	var url = $("#domain").val()+"/leave/write?t_id="+t_id;
 	var name = "leave";
 	var option = "width = 770, height = 700 left = 100, top=50,location=no";
 	window.open(url,name,option)
 }
 function documentWite(){ //기안서 팝업창
-	var url = "/approval/documentWite";
+	var url = $("#domain").val()+"/approval/documentWite";
 	var name = "documentWite";
 	var option = "width = 770, height = 915 left = 100, top=50,location=no";
 	window.open(url,name,option)
@@ -71,6 +71,7 @@ function documentWite(){ //기안서 팝업창
 </style>
 </head>
 <body>
+<input type="hidden" value="${pageContext.request.contextPath}" id="domain">
 	<div class="btnGroup">
 		<button type="button" class="btn btn-outline-secondary">나의 정보</button>
 		<input type="hidden" id="t_id" value="<%=userId%>">
@@ -102,7 +103,7 @@ function documentWite(){ //기안서 팝업창
 									<c:forEach items="${myBoard}" var="board" end="6">
 										<tr>
 											<td>
-												<a href="/board/view?bidx=${board.bidx}&pagePort=myhome" onclick="window.open(this.href, '_blank', 'width=600, height=730'); return false;" style="text-decoration : none; color:black;">${board.b_title}</a>
+												<a href="${pageContext.request.contextPath}/board/view?bidx=${board.bidx}&pagePort=myhome" onclick="window.open(this.href, '_blank', 'width=600, height=730'); return false;" style="text-decoration : none; color:black;">${board.b_title}</a>
 											</td>
 											<td>
 												<c:set var="boardContent" value="${board.b_content}"/>
@@ -122,13 +123,13 @@ function documentWite(){ //기안서 팝업창
 						</table>
 						<c:if test="${fn:length(myBoard) > 6}">
 							<div style="text-align:right;">
-								<input type="button" class="btn btn-primary btn-sm" onclick="location.href='/board/list?searchType=w&keyword=<%=userName%>'"value="더보기">
-								<button type="button" class="btn btn-primary btn-sm" id="writeBtn" onclick="location.href='/board/write'">등록</button>
+								<input type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/board/list?searchType=w&keyword=<%=userName%>'"value="더보기">
+								<button type="button" class="btn btn-primary btn-sm" id="writeBtn" onclick="location.href='${pageContext.request.contextPath}/board/write'">등록</button>
 							</div>
 						</c:if>
 						<c:if test="${fn:length(myBoard) < 6}">
 							<div style="text-align:right;">
-								<button type="button" class="btn btn-primary btn-sm" id="writeBtn" onclick="location.href='/board/write'">등록</button>
+								<button type="button" class="btn btn-primary btn-sm" id="writeBtn" onclick="location.href='${pageContext.request.contextPath}/board/write'">등록</button>
 							</div>
 						</c:if>
 					</div>
@@ -163,7 +164,7 @@ function documentWite(){ //기안서 팝업창
 									<tr>
 										<td>${schedule.s_type}</td>
 										<td>
-											<a href="/schedule/scheduleContents?sidx=${schedule.sidx}&tidx=${schedule.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=830'); return false;" style="text-decoration : none; color:black;">
+											<a href="${pageContext.request.contextPath}/schedule/scheduleContents?sidx=${schedule.sidx}&tidx=${schedule.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=830'); return false;" style="text-decoration : none; color:black;">
 												${schedule.s_title }
 											</a>
 											
@@ -188,7 +189,7 @@ function documentWite(){ //기안서 팝업창
 						</table>
 						<c:if test="${fn:length(mySchedule) > 6}">
 							<div style="text-align:right;">
-								<input type="button" class="btn btn-primary btn-sm" onclick="location.href='/schedule/scheduleBoard?page=1&perPageNum=10&searchType=&userId=<%=userTidx%>'"value="더보기">
+								<input type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/schedule/scheduleBoard?page=1&perPageNum=10&searchType=&userId=<%=userTidx%>'"value="더보기">
 								<button type="button" class="btn btn-primary btn-sm" onclick="scheduleAddPopup()">일정 추가</button>
 							</div>
 						</c:if>
@@ -232,7 +233,7 @@ function documentWite(){ //기안서 팝업창
 											<td>${leave.a_type}
 											</td>
 											<td>
-												<a href="/leave/view?eidx=${leave.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=700'); return false;" style="text-decoration : none; color:black;">
+												<a href="${pageContext.request.contextPath}/leave/view?eidx=${leave.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=700'); return false;" style="text-decoration : none; color:black;">
 													${leave.e_texttitle}
 												</a>
 											</td>
@@ -254,14 +255,14 @@ function documentWite(){ //기안서 팝업창
 						</table>
 						<c:if test="${fn:length(myLeave) > 6}">
 							<div style="text-align:right;">
-							<input type="button" class="btn btn-primary btn-sm" onclick="location.href='/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'" value="더보기">
+							<input type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'" value="더보기">
 							<c:if test="${member.t_leave_get > 0 }">
-								<button type="button" class="btn btn-primary btn-sm" onclick="location.href='/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'">나의 결재</button>
+								<button type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'">나의 결재</button>
 								<button type="button" class="btn btn-primary btn-sm" onclick="documentWite()">결재 기안</button>
 								<button type="button" class="btn btn-primary btn-sm" onclick="leaveBtn()">연차 신청</button>
 							</c:if>
 							<c:if test="${member.t_leave_get <= 0 }">
-								<button type="button" class="btn btn-primary btn-sm" onclick="location.href='/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'">나의 결재</button>
+								<button type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'">나의 결재</button>
 								<button type="button" class="btn btn-primary btn-sm" onclick="leaveBtn()">결재 기안</button>
 								<button type="button" class="btn btn-primary btn-sm" style="cursor: no-drop;">잔여연차없음</button>
 							</c:if>
@@ -270,12 +271,12 @@ function documentWite(){ //기안서 팝업창
 						<c:if test="${fn:length(myLeave) < 6}">
 							<div style="text-align:right;">
 								<c:if test="${member.t_leave_get > 0 }">
-									<button type="button" class="btn btn-primary btn-sm" onclick="location.href='/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'">나의 결재</button>
+									<button type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'">나의 결재</button>
 									<button type="button" class="btn btn-primary btn-sm" onclick="documentWite()">결재 기안</button>
 									<button type="button" class="btn btn-primary btn-sm" onclick="leaveBtn()">연차 신청</button>
 								</c:if>
 								<c:if test="${member.t_leave_get <= 0 }">
-									<button type="button" class="btn btn-primary btn-sm" onclick="location.href='/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'">나의 결재</button>
+									<button type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'">나의 결재</button>
 									<button type="button" class="btn btn-primary btn-sm" onclick="documentWite()">결재 기안</button>
 									<button type="button" class="btn btn-primary btn-sm" style="cursor: no-drop;">잔여연차없음</button>
 								</c:if>
@@ -314,7 +315,7 @@ function documentWite(){ //기안서 팝업창
 												<td>관리자</td>
 												<td>${email.t_name }</td>
 												<td>
-													<a href="/member/emailRead?midx=${email.midx}" style="text-decoration : none; color:black;">
+													<a href="${pageContext.request.contextPath}/member/emailRead?midx=${email.midx}" style="text-decoration : none; color:black;">
 														${email.m_title}
 													</a>
 												</td>

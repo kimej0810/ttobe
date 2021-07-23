@@ -16,7 +16,7 @@
 		$("#t_department").on("change", function(){
 			$('#searchType').val("");
 			$.ajax({
-				url:"/member/buseolist",
+				url:$("#domain").val()+"/member/buseolist",
 				data: $("#t_department").serialize(),
 				dataType:"json",
 				success:function(searchDepartmentMember){
@@ -58,7 +58,7 @@
 			if(confirm('해당 사원에게 메일을 발송하시겠습니까?')){
 				window.opener.name ="list";
 				document.frm.target = "list";
-				document.frm.action = "/email/email?tidx="+tidx;
+				document.frm.action = $("#domain").val()+"/email/email?tidx="+tidx;
 				document.frm.submit();
 				self.close();
 			}else{
@@ -67,7 +67,7 @@
 		});
 		$(document).on("click","#nameSearchBtn",function(){
 			$.ajax({
-				url:"/member/search",
+				url:$("#domain").val()+"/member/search",
 				data:"t_department="+$('#t_department').serialize()+"&t_name="+$('#searchType').serialize(),
 				dataType:"json",
 				success:function(searchMember){
@@ -119,7 +119,9 @@
 </style>
 </head>
 <body>
+<input type="hidden" value="${pageContext.request.contextPath}" id="domain">
 <%
+	String domain = request.getContextPath();
 	if(session.getAttribute("userName")!=null){
 		String uName = (String)session.getAttribute("userName");
 		String uGrade = (String)session.getAttribute("userGrade");
@@ -127,7 +129,7 @@
 			out.println("<script>alert('접근 권한이 없습니다.');history.back();</script>");
 		}
 	}else{
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+domain+"/member/login';</script>");
 	}
 %>
 	<div class="contentheader" style="box-shadow:0 2px 5px lightgrey;background-color:white;">

@@ -13,7 +13,7 @@
 <script>
 	$(document).ready(function(){
 		$(".searBtn").on("click",function(event){
-			self.location = "/email/list${pageMaker.makeQuery(1)}&searchType="+$("select option:selected").val()
+			self.location = $("#domain").val()+"/email/list${pageMaker.makeQuery(1)}&searchType="+$("select option:selected").val()
 			+ "&keyword="+encodeURIComponent($(".searInput").val());
 		});
 		$("#checkAll").click(function(){
@@ -32,14 +32,14 @@
 			if(confirm('해당 글을 삭제하시겠습니까?')){
 				jQuery.ajaxSettings.traditional = true;
 				$.ajax({
-					url:"/email/delete",
+					url:$("#domain").val()+"/email/delete",
 					data:{"eidxList" : chkArray},
 					dataType:"json",
 					success:function(data){
 						if(data==0){
 							alert("삭제실패");
 						}else{
-							location.href = "/email/list";
+							location.href = $("#domain").val()+"/email/list";
 						}
 					}
 				});
@@ -54,12 +54,12 @@
 	function sendFn(){
 		if(confirm('사원리스트를 보시겠습니까?')){
 			window.open(
-				"/email/memberList",
+					$("#domain").val()+"/email/memberList",
 				"memberList",
 				"width=600,height=550,location=no,status=no,toolbar=no,scrollbars=no"
 			);	
 		}else{
-			location.href = "/email/email";
+			location.href = $("#domain").val()+"/email/email";
 		}
 		
 	}
@@ -112,7 +112,7 @@
 		}
 	}
 %>
-
+<input type="hidden" value="${pageContext.request.contextPath}" id="domain">
 <form>
 	<div class="headerT">
 		<button class="btn btn-outline-secondary" type="button">메일 발송함</button>

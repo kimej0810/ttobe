@@ -14,7 +14,7 @@
 <script>
 	$(document).ready(function(){
 		$(".searBtn").on("click",function(event){
-			self.location = "/admin/memberlist${pageMaker.makeQuery(1)}&searchType="+$("select option:selected").val()
+			self.location = $("#domain").val()+"/admin/memberlist${pageMaker.makeQuery(1)}&searchType="+$("select option:selected").val()
 			+ "&keyword="+encodeURIComponent($(".searInput").val());
 		});
 		$(".saoneGo").on("click",function(){
@@ -28,7 +28,7 @@
 		$(document).on("click","#deleteBtn", function(){
 			var tidx = $(this).next().val();
 			if(confirm('해당을 퇴사처리 하시겠습니까?')){
-				document.frm.action = "/admin/delete?tidx="+tidx;
+				document.frm.action = $("#domain").val()+"/admin/delete?tidx="+tidx;
 				document.frm.submit();
 			}else{
 				
@@ -87,6 +87,7 @@
 		}
 	}
 %>
+<input type="hidden" value="${pageContext.request.contextPath}" id="domain">
 <div class="sub">
 	<div class="headerT">
 		<button class="btn btn-outline-secondary" type="button">사원관리</button>
@@ -178,7 +179,7 @@
 				</ul>
 			</div>
 			<div class="tableBtn">
-				<a href="/admin/add"><input type="button" class="saoneBtn btn btn-primary btn-sm" value="사원 등록"></a>
+				<a href="${path}/admin/add"><input type="button" class="saoneBtn btn btn-primary btn-sm" value="사원 등록"></a>
 			</div>
 		</form>
 	</div>
@@ -193,7 +194,7 @@
 		var keyword = $.trim($(this).text());
 		//alert(keyword);
 		$.ajax({
-			url:"/admin/test",
+			url:$("#domain").val()+"/admin/test",
 			data:"searchType="+searchType+"&keyword="+keyword,
 			dataType:"json",
 			success:function(mvo){

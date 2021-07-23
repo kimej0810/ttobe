@@ -39,6 +39,7 @@
 	<%
 		}
 	%>
+	<input type="hidden" value="${pageContext.request.contextPath}" id="domain">
 	<div id="tableDiv">
 		<form class="form" name="frm" action="#">
 			<div id="tableNum">

@@ -318,6 +318,7 @@ function previewImage(targetObj, View_area){
 	}
 </style>
 <body>
+<input type="hidden" value="${pageContext.request.contextPath}" id="domain">
 <%
 	if(session.getAttribute("userName")!=null){
 		String uName = (String)session.getAttribute("userName");
@@ -339,7 +340,7 @@ function previewImage(targetObj, View_area){
 	<div class="headerT">
 		<button id="noticeBtn" class="btn btn-outline-secondary" type="button">사원 등록</button>
 	</div>
-	<form id="formTag" action="/admin/addAction" method="post" enctype="multipart/form-data">
+	<form id="formTag" action="${path}/admin/addAction" method="post" enctype="multipart/form-data">
 		<table class="table">
 			<tbody>
 				<tr>

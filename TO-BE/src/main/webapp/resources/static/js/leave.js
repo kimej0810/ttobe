@@ -123,7 +123,7 @@
 			$("#a_startdate").val($("#startD").val());
 			var result = $("form[name=frm]").serialize();
 			$.ajax({
-				url: "/leave/writeAction",
+				url: $("#domain").val()+"/leave/writeAction",
 				data:result,
 				type:"POST",
 				dataType: "json",
