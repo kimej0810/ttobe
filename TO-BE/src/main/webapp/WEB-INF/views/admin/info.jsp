@@ -183,7 +183,7 @@
 	<div class="headerT">
 		<button id="noticeBtn" class="btn btn-outline-secondary" type="button" onclick="history.back();">사원 정보</button>
 	</div>
-	<form action="${path}/admin/modify${pageMaker.makeSearch(pageMaker.cri.page)}&tidx=${member.tidx}" method="post">
+	<form action="${pageContext.request.contextPath}/admin/modify${pageMaker.makeSearch(pageMaker.cri.page)}&tidx=${member.tidx}" method="post">
 		<input type="hidden" id="tidx" name="tidx" value="${member.tidx}">
 		
 		<table class="table">
@@ -258,9 +258,9 @@
 			</tbody>
 		</table>
 		<div class="tableBtn">
-			<a href="${path}/admin/memberlist${pageMaker.makeSearch(pageMaker.cri.page)}&tidx=${member.tidx}"><input type="button" class="btn btn-primary btn-sm" value="목록"></a>
+			<a href="${pageContext.request.contextPath}/admin/memberlist${pageMaker.makeSearch(pageMaker.cri.page)}&tidx=${member.tidx}"><input type="button" class="btn btn-primary btn-sm" value="목록"></a>
 			<c:if test="${del eq 'N' }">
-				<a href="${path}/admin/delete?tidx=${member.tidx}"><input type="button" class="saoneBtn btn btn-danger btn-sm" value="퇴사"></a>
+				<a href="${pageContext.request.contextPath}/admin/delete?tidx=${member.tidx}"><input type="button" class="saoneBtn btn btn-danger btn-sm" value="퇴사"></a>
 			</c:if>
 		</div>
 	</form>

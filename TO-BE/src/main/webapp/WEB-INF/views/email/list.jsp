@@ -155,7 +155,7 @@
 				<td>${email.t_position}</td>
 				<td>${email.m_addressee}</td>
 				<td>
-					<a href="${path}/email/read${pageMaker.makeSearch(pageMaker.cri.page)}&midx=${email.midx}">${email.m_title}</a>
+					<a href="${pageContext.request.contextPath}/email/read${pageMaker.makeSearch(pageMaker.cri.page)}&midx=${email.midx}">${email.m_title}</a>
 				</td>
 				<td>
 					<c:set var="sendDate" value="${email.m_senddate}"/>
@@ -169,15 +169,15 @@
 	<nav class="pageDiv">
 		<ul class="pagination">
 			<c:if test="${pageMaker.prev}">
-				<li class="page-item"><a class="page-link" href="${path}/email/list${pageMaker.makeSearch(pageMaker.startPage-1)}">&laquo;</a></li>
+				<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/email/list${pageMaker.makeSearch(pageMaker.startPage-1)}">&laquo;</a></li>
 			</c:if>
 			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 				<li class="page-item" <c:out value="${pageMaker.cri.page == idx ? 'id=active' : ''}"/>>
-					<a class="page-link" href="${path}/email/list${pageMaker.makeSearch(idx)}">${idx}</a>
+					<a class="page-link" href="${pageContext.request.contextPath}/email/list${pageMaker.makeSearch(idx)}">${idx}</a>
 				</li>
 			</c:forEach>
 			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-				<li class="page-item"><a class="page-link" href="${path}/email/list${pageMaker.makeSearch(pageMaker.endPage + 1)}">&raquo;</a></li>
+				<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/email/list${pageMaker.makeSearch(pageMaker.endPage + 1)}">&raquo;</a></li>
 			</c:if>
 		</ul>
 	</nav>
