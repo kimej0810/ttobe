@@ -270,7 +270,7 @@ function joinAdmin(){
 		<div class="header" style="text-align:center;">
 			<img src="<c:url value="/resources/static/img/loginlogo.png"/>" style="width:190px;margin-bottom:10px;" alt="회사로고이미지">
 		</div>
-		<form action="${path}/admin/joinAction" method="post" name="frm" class="form" onsubmit="return joinAdmin()" enctype="multipart/form-data">
+		<form action="${pageContext.request.contextPath}/admin/joinAction" method="post" name="frm" class="form" onsubmit="return joinAdmin()" enctype="multipart/form-data">
 			<div>
 				<span>아이디</span>
 				<div class="col-auto input-group" style="margin-bottom:10px;">

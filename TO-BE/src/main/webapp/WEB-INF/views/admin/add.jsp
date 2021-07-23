@@ -340,7 +340,7 @@ function previewImage(targetObj, View_area){
 	<div class="headerT">
 		<button id="noticeBtn" class="btn btn-outline-secondary" type="button">사원 등록</button>
 	</div>
-	<form id="formTag" action="${path}/admin/addAction" method="post" enctype="multipart/form-data">
+	<form id="formTag" action="${pageContext.request.contextPath}/admin/addAction" method="post" enctype="multipart/form-data">
 		<table class="table">
 			<tbody>
 				<tr>
