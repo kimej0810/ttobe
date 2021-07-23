@@ -88,7 +88,7 @@ public class RealMainController extends HttpServlet {
 		// 오늘의명언
 		JSONParser parser = new JSONParser();
 		String path = request.getSession().getServletContext().getRealPath("/resources/static/data/");
-		String path2 = "maxim.json";
+		String path2 = "wiseSaying.json";
 		String resultPath = path + path2;
 		JSONArray jsonArray = (JSONArray) parser.parse(new FileReader(resultPath));
 
