@@ -92,7 +92,7 @@ public class RealMainController extends HttpServlet {
 		String resultPath = path + path2;
 		JSONArray jsonArray = (JSONArray) parser.parse(new FileReader(resultPath));
 
-		int size = jsonArray.size();
+		int size = jsonArray.size(); 
 		int random = (int) (Math.random() * 50);
 		JSONObject jsonObject = (JSONObject) jsonArray.get(random);
 
