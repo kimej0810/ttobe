@@ -7,7 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% 
 	if(session.getAttribute("userTidx") == null){ 
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='request.getContextPath()/member/login';</script>");
 	}
 	ScheduleVO vo = (ScheduleVO)request.getAttribute("vo"); 
 	MemberVO mo = (MemberVO)request.getAttribute("mo");
@@ -55,14 +55,14 @@
 				if(result){
 					$.ajax({
 						data : scheduleData,
-						url : "/schedule/updateSchedule?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
+						url : "<%=request.getContextPath()%>/schedule/updateSchedule?sidx=<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
 						type : "POST",
 						dataType : "json",
 						contentType : "application/json; charset=UTF-8",
 						success : function(data) {
 							alert("일정 수정이 완료되었습니다.");
 							opener.parent.location.reload();
-							location.href="scheduleContents?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>";
+							location.href="<%=request.getContextPath()%>/schedule/scheduleContents?sidx=<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>";
 						}
 					});
 				}

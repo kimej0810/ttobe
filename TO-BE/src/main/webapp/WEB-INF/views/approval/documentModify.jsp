@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	if(session.getAttribute("userTidx") == null){ 
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='request.getContextPath()/member/login';</script>");
 	}
 	
 	Integer userTidx = (Integer)session.getAttribute("userTidx");
@@ -64,14 +64,14 @@
 					if(result.isConfirmed){
 						$.ajax({
 							data: draftLetterData,
-							url:"/approval/ModifyDocumentWite",
+							url: "<%=request.getContextPath()%>/approval/ModifyDocumentWite",
 							type:'POST',
 							dataType:'JSON',
 							contentType : "application/json; charset=UTF-8",
 							success: function(data){
 								Swal.fire("결재 수정 완료","문서 수정이 완료되었습니다.","success").then(result => {
 									opener.parent.location.reload();
-									location.href="documentContents?eidx="+"<%=contents.getEidx()%>&tidx=<%=contents.getTidx()%>";
+									location.href="<%=request.getContextPath()%>/approval/documentContents?eidx=<%=contents.getEidx()%>&tidx=<%=contents.getTidx()%>";
 								});
 							},
 							error:function(){

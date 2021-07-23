@@ -9,7 +9,7 @@
 <%@ page language="java" trimDirectiveWhitespaces="true"%>
 <%
 	if(session.getAttribute("userTidx") == null){
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>"); 
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='request.getContextPath()/member/login';</script>"); 
 	}
  
 	Integer userTidx = (Integer)session.getAttribute("userTidx");;
@@ -100,7 +100,7 @@
 					}).then(result => {
 						if(result.isConfirmed){
 							$.ajax({
-								url : "/approval/documentNo?eidx="+"<%=contents.getEidx()%>"+"&tidx=<%=userTidx%>"+"&e_reason="+returnValue,
+								url : "<%=request.getContextPath()%>/approval/documentNo?eidx=<%=contents.getEidx()%>&tidx=<%=userTidx%>&e_reason="+returnValue,
 								data: returnValue,
 								dateType:"json",
 								success:function(){
@@ -132,7 +132,7 @@
 				}).then(result => {
 					if(result.isConfirmed){
 						$.ajax({
-							url:"/approval/documentOk?eidx="+"<%=contents.getEidx()%>",
+							url: "<%=request.getContextPath()%>/approval/documentOk?eidx=<%=contents.getEidx()%>",
 							dataType:'json',
 							success:function(){
 								Swal.fire("결재 승인","승인 처리되었습니다.","success").then(result => {
@@ -162,7 +162,7 @@
 				}).then(result => {
 					if(result.isConfirmed){
 						$.ajax({
-							url:"/approval/documentOk?eidx="+"<%=contents.getEidx()%>",
+							url: "<%=request.getContextPath()%>/approval/documentOk?eidx=<%=contents.getEidx()%>",
 							dataType:'json',
 							success:function(){
 								Swal.fire("결재 승인","최종승인 처리되었습니다.","success").then(result => {
@@ -191,7 +191,7 @@
 					cancelButtonText:"취소"
 				}).then(result => {
 					if(result.isConfirmed){
-						self.location.href="documentModify?eidx="+"<%=contents.getEidx()%>&tidx=<%=contents.getTidx()%>";
+						self.location.href="<%=request.getContextPath()%>/approval/documentModify?eidx=<%=contents.getEidx()%>&tidx=<%=contents.getTidx()%>";
 					}
 				})
 			}
@@ -206,7 +206,7 @@
 					cancelButtonText:"취소"
 				}).then(result => {
 					if(result.isConfirmed){
-						self.location.href="documentApprovalAgain?eidx="+"<%=contents.getEidx()%>&tidx=<%=contents.getTidx()%>";
+						self.location.href="<%=request.getContextPath()%>/approval/documentApprovalAgain?eidx=<%=contents.getEidx()%>&tidx=<%=contents.getTidx()%>";
 					}
 				});
 			}
@@ -222,7 +222,7 @@
 				}).then(result => {
 					if(result.isConfirmed){
 						Swal.fire("결재 취소","결재문서가 삭제되었습니다.","success").then(result => {
-							location.href="/approval/documentDelete?eidx="+<%=contents.getEidx()%>;
+							location.href="<%=request.getContextPath()%>/approval/documentDelete?eidx=<%=contents.getEidx()%>";
 							opener.parent.location.reload();
 							window.close();	
 						});
@@ -503,26 +503,5 @@
 				</div>
 			</div>
 		</div>
-		<!-- 반려확인 Modal -->
-		<div class="modal fade" id="myModalOk" role="dialog" data-backdrop="static" data-keyboard="false">
-			<div class="modal-dialog">
-		    <!-- 반려확인 Modal content-->
-	    		<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"></button>
-						<h4 class="modal-title">반려 처리 확인</h4>
-					</div>
-					<div class="modal-body">
-						반려 처리 하시겠습니까?
-					</div>
-					<div class="modal-footer">
-						<!-- <button type="button" class="btn btn-primary noOK2" data-confirm="modal">OK</button> -->
-						<button type="button" class="btn btn-primary noOk2" data-confirm="modal">OK</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		
 	</body>
 </html>

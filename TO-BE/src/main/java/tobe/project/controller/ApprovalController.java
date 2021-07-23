@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,24 +41,19 @@ public class ApprovalController {
 	 
 	@Inject
 	private ApprovalService service;
-	
 	@Inject
 	private AdminService aservice;
-	
 	@Inject
 	private ApprovalLineService lservice;
-	
 	@Inject
 	private MyService myservice;
-	
 	@Inject
 	private MemberService mservice;
-	
 	@Inject
 	private ScheduleService sservice;
 	
 	@RequestMapping(value = "/documentListMain")
-	public String documentMain(Model model, @ModelAttribute("scri")SearchCriteria scri,String t_id) throws Exception{
+	public String documentMain(Model model, @ModelAttribute("scri")SearchCriteria scri, HttpServletRequest request, String t_id) throws Exception{
 		System.out.println("ApprovalController");
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
@@ -71,10 +67,10 @@ public class ApprovalController {
 		model.addAttribute("co",service.totalCountComplete());
 		model.addAttribute("no",service.totalCountNo());
 		
-		return "/approval/documentListMain";
+		return request.getContextPath()+"/approval/documentListMain";
 	}
 	@RequestMapping(value = "/documentListMy")
-	public String documentListMy(Model model,@ModelAttribute("scri")SearchCriteria scri,String t_id) throws Exception {
+	public String documentListMy(Model model,@ModelAttribute("scri")SearchCriteria scri, HttpServletRequest request, String t_id) throws Exception {
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(service.totalCountApprovalDocument(scri));
@@ -86,15 +82,15 @@ public class ApprovalController {
 		model.addAttribute("pr",service.totalCountProgress());
 		model.addAttribute("co",service.totalCountComplete());
 		model.addAttribute("no",service.totalCountNo());
-		return "/approval/documentListMy";
+		return request.getContextPath()+"/approval/documentListMy";
 	}
 	
 	@RequestMapping(value = "/documentWite")
-	public String documentWite(Model model,Locale locale) throws Exception {
+	public String documentWite(Model model,Locale locale, HttpServletRequest request) throws Exception {
 		List<MemberVO> vo = aservice.selectAllMember();
 		model.addAttribute("allMember",vo);
 		
-		return "/approval/documentWite";
+		return request.getContextPath()+"/approval/documentWite";
 	} 
 	
 	@ResponseBody

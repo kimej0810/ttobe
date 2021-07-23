@@ -13,7 +13,7 @@
 	List<LeaveDTO> leave = (List<LeaveDTO>)request.getAttribute("leave");
 	
 	if(userTidx == null){
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='request.getContextPath()/member/login';</script>");
 	}
 %>
 <!DOCTYPE html>
@@ -34,7 +34,7 @@
 						myCustomButton: {
 							text: '일정 추가',
 							click: function() {
-								var url = "schedulePopup";
+								var url = "<%=request.getContextPath()%>/schedule/schedulePopup";
 								var name = "schedulePopup";
 								var option = "width = 600, height = 830 left = 100, top=50,location=no";
 								window.open(url,name,option)
@@ -43,7 +43,7 @@
 						boardCustomButton:{
 							text: '게시판으로 보기',
 							click: function() {
-								location.href="scheduleBoard";
+								location.href="<%=request.getContextPath()%>/schedule/scheduleBoard";
 							}
 						}
 					},
@@ -68,7 +68,7 @@
 					%>	
 			        {
 
-					        	url:"scheduleContents?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
+					        	url:"<%=request.getContextPath()%>/schedule/scheduleContents?sidx=<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
 					        	title: "<%=vo.getS_title()%>",
 					        	start: "<%=vo.getS_startDate()%>",
 					        	end: "<%=vo.getS_endDate()%>"
@@ -78,7 +78,7 @@
 					%>
 					{
 
-					        	url:"scheduleContents?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
+					        	url:"<%=request.getContextPath()%>/schedule/scheduleContents?sidx=<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
 					        	title: "<%=vo.getS_title()%>",
 					        	start: "<%=vo.getS_startDate()%>",
 					        	end: "<%=vo.getS_endDate()%>",
@@ -90,7 +90,7 @@
 					%>
 					{
 
-					        	url:"scheduleContents?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
+					        	url:"<%=request.getContextPath()%>/schedule/scheduleContents?sidx=<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
 					        	title: "<%=vo.getS_title()%>",
 					        	start: "<%=vo.getS_startDate()%>",
 					        	end: "<%=vo.getS_endDate()%>",
@@ -104,7 +104,7 @@
 					%>
 					{
 
-				        	url:"scheduleContents?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
+				        	url:"<%=request.getContextPath()%>/schedule/scheduleContents?sidx=<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
 				        	title: "<%=vo.getS_title()%>",
 				        	start: "<%=vo.getS_startDate()%>",
 				        	end: "<%=vo.getS_endDate()%>",
@@ -116,7 +116,7 @@
 					%>
 					{
 
-					        	url:"scheduleContents?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
+					        	url:"<%=request.getContextPath()%>/schedule/scheduleContents?sidx=<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
 					        	title: "<%=vo.getS_title()%>",
 					        	start: "<%=vo.getS_startDate()%>",
 					        	end: "<%=vo.getS_endDate()%>",

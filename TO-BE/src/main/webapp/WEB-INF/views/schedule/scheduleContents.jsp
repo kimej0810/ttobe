@@ -7,7 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% 
 	if(session.getAttribute("userTidx") == null){ 
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='request.getContextPath()/member/login';</script>");
 	}
 
 	ScheduleVO vo = (ScheduleVO)request.getAttribute("vo"); 
@@ -26,12 +26,12 @@
 		<script>
 			function click_modify(){
 					alert("일정 수정페이지로 이동합니다.");
-					location.href="scheduleModify?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>";
+					location.href="<%=request.getContextPath()%>/schedule/scheduleModify?sidx=<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>";
 			};
 			function click_delete(){
 				var result = confirm("일정을 삭제하시겠습니까?");
 				if(result){
-					location.href="scheduleDelete?sidx="+"<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>";
+					location.href="<%=request.getContextPath()%>/schedule/scheduleDelete?sidx=<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>";
 					alert("일정이 삭제되었습니다.");
 					opener.parent.location.reload();
 					window.close();

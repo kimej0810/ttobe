@@ -1,5 +1,9 @@
+function getContextPath(){
+	var hostIndex = location.href.indexOf(location.host)+location.host.length;
+	return location.href.substring(hostIndex, location.href.indexOf('/', hostIndex + 1));
+}
 function scheduleAddPopup(){
-	var url = "schedulePopup";
+	var url = getContextPath()+"/schedulePopup";
 	var name = "schedulePopup";
 	var option = "width = 600, height = 830 left = 100, top=50,location=no";
 	window.open(url,name,option)
@@ -7,7 +11,7 @@ function scheduleAddPopup(){
 $(function(){
 	$(document).on("click","#searchBtn",function() {
 		$.ajax({
-			url:"/schedule/searchSchedule",
+			url: getContextPath()+"/searchSchedule",
 			data: {
 				searchType : $("#searchType").val(),
 				keyword : $("#keyword").val()
@@ -44,12 +48,12 @@ $(function(){
 		});
 	});
 	$(document).on("click","#aBtn",function(){
-		var url = $(this).attr("title");
+		var url = getContextPath()+$(this).attr("title");
 		var name = "_blank";
 		var option =  "width=600, height=800";
 		window.open(url,name,option);
 	});
 	$('#calendarButton').on("click",function(){
-		location.href = "scheduleCalendar";
+		location.href = getContextPath()+"/scheduleCalendar";
 	});
 });

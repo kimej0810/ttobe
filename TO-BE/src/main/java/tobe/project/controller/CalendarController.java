@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,10 +34,9 @@ public class CalendarController {
 	private ScheduleService service;
 	@Inject
 	private MyService myservice;
- 
 	
 	@RequestMapping(value = "/scheduleCalendar")
-	public String list(Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception {
+	public String list(Model model, @ModelAttribute("scri")SearchCriteria scri, HttpServletRequest request) throws Exception {
 		
 		PageMaker pageMaker = new PageMaker();
 		List<ScheduleVO> schedule = service.showSchedule();
@@ -49,10 +49,10 @@ public class CalendarController {
 		model.addAttribute("scri",scri);
 		model.addAttribute("schedule",schedule);
 		model.addAttribute("leave",leave);
-		return "/schedule/scheduleCalendar";
+		return request.getContextPath()+"/schedule/scheduleCalendar";
 	}
 	@RequestMapping(value = "/scheduleBoard")
-	public String scheduleBoard(Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception{
+	public String scheduleBoard(Model model, @ModelAttribute("scri")SearchCriteria scri, HttpServletRequest request) throws Exception{
 		PageMaker pageMaker = new PageMaker();
 		
 		pageMaker.setCri(scri);
@@ -61,7 +61,7 @@ public class CalendarController {
 		model.addAttribute("viewAll",service.selectSchedule(scri));	
 		model.addAttribute("paging",pageMaker);
 		model.addAttribute("scri",scri);
-		return "/schedule/scheduleBoard";
+		return request.getContextPath()+"/schedule/scheduleBoard";
 	}
 	@ResponseBody
 	@RequestMapping(value = "/searchSchedule")
@@ -75,8 +75,8 @@ public class CalendarController {
 		return svo;
 	}
 	@RequestMapping(value = "/schedulePopup")
-	public String schedulePopup() throws Exception {
-		return "/schedule/schedulePopup";
+	public String schedulePopup(HttpServletRequest request) throws Exception {
+		return request.getContextPath()+"/schedule/schedulePopup";
 	}
 	
 	@ResponseBody
@@ -104,7 +104,6 @@ public class CalendarController {
 		return vo;
 	}
 	
-	//占쎌뵬占쎌젟 占쎈땾占쎌젟
 	@RequestMapping(value = "/scheduleModify")
 	public ScheduleVO modifyPopup(Model model,int sidx, int tidx) throws Exception{
 		ScheduleVO vo = service.contentsSchedule(sidx);
@@ -114,16 +113,14 @@ public class CalendarController {
 		return vo;
 	}
 	
-	//占쎌뵬占쎌젟 占쎈땾占쎌젟 ajax 占쎌깈�빊占�
 	@ResponseBody
 	@RequestMapping(value = "/updateSchedule") 
 	public Map<Object,Object> updateSchedule(@RequestBody ScheduleVO vo) throws Exception{ 
 		Map<Object,Object> map = new HashMap<Object,Object>();
 		service.updateSchedule(vo); 
 		return map;
-	 }
+	}
 	
-	//占쎌뵬占쎌젟 占쎄텣占쎌젫
 	@RequestMapping(value = "/scheduleDelete")
 	public String deleteSchedule(int sidx) throws Exception{ 
 		service.deleteSchedule(sidx);

@@ -46,6 +46,12 @@ jQuery.fn.serializeObject = function(){
 	});
 	return o;
 };
+
+function getContextPath(){
+	var hostIndex = location.href.indexOf(location.host)+location.host.length;
+	return location.href.substring(hostIndex, location.href.indexOf('/', hostIndex + 1));
+}
+
 function click_ok(){
 	var startDay = $("#e_startDay").val().replace("-","/");
 	var endDay = $("#e_endDay").val().replace("-","/");
@@ -82,7 +88,7 @@ function click_ok(){
 		if(result.isConfirmed){
 			$.ajax({
 				data: draftLetterData,
-				url:"/approval/addDocumentWite",
+				url: getContextPath()+"/addDocumentWite",
 				type:'POST',
 				dataType:'JSON',
 				contentType : "application/json; charset=UTF-8",

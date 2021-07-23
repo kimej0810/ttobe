@@ -75,7 +75,7 @@
 				</div>
 				<script type="text/javascript">
 					function documentWite(){ //기안서 팝업창
-						var url = "documentWite";
+						var url = "<%=request.getContextPath()%>/approval/documentWite";
 						var name = "documentWite";
 						var option = "width = 770, height = 915 left = 100, top=50,location=no";
 						window.open(url,name,option)
@@ -83,23 +83,23 @@
 					$(function(){
 						$('#searchBtn').on("click",function(){
 							var check = $("#searchWord").val();
-							self.location = "documentListMy" + '${paging.makeQuery(1)}' + "&searchWord=" + check + "&searchType=" + $('select option:selected').val() 
+							self.location = "<%=request.getContextPath()%>/approval/documentListMy" + '${paging.makeQuery(1)}' + "&searchWord=" + check + "&searchType=" + $('select option:selected').val() 
 							+ "&keyword=" + encodeURIComponent($('#keyword').val()) + "&userId=<%=userId%>";
 						});
 						$('#waitingDocument').on("click",function(){
-							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재대기"+"&t_id=<%=userId%>";
+							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재대기"+"&t_id=<%=userId%>";
 						});
 						$('#progressDocument').on("click",function(){
-							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재진행"+"&t_id=<%=userId%>";
+							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재진행"+"&t_id=<%=userId%>";
 						});
 						$('#completedDocument').on("click",function(){
-							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재완료"+"&t_id=<%=userId%>";
+							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재완료"+"&t_id=<%=userId%>";
 						});
 						$('#NoDocument').on("click",function(){
-							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재반려"+"&t_id=<%=userId%>";
+							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재반려"+"&t_id=<%=userId%>";
 						});
 						$('#myWriteDocument').on("click",function(){
-							self.location = "documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=내가 쓴 결재문서"+"&userId=<%=userId%>"+"&t_id=<%=userId%>";
+							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=내가 쓴 결재문서"+"&userId=<%=userId%>"+"&t_id=<%=userId%>";
 						});
 					});
 				</script>
@@ -122,10 +122,10 @@
 								<td>
 									<c:choose>
 										<c:when test="${elist.e_type == '중요일정' || elist.e_type == '회사일정' || elist.e_type == '외근' || elist.e_type == '출장'}">
-											<a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">${elist.eidx }</a>
+											<a href="<%=request.getContextPath()%>/approval/documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">${elist.eidx }</a>
 										</c:when>
 										<c:otherwise>
-											<a href="/leave/view?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=650'); return false;" style="text-decoration : none; color:black;">${elist.eidx }</a>
+											<a href="<%=request.getContextPath()%>/leave/view?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=650'); return false;" style="text-decoration : none; color:black;">${elist.eidx }</a>
 										</c:otherwise> 
 									</c:choose>
 								</td> 
@@ -137,7 +137,7 @@
 								<td>
 									<c:choose>
 										<c:when test="${elist.e_type == '중요일정' || elist.e_type == '회사일정' || elist.e_type == '외근' || elist.e_type == '출장'}">
-											<a href="documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">
+											<a href="<%=request.getContextPath()%>/approval/documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">
 												<c:set var="content" value="${elist.e_textTitle}"/>
 												<c:choose>
 													<c:when test="${fn:length(elist.e_textTitle) > 50}">
@@ -150,7 +150,7 @@
 											</a>
 										</c:when>
 										<c:otherwise>
-											<a href="/leave/view?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=650'); return false;" style="text-decoration : none; color:black;"><c:set var="content" value="${elist.e_textTitle}"/>
+											<a href="<%=request.getContextPath()%>/leave/view?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=650'); return false;" style="text-decoration : none; color:black;"><c:set var="content" value="${elist.e_textTitle}"/>
 												<c:choose>
 													<c:when test="${fn:length(elist.e_textTitle) > 50}">
 														<c:out value="${fn:substring(content,0,50)}"/>...
@@ -173,14 +173,14 @@
 					</div>
 					<div id="BtnBox">
 						<%if(userPosition.equals("팀장")){%>
-							<button type="button" class="btn btn-primary btn-sm float-right" id="myMust" onclick="self.location='documentListMy${paging.makeQuery(1)}&searchWord=<%=userPosition %>&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재대기문서</button>
+							<button type="button" class="btn btn-primary btn-sm float-right" id="myMust" onclick="self.location='<%=request.getContextPath()%>/approval/documentListMy${paging.makeQuery(1)}&searchWord=<%=userPosition %>&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재대기문서</button>
 							<button type="button" id="writeBtn" class="btn btn-primary btn-sm float-right" onclick="documentWite()">기안 작성</button>
 						<%}else if(userPosition.equals("대표") || userPosition.equals("admin")){%>
-							<button type="button" class="btn btn-primary btn-sm float-right" id="myMust" onclick="self.location='documentListMy${paging.makeQuery(1)}&searchWord=<%=userPosition %>&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재대기문서</button>
-							<button type="button" class="btn btn-primary btn-sm float-right" id="myToDo" onclick="self.location='documentListMy${paging.makeQuery(1)}&searchWord=<%=userPosition %>예정&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재예정문서</button>
+							<button type="button" class="btn btn-primary btn-sm float-right" id="myMust" onclick="self.location='<%=request.getContextPath()%>/approval/documentListMy${paging.makeQuery(1)}&searchWord=<%=userPosition %>&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재대기문서</button>
+							<button type="button" class="btn btn-primary btn-sm float-right" id="myToDo" onclick="self.location='<%=request.getContextPath()%>/approval/documentListMy${paging.makeQuery(1)}&searchWord=<%=userPosition %>예정&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재예정문서</button>
 						<%}else{ %>
-							<button type="button" class="btn btn-primary btn-sm float-right" id="myMust" onclick="self.location='documentListMy${paging.makeQuery(1)}&searchWord=<%=userPosition %>&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재대기문서</button>
-							<button type="button" class="btn btn-primary btn-sm float-right" id="myToDo" onclick="self.location='documentListMy${paging.makeQuery(1)}&searchWord=<%=userPosition %>예정&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재예정문서</button>
+							<button type="button" class="btn btn-primary btn-sm float-right" id="myMust" onclick="self.location='<%=request.getContextPath()%>/approval/documentListMy${paging.makeQuery(1)}&searchWord=<%=userPosition %>&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재대기문서</button>
+							<button type="button" class="btn btn-primary btn-sm float-right" id="myToDo" onclick="self.location='<%=request.getContextPath()%>/approval/documentListMy${paging.makeQuery(1)}&searchWord=<%=userPosition %>예정&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재예정문서</button>
 							<button type="button" id="writeBtn" class="btn btn-primary btn-sm float-right" onclick="documentWite()">기안 작성</button>
 						<%} %>
 					</div>
@@ -190,7 +190,7 @@
 							<ul class="pagination">
 								<c:if test="${paging.prev}">
 									<li class="page-item" style="color:black;">
-										<a class="page-link" href="documentListMy${paging.makeSearch(pageMaker.startPage - 1)}&t_id=<%=userId%>" aria-label="Previous">
+										<a class="page-link" href="<%=request.getContextPath()%>/approval/documentListMy${paging.makeSearch(pageMaker.startPage - 1)}&t_id=<%=userId%>" aria-label="Previous">
 										    <span aria-hidden="true">&laquo;</span>
 										    <span class="sr-only"></span>
 										</a>
@@ -198,12 +198,12 @@
 								</c:if> 
 								<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="idx">
 									<li class="page-item">
-										<a class="page-link" href="documentListMy${paging.makeSearch(idx)}&t_id=<%=userId%>">${idx}</a>
+										<a class="page-link" href="<%=request.getContextPath()%>/approval/documentListMy${paging.makeSearch(idx)}&t_id=<%=userId%>">${idx}</a>
 									</li>
 								</c:forEach>
 								<c:if test="${paging.next && paging.endPage > 0}">
 									<li class="page-item">
-										<a class="page-link" href="documentListMy${paging.makeSearch(pageMaker.endPage + 1)}&t_id=<%=userId%>" aria-label="Next">
+										<a class="page-link" href="<%=request.getContextPath()%>/approval/documentListMy${paging.makeSearch(pageMaker.endPage + 1)}&t_id=<%=userId%>" aria-label="Next">
 										    <span aria-hidden="true">&raquo;</span>
 										    <span class="sr-only"></span>
 										</a>

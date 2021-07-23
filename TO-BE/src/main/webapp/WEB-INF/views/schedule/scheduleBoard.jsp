@@ -12,7 +12,7 @@
 	List<ScheduleVO> view = (List<ScheduleVO>)request.getAttribute("viewAll"); 
 	
 	if(userTidx == null){
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='request.getContextPath()/member/login';</script>");
 	}
 %>
 <!DOCTYPE html>
@@ -54,10 +54,10 @@
 							<script type="text/javascript">
 								$(function(){
 									$('#allSchedule').on("click",function(){
-										self.location = "scheduleBoard" + '${paging.makeQuery(1)}' + "&searchType=" + "&userId=" + "<%=userId%>";
+										self.location = "<%=request.getContextPath()%>/schedule/scheduleBoard" + '${paging.makeQuery(1)}' + "&searchType=" + "&userId=" + "<%=userId%>";
 									});
 									$(document).on("click","#mySchedule",function(){
-										self.location = "scheduleBoard" + '${paging.makeQuery(1)}' + "&searchType=나의 일정보기" + "&userId=" + "<%=userId%>";
+										self.location = "<%=request.getContextPath()%>/schedule/scheduleBoard" + '${paging.makeQuery(1)}' + "&searchType=나의 일정보기" + "&userId=" + "<%=userId%>";
 									});
 								});
 							</script>
@@ -81,7 +81,7 @@
 						              			</td>
 						              			<td class="control-label scheduletitle">
 													<input type="hidden" value="${viewAll.sidx}">
-													<a id="scheduleLink" href="scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=830'); return false;">
+													<a id="scheduleLink" href="<%=request.getContextPath()%>/schedule/scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=830'); return false;">
 														<c:set var="content" value="${viewAll.s_title}"/>
 														<c:choose>
 															<c:when test="${fn:length(viewAll.s_title) > 10}">
@@ -110,7 +110,7 @@
 													</c:otherwise>
 												</c:choose>
 												<td class="scheduleContents">
-													<a id="scheduleLink" href="scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=830'); return false;">
+													<a id="scheduleLink" href="<%=request.getContextPath()%>/schedule/scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=830'); return false;">
 														<c:set var="content" value="${viewAll.s_content}"/>
 														${fn:substring(content,0,50)}
 													</a>
@@ -133,7 +133,7 @@
 						<ul class="pagination">
 							<c:if test="${paging.prev}">
 								<li class="page-item" style="color:black;">
-									<a class="page-link" href="scheduleBoard${paging.makeSearch(pageMaker.startPage - 1)}&userId=<%=userId %>" aria-label="Previous">
+									<a class="page-link" href="<%=request.getContextPath()%>/schedule/scheduleBoard${paging.makeSearch(pageMaker.startPage - 1)}&userId=<%=userId %>" aria-label="Previous">
 									    <span aria-hidden="true">&laquo;</span>
 									    <span class="sr-only"></span>
 									</a>
@@ -141,12 +141,12 @@
 							</c:if> 
 							<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="idx">
 								<li class="page-item">
-									<a class="page-link" href="scheduleBoard${paging.makeSearch(idx)}&userId=<%=userId %>">${idx}</a>
+									<a class="page-link" href="<%=request.getContextPath()%>/schedule/scheduleBoard${paging.makeSearch(idx)}&userId=<%=userId %>">${idx}</a>
 								</li>
 							</c:forEach>
 							<c:if test="${paging.next && paging.endPage > 0}">
 								<li class="page-item">
-									<a class="page-link" href="scheduleBoard${paging.makeSearch(pageMaker.endPage + 1)}&userId=<%=userId %>" aria-label="Next">
+									<a class="page-link" href="<%=request.getContextPath()%>/schedule/scheduleBoard${paging.makeSearch(pageMaker.endPage + 1)}&userId=<%=userId %>" aria-label="Next">
 									    <span aria-hidden="true">&raquo;</span>
 									    <span class="sr-only"></span>
 									</a>

@@ -7,7 +7,7 @@
 	String userName = (String)session.getAttribute("userName");
 	
 	if(userId == "" || userTidx == 0){
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>"); 
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='request.getContextPath()/member/login';</script>"); 
 	}
 %>
 <!DOCTYPE html>

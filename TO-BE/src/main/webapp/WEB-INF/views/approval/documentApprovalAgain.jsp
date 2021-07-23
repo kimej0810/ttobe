@@ -10,7 +10,7 @@
 	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
 	String toDate = simpleDate.format(Date);
 	if(session.getAttribute("userTidx") == null){
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='request.getContextPath()/member/login';</script>");
 	}
 	
 	Integer userTidx = (Integer)session.getAttribute("userTidx");
@@ -69,7 +69,7 @@
 					if(result.isConfirmed){
 						$.ajax({
 							type:'POST',
-							url:"/approval/documentApprovalAgainOk",
+							url: "<%=request.getContextPath()%>/approval/documentApprovalAgainOk",
 							dataType:'JSON',
 							data: draftLetterData,
 							contentType : "application/json; charset=UTF-8",

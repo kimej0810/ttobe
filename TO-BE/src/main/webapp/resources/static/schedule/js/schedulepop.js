@@ -48,6 +48,11 @@ $.fn.serializeObject = function(){
     return o;
 };
 
+function getContextPath(){
+	var hostIndex = location.href.indexOf(location.host)+location.host.length;
+	return location.href.substring(hostIndex, location.href.indexOf('/', hostIndex + 1));
+}
+
 function click_ok(){
 	var startDate = $("#s_startDate").val().replace("-","/");
 	var endDate = $("#s_endDate").val().replace("-","/");
@@ -72,7 +77,7 @@ function click_ok(){
 	if(result){
 		$.ajax({
 			data : scheduleData,
-			url : "/schedule/addSchedule",
+			url : getContextPath()+"/addSchedule",
 			type : "POST",
 			dataType : "json",
 			contentType : "application/json; charset=UTF-8",
