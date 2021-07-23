@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -35,7 +36,7 @@ public class CommuteController {
 
 	//출근 등록
 	@RequestMapping(value = "/commute/startCommute")
-	public String startCommute2(@RequestParam Map<String, String> param, HttpServletResponse response) throws Exception {
+	public String startCommute2(@RequestParam Map<String, String> param, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		logger.info("startCommute...");
 		
 		int tidx = Integer.parseInt(param.get("tidx"));
@@ -46,11 +47,11 @@ public class CommuteController {
 		boolean test = service.addStartWork(tidx);
 		if(test) {
 			out.println("<script>alert('이미 출근 처리되었습니다.');</script>");
-			out.println("<script>window.location.href='${pageContext.request.contextPath}/main/mainPage';</script>");
+			out.println("<script>window.location.href='"+request.getContextPath()+"/main/mainPage';</script>");
 			out.close();
 		}else {
 			out.println("<script>alert('출근 처리되었습니다.');</script>");
-			out.println("<script>window.location.href='${pageContext.request.contextPath}/main/mainPage';</script>");
+			out.println("<script>window.location.href='"+request.getContextPath()+"/main/mainPage';</script>");
 			out.close();
 		}
 		return "redirect:/main/mainPage";
@@ -58,7 +59,7 @@ public class CommuteController {
 	
 	//퇴근 등록
 	@RequestMapping(value = "/commute/endCommute")
-	public String endCommute(@RequestParam Map<String, String> param, HttpServletResponse response) throws Exception {
+	public String endCommute(@RequestParam Map<String, String> param, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		logger.info("endCommute...");
 		
 		int tidx = Integer.parseInt(param.get("tidx"));
@@ -70,11 +71,11 @@ public class CommuteController {
 		boolean test = service.addEndWork(tidx); 
 		if(test) {
 			out.println("<script>alert('이미 퇴근 처리되었습니다.');</script>");
-			out.println("<script>window.location.href='${pageContext.request.contextPath}/main/mainPage';</script>");
+			out.println("<script>window.location.href='"+request.getContextPath()+"/main/mainPage';</script>");
 			out.close();
 		}else {
 			out.println("<script>alert('퇴근 처리되었습니다.');</script>");
-			out.println("<script>window.location.href='${pageContext.request.contextPath}/main/mainPage';</script>");
+			out.println("<script>window.location.href='"+request.getContextPath()+"/main/mainPage';</script>");
 			out.close();
 		}
 		return "redirect:/main/mainPage";
@@ -87,7 +88,6 @@ public class CommuteController {
 
 		System.out.println("t_id: " + t_id);
 
-		//SimpleDateFormat format1 = new SimpleDateFormat("yy/MM");
 		SimpleDateFormat format1 = new SimpleDateFormat("yy-MM");
 		Date date = new Date();
 		String current = format1.format(date);
