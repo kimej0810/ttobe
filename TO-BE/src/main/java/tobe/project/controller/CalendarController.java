@@ -36,7 +36,7 @@ public class CalendarController {
 	private MyService myservice;
 	
 	@RequestMapping(value = "/scheduleCalendar")
-	public String list(Model model, @ModelAttribute("scri")SearchCriteria scri, HttpServletRequest request) throws Exception {
+	public String list(Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception {
 		
 		PageMaker pageMaker = new PageMaker();
 		List<ScheduleVO> schedule = service.showSchedule();
@@ -49,7 +49,7 @@ public class CalendarController {
 		model.addAttribute("scri",scri);
 		model.addAttribute("schedule",schedule);
 		model.addAttribute("leave",leave);
-		return request.getContextPath()+"/schedule/scheduleCalendar";
+		return "/schedule/scheduleCalendar";
 	}
 	@RequestMapping(value = "/scheduleBoard")
 	public String scheduleBoard(Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception{
