@@ -35,7 +35,7 @@ import tobe.project.service.ScheduleService;
  */
 @Controller
 @RequestMapping(value="/approval")
-public class ApprovalController {
+public class ApprovalController { 
 	
 	private static final Logger logger = LoggerFactory.getLogger(ApprovalController.class);
 	 
