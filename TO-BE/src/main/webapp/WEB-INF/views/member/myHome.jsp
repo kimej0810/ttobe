@@ -121,7 +121,7 @@ function documentWite(){ //기안서 팝업창
 							</c:choose>
 							</tbody>
 						</table>
-						<c:if test="${fn:length(myBoard) > 6}">
+						<c:if test="${fn:length(myBoard) >= 6}">
 							<div style="text-align:right;">
 								<input type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/board/list?searchType=w&keyword=<%=userName%>'"value="더보기">
 								<button type="button" class="btn btn-primary btn-sm" id="writeBtn" onclick="location.href='${pageContext.request.contextPath}/board/write'">등록</button>
@@ -187,7 +187,7 @@ function documentWite(){ //기안서 팝업창
 							</c:choose>
 							</tbody>
 						</table>
-						<c:if test="${fn:length(mySchedule) > 6}">
+						<c:if test="${fn:length(mySchedule) >= 6}">
 							<div style="text-align:right;">
 								<input type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/schedule/scheduleBoard?page=1&perPageNum=10&searchType=&userId=<%=userTidx%>'"value="더보기">
 								<button type="button" class="btn btn-primary btn-sm" onclick="scheduleAddPopup()">일정 추가</button>
@@ -253,7 +253,7 @@ function documentWite(){ //기안서 팝업창
 							</c:choose>
 							</tbody>
 						</table>
-						<c:if test="${fn:length(myLeave) > 6}">
+						<c:if test="${fn:length(myLeave) >= 6}">
 							<div style="text-align:right;">
 							<input type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'" value="더보기">
 							<c:if test="${member.t_leave_get > 0 }">
