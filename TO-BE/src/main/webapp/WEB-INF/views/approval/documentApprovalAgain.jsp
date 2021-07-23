@@ -14,7 +14,7 @@
 	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
 	String toDate = simpleDate.format(Date);
 	Integer userTidx = (Integer)session.getAttribute("userTidx");
-	ApprovalDTO contents = (ApprovalDTO)request.getAttribute("contents");
+	ApprovalDTO contents = (ApprovalDTO)request.getAttribute("contents"); 
 %> 
 <!DOCTYPE html>
 <html>
