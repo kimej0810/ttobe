@@ -228,7 +228,7 @@ button:disabled {
 		} else {
 		%>
 		<button type="button" class="btn btn-primary btn-sm float-right"
-			onclick="location.href='${pageContext.request.contextPath}/modify?bidx=${boardVO.bidx}'">수정</button>
+			onclick="location.href='${pageContext.request.contextPath}/board/modify?bidx=${boardVO.bidx}'">수정</button>
 		<button type="button" class="btn btn-primary btn-sm float-right"
 			onclick="fn_delete(${boardVO.bidx})">삭제</button>
 		<c:if test="${pagePort eq 'board' }">

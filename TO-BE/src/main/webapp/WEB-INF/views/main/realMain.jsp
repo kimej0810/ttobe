@@ -424,7 +424,7 @@ p {
 					approval += "</td>";
 					approval += "<td>";
 					if((data[i].e_type)!="개인일정"){
-						approval+="<a href='
+						approval+="<a href='";
 						approval+= $("#domain").val();
 						approval+= "/approval/documentContents?eidx=";
 						approval+=data[i].eidx;
@@ -435,7 +435,7 @@ p {
 						approval+=data[i].e_textTitle;
 						approval+="</a>";	
 					}else{
-						approval+="<a href='
+						approval+="<a href='";
 						approval+= $("#domain").val();
 						approval+="/member/leaveView?eidx=";
 						approval+=data[i].eidx;
