@@ -27,7 +27,7 @@
 	</style>
 </head>
 <body>
-	<form id="writeAction" action="writeAction" method="post" enctype="multipart/form-data">
+	<form id="writeAction" action="${pageContext.request.contextPath}/board/writeAction" method="post" enctype="multipart/form-data">
 		<%
 			Integer tidx = (Integer)session.getAttribute("userTidx");
 			String grade = (String)session.getAttribute("userGrade"); 

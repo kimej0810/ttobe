@@ -448,7 +448,7 @@ button:disabled {
 		function fn_delete(bidx){
 			var con_test = confirm("삭제하시겠습니까?");
 			if(con_test == true){
-				location.href='delete?bidx='+bidx;
+				location.href=$("#domain").val()+'/board/delete?bidx='+bidx;
 			}		
 		}
 	</script>

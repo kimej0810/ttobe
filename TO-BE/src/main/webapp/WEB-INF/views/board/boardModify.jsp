@@ -27,7 +27,7 @@
 	</style>
 </head>
 <body>
-	<form action="modifyAction" method="post" id="modifyForm" name="modifyForm" enctype="multipart/form-data">
+	<form action="${pageContext.request.contextPath}/board/modifyAction" method="post" id="modifyForm" name="modifyForm" enctype="multipart/form-data">
 		<input type="hidden" value="${boardVO.bidx}" name="bidx">
 		<input type="hidden" value="G" name="b_type">
 		<input type="hidden" id="fileNoDel" name="fileNoDel[]" value="">
@@ -73,7 +73,6 @@
 	</form>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			var domain = $("#domain").val();
 			var formObj = $("form[name='modifyForm']");
 			
 			$("#submitBtn").on("click", function(){

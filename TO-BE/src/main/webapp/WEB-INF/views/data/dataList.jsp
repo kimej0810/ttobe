@@ -147,7 +147,7 @@ table th{
 			<c:if test="${pageMaker.prev}">
 				<li class="page-item" style="color: black;"><a
 					class="page-link"
-					href="list${pageMaker.makeSearch(pageMaker.startPage - 1)}"
+					href="${pageContext.request.contextPath}/data/list${pageMaker.makeSearch(pageMaker.startPage - 1)}"
 					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 						<span class="sr-only"></span>
 				</a></li>
@@ -155,11 +155,11 @@ table th{
 			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}"
 				var="idx">
 				<li class="page-item"><a class="page-link"
-					href="list${pageMaker.makeSearch(idx)}">${idx}</a></li>
+					href="${pageContext.request.contextPath}/data/list${pageMaker.makeSearch(idx)}">${idx}</a></li>
 			</c:forEach>
 			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 				<li class="page-item"><a class="page-link"
-					href="list${pageMaker.makeSearch(pageMaker.endPage + 1)}"
+					href="${pageContext.request.contextPath}/data/list${pageMaker.makeSearch(pageMaker.endPage + 1)}"
 					aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
 						class="sr-only"></span>
 				</a></li>

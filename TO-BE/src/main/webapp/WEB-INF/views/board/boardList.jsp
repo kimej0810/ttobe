@@ -80,10 +80,10 @@
 					</c:if>
 						<th scope="row">${board.bidx}</th>
 					<c:if test="${board.b_type eq 'N'}">
-						<td><a href="view?bidx=${board.bidx}&page=${scri.page}&perPageNum=${scri.perPageNum}&searchType=${scri.searchType}&keyword=${scri.keyword}&pagePort=board" style="text-decoration : none; color:black;">[공지] ${board.b_title}</a></td>
+						<td><a href="${pageContext.request.contextPath}/board/view?bidx=${board.bidx}&page=${scri.page}&perPageNum=${scri.perPageNum}&searchType=${scri.searchType}&keyword=${scri.keyword}&pagePort=board" style="text-decoration : none; color:black;">[공지] ${board.b_title}</a></td>
 					</c:if>
 					<c:if test="${board.b_type eq 'G'}">
-						<td><a href="view?bidx=${board.bidx}&page=${scri.page}&perPageNum=${scri.perPageNum}&searchType=${scri.searchType}&keyword=${scri.keyword}&pagePort=board" style="text-decoration : none; color:black;">${board.b_title}</a></td>
+						<td><a href="${pageContext.request.contextPath}/board/view?bidx=${board.bidx}&page=${scri.page}&perPageNum=${scri.perPageNum}&searchType=${scri.searchType}&keyword=${scri.keyword}&pagePort=board" style="text-decoration : none; color:black;">${board.b_title}</a></td>
 					</c:if>
 						<td>
 							<fmt:parseDate var="writedate" value="${board.b_writedate}" pattern="yyyy-MM-dd"/>
@@ -99,7 +99,7 @@
 		  <ul class="pagination">
 		    <c:if test="${pageMaker.prev}">
 		    	<li class="page-item" style="color:black;">
-			      <a class="page-link" href="list${pageMaker.makeSearch(pageMaker.startPage - 1)}" aria-label="Previous">
+			      <a class="page-link" href="${pageContext.request.contextPath}/board/list${pageMaker.makeSearch(pageMaker.startPage - 1)}" aria-label="Previous">
 			        <span aria-hidden="true">&laquo;</span>
 			        <span class="sr-only"></span>
 			      </a>
@@ -107,12 +107,12 @@
 		    </c:if> 
 		    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 		    	<li class="page-item" <c:out value="${pageMaker.cri.page == idx ? 'id=current' : ''}"/>>
-		    		<a class="page-link" href="list${pageMaker.makeSearch(idx)}">${idx}</a>
+		    		<a class="page-link" href="${pageContext.request.contextPath}/board/list${pageMaker.makeSearch(idx)}">${idx}</a>
 		    	</li>
 		    </c:forEach>
 		    <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 		    	<li class="page-item">
-			      <a class="page-link" href="list${pageMaker.makeSearch(pageMaker.endPage + 1)}" aria-label="Next">
+			      <a class="page-link" href="${pageContext.request.contextPath}/board/list${pageMaker.makeSearch(pageMaker.endPage + 1)}" aria-label="Next">
 			        <span aria-hidden="true">&raquo;</span>
 			        <span class="sr-only"></span>
 			      </a>
