@@ -8,6 +8,7 @@
 <title>login page</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>">
+<script src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 <style type="text/css">
 
 	.login-form{
@@ -31,7 +32,7 @@
 	}
 </style>
 <script type="text/javascript">
-	
+	var domain = $("#domain").val();
 	function checkLogin(){
 		
 		if($("#t_id").val() == ""){
@@ -44,7 +45,7 @@
 			return;
 		}
 		
-		frm.action = "/member/loginPost";
+		frm.action = $("#domain").val()+"/member/loginPost";
 		frm.method = "post";
 		frm.submit();
 	}
@@ -113,11 +114,12 @@
 	function popupOpen(){
 		var popupX = (window.screen.width / 2) - (600 / 2);
 		var popupY= (window.screen.height / 2) - (350 / 2);
-		window.open('/member/findPwd', '비밀번호찾기', 'status=no, height=350, width=600, left='+ popupX + ', top='+ popupY);
+		window.open($("#domain").val()+'/member/findPwd', '비밀번호찾기', 'status=no, height=350, width=600, left='+ popupX + ', top='+ popupY);
 	}
 </script>
 </head>
 <body onkeydown="javascript:enterLogin();">
+	<input type="hidden" value="${pageContext.request.contextPath}" id="domain">
 	<section class="login-form">
 		<img id="logo" class="img-responsive w-100" src="<c:url value="/resources/static/img/loginlogo.png"/>" >
 		<form name="frm">
@@ -148,7 +150,7 @@
 							
 				%>
 					<span>관리자가 없습니다.?&nbsp;&nbsp;</span>
-					<a href="/admin/findAdmin">관리자등록</a>
+					<a href="${pageContext.request.contextPath}/admin/findAdmin">관리자등록</a>
 				<%
 						}
 					}
