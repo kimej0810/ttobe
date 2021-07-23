@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.14" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="tobe.project.controller.AdminController" project="TO-BE" 
-    file="/TO-BE/src/main/java/tobe/project/controller/AdminController.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="1" language="java" name="tobe.project.controller.AdminController" project="afps" 
+    file="/afps/src/main/java/tobe/project/controller/AdminController.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="131" y="193"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -10,8 +10,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="2" language="java" name="tobe.project.service.AdminService" project="TO-BE" 
-    file="/TO-BE/src/main/java/tobe/project/service/AdminService.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="2" language="java" name="tobe.project.service.AdminService" project="afps" 
+    file="/afps/src/main/java/tobe/project/service/AdminService.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="440" y="111"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -19,8 +19,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="3" language="java" name="tobe.project.service.AdminServiceImpl" project="TO-BE" 
-    file="/TO-BE/src/main/java/tobe/project/service/AdminServiceImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="3" language="java" name="tobe.project.service.AdminServiceImpl" project="afps" 
+    file="/afps/src/main/java/tobe/project/service/AdminServiceImpl.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="693" y="115"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -28,8 +28,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="4" language="java" name="tobe.project.dao.AdminDAO" project="TO-BE" 
-    file="/TO-BE/src/main/java/tobe/project/dao/AdminDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="4" language="java" name="tobe.project.dao.AdminDAO" project="afps" 
+    file="/afps/src/main/java/tobe/project/dao/AdminDAO.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1022" y="107"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -37,8 +37,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="5" language="java" name="tobe.project.dao.AdminDAOImpl" project="TO-BE" 
-    file="/TO-BE/src/main/java/tobe/project/dao/AdminDAOImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="5" language="java" name="tobe.project.dao.AdminDAOImpl" project="afps" 
+    file="/afps/src/main/java/tobe/project/dao/AdminDAOImpl.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1037" y="389"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -46,8 +46,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="6" language="java" name="tobe.project.service.EmailService" project="TO-BE" 
-    file="/TO-BE/src/main/java/tobe/project/service/EmailService.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="6" language="java" name="tobe.project.service.EmailService" project="afps" 
+    file="/afps/src/main/java/tobe/project/service/EmailService.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="321" y="465"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -55,8 +55,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="7" language="java" name="tobe.project.service.EmailServiceImpl" project="TO-BE" 
-    file="/TO-BE/src/main/java/tobe/project/service/EmailServiceImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="7" language="java" name="tobe.project.service.EmailServiceImpl" project="afps" 
+    file="/afps/src/main/java/tobe/project/service/EmailServiceImpl.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="300" y="692"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -64,8 +64,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="8" language="java" name="tobe.project.dao.EmailDAO" project="TO-BE" 
-    file="/TO-BE/src/main/java/tobe/project/dao/EmailDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="8" language="java" name="tobe.project.dao.EmailDAO" project="afps" 
+    file="/afps/src/main/java/tobe/project/dao/EmailDAO.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="663" y="390"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -73,8 +73,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="9" language="java" name="tobe.project.dao.EmailDAOImpl" project="TO-BE" 
-    file="/TO-BE/src/main/java/tobe/project/dao/EmailDAOImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="9" language="java" name="tobe.project.dao.EmailDAOImpl" project="afps" 
+    file="/afps/src/main/java/tobe/project/dao/EmailDAOImpl.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="678" y="619"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -82,8 +82,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="tobe.project.dto.EmailVO" project="TO-BE" 
-    file="/TO-BE/src/main/java/tobe/project/dto/EmailVO.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="10" language="java" name="tobe.project.dto.EmailVO" project="afps" 
+    file="/afps/src/main/java/tobe/project/dto/EmailVO.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1321" y="264"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -91,8 +91,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="tobe.project.dto.MemberVO" project="TO-BE" 
-    file="/TO-BE/src/main/java/tobe/project/dto/MemberVO.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="11" language="java" name="tobe.project.dto.MemberVO" project="afps" 
+    file="/afps/src/main/java/tobe/project/dto/MemberVO.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1299" y="997"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -100,61 +100,69 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="12">    
+  <realization id="12">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <association id="13">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="13" name="emailService"/>      
-      <multiplicity id="14" minimum="0" maximum="1"/>    
+      <attribute id="14" name="emailService">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="15" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="15">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="8"/>  
-  </realization>  
-  <association id="16">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="17" name="emailDAO"/>      
-      <multiplicity id="18" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="19">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="20" name="dao"/>      
-      <multiplicity id="21" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="22">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="2"/>  
-  </realization>  
-  <realization id="23">    
+  <realization id="16">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="6"/>  
   </realization>  
-  <association id="24">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="25" name="emailDAO"/>      
-      <multiplicity id="26" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="27">    
+  <realization id="17">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <association id="18">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="28" name="service"/>      
-      <multiplicity id="29" minimum="0" maximum="1"/>    
+      <attribute id="19" name="service">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="20" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="30">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="4"/>  
+  <association id="21">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="22" name="emailDAO">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="23" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="24">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="25" name="dao">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="26" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="27">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
   </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
