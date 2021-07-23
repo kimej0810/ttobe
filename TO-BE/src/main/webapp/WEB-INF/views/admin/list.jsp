@@ -151,8 +151,8 @@
 					<tr>
 						<td colspan="9" style="padding:0;text-align:center;">
 							<div class="saoneGoTag">
-								<button type="button" class="saoneBtn btn btn-outline-primary btn-sm" onclick="location.href='${path}/admin/info${pageMaker.makeSearch(pageMaker.cri.page)}&tidx=${member.tidx}'">정보보기</button>
-								<button type="button" class="saoneBtn btn btn-outline-primary btn-sm" onclick="location.href='${path}/email/email${pageMaker.makeSearch(pageMaker.cri.page)}&tidx=${member.tidx}'">메일전송</button>
+								<button type="button" class="saoneBtn btn btn-outline-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/admin/info${pageMaker.makeSearch(pageMaker.cri.page)}&tidx=${member.tidx}'">정보보기</button>
+								<button type="button" class="saoneBtn btn btn-outline-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/email/email${pageMaker.makeSearch(pageMaker.cri.page)}&tidx=${member.tidx}'">메일전송</button>
 								<c:if test="${member.delyn eq 'N' }">
 								<button type="button" id="deleteBtn" class="saoneBtn btn btn-outline-danger btn-sm">사원 퇴사</button>
 								</c:if>
@@ -166,20 +166,20 @@
 			<div class="pageDiv">
 				<ul class="pagination">
 					<c:if test="${pageMaker.prev}">
-						<li class="page-item"><a class="page-link" href="${path}/admin/memberlist${pageMaker.makeSearch(pageMaker.startPage-1)}">&lt;</a></li>
+						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/admin/memberlist${pageMaker.makeSearch(pageMaker.startPage-1)}">&lt;</a></li>
 					</c:if>
 					<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 						<li  class="page-item" <c:out value="${pageMaker.cri.page == idx ? 'id=active' : ''}"/>>
-							<a class="page-link" href="${path}/admin/memberlist${pageMaker.makeSearch(idx)}">${idx}</a>
+							<a class="page-link" href="${pageContext.request.contextPath}/admin/memberlist${pageMaker.makeSearch(idx)}">${idx}</a>
 						</li>
 					</c:forEach>
 					<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-						<li class="page-item"><a class="page-link" href="${path}/admin/memberlist${pageMaker.makeSearch(pageMaker.endPage + 1)}">&gt;</a></li>
+						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/admin/memberlist${pageMaker.makeSearch(pageMaker.endPage + 1)}">&gt;</a></li>
 					</c:if>
 				</ul>
 			</div>
 			<div class="tableBtn">
-				<a href="${path}/admin/add"><input type="button" class="saoneBtn btn btn-primary btn-sm" value="사원 등록"></a>
+				<a href="${pageContext.request.contextPath}/admin/add"><input type="button" class="saoneBtn btn btn-primary btn-sm" value="사원 등록"></a>
 			</div>
 		</form>
 	</div>

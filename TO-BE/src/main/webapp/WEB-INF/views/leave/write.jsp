@@ -21,7 +21,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-	<link rel='stylesheet' href="/resources/static/css/leave.css">
+	<link rel='stylesheet' href="<c:url value="/resources/static/css/leave.css"/>">
 	<script src="<c:url value="/resources/static/js/leave.js"/>"></script>
 	<script src="<c:url value="/resources/static/schedule/js/jquery.datetimepicker.full.min.js"/>"></script>
 	<link rel="stylesheet" href="<c:url value="/resources/static/schedule/css/jquery.datetimepicker.css"/>"/>
