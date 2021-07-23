@@ -16,6 +16,7 @@
 	String userPosition = (String)session.getAttribute("userPosition");
 	String userId = (String)session.getAttribute("userId");
 	String userGrade = (String) session.getAttribute("userGrade");
+	String userName = (String)session.getAttribute("userName");
 	
 	ApprovalDTO contents = (ApprovalDTO)request.getAttribute("contents");
 	ApprovalDTO to = (ApprovalDTO)request.getAttribute("to");
@@ -39,7 +40,6 @@
 		}else if(to.getLeader().equals(name.getT_id()) || to.getLeader().equals(name.getT_name())){
 			lineLeader = name.getT_name();
 		}
-		
 	}
 %>
 <!DOCTYPE html>
@@ -49,49 +49,150 @@
 		<title>결제문서 상세보기</title>
 		<script src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 		<link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 		
 		<link href="<c:url value="/resources/static/form/css/documentContents.css"/>" rel='stylesheet' />
+		<style type="text/css">
+			.modal-header{
+				justify-content: center;
+			}
+			.modal{
+				top:262px;
+			}
+			#approvalNoboard{
+				width: 100%;
+				height: 100px;
+				text-align: center;
+			}
+			#noth{
+				width:80px;
+				text-align: center;
+			}
+			#notd{
+				padding: 10px;
+			}
+		</style>
 		<script type="text/javascript">
-			function click_modify(){
-					alert("수정페이지로 이동합니다.");
-					location.href="documentModify?eidx="+"<%=contents.getEidx()%>&tidx=<%=contents.getTidx()%>";
-			};
-			function click_delete(){
-					var result = confirm("결재를 취소 하시겠습니까? (취소 된 결재는 삭제됩니다.)");
-					if(result){
-						location.href="documentDelete?eidx="+<%=contents.getEidx()%>;
-						alert("결재문서가 삭제되었습니다.");
-						opener.parent.location.reload();
-						window.close();
-					}
-			}
-			function ok(){
-				var result = confirm("승인 처리 하시겠습니까?");
-				if(result){
-					location.href="documentOk?eidx="+"<%=contents.getEidx()%>";
-					alert("승인처리 되었습니다.");
-					opener.parent.location.reload();
-					window.close();
+			$(window).on('load',function(){
+				if(<%=contents.getStatus().equals("3333")%>){
+		        	$('#myModalNoinfo').modal('show');
 				}
-			}
-			function no(){
-				var returnValue = prompt("반려 사유 작성","");
+		    });
+			//반려사유작성창
+			$(document).on("click","#no",function(){
+				$('#myModalNo').modal('show');
+			});
+			//반려처리(입력값 있으면 ajax 호출)
+			$(document).on("click","#noOk",function(){
+				var returnValue = $("#e_reason").val();
 				if(returnValue != ""){
-					if(returnValue){
-						var result = confirm("반려 처리 하시겠습니까?");
-						if(result){
-							location.href = "documentNo?eidx="+"<%=contents.getEidx()%>"+"&tidx=<%=userTidx%>"+"&e_reason="+returnValue;
-							alert("반려처리 되었습니다.");
-							opener.parent.location.reload();
-							window.close();
-						}else{
-							alert("반려처리 취소되었습니다.");
+					Swal.fire({
+						title:"반려 사유 확인",
+						text:"반려 사유 : "+returnValue+" 로 반려하시겠습니까?",
+						icon:"warning",
+						showCancelButton:true,
+						confirmButtonText:"확인",
+						cancelButtonText:"취소"
+					}).then(result => {
+						if(result.isConfirmed){
+							$.ajax({
+								url : "/approval/documentNo?eidx="+"<%=contents.getEidx()%>"+"&tidx=<%=userTidx%>"+"&e_reason="+returnValue,
+								data: returnValue,
+								dateType:"json",
+								success:function(){
+									Swal.fire("결재 반려","반려처리 되었습니다.","success").then(result => {
+										opener.parent.location.reload();
+										window.close();	
+									});
+								},
+								error:function(){
+									Swal.fire("결재 반려","반려 실패","error").then(result => {
+										opener.parent.location.reload();
+										window.close();	
+									});
+								}
+							});
 						}
-					}
-				}else{
-					alert("반려 사유를 작성하세요.");
+					});
 				}
+			});
+			
+			//수정페이지 이동
+			function click_modify(){
+				Swal.fire({
+					title:"결재문서 수정",
+					text:"수정페이지로 이동하시겠습니까?",
+					icon:"question",
+					showCancelButton:true,
+					confirmButtonText:"이동",
+					cancelButtonText:"취소"
+				}).then(result => {
+					if(result.isConfirmed){
+						self.location.href="documentModify?eidx="+"<%=contents.getEidx()%>&tidx=<%=contents.getTidx()%>";
+					}
+				})
 			}
+			//결재문서 삭제
+			function click_delete(){
+				Swal.fire({
+					title:"결재 취소",
+					text:"결재를 취소 하시겠습니까? (취소 된 결재는 삭제됩니다.)",
+					icon:"question",
+					showCancelButton:true,
+					confirmButtonText:"확인",
+					cancelButtonText:"취소"
+				}).then(result => {
+					if(result.isConfirmed){
+						Swal.fire("결재 취소","결재문서가 삭제되었습니다.","success").then(result => {
+							location.href="/approval/documentDelete?eidx="+<%=contents.getEidx()%>;
+							opener.parent.location.reload();
+							window.close();	
+						});
+					}
+				})
+			}
+			//일반 승인
+			function ok(){
+				Swal.fire({
+					title:"결재 승인",
+					text:"결재를 승인 하시겠습니까?",
+					icon:"question",
+					showCancelButton:true,
+					confirmButtonText:"확인",
+					cancelButtonText:"취소"
+				}).then(result => {
+					if(result.isConfirmed){
+						Swal.fire("결재 승인","승인 처리되었습니다.","success").then(result => {
+							location.href="/approval/documentOk?eidx="+"<%=contents.getEidx()%>";
+							opener.parent.location.reload();
+							window.close();	
+						});
+					}
+				})
+			}
+			//대표 승인
+			function ok2(){
+				Swal.fire({
+					title:"최종 승인",
+					text:"최종 승인 하시겠습니까?",
+					icon:"question",
+					showCancelButton:true,
+					confirmButtonText:"확인",
+					cancelButtonText:"취소"
+				}).then(result => {
+					if(result.isConfirmed){
+						Swal.fire("최종 승인","최종승인 처리되었습니다.","success").then(result => {
+							self.location.href="/approval/documentOk?eidx="+"<%=contents.getEidx()%>";
+							opener.parent.location.reload();
+							window.close();	
+						});
+					}
+				})
+			}
+			
 			function approvalAgain(){
 				var result = confirm("재기안 하시겠습니까?");
 				if(result){
@@ -104,7 +205,6 @@
 	<body>
 		<form id="documentWiteData" name="documentWiteData">
 			<input type="hidden" name="e_status" id="e_status" value="<%=contents.getE_status()%>">
-			<input type="hidden" name="eidx" id="eidx" value="<%=contents.getEidx() %>">
 			<div id="documentWrite">
 				<table id="sheet0" class="sheet0">
 					<col class="col0">
@@ -304,8 +404,8 @@
 						<button type="button" class="btn btn-outline-danger btn-sm" onclick="no()">반려</button>
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
 					<%}else if(userTidx != mo.getTidx() && userPosition.equals("대표") && userId.equals(to.getLeader()) && to.getStatus().equals("0003")){ %>
-						<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">최종승인</button>
-						<button type="button" class="btn btn-outline-danger btn-sm" onclick="no()">반려</button>
+						<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok2()">최종승인</button>
+						<button type="button" class="btn btn-outline-danger btn-sm" id="no">반려</button>
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
 					<%}else if(userTidx == mo.getTidx() && to.getStatus().equals("3333") && contents.getE_status().trim().equals("결재반려")){%>
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="approvalAgain()">재기안</button>
@@ -317,5 +417,83 @@
 				</div>
 			</div>
 		</form>
+		<!-- 반려정보 Modal -->
+		<div class="modal fade" id="myModalNoinfo" role="dialog" data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog">
+		    <!-- 반려정보 Modal content-->
+	    		<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"></button>
+						<h4 class="modal-title">반려 내용</h4>
+					</div>
+					<div class="modal-body">
+						<table id="approvalNoboard">
+							<tr>
+								<th id="noth">반려자</th>
+								<td id="notd"><%=contents.getE_approvalNoPerson() %></td>
+							</tr>
+							<tr>
+								<th id="noth">반려사유</th>
+								<td id="notd"><%=contents.getE_reason() %></td>
+							</tr>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 반려 Modal -->
+		<div class="modal fade" id="myModalNo" role="dialog" data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog">
+		    <!-- 반려 Modal content-->
+	    		<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"></button>
+						<h4 class="modal-title">반려 사유 작성</h4>
+					</div>
+					<div class="modal-body">
+						<table id="approvalNoboard">
+							<tr>
+								<th id="noth">반려자</th>
+								<td id="notd"><%=userName%></td>
+							</tr>
+							<tr>
+								<th id="noth">반려사유</th>
+								<td id="notd">
+									<input type="text" id="e_reason">
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-confirm="modal" id="noOk">OK</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 반려확인 Modal -->
+		<div class="modal fade" id="myModalOk" role="dialog" data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog">
+		    <!-- 반려확인 Modal content-->
+	    		<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"></button>
+						<h4 class="modal-title">반려 처리 확인</h4>
+					</div>
+					<div class="modal-body">
+						반려 처리 하시겠습니까?
+					</div>
+					<div class="modal-footer">
+						<!-- <button type="button" class="btn btn-primary noOK2" data-confirm="modal">OK</button> -->
+						<button type="button" class="btn btn-primary noOk2" data-confirm="modal">OK</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 	</body>
 </html>

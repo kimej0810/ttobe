@@ -137,6 +137,7 @@ public class ApprovalController {
 		return dto;
 	}
 	
+	@ResponseBody
 	@RequestMapping(value = "/documentOk")
 	public ApprovalDTO documentOK(Model model,int eidx) throws Exception{
 		ApprovalDTO to = service.selectOneApprovalDocumentContents(eidx);
@@ -185,6 +186,7 @@ public class ApprovalController {
 		}
 		return to2;
 	}
+	@ResponseBody
 	@RequestMapping(value = "/documentNo")
 	public ApprovalDTO documentNo(Model model,ApprovalDTO dto) throws Exception{
  		service.selectOneApprovalDocumentContents(dto.getEidx());
@@ -241,8 +243,7 @@ public class ApprovalController {
 	}
 	
 	@RequestMapping(value = "/documentDelete")
-	public String documentDelete(int eidx) throws Exception{
+	public void documentDelete(int eidx) throws Exception{
 		service.deleteApprovalDocument(eidx);
-		return "redirect:/documentContents";
 	}
 }
