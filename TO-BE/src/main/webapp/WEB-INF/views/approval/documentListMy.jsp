@@ -7,6 +7,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ include file="/WEB-INF/views/include/new_main.jsp" %>
 <% 
+	if(userTidx == null){ 
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+request.getContextPath()+"'/member/login';</script>");
+	}
+
 	List<ApprovalVO> elist = (List<ApprovalVO>)request.getAttribute("elist"); 
 	PageMaker paging = (PageMaker)request.getAttribute("paging");
 %>

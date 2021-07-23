@@ -7,7 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% 
 	if(session.getAttribute("userTidx") == null){ 
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='request.getContextPath()/member/login';</script>");
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+request.getContextPath()+"'/member/login';</script>");
 	}
 
 	ScheduleVO vo = (ScheduleVO)request.getAttribute("vo"); 

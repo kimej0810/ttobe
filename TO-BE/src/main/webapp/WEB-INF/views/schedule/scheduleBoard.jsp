@@ -12,7 +12,7 @@
 	List<ScheduleVO> view = (List<ScheduleVO>)request.getAttribute("viewAll"); 
 	
 	if(userTidx == null){
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='request.getContextPath()/member/login';</script>");
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+request.getContextPath()+"'/member/login';</script>");
 	}
 %>
 <!DOCTYPE html>
