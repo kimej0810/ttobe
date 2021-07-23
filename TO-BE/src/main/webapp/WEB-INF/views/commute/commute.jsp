@@ -24,7 +24,7 @@
     	margin: 50px;
     }
 </style>
-<script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
+<script src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 <script>
 
 	function selectAllCommute(list){
@@ -60,7 +60,7 @@
 	}
 	
 	$(document).ready(function(){
-		//월별
+		
 		var date = new Date();
 		var viewYear = date.getFullYear();
 		var viewMonth = date.getMonth();
@@ -76,14 +76,13 @@
 			prevM = viewYear+"년&nbsp;"+(viewMonth+1)+"월";
 			$("#dateSpan").html(prevM);
 			
-			//var str = viewYear+"/"+("0"+(viewMonth+1)).slice(-2);
 			var str = viewYear+"-"+("0"+(viewMonth+1)).slice(-2);
 			var str2 = str.slice(2);
 			var tid = $("#t_id").val();
 			
 			$.ajax({
 				type: 'POST',
-				url: "/commute/commute2",
+				url: $("#domain").val()+"/commute/commute2",
 				data: {
 					"str":str2,
 					"t_id":tid
@@ -112,14 +111,13 @@
 			}
 			nextM = viewYear+"년&nbsp;"+(viewMonth+1)+"월";
 			$("#dateSpan").html(nextM);
-			//날짜
-			//var str = viewYear+"/"+("0"+(viewMonth+1)).slice(-2);
+			
 			var str = viewYear+"-"+("0"+(viewMonth+1)).slice(-2);
 			var str2 = str.slice(2);
 			var tid = $("#t_id").val();
 			$.ajax({
 				type: 'POST',
-				url: "/commute/commute2",
+				url: $("#domain").val()+"/commute/commute2",
 				data: {
 					"str":str2,
 					"t_id":tid
@@ -143,8 +141,9 @@
 </script>
 </head>
 <body> 
+<input type="hidden" value="${pageContext.request.contextPath}" id="domain">
 	<div>
-		<button type="button" class="btn btn-outline-secondary" onclick="location.href='/commute/commute?t_id=${member.t_id}'">근태현황</button>
+		<button type="button" class="btn btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/commute/commute?t_id=${member.t_id}'">근태현황</button>
 	</div>
 	<div style="text-align:center;" id="btnWrap1">
 		<button type="button" id="prevMonth" class="btn btn-outline-primary btn-sm">&lt;</button>

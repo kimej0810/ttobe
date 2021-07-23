@@ -39,7 +39,7 @@
 </style>
 </head>
 <body>	
-	<form action="/member/findPwd" method="POST">
+	<form action="${pageContext.request.contextPath}/member/findPwd" method="POST">
 		<div id="title">비밀번호 찾기</div>
 		<div class="inputWrap">
 			<label for="t_id">ID</label>

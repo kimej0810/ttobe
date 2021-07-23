@@ -22,7 +22,7 @@
 		border: 1px solid lightgray;
 	}
 </style>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	function findZipcode() {
@@ -36,20 +36,19 @@
                 } else {
                     addr = data.jibunAddress;
                 }
-				// $("[name=addr1]").val(data.zonecode);
                 document.getElementById('t_addr_zipcode').value = data.zonecode;
                 document.getElementById("t_addr_general").value = addr;
-                document.getElementById("t_addr_detail").focus();
-                
+                document.getElementById("t_addr_detail").focus();  
             }
         }).open();
     }
 	
+	var domain = $("#domain").val();
 	function modifyMember(){
 		
 		var result = confirm("정보를 수정하시겠습니까?");
 		if(result){
-			frm.action = "/member/modifyMember";
+			frm.action = $("#domain").val()+"/member/modifyMember";
 			frm.method = "POST";
 			frm.submit();	
 		}else{
@@ -73,46 +72,12 @@
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
-	//////////////////////////////////////////////////////////////
-	 /*$(document).ready(function() {
-        $('#first').click(function() {
-            $("#div1").attr('style', 'display:block;');
-            $("#div2").attr('style', 'display:none;');
-        });
-        $('#second').click(function() {
-            $("#div2").attr('style', 'display:block;');
-            $("#div1").attr('style', 'display:none;');
-        });
-
-    });
-	
-		function modifyPwd(){
-	
-		var ex = document.getElementById("newPwd").value;
-		
-		if(frm1.t_pwd.value != ex){
-			alert("비밀번호 확인이 다릅니다.");
-			frm1.newPwd.focus();
-			return;
-		}
-		var result = confirm("비밀번호를 변경하시겠습니까?");
-		if(result){
-			frm1.action = "/member/modifyPwdAction";
-			frm1.method = "POST";
-			frm1.submit();
-			//frm.target = "_self";
-			//window.open("about:blank","_self").close();
-
-		} else{
-			self.close();
-		} 
-	}*/
-	
 </script>
 </head>
 <body>
-	<button type="button" class="btn btn-outline-secondary" onclick="location.href='/member/mypage?tidx=${member.tidx}'">사원정보변경</button>
-	<button type="button" class="btn btn-outline-secondary" onclick="location.href='/member/modifyPwd?t_id=${member.t_id}'">비밀번호변경</button>
+	<input type="hidden" value="${pageContext.request.contextPath}" id="domain">
+	<button type="button" class="btn btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/member/mypage?tidx=${member.tidx}'">사원정보변경</button>
+	<button type="button" class="btn btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/member/modifyPwd?t_id=${member.t_id}'">비밀번호변경</button>
 	<form name="frm" enctype="multipart/form-data">
 		<table class="table">
 			<tbody>
@@ -168,7 +133,7 @@
 		</table>
 		<div class="btnwrap">
 			<button type="button" onclick="modifyMember();" class="btn btn-outline-primary btn-sm">수정</button>
-			<button type="button" onclick="location.href='/main/mainPage'" class="btn btn-outline-danger btn-sm">취소</button>
+			<button type="button" onclick="location.href='${pageContext.request.contextPath}/main/mainPage'" class="btn btn-outline-danger btn-sm">취소</button>
 		</div>
 	</form>
 </body>
