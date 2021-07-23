@@ -30,11 +30,11 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSession.selectOne(Namespace+".selectOneMemberIdx", tidx);
 	}
 	@Override
-	public List<MemberVO> searchMember(MemberVO vo) throws Exception {
+	public List<MemberDTO> searchMember(MemberVO vo) throws Exception {
 		return sqlSession.selectList(Namespace+".searchMember",vo);
 	}
 	@Override
-	public List<MemberVO> searchMember2(String t_name) throws Exception {
+	public List<MemberDTO> searchMember2(String t_name) throws Exception {
 		return sqlSession.selectList(Namespace+".searchMember2",t_name);
 	}
 	//로그인

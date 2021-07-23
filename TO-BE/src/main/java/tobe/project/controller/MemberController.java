@@ -87,13 +87,13 @@ public class MemberController {
 		String result2[] = name.split("=");
 		String name1 = result2[1];
 		if(department1.equals("all")) {
-			List<MemberVO> searchMember = service.searchMember2(name1);
+			List<MemberDTO> searchMember = service.searchMember2(name1);
 			model.addAttribute("searchMember",searchMember);
 			return searchMember;
 		}
 		vo.setT_department(department1);
 		vo.setT_name(name1);
-		List<MemberVO> searchMember = service.searchMember(vo);
+		List<MemberDTO> searchMember = service.searchMember(vo);
 		model.addAttribute("searchMember",searchMember);
 		return searchMember;
 	}

@@ -44,11 +44,11 @@ public class MemberServiceImpl implements MemberService{
 		return dao.selectOneMemberIdx(tidx);
 	}
 	@Override
-	public List<MemberVO> searchMember(MemberVO vo) throws Exception {
+	public List<MemberDTO> searchMember(MemberVO vo) throws Exception {
 		return dao.searchMember(vo);
 	}
 	@Override
-	public List<MemberVO> searchMember2(String t_name) throws Exception {
+	public List<MemberDTO> searchMember2(String t_name) throws Exception {
 		return dao.searchMember2(t_name);
 	}
 	//////////////////////////////////////////////////////////

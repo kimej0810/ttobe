@@ -11,8 +11,8 @@ public interface MemberDAO {
 	public List<MemberVO> selectAllMember() throws Exception;
 	public List<MemberDTO> searchDepartmentMember(String t_department) throws Exception;
 	public MemberDTO selectOneMemberIdx(int tidx) throws Exception;
-	public List<MemberVO> searchMember(MemberVO vo)throws Exception;
-	public List<MemberVO> searchMember2(String t_name)throws Exception;
+	public List<MemberDTO> searchMember(MemberVO vo)throws Exception;
+	public List<MemberDTO> searchMember2(String t_name)throws Exception;
 	//로그인
 	public MemberDTO login(LoginDTO dto) throws Exception;
 	//사원정보 수정

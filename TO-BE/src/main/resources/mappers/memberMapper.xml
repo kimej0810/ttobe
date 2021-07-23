@@ -15,15 +15,17 @@
  		FROM AFPS_MEMBER A LEFT JOIN FILE_INFO B ON A.TIDX = B.TIDX WHERE B.F_TYPE = 'profile' AND A.TIDX = #{tidx}
  		<!--AND B.F_TYPE = 'profile' -->
     </select>
-    <select id="searchMember" resultType="memberVO">
-    	SELECT * FROM AFPS_MEMBER WHERE DELYN = 'N'
-		AND T_DEPARTMENT = #{t_department} AND T_NAME LIKE CONCAT('%',#{t_name},'%')
+    <select id="searchMember" resultType="memberDTO">
+    	SELECT A.*,B.F_STORED_FILE_NAME,B.F_TYPE FROM AFPS_MEMBER A LEFT JOIN
+    	FILE_INFO B ON A.TIDX = B.TIDX WHERE A.DELYN = 'N' AND B.F_TYPE = 'profile'
+		AND A.T_DEPARTMENT = #{t_department} AND A.T_NAME LIKE CONCAT('%',#{t_name},'%')
     	ORDER BY TIDX DESC
     </select>
     <!-- 부서 전체 검색 -->
-    <select id="searchMember2" resultType="memberVO">
-    	SELECT * FROM AFPS_MEMBER WHERE DELYN = 'N'
-		AND T_NAME LIKE CONCAT('%',#{t_name},'%')
+    <select id="searchMember2" resultType="memberDTO">
+    	SELECT A.*,B.F_STORED_FILE_NAME,B.F_TYPE FROM AFPS_MEMBER A LEFT JOIN
+    	FILE_INFO B ON A.TIDX = B.TIDX WHERE A.DELYN = 'N' AND B.F_TYPE = 'profile'
+		AND A.T_NAME LIKE CONCAT('%',#{t_name},'%')
     	ORDER BY TIDX DESC
     </select>
  	<!-- 비밀번호 변경 -->

@@ -15,9 +15,9 @@ public interface MemberService {
 	public List<MemberVO> selectAllMember() throws Exception;
 	public List<MemberDTO> searchDepartmentMember(@Param(value="t_department")String t_department) throws Exception;
 	public MemberDTO selectOneMemberIdx(@Param(value="tidx")int tidx) throws Exception;
-	public List<MemberVO> searchMember(MemberVO vo)throws Exception;
+	public List<MemberDTO> searchMember(MemberVO vo)throws Exception;
 	//부서전체 검색
-	public List<MemberVO> searchMember2(String t_name)throws Exception;
+	public List<MemberDTO> searchMember2(String t_name)throws Exception;
 	//로그인
 	public MemberDTO login(LoginDTO dto) throws Exception;
 	//이메일 전송

@@ -240,17 +240,18 @@ button:disabled {
 			%>
 		</div>
 	</div>
+	<input type="hidden" value="${pageContext.request.contextPath}" id="domain">
 	<script>
 		function modifyBtn(){
 			alert("수정하기 페이지로 이동합니다.");
 			var bidx = $("#bidx").val();
-			opener.parent.location.href="/board/modify?bidx="+bidx;
+			opener.parent.location.href=$("#domain").val()+"/board/modify?bidx="+bidx;
 			window.close();
 		}
 		function deleteBtn(){
 			if(confirm("해당 글을 삭제하시겠습니까?")){
 				var bidx = $("#bidx").val();
-				self.location.href="/board/delete?bidx="+bidx;
+				self.location.href=$("#domain").val()+"/board/delete?bidx="+bidx;
 				opener.parent.location.reload();
 				alert("삭제되었습니다.");
 				window.close();
@@ -343,7 +344,7 @@ button:disabled {
 
 					$.ajax({
 						type : "post",
-						url : "/reply/write",
+						url : $("#domain").val()+"/reply/write",
 						data : form,
 						dataType : "json",
 						error : function(request, status, error) {
@@ -366,7 +367,7 @@ button:disabled {
 
 					$.ajax({
 						type : "post",
-						url : "/reply/delete",
+						url : $("#domain").val()+"/reply/delete",
 						data : {
 							"ridx" : $(this).next('#ridx').val(),
 							"bidx" : $("#bidx").val()
@@ -405,7 +406,7 @@ button:disabled {
 
 					$.ajax({
 						type : "post",
-						url : "/reply/modify",
+						url : $("#domain").val()+"/reply/modify",
 						data : {
 							"r_content" : modifyVal,
 							"ridx" : ridx,
@@ -428,7 +429,7 @@ button:disabled {
 						"click",
 						function() {
 
-							location.href = "/board/list?page=${scri.page}"
+							location.href = $("#domain").val()+"/board/list?page=${scri.page}"
 									+ "&perPageNum=${scri.perPageNum}"
 									+ "&searchType=${scri.searchType}&keyword=${scri.keyword}";
 						})
@@ -437,7 +438,7 @@ button:disabled {
 		function fn_fileDown(fidx) {
 			var formObj = $("form[name='readForm']");
 			$('#FIDX').attr("value", fidx);
-			formObj.attr("action", "/board/fileDown");
+			formObj.attr("action", $("#domain").val()+"/board/fileDown");
 			formObj.submit();
 		}
 
