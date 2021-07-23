@@ -51,7 +51,7 @@ public class MemberServiceImpl implements MemberService{
 	public List<MemberDTO> searchMember2(String t_name) throws Exception {
 		return dao.searchMember2(t_name);
 	}
-	//////////////////////////////////////////////////////////
+	
 	//로그인
 	@Override
 	public MemberDTO login(LoginDTO dto) throws Exception {
@@ -121,11 +121,13 @@ public class MemberServiceImpl implements MemberService{
 			
 			String repwd = pwdEncoder.encode(pwd);
 			vo.setT_pwd(repwd);
-			dao.modifyPwd(vo); sendEmail(vo,"findPwd",pwd);
-			out.print("이메일로 임시 비밀번호를 발송하였습니다."); out.close();
+			dao.modifyPwd(vo);
+			sendEmail(vo,"findPwd",pwd);
+			out.print("이메일로 임시 비밀번호를 발송하였습니다."); 
+			out.close();
 		}
 	}
-	//사원정보 조회?
+	//사원정보 조회
 	@Override
 	public MemberDTO selectOneMember(String t_id) throws Exception {
 		return dao.selectOneMemberId(t_id);
