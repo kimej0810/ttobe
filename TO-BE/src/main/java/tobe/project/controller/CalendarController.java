@@ -40,7 +40,7 @@ public class CalendarController {
 		
 		PageMaker pageMaker = new PageMaker();
 		List<ScheduleVO> schedule = service.showSchedule();
-		List<LeaveDTO> leave = myservice.selectAllLeave2();
+		List<LeaveDTO> leave = myservice.selectAllLeave2(); 
 		
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(service.countSchedule(scri));
