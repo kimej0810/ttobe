@@ -58,8 +58,9 @@
 	String userId = (String) session.getAttribute("userId");
 	String userName = (String) session.getAttribute("userName");
 	String userGrade = (String) session.getAttribute("userGrade");
+	String domain = request.getContextPath();
 	if (session.getAttribute("userTidx") == null) {
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='${pageContext.request.contextPath}/member/login';</script>");
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+domain+"/member/login';</script>");
 	}
 	%>
 	<!-- Modal -->
