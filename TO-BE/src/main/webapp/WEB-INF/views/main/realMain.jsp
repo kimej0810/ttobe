@@ -114,7 +114,7 @@ p {
 	grid-column: 2/3;
 }
 
-@media ( max-width :950px) {
+@media only screen and ( max-width :950px) {
 	.content {
 		margin: 20px;
 		height: calc(100vh - 58px);
@@ -151,26 +151,6 @@ p {
 	}
 }
 
-@media ( max-width :520px) {
-	.content {
-		margin: 0;
-		height: calc(100vh - 58px);
-		display: grid;
-		grid-column-gap: 0px;
-		grid-row-gap: 15px;
-		grid-template-columns: 1fr;
-		grid-template-rows: repeat(5, max-content);
-	}
-	.conTitle {
-		font-size: 1.2rem;
-	}
-	.conCon {
-		font-size: 0.6rem;
-	}
-	#box5 {
-		padding-bottom: 20px;
-	}
-}
 </style>
 </head>
 <body>
@@ -278,12 +258,12 @@ p {
 				<tr>
 					<td colspan="7" style="text-align: center;"><img
 						style="width: 10px; float: left; cursor: pointer;"
-						src="/resources/static/img/prev.png"
+						src="<c:url value="/resources/static/img/prev.png"/>"
 						onclick="location.href='?year=<%=year%>&month=<%=month - 1%>'">
 						<span style="font-size: 0.7rem;"><%=year%></span> <span
 						style="font-size: 1.5rem;"><%=month%></span> <img
 						style="width: 10px; float: right; cursor: pointer;"
-						src="/resources/static/img/next.png"
+						src="<c:url value="/resources/static/img/next.png"/>"
 						onclick="location.href='?year=<%=year%>&month=<%=month + 1%>'">
 					</td>
 				</tr>
@@ -421,10 +401,10 @@ p {
 		<div class="conCon" style="display: flex; align-items: center;">
 			<div id="sayingWrap">
 				<img class="quote" style="margin-right: 7px;"
-					src="/resources/static/img/left-quote.png">
+				src="<c:url value="/resources/static/img/left-quote.png"/>">
 				<%=message%>
 				<img class="quote" style="margin-left: 7px;"
-					src="/resources/static/img/right-quote.png">
+				src="<c:url value="/resources/static/img/right-quote.png"/>">
 				<p id="speaker" style="text-align: right; margin-top: 15px;">
 					<%=author%>
 				</p>

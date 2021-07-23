@@ -111,7 +111,7 @@
 		    	</li>
 		    </c:forEach>
 		    <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-		    	<li class="page-item">zz
+		    	<li class="page-item">
 			      <a class="page-link" href="list${pageMaker.makeSearch(pageMaker.endPage + 1)}" aria-label="Next">
 			        <span aria-hidden="true">&raquo;</span>
 			        <span class="sr-only"></span>

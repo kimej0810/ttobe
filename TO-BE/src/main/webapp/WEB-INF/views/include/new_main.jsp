@@ -66,7 +66,8 @@
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar">
 			<div class="sidebar-content-wrappper">
-				<img id="sideImg" src="/resources/static/img/sideImg.png"
+				<img id="sideImg" 
+					src="<c:url value="/resources/static/img/sideImg.png"/>"
 					style="width: 215px;">
 				<ul class="sidebar-menu">
 					<li class="sidebar-menu-item"
@@ -113,10 +114,11 @@
 		<div class="main">
 			<nav class="navbar">
 				<div class="navbar-wrapper">
-					<img src="/resources/static/img/toggle.png"
+					<img
+						src="<c:url value="/resources/static/img/toggle.png"/>"
 						class="navbar-toggle sidebar-collapse"> 
 					<img
-						src="/resources/static/img/realLogo.png"
+						src="<c:url value="/resources/static/img/realLogo.png"/>"
 						onclick="location.href='/main/mainPage'"
 						style="width: 90px; grid-column: 2/3; text-align: center; margin: auto; cursor: pointer;">
 					<div>
