@@ -263,7 +263,7 @@ function leaveBtn(){
 									<button type="button" class="btn btn-primary btn-sm" onclick="leaveBtn()">연차 신청</button>
 								</c:if>
 								<c:if test="${member.t_leave_get <= 0 }">
-									<span>사용가능한 연차가 없습니다.</span>
+									<button type="button" class="btn btn-primary btn-sm" style="cursor: no-drop;">잔여연차없음</button>
 								</c:if>
 							</div>
 						</c:if>

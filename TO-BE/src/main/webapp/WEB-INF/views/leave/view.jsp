@@ -367,13 +367,6 @@
 	<script>
 	function ok(){
 		var eidx = $("#eidx").val();
-		/* var result = confirm("승인 처리 하시겠습니까?");
-		if(result){
-			location.href="/approval/documentOk?eidx="+eidx;
-			alert("승인처리 되었습니다.");
-			opener.parent.location.reload();
-			window.close();
-		}  */
 		Swal.fire({
 			title:"결재 승인",
 			text:"승인 처리 하시겠습니까?",
@@ -383,10 +376,15 @@
 			cancelButtonText:"취소"
 		}).then(result => {
 			if(result.isConfirmed){
-				Swal.fire("결재 승인","승인되었습니다.","success")
-				.then(result => {
-					opener.parent.location.reload();
-					window.close();	
+				$.ajax({
+					url:"/approval/documentOk?eidx="+eidx,
+					dataType:"json",
+					success:function(e){
+						Swal.fire("결재 승인","승인되었습니다.","success").then(result => {
+							opener.parent.location.reload();
+							window.close();
+						});
+					}
 				});
 			}
 		});
@@ -418,6 +416,9 @@
 		});
 		$(document).on("click",".noBack",function(){
 			$("#noNO").css("display","none");
+		});
+		$(document).on("click","#yesBtn",function(){
+			$("#noCheck").css("display","none");
 		});
 		$(document).on("click","#delBtn",function(){
 			if($("#e_status").val()=="결재대기" || $("#e_status").val()=="결재반려"){

@@ -25,10 +25,8 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 	<script src="<c:url value="/resources/static/schedule/js/jquery.datetimepicker.full.min.js"/>"></script>
 	<link rel="stylesheet" href="<c:url value="/resources/static/schedule/css/jquery.datetimepicker.css"/>"/>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	<style>
-/* 		html{
-			min-width:650px;
-		} */
 		body{
 			background-color: lightgray;
 		}
@@ -195,7 +193,7 @@
 			}
 			$("#a_type").val($("#e_type").val());
 			$("#a_startdate").val($("#startD").val());
-			var result = $("form[name=frm]").serialize();
+			var formData = $("form[name=frm]").serialize();
 			var url1 = "/leave/modifyAction";
 			var url2 = "/leave/reModifyAction";
 			var resultUrl = "";
@@ -204,15 +202,26 @@
 			}else{
 				resultUrl = url1;
 			}
-			$.ajax({
-				url: resultUrl,
-				data:result,
-				type:"POST",
-				dataType: "json",
-				success:function(e){
-					alert("수정이 완료되었습니다.");
-					opener.parent.location.reload();
-					window.close();
+			Swal.fire({
+				title:"결재수정",
+				text:"위 내용으로 수정하시겠습니까?",
+				showCancelButton:true,
+				confirmButtonText:"확인",
+				cancelButtonText:"취소"
+			}).then(result => {
+				if(result.isConfirmed){
+					$.ajax({
+						url: resultUrl,
+						data:formData,
+						type:"POST",
+						dataType: "json",
+						success:function(e){
+							Swal.fire("결재수정","결재가 수정되었습니다.","success").then(result => {
+								opener.parent.location.reload();
+								window.close();	
+							});
+						}
+					});		
 				}
 			});
 		});
