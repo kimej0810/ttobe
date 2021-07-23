@@ -82,7 +82,7 @@ public class CalendarController {
 	@ResponseBody
 	@RequestMapping(value = "/addSchedule", method = RequestMethod.POST) 
 	public ScheduleVO addSchedule(@RequestBody ScheduleVO vo) throws Exception{
-		 service.addSchedule(vo);
+		service.addSchedule(vo);
 		return vo;
 	}
 	

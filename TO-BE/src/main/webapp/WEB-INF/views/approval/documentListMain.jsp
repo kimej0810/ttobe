@@ -20,6 +20,12 @@
 		<meta charset="UTF-8">
 		<title>모든 결재문서 리스트</title>
 		<link href="<c:url value="/resources/static/form/css/documentListMain.css"/>" rel='stylesheet'/>
+		<style type="text/css">
+		.pagination{
+			position: relative;
+    		bottom: 90px;
+		}
+		</style>
 	</head>
 	<body>
 		<div id="approvalContent">
@@ -117,15 +123,16 @@
 					<table class="table table-hover" id="board">
 						<thead>
 							<tr>
-								<th width="100px">문서번호</th>
-								<th width="100px">기안 유형</th>
-								<th width="100px">기안 부서</th>
-								<th width="100px">기안자</th> 
-								<th>제목</th>
-								<th width="150px">반려자</th>
-								<th width="300px">반려사유</th>
-								<th width="150px">기안 일시</th>
-								<th width="70px">상태</th>
+								<th scope="col" width="5%">문서번호</th>
+								<th scope="col" width="5%">기안 유형</th>
+								<th scope="col" width="5%">기안 부서</th>
+								<th scope="col" width="5%">기안자</th> 
+								<th scope="col" width="20%">제목</th>
+								<th scope="col" width="5%">기안 일자</th>
+								<th scope="col" width="8%">시행 일자</th>
+								<th scope="col" width="8%">종료 일자</th>
+								<th scope="col" width="5%">반려자</th>
+								<th scope="col" width="5%">상태</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -152,8 +159,8 @@
 											<a href="<%=request.getContextPath()%>/approval/documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">
 												<c:set var="content" value="${elist.e_textTitle}"/>
 												<c:choose>
-													<c:when test="${fn:length(elist.e_textTitle) > 50}">
-														<c:out value="${fn:substring(content,0,50)}"/>...
+													<c:when test="${fn:length(elist.e_textTitle) > 40}">
+														<c:out value="${fn:substring(content,0,40)}"/>...
 													</c:when>
 													<c:otherwise>
 														<c:out value="${elist.e_textTitle}"/>
@@ -174,25 +181,17 @@
 										</c:otherwise> 
 									</c:choose>
 								</td>
+								<td>${elist.e_draftDate }</td>
+								<td>${elist.e_startDay }</td>
+								<td>${elist.e_endDay }</td>
 								<c:choose>
 									<c:when test="${scri.searchWord eq '결재반려' || elist.status eq '3333'}">	
 										<td>${elist.e_approvalNoPerson}</td>
-										<c:set var="content" value="${elist.e_reason}"/>
-										<c:choose>
-											<c:when test="${fn:length(elist.e_reason) > 10}">
-												<td><c:out value="${fn:substring(content,0,10)}"/>...</td>
-											</c:when>
-											<c:otherwise>
-												<td><c:out value="${elist.e_reason}"/></td>	
-											</c:otherwise>
-										</c:choose>
 									</c:when>
 									<c:otherwise>
 										<td></td>
-										<td></td>
 									</c:otherwise>
 								</c:choose>
-								<td>${elist.e_draftDate }</td>
 								<td>${elist.e_status }</td>
 								</tr>
 							</c:forEach>
@@ -203,7 +202,9 @@
 							<button type="button" id="writeBtn" class="btn btn-primary btn-sm float-right" onclick="documentWite()">기안 작성</button>
 						</div>
 					</c:if>
-					
+					</div>
+					</form>
+						</div>
 					<div id="paging">
 						<nav aria-label="Page navigation example" id="paging">
 							<ul class="pagination">
@@ -231,8 +232,6 @@
 							</ul>
 			 			</nav>
 					</div>
-				</div>
-			</form>
-		</div>
+	
 	</body>
 </html>

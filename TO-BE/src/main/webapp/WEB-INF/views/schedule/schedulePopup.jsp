@@ -25,6 +25,7 @@
 		<link href="<c:url value="/resources/static/schedule/css/schedulePopup.css"/>" rel='stylesheet' />
 	</head>
 	<body>
+		<input type="hidden" value="${pageContext.request.contextPath}" id="projectName">
 		<div class="group" id="popupGroup">
 			<div class="group-head">
 				<h1 class="zTree-h1">일정 추가</h1>

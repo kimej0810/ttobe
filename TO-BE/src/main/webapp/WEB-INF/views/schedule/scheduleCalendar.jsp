@@ -28,7 +28,7 @@
 				var calendarEl = document.getElementById('calendar');
 			
 			    var calendar = new FullCalendar.Calendar(calendarEl, {
-			    	contentHeight: 785,
+			    	contentHeight: 750,
 			    	contentWidth:1500,
 					customButtons: {
 						myCustomButton: {

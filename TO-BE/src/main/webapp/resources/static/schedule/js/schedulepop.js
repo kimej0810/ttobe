@@ -77,7 +77,7 @@ function click_ok(){
 	if(result){
 		$.ajax({
 			data : scheduleData,
-			url : getContextPath()+"/addSchedule",
+			url : $("#projectName").val()+"/schedule/addSchedule",
 			type : "POST",
 			dataType : "json",
 			contentType : "application/json; charset=UTF-8",

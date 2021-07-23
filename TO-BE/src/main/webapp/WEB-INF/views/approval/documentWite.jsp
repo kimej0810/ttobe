@@ -33,6 +33,7 @@
 	</head>
 	<body>
 		<form id="documentWiteData" name="documentWiteData" method="POST">
+			<input type="hidden" value="${pageContext.request.contextPath}" id="projectName">
 			<input type="hidden" name="tidx" id="tidx" value="<%=userTidx%>">
 			<input type="hidden" name="t_position" id="t_position" value="<%=userPosition %>">
 			<div id="documentWrite">

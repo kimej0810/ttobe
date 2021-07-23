@@ -88,7 +88,7 @@ function click_ok(){
 		if(result.isConfirmed){
 			$.ajax({
 				data: draftLetterData,
-				url: getContextPath()+"/addDocumentWite",
+				url: $("#projectName").val()+"/approval/addDocumentWite",
 				type:'POST',
 				dataType:'JSON',
 				contentType : "application/json; charset=UTF-8",

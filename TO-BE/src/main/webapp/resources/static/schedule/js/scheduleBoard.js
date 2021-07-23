@@ -3,7 +3,7 @@ function getContextPath(){
 	return location.href.substring(hostIndex, location.href.indexOf('/', hostIndex + 1));
 }
 function scheduleAddPopup(){
-	var url = getContextPath()+"/schedulePopup";
+	var url = $("#projectName").val()+"/schedule/schedulePopup";
 	var name = "schedulePopup";
 	var option = "width = 600, height = 830 left = 100, top=50,location=no";
 	window.open(url,name,option)
@@ -11,7 +11,7 @@ function scheduleAddPopup(){
 $(function(){
 	$(document).on("click","#searchBtn",function() {
 		$.ajax({
-			url: getContextPath()+"/searchSchedule",
+			url: $("#projectName").val()+"/schedule/searchSchedule",
 			data: {
 				searchType : $("#searchType").val(),
 				keyword : $("#keyword").val()
@@ -23,7 +23,7 @@ $(function(){
 				for(var i=0; i < svo.length; i++){
 					schedule += "<tr><td scope='row'>"+svo[i].s_type+"</td>";
 					schedule += "<td class='control-label scheduletitle'><input type='hidden' value='"+svo[i].sidx+"'>";
-					schedule += "<a id='aBtn' href='#' title='scheduleContents?sidx="+svo[i].sidx+"&tidx="+svo[i].tidx+"'>"; 
+					schedule += "<a id='aBtn' href='#' title='"+$("#projectName").val()+"'/schedule/scheduleContents?sidx="+svo[i].sidx+"&tidx="+svo[i].tidx+"'>"; 
 					if(svo[i].s_title.length > 10){
 						schedule += svo[i].s_title.substring(0,10)+"</a></td>";
 					}else{
@@ -36,7 +36,7 @@ $(function(){
 						schedule += "<td class='scheduleDate'>"+svo[i].s_startDate+"</td><td class='scheduleDate'>"+svo[i].s_endDate+"</td>";
 					}
 					
-					schedule += "<td class='scheduleContents'><a id='aBtn' href='#' title='scheduleContents?sidx="+svo[i].sidx+"&tidx="+svo[i].tidx+"'>";
+					schedule += "<td class='scheduleContents'><a id='aBtn' href='#' title='"+$("#projectName").val()+"'/schedule/scheduleContents?sidx="+svo[i].sidx+"&tidx="+svo[i].tidx+"'>";
 					if(svo[i].s_content.length > 50){
 						schedule += svo[i].s_content.substring(0,50)+"</a></td><td>"+svo[i].memberVO.t_name+"</td></tr>";
 					}else{
@@ -48,12 +48,12 @@ $(function(){
 		});
 	});
 	$(document).on("click","#aBtn",function(){
-		var url = getContextPath()+$(this).attr("title");
+		var url = $(this).attr("title");
 		var name = "_blank";
 		var option =  "width=600, height=800";
 		window.open(url,name,option);
 	});
 	$('#calendarButton').on("click",function(){
-		location.href = getContextPath()+"/scheduleCalendar";
+		location.href = $("#projectName").val()+"/schedule/scheduleCalendar";
 	});
 });

@@ -18,6 +18,8 @@
 	<resultMap type="memberVO" id="MemberResultMap">
 	    <id column="TIDX" property="tidx"/>
 	    <result column="T_NAME" property="t_name"/>
+	    <result column="T_DEPARTMENT" property="t_department"/>
+	    <result column="T_POSITION" property="t_position"/>
 	</resultMap>
 	
 	<!-- 캘린더 맵퍼 -->
@@ -81,11 +83,11 @@
  	<!-- 페이징 처리 게시글 조회 -->
  	<select id="selectSchedule" resultMap="ScheduleResultMap" parameterType="tobe.project.domain.SearchCriteria">
  		select  
- 			@rownum:=@rownum+1 rnum, SIDX, S_TYPE, S_TITLE, S_STARTDATE, S_ENDDATE, S_CONTENT, DELYN, TIDX, T_NAME, T_ID
+ 			@rownum:=@rownum+1 rnum, SIDX, S_TYPE, S_TITLE, S_STARTDATE, S_ENDDATE, S_CONTENT, DELYN, TIDX, T_NAME, T_ID, T_DEPARTMENT, T_POSITION
  				from (
- 					select  (SELECT @ROWNUM := 0) R, A.*, B.T_NAME, T_ID
+ 					select  (SELECT @ROWNUM := 1) R, A.*, B.T_NAME, T_ID, T_DEPARTMENT, T_POSITION
  					FROM SCHEDULE_MANAGEMENT A left join AFPS_MEMBER B on A.TIDX = B.TIDX WHERE 1=1 <include refid="search"/> 
- 						and A.DELYN = 'N')a WHERE DELYN ='N' and sidx LIMIT #{rowStart}, #{rowEnd}
+ 						and A.DELYN = 'N' ORDER BY A.SIDX desc)a WHERE DELYN ='N' and sidx LIMIT #{pageStart}, #{perPageNum}
  	</select>
  	
  	

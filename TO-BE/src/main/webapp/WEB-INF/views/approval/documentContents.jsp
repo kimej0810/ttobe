@@ -422,15 +422,15 @@
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
 					<%}else if(userTidx != mo.getTidx() && userPosition.equals("팀장") && userId.equals(to.getTeamLeader()) && to.getStatus().equals("3000")){ %>
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">승인</button>
-						<button type="button" class="btn btn-outline-danger btn-sm" onclick="no()">반려</button>
+						<button type="button" class="btn btn-outline-danger btn-sm" id="no">반려</button>
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
 					<%}else if(userTidx != mo.getTidx() && userPosition.equals("과장") && userId.equals(to.getSectionHead()) && to.getStatus().equals("0300")){ %>
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">승인</button>
-						<button type="button" class="btn btn-outline-danger btn-sm" onclick="no()">반려</button>
+						<button type="button" class="btn btn-outline-danger btn-sm" id="no">반려</button>
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
 					<%}else if(userTidx != mo.getTidx() && userPosition.equals("부장") && userId.equals(to.getDepartmentHead()) && to.getStatus().equals("0030")){ %>
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok()">승인</button>
-						<button type="button" class="btn btn-outline-danger btn-sm" onclick="no()">반려</button>
+						<button type="button" class="btn btn-outline-danger btn-sm" id="no">반려</button>
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="window.close();">닫기</button>
 					<%}else if(userTidx != mo.getTidx() && userPosition.equals("대표") && userId.equals(to.getLeader()) && to.getStatus().equals("0003")){ %>
 						<button type="button" class="btn btn-primary btn-sm float-right" onclick="ok2()">최종승인</button>

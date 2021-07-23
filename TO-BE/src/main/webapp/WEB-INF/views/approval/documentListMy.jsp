@@ -111,13 +111,13 @@
 					<table class="table table-hover" id="board">
 						<thead>
 							<tr>
-								<th width="100px">문서번호</th>
+								<th width="80px">문서번호</th>
 								<th width="100px">기안 유형</th>
 								<th width="100px">기안 부서</th>
 								<th width="100px">기안자</th>
-								<th>제목</th>
+								<th width="300px">제목</th>
 								<th width="150px">기안 일시</th>
-								<th width="70px">상태</th>
+								<th width="100px">상태</th>
 							</tr>
 						</thead>
 						<tbody>

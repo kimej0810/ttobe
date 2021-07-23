@@ -29,6 +29,7 @@
 				<div class="col-lg-12">
 					<section class="panel">
 			        	<form role="form" method="get">
+			        	<input type="hidden" value="${pageContext.request.contextPath}" id="projectName">
 			        	<input type="hidden" id="userId" name="userId" value="<%=userId%>">
 			        	<div class="category">
 			        		<button id="allSchedule" class="btn btn-outline-secondary" type="button">전체 일정보기</button>
@@ -65,34 +66,26 @@
 				          		<table class="table table-hover" id="board">
 				          			<thead>
 				          			<tr>
-				          				<th width="50px">유형</th>
-				          				<th width="80px">제목</th>
-				          				<th width="60px">시작일시</th>
-				          				<th width="60px">종료일시</th>
-				          				<th width="150px">내용</th>
-				          				<th width="50px">사원이름</th>
+				          				<th scope="col" width="5%">일정 번호</th>
+				          				<th scope="col" width="5%">일정 유형</th>
+				          				<th scope="col" width="12%">시작 일시</th>
+				          				<th scope="col" width="12%">종료 일시</th>
+				          				<th scope="col" width="15%">일정 제목</th>
+				          				<th scope="col" width="15%">일정 내용</th>
+				          				<th scope="col" width="5%">사원 이름</th>
+				          				<th scope="col" width="5%">부서</th>
+				          				<th scope="col" width="5%">직급</th>
 				          			</tr> 
 				          			</thead>
 				          			<tbody id="scheduleDataTbody">
 					          			<c:forEach items="${viewAll}" var="viewAll">
 											<tr>
+												<td>
+						              				${viewAll.sidx }
+						              			</td>
 												<td scope="row">
 						              				${viewAll.s_type}
 						              			</td>
-						              			<td class="control-label scheduletitle">
-													<input type="hidden" value="${viewAll.sidx}">
-													<a id="scheduleLink" href="<%=request.getContextPath()%>/schedule/scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=830'); return false;">
-														<c:set var="content" value="${viewAll.s_title}"/>
-														<c:choose>
-															<c:when test="${fn:length(viewAll.s_title) > 10}">
-																<c:out value="${fn:substring(content,0,10)}"/>...
-															</c:when>
-															<c:otherwise>
-																<c:out value="${viewAll.s_title}"/>
-															</c:otherwise> 
-														</c:choose>
-													</a>
-												</td>
 												<c:choose>
 													<c:when test="${viewAll.s_startDate eq viewAll.s_endDate}">
 														<td class="scheduleDate">
@@ -109,14 +102,41 @@
 														</td>
 													</c:otherwise>
 												</c:choose>
+												<td class="control-label scheduletitle">
+													<input type="hidden" value="${viewAll.sidx}">
+													<a id="scheduleLink" href="<%=request.getContextPath()%>/schedule/scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=830'); return false;">
+														<c:set var="content" value="${viewAll.s_title}"/>
+														<c:choose>
+															<c:when test="${fn:length(viewAll.s_title) > 25}">
+																<c:out value="${fn:substring(content,0,25)}"/>...
+															</c:when>
+															<c:otherwise>
+																<c:out value="${viewAll.s_title}"/>
+															</c:otherwise> 
+														</c:choose>
+													</a>
+												</td>
 												<td class="scheduleContents">
 													<a id="scheduleLink" href="<%=request.getContextPath()%>/schedule/scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=830'); return false;">
 														<c:set var="content" value="${viewAll.s_content}"/>
-														${fn:substring(content,0,50)}
+														<c:choose>
+															<c:when test="${fn:length(viewAll.s_content) > 25}">
+																<c:out value="${fn:substring(content,0,25)}"/>...
+															</c:when>
+															<c:otherwise>
+																<c:out value="${viewAll.s_content}"/>
+															</c:otherwise> 
+														</c:choose>
 													</a>
 												</td>
 						              			<td>
 						             				${viewAll.memberVO.t_name}
+						              			</td>
+						              			<td>
+						              				${viewAll.memberVO.t_department}
+						              			</td>
+						              			<td>
+						              				${viewAll.memberVO.t_position}
 						              			</td>
 											</tr>
 										</c:forEach>
