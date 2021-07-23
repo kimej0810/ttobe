@@ -27,8 +27,14 @@
 				disabledWeekDays :[0, 6],
 				onChangeDateTime:function(){
 					startD = $("#startD").val();
-					/*$("#a_useddays").val("");*/
-					if($("#endD").val()!=null){
+					var nowTime = new Date();
+					if(startD!=null){
+						if(nowTime > new Date(startD)){
+							alert("시작일 선택이 잘못되었습니다.");
+							$("#startD").val("");
+							return;
+						}
+					}else if($("#endD").val()!=null){
 						var sTime = new Date(startD);
 						var eTime = new Date(endD);
 						var resultD = eTime - sTime;

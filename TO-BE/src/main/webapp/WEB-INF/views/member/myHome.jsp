@@ -25,6 +25,12 @@ function leaveBtn(){
 	var option = "width = 770, height = 700 left = 100, top=50,location=no";
 	window.open(url,name,option)
 }
+function documentWite(){ //기안서 팝업창
+	var url = "/approval/documentWite";
+	var name = "documentWite";
+	var option = "width = 770, height = 915 left = 100, top=50,location=no";
+	window.open(url,name,option)
+}
 </script>
 <style>
 	#container1,#container2,#container3,#container4{
@@ -248,21 +254,29 @@ function leaveBtn(){
 						</table>
 						<c:if test="${fn:length(myLeave) > 6}">
 							<div style="text-align:right;">
-							<input type="button" class="btn btn-primary btn-sm" onclick="location.href='/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'"value="더보기">
+							<input type="button" class="btn btn-primary btn-sm" onclick="location.href='/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'" value="더보기">
 							<c:if test="${member.t_leave_get > 0 }">
+								<button type="button" class="btn btn-primary btn-sm" onclick="location.href='/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'">나의 결재</button>
+								<button type="button" class="btn btn-primary btn-sm" onclick="documentWite()">결재 기안</button>
 								<button type="button" class="btn btn-primary btn-sm" onclick="leaveBtn()">연차 신청</button>
 							</c:if>
 							<c:if test="${member.t_leave_get <= 0 }">
-								<span>사용가능한 연차가 없습니다.</span>
+								<button type="button" class="btn btn-primary btn-sm" onclick="location.href='/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'">나의 결재</button>
+								<button type="button" class="btn btn-primary btn-sm" onclick="leaveBtn()">결재 기안</button>
+								<button type="button" class="btn btn-primary btn-sm" style="cursor: no-drop;">잔여연차없음</button>
 							</c:if>
 						</div>
 						</c:if>
 						<c:if test="${fn:length(myLeave) < 6}">
 							<div style="text-align:right;">
 								<c:if test="${member.t_leave_get > 0 }">
+									<button type="button" class="btn btn-primary btn-sm" onclick="location.href='/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'">나의 결재</button>
+									<button type="button" class="btn btn-primary btn-sm" onclick="documentWite()">결재 기안</button>
 									<button type="button" class="btn btn-primary btn-sm" onclick="leaveBtn()">연차 신청</button>
 								</c:if>
 								<c:if test="${member.t_leave_get <= 0 }">
+									<button type="button" class="btn btn-primary btn-sm" onclick="location.href='/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'">나의 결재</button>
+									<button type="button" class="btn btn-primary btn-sm" onclick="documentWite()">결재 기안</button>
 									<button type="button" class="btn btn-primary btn-sm" style="cursor: no-drop;">잔여연차없음</button>
 								</c:if>
 							</div>
