@@ -108,10 +108,12 @@ public class MemberServiceImpl implements MemberService{
 		PrintWriter out = response.getWriter();
 		MemberDTO mvo = dao.selectOneMemberId(vo.getT_id());
 		if(dao.checkId(vo.getT_id()) == 0){
-			out.print("등록되지 않은 아이디 입니다.");
+			out.print("<script>alert('등록되지 않은 아이디입니다.');</script>");
+			out.print("<script>window.close();</script>");
 			out.close();
 		} else if(!vo.getT_email().equals(mvo.getT_email())) {
-			out.print("등록되지 않은 이메일입니다.");
+			out.print("<script>alert('등록되지 않은 이메일입니다.');</script>");
+			out.print("<script>window.close();</script>");
 			out.close(); 
 		}else {
 			String pwd = ""; 
