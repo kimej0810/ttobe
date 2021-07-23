@@ -76,6 +76,7 @@
 			}
 		</style>
 		<script type="text/javascript">
+			//반려된 문서일시 반려사유 로드
 			$(window).on('load',function(){
 				if(<%=contents.getStatus().equals("3333")%>){
 		        	$('#myModalNoinfo').modal('show');
@@ -119,7 +120,54 @@
 					});
 				}
 			});
-			
+			//일반 승인
+			function ok(){
+				Swal.fire({
+					title:"결재 승인",
+					text:"결재 승인 하시겠습니까?",
+					icon:"question",
+					showCancelButton:true,
+					confirmButtonText:"확인",
+					cancelButtonText:"취소"
+				}).then(result => {
+					if(result.isConfirmed){
+						$.ajax({
+							url:"/approval/documentOk?eidx="+"<%=contents.getEidx()%>",
+							dataType:'json',
+							success:function(){
+								Swal.fire("결재 승인","승인 처리되었습니다.","success").then(result => {
+									opener.parent.location.reload();
+									window.close();	
+								});
+							}
+						})
+					}
+				});
+			}
+			//대표 승인
+			function ok2(){
+				Swal.fire({
+					title:"최종 승인",
+					text:"최종 승인 하시겠습니까?",
+					icon:"question",
+					showCancelButton:true,
+					confirmButtonText:"확인",
+					cancelButtonText:"취소"
+				}).then(result => {
+					if(result.isConfirmed){
+						$.ajax({
+							url:"/approval/documentOk?eidx="+"<%=contents.getEidx()%>",
+							dataType:'json',
+							success:function(){
+								Swal.fire("결재 승인","최종 승인 처리되었습니다.","success").then(result => {
+									opener.parent.location.reload();
+									window.close();	
+								});
+							}
+						})
+					}
+				});
+			}
 			//수정페이지 이동
 			function click_modify(){
 				Swal.fire({
@@ -134,6 +182,21 @@
 						self.location.href="documentModify?eidx="+"<%=contents.getEidx()%>&tidx=<%=contents.getTidx()%>";
 					}
 				})
+			}
+			//반려문서 재기안
+			function approvalAgain(){
+				Swal.fire({
+					title:"재기안 페이지 이동",
+					text:"재기안 하시겠습니까?",
+					icon:"question",
+					showCancelButton:true,
+					confirmButtonText:"확인",
+					cancelButtonText:"취소"
+				}).then(result => {
+					if(result.isConfirmed){
+						self.location.href="documentApprovalAgain?eidx="+"<%=contents.getEidx()%>&tidx=<%=contents.getTidx()%>";
+					}
+				});
 			}
 			//결재문서 삭제
 			function click_delete(){
@@ -153,52 +216,6 @@
 						});
 					}
 				})
-			}
-			//일반 승인
-			function ok(){
-				Swal.fire({
-					title:"결재 승인",
-					text:"결재를 승인 하시겠습니까?",
-					icon:"question",
-					showCancelButton:true,
-					confirmButtonText:"확인",
-					cancelButtonText:"취소"
-				}).then(result => {
-					if(result.isConfirmed){
-						Swal.fire("결재 승인","승인 처리되었습니다.","success").then(result => {
-							location.href="/approval/documentOk?eidx="+"<%=contents.getEidx()%>";
-							opener.parent.location.reload();
-							window.close();	
-						});
-					}
-				})
-			}
-			//대표 승인
-			function ok2(){
-				Swal.fire({
-					title:"최종 승인",
-					text:"최종 승인 하시겠습니까?",
-					icon:"question",
-					showCancelButton:true,
-					confirmButtonText:"확인",
-					cancelButtonText:"취소"
-				}).then(result => {
-					if(result.isConfirmed){
-						Swal.fire("최종 승인","최종승인 처리되었습니다.","success").then(result => {
-							self.location.href="/approval/documentOk?eidx="+"<%=contents.getEidx()%>";
-							opener.parent.location.reload();
-							window.close();	
-						});
-					}
-				})
-			}
-			
-			function approvalAgain(){
-				var result = confirm("재기안 하시겠습니까?");
-				if(result){
-					alert("기안서 작성페이지로 이동합니다");
-					location.href="documentApprovalAgain?eidx="+"<%=contents.getEidx()%>&tidx=<%=contents.getTidx()%>";
-				}
 			}
 		</script>
 	</head>

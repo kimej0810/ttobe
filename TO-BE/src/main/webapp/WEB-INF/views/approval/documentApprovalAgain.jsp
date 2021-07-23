@@ -56,7 +56,33 @@
 					return false;
 				}
 				
-				var draftLetterData = JSON.stringify($('form#draftLetterData').serializeObject());
+				Swal.fire({
+					title:"재기안 페이지 이동",
+					text:"재기안 하시겠습니까?",
+					icon:"question",
+					showCancelButton:true,
+					confirmButtonText:"확인",
+					cancelButtonText:"취소"
+				}).then(result => {
+					var draftLetterData = JSON.stringify($('form#draftLetterData').serializeObject());
+					if(result.isConfirmed){
+						$.ajax({
+							type:'POST',
+							url:"/approval/documentApprovalAgainOk",
+							dataType:'JSON',
+							data: draftLetterData,
+							contentType : "application/json; charset=UTF-8",
+							success: function(data){
+								Swal.fire("재기안 완료","재기안이 완료되었습니다.","success").then(result => {
+									opener.parent.location.reload();
+									window.close();	
+								});
+							}
+						});
+					}
+				});
+				
+				/* var draftLetterData = JSON.stringify($('form#draftLetterData').serializeObject());
 				var result = confirm("재기안 하시겠습니까?");
 				if(result){
 					$.ajax({
@@ -71,7 +97,7 @@
 							window.close();
 						}
 					});
-				}
+				} */
 			};
 		</script>
 	</head>

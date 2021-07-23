@@ -175,7 +175,10 @@
 						<%if(userPosition.equals("팀장")){%>
 							<button type="button" class="btn btn-primary btn-sm float-right" id="myMust" onclick="self.location='documentListMy${paging.makeQuery(1)}&searchWord=<%=userPosition %>&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재대기문서</button>
 							<button type="button" id="writeBtn" class="btn btn-primary btn-sm float-right" onclick="documentWite()">기안 작성</button>
-						<%}else{%>
+						<%}else if(userPosition.equals("대표") || userPosition.equals("admin")){%>
+							<button type="button" class="btn btn-primary btn-sm float-right" id="myMust" onclick="self.location='documentListMy${paging.makeQuery(1)}&searchWord=<%=userPosition %>&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재대기문서</button>
+							<button type="button" class="btn btn-primary btn-sm float-right" id="myToDo" onclick="self.location='documentListMy${paging.makeQuery(1)}&searchWord=<%=userPosition %>예정&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재예정문서</button>
+						<%}else{ %>
 							<button type="button" class="btn btn-primary btn-sm float-right" id="myMust" onclick="self.location='documentListMy${paging.makeQuery(1)}&searchWord=<%=userPosition %>&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재대기문서</button>
 							<button type="button" class="btn btn-primary btn-sm float-right" id="myToDo" onclick="self.location='documentListMy${paging.makeQuery(1)}&searchWord=<%=userPosition %>예정&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재예정문서</button>
 							<button type="button" id="writeBtn" class="btn btn-primary btn-sm float-right" onclick="documentWite()">기안 작성</button>
