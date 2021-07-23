@@ -15,7 +15,7 @@
 			out.println("<script>alert('아이디와 비밀번호가 일치하지않습니다.');history.back();</script>");
 		}
 	}else{
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='/member/login';</script>");
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='${pageContext.request.contextPath}/member/login';</script>");
 	}
 	%>
 </body>

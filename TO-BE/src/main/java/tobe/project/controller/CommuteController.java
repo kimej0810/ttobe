@@ -46,11 +46,11 @@ public class CommuteController {
 		boolean test = service.addStartWork(tidx);
 		if(test) {
 			out.println("<script>alert('이미 출근 처리되었습니다.');</script>");
-			out.println("<script>window.location.href='/main/mainPage';</script>");
+			out.println("<script>window.location.href='${pageContext.request.contextPath}/main/mainPage';</script>");
 			out.close();
 		}else {
 			out.println("<script>alert('출근 처리되었습니다.');</script>");
-			out.println("<script>window.location.href='/main/mainPage';</script>");
+			out.println("<script>window.location.href='${pageContext.request.contextPath}/main/mainPage';</script>");
 			out.close();
 		}
 		return "redirect:/main/mainPage";
@@ -70,11 +70,11 @@ public class CommuteController {
 		boolean test = service.addEndWork(tidx); 
 		if(test) {
 			out.println("<script>alert('이미 퇴근 처리되었습니다.');</script>");
-			out.println("<script>window.location.href='/main/mainPage';</script>");
+			out.println("<script>window.location.href='${pageContext.request.contextPath}/main/mainPage';</script>");
 			out.close();
 		}else {
 			out.println("<script>alert('퇴근 처리되었습니다.');</script>");
-			out.println("<script>window.location.href='/main/mainPage';</script>");
+			out.println("<script>window.location.href='${pageContext.request.contextPath}/main/mainPage';</script>");
 			out.close();
 		}
 		return "redirect:/main/mainPage";
