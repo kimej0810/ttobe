@@ -53,7 +53,7 @@ public class ApprovalController {
 	private ScheduleService sservice;
 	
 	@RequestMapping(value = "/documentListMain")
-	public String documentMain(Model model, @ModelAttribute("scri")SearchCriteria scri, HttpServletRequest request, String t_id) throws Exception{
+	public String documentMain(Model model, @ModelAttribute("scri")SearchCriteria scri, String t_id) throws Exception{
 		System.out.println("ApprovalController");
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
@@ -67,10 +67,10 @@ public class ApprovalController {
 		model.addAttribute("co",service.totalCountComplete());
 		model.addAttribute("no",service.totalCountNo());
 		
-		return request.getContextPath()+"/approval/documentListMain";
+		return "/approval/documentListMain";
 	}
 	@RequestMapping(value = "/documentListMy")
-	public String documentListMy(Model model,@ModelAttribute("scri")SearchCriteria scri, HttpServletRequest request, String t_id) throws Exception {
+	public String documentListMy(Model model,@ModelAttribute("scri")SearchCriteria scri, String t_id) throws Exception {
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(service.totalCountApprovalDocument(scri));
@@ -82,15 +82,14 @@ public class ApprovalController {
 		model.addAttribute("pr",service.totalCountProgress());
 		model.addAttribute("co",service.totalCountComplete());
 		model.addAttribute("no",service.totalCountNo());
-		return request.getContextPath()+"/approval/documentListMy";
+		return "/approval/documentListMy";
 	}
 	
 	@RequestMapping(value = "/documentWite")
-	public String documentWite(Model model,Locale locale, HttpServletRequest request) throws Exception {
+	public String documentWite(Model model,Locale locale) throws Exception {
 		List<MemberVO> vo = aservice.selectAllMember();
 		model.addAttribute("allMember",vo);
-		
-		return request.getContextPath()+"/approval/documentWite";
+		return "/approval/documentWite";
 	} 
 	
 	@ResponseBody

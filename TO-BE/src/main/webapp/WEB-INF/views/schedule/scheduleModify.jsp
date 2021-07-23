@@ -100,14 +100,14 @@
 						<h3 class="zTree-h3">일정 유형</h3>
 					</div>
 					<div  class="domain"> 
-						<select class="s_type form-control" id="s_type" name="s_type" value="<%=vo.getS_type()%>">
+						<select class="s_type form-control" id="s_type" name="s_type">
 							<option value="회사일정">회사일정</option>
 							<option value="중요일정">중요일정</option>
 							<option value="개인">개인용무</option>
 							<option value="외근">외근</option>
 							<option value="출장">출장</option>
 						</select>
-						<div><img src="/resources/static/img/scheduleLogo.png"></div>
+						<div><img src="<c:url value="/resources/static/img/scheduleLogo.png"/>"></div>
 					</div>
 					<div class="domainTitle">
 						<h3 class="zTree-h3">시작 날짜</h3>

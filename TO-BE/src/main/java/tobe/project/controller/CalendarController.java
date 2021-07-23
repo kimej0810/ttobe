@@ -52,7 +52,7 @@ public class CalendarController {
 		return request.getContextPath()+"/schedule/scheduleCalendar";
 	}
 	@RequestMapping(value = "/scheduleBoard")
-	public String scheduleBoard(Model model, @ModelAttribute("scri")SearchCriteria scri, HttpServletRequest request) throws Exception{
+	public String scheduleBoard(Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception{
 		PageMaker pageMaker = new PageMaker();
 		
 		pageMaker.setCri(scri);
@@ -61,7 +61,7 @@ public class CalendarController {
 		model.addAttribute("viewAll",service.selectSchedule(scri));	
 		model.addAttribute("paging",pageMaker);
 		model.addAttribute("scri",scri);
-		return request.getContextPath()+"/schedule/scheduleBoard";
+		return "/schedule/scheduleBoard";
 	}
 	@ResponseBody
 	@RequestMapping(value = "/searchSchedule")
@@ -75,8 +75,8 @@ public class CalendarController {
 		return svo;
 	}
 	@RequestMapping(value = "/schedulePopup")
-	public String schedulePopup(HttpServletRequest request) throws Exception {
-		return request.getContextPath()+"/schedule/schedulePopup";
+	public String schedulePopup() throws Exception {
+		return "/schedule/schedulePopup";
 	}
 	
 	@ResponseBody
