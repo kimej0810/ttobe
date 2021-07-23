@@ -257,7 +257,7 @@ p {
 				System.out.println("~~~~~~~~~~~구분선~~~~~~~~~~~~`");
 				%>
 				<tr>
-					<td colspan="7" style="text-align: center;"><img
+					<td colspan="7" style="text-align: center;"><img 
 						style="width: 10px; float: left; cursor: pointer;"
 						src="<c:url value="/resources/static/img/prev.png"/>"
 						onclick="location.href='?year=<%=year%>&month=<%=month - 1%>'">
