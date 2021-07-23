@@ -120,7 +120,7 @@
 						class="navbar-toggle sidebar-collapse"> 
 					<img
 						src="<c:url value="/resources/static/img/realLogo.png"/>"
-						onclick="location.href='/main/mainPage'"
+						onclick="location.href='${pageContext.request.contextPath}/main/mainPage'"
 						style="width: 90px; grid-column: 2/3; text-align: center; margin: auto; cursor: pointer;">
 					<div>
 						<c:set var="profile" value="<%=userProfile %>"/>
