@@ -107,8 +107,8 @@
 													<a id="scheduleLink" href="<%=request.getContextPath()%>/schedule/scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=830'); return false;">
 														<c:set var="content" value="${viewAll.s_title}"/>
 														<c:choose>
-															<c:when test="${fn:length(viewAll.s_title) > 25}">
-																<c:out value="${fn:substring(content,0,25)}"/>...
+															<c:when test="${fn:length(viewAll.s_title) > 20}">
+																<c:out value="${fn:substring(content,0,20)}"/>...
 															</c:when>
 															<c:otherwise>
 																<c:out value="${viewAll.s_title}"/>
@@ -120,8 +120,8 @@
 													<a id="scheduleLink" href="<%=request.getContextPath()%>/schedule/scheduleContents?sidx=${viewAll.sidx}&tidx=${viewAll.tidx}" onclick="window.open(this.href, '_blank', 'width=600, height=830'); return false;">
 														<c:set var="content" value="${viewAll.s_content}"/>
 														<c:choose>
-															<c:when test="${fn:length(viewAll.s_content) > 25}">
-																<c:out value="${fn:substring(content,0,25)}"/>...
+															<c:when test="${fn:length(viewAll.s_content) > 20}">
+																<c:out value="${fn:substring(content,0,20)}"/>...
 															</c:when>
 															<c:otherwise>
 																<c:out value="${viewAll.s_content}"/>
@@ -147,7 +147,7 @@
 								</div>
 							</div>					
 						</form>
-					</section>
+					
 					<!-- 페이징처리 -->
 					<nav aria-label="Page navigation example" id="paging">
 						<ul class="pagination">
@@ -174,8 +174,7 @@
 							</c:if> 
 						</ul>
 		 			</nav>
-					<div id="paging">
-					</div>
+		 			</section>
 				</div>
 			</div>
 		</div>

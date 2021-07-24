@@ -110,7 +110,8 @@
  	select count(eidx) as cnt from (
  				select A.*,B.T_NAME, B.T_ID, B.T_DEPARTMENT, B.T_POSITION, C.TEAMLEADER, C.SECTIONHEAD, C.DEPARTMENTHEAD, C.LEADER, C.STATUS
  					FROM ELECTRONIC_APPROVAL A left join AFPS_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX
- 					where 1=1 <include refid="searchWord"/><include refid="search"/>)a where eidx > 0 and delyn = 'N' 
+ 					where 1=1  <include refid="searchWord"/> <include refid="search"/>
+ 							)a where eidx > 0 and delyn = 'N' 
  	</select>
  	
  	<!-- 페이징 -->
@@ -119,9 +120,9 @@
  		 	 EIDX, E_TYPE, E_DRAFTDATE, E_STARTDAY, E_ENDDAY, E_CON, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, E_APPROVALNOYN, E_APPROVALNOPERSON, E_REASON, TIDX, T_NAME, T_ID, T_DEPARTMENT, T_POSITION,
  		 	TEAMLEADER, SECTIONHEAD, DEPARTMENTHEAD, LEADER, STATUS, DELYN
  				from (
- 					select A.*, B.T_NAME, B.T_ID, B.T_DEPARTMENT, B.T_POSITION, C.TEAMLEADER, C.SECTIONHEAD, C.DEPARTMENTHEAD, C.LEADER, C.STATUS,(SELECT @ROWNUM := 0) R
+ 					select A.*, B.T_NAME, B.T_ID, B.T_DEPARTMENT, B.T_POSITION, C.TEAMLEADER, C.SECTIONHEAD, C.DEPARTMENTHEAD, C.LEADER, C.STATUS,(SELECT @ROWNUM := 1) R
  					FROM ELECTRONIC_APPROVAL A left join AFPS_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX
- 						WHERE 1=1 <include refid="searchWord"/> <include refid="search"/>and A.DELYN = 'N'
+ 						WHERE 1=1 <include refid="searchWord"/> <include refid="search"/>
  						ORDER BY A.EIDX desc)a WHERE delyn ='N' and EIDX LIMIT #{pageStart},#{perPageNum}
  	</select>
  	<!-- 페이징 end -->
@@ -139,19 +140,14 @@
 		</if>
 	</sql> 
 	<sql id="searchWord">
-		<if test="searchWord != null">
-			<if test="searchWord == '팀장'.toString()">AND TEAMLEADER = #{userId} AND STATUS = '3000'</if>
-			<if test="searchWord == '과장'.toString()">AND SECTIONHEAD = #{userId} AND STATUS = '0300' </if>
-			<if test="searchWord == '과장예정'.toString()">AND SECTIONHEAD = #{userId} AND STATUS = '3000'</if>
-			<if test="searchWord == '부장'.toString()">AND DEPARTMENTHEAD = #{userId} AND STATUS = '0030'</if>
-			<if test="searchWord == '부장예정'.toString()">AND DEPARTMENTHEAD = #{userId} AND (STATUS = '3000' or STATUS = '0300')</if>
-			<if test="searchWord == '대표'.toString()">AND LEADER = #{userId} AND STATUS = '0003'</if>
-			<if test="searchWord == '대표예정'.toString()">AND LEADER = #{userId} AND (STATUS = '3000' or STATUS = '0300' or STATUS = '0030')</if>
-			<if test="searchWord == '결재대기'.toString()">AND E_STATUS = '결재대기'</if>
-			<if test="searchWord == '결재진행'.toString()">AND E_STATUS = '결재진행'</if>
-			<if test="searchWord == '결재완료'.toString()">AND E_STATUS = '결재완료'</if>
-			<if test="searchWord == '결재반려'.toString()">AND E_STATUS = '결재반려'</if>
-			<if test="searchWord == '내가 쓴 결재문서'.toString()">AND T_ID = #{userId}</if>
-		</if>
+		<choose>
+			<when test="searchWord == null">
+				AND (TEAMLEADER = #{userId} and STATUS = '3000') or (SECTIONHEAD = #{userId} and STATUS = '0300') or (DEPARTMENTHEAD = #{userId} and STATUS = '0030') or (LEADER = #{userId} and STATUS = '0003') and A.DELYN = 'N'
+			</when>
+			<otherwise>
+				<if test="searchWord == '나의 결재문서'.toString()">AND T_ID = #{userId}</if>
+				<if test="searchWord == ''">AND (TEAMLEADER = #{userId} and STATUS = '3000') or (SECTIONHEAD = #{userId} and STATUS = '0300') or (DEPARTMENTHEAD = #{userId} and STATUS = '0030') or (LEADER = #{userId} and STATUS = '0003') and A.DELYN = 'N'</if>
+			</otherwise>
+		</choose>
 	</sql>
  </mapper>

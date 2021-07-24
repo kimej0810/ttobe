@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,12 +55,15 @@ public class ApprovalController {
 	private ScheduleService sservice;
 	
 	@RequestMapping(value = "/documentListMain")
-	public String documentMain(Model model, @ModelAttribute("scri")SearchCriteria scri, String t_id) throws Exception{
+	public String documentMain(Model model, @ModelAttribute("scri")SearchCriteria scri, HttpSession session) throws Exception{
 		System.out.println("ApprovalController");
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(service.totalCountApprovalDocument(scri));
-		
+		System.out.println("카운트"+pageMaker.getTotalCount());
+		System.out.println("키워드"+scri.getKeyword());
+		System.out.println("타입"+scri.getSearchType());
+		System.out.println("워드"+scri.getSearchWord());
 		model.addAttribute("paging",pageMaker);
 		model.addAttribute("elist", service.selectAllApprovalDocumentList(scri));
 		

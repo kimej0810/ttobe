@@ -20,30 +20,29 @@
 		<meta charset="UTF-8">
 		<title>모든 결재문서 리스트</title>
 		<link href="<c:url value="/resources/static/form/css/documentListMain.css"/>" rel='stylesheet'/>
-		<style type="text/css">
-		.pagination{
-			position: relative;
-    		bottom: 90px;
+		<script type="text/javascript">
+		function enterkey() {
+			if (window.event.keyCode == 13) {
+				self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() 
+				+ "&keyword=" + encodeURIComponent($('#keyword').val()) + "&userId=<%=userId%>";
+			} 
 		}
-		</style>
+
+			
+		</script>
 	</head>
 	<body>
 		<div id="approvalContent">
 			<form name="frm" id="frm" method="post">
 				<input type="hidden" id="userId" name="userId" value="<%=userId%>">
 				<div id="category">
-					<button type="button" class="btn btn-outline-secondary" id="waitingDocument">결재대기문서</button>
-					<button type="button" class="btn btn-outline-secondary" id="progressDocument">결재진행문서</button>
-					<button type="button" class="btn btn-outline-secondary" id="completedDocument">결재완료문서</button>
-					<button type="button" class="btn btn-outline-secondary" id="NoDocument">결재반려문서</button>
 					<%if(userPosition != null){ %>
-						<%if(userPosition.equals("팀장") || userPosition.equals("부장") || userPosition.equals("과장") || userPosition.equals("대표")){ %>
-							<button type="button" class="btn btn-outline-secondary" id="my" 
-							onclick="location.href='<%=request.getContextPath()%>/approval/documentListMy${paging.makeQuery(1)}&searchWord=<%=userPosition %>&userId=<%=userId%>&t_id=<%=userId%>'">나의 결재문서</button>
+							<%if(userPosition.equals("팀장") || userPosition.equals("부장") || userPosition.equals("과장") || userPosition.equals("대표")){ %>
+							<button type="button" class="btn btn-outline-secondary" id="my">결재 예정 문서</button>
 						<%}%>
 					<%}%>
 					<%if(userPosition != "대표" || userGrade != "A"){ %>
-						<button type="button" class="btn btn-outline-secondary" id="myWriteDocument">내가 쓴 결재문서</button>
+						<button type="button" class="btn btn-outline-secondary" id="myWriteDocument">나의 결재문서</button>
 					<%} %>
 				</div>
 				<div id="statusGroup">
@@ -83,7 +82,7 @@
 							<option value="기안내용"  <c:out value = "${scri.searchType eq '기안 내용' ? 'selected' : '' }"/>>기안 내용</option>
 							<option value="제목+내용" <c:out value = "${scri.searchType eq '제목+내용' ? 'selected' : '' }"/>>제목+내용</option>
 						</select>
-						<input type="text" id="keyword" class="form-control" name="keyword" value="${scri.keyword}" style="height:30px; width:40%; font-size:0.5rem;">
+						<input type="text" id="keyword" class="form-control" name="keyword" value="${scri.keyword}" style="height:30px; width:40%; font-size:0.5rem;" onkeyup="enterkey()">
 						<div class="input-group-prepend">
 							<button type="button" id="searchBtn" style="height:30px; font-size:0.5rem;" class="btn btn-outline-secondary">검색</button>
 						</div>
@@ -97,25 +96,11 @@
 						window.open(url,name,option)
 					}
 					$(function(){
-						$('#searchBtn').on("click",function(){
-							var check = $("#searchWord").val();
-							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=" + check + "&searchType=" + $("select option:selected").val() 
-							+ "&keyword=" + encodeURIComponent($('#keyword').val()) + "&t_id=<%=userId%>";
-						});
-						$('#waitingDocument').on("click",function(){
-							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재대기"+"&t_id=<%=userId%>";
-						});
-						$('#progressDocument').on("click",function(){
-							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재진행"+"&t_id=<%=userId%>";
-						});
-						$('#completedDocument').on("click",function(){
-							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재완료"+"&t_id=<%=userId%>";
-						});
-						$('#NoDocument').on("click",function(){
-							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재반려"+"&t_id=<%=userId%>";
+						$('#my').on("click",function(){
+							self.location = "<%=request.getContextPath()%>/approval/documentListMain?userId=<%=userId%>"; 
 						});
 						$('#myWriteDocument').on("click",function(){
-							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=내가 쓴 결재문서"+"&userId=<%=userId%>"+"&t_id=<%=userId%>";
+							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=나의 결재문서"+"&userId=<%=userId%>";
 						});
 					});
 				</script>
@@ -127,11 +112,8 @@
 								<th scope="col" width="5%">기안 유형</th>
 								<th scope="col" width="5%">기안 부서</th>
 								<th scope="col" width="5%">기안자</th> 
-								<th scope="col" width="20%">제목</th>
+								<th scope="col" width="50%">제목</th>
 								<th scope="col" width="5%">기안 일자</th>
-								<th scope="col" width="8%">시행 일자</th>
-								<th scope="col" width="8%">종료 일자</th>
-								<th scope="col" width="5%">반려자</th>
 								<th scope="col" width="5%">상태</th>
 							</tr>
 						</thead>
@@ -182,16 +164,6 @@
 									</c:choose>
 								</td>
 								<td>${elist.e_draftDate }</td>
-								<td>${elist.e_startDay }</td>
-								<td>${elist.e_endDay }</td>
-								<c:choose>
-									<c:when test="${scri.searchWord eq '결재반려' || elist.status eq '3333'}">	
-										<td>${elist.e_approvalNoPerson}</td>
-									</c:when>
-									<c:otherwise>
-										<td></td>
-									</c:otherwise>
-								</c:choose>
 								<td>${elist.e_status }</td>
 								</tr>
 							</c:forEach>
@@ -202,15 +174,12 @@
 							<button type="button" id="writeBtn" class="btn btn-primary btn-sm float-right" onclick="documentWite()">기안 작성</button>
 						</div>
 					</c:if>
-					</div>
-					</form>
-						</div>
 					<div id="paging">
 						<nav aria-label="Page navigation example" id="paging">
 							<ul class="pagination">
 								<c:if test="${paging.prev}">
 									<li class="page-item" style="color:black;">
-										<a class="page-link" href="<%=request.getContextPath()%>/approval/documentListMain${paging.makeSearch(pageMaker.startPage - 1)}&t_id=<%=userId%>" aria-label="Previous">
+										<a class="page-link" href="<%=request.getContextPath()%>/approval/documentListMain${paging.makeSearch(pageMaker.startPage - 1)}&userId=<%=userId%>" aria-label="Previous">
 										    <span aria-hidden="true">&laquo;</span>
 										    <span class="sr-only"></span>
 										</a>
@@ -218,12 +187,12 @@
 								</c:if> 
 								<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="idx">
 									<li class="page-item">
-										<a class="page-link" href="<%=request.getContextPath()%>/approval/documentListMain${paging.makeSearch(idx)}&t_id=<%=userId%>">${idx}</a>
+										<a class="page-link" href="<%=request.getContextPath()%>/approval/documentListMain${paging.makeSearch(idx)}&userId=<%=userId%>">${idx}</a>
 									</li>
 								</c:forEach>
 								<c:if test="${paging.next && paging.endPage > 0}">
 									<li class="page-item">
-										<a class="page-link" href="<%=request.getContextPath()%>/approval/documentListMain${paging.makeSearch(pageMaker.endPage + 1)}&t_id=<%=userId%>" aria-label="Next">
+										<a class="page-link" href="<%=request.getContextPath()%>/approval/documentListMain${paging.makeSearch(pageMaker.endPage + 1)}&userId=<%=userId%>" aria-label="Next">
 										    <span aria-hidden="true">&raquo;</span>
 										    <span class="sr-only"></span>
 										</a>
@@ -232,6 +201,8 @@
 							</ul>
 			 			</nav>
 					</div>
-	
+				</div>
+			</form>
+		</div>
 	</body>
 </html>
