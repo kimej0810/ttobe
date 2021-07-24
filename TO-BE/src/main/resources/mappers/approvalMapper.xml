@@ -142,11 +142,11 @@
 	<sql id="searchWord">
 		<choose>
 			<when test="searchWord == null">
-				AND (TEAMLEADER = #{userId} and STATUS = '3000') or (SECTIONHEAD = #{userId} and STATUS = '0300') or (DEPARTMENTHEAD = #{userId} and STATUS = '0030') or (LEADER = #{userId} and STATUS = '0003') and A.DELYN = 'N'
+				AND ((TEAMLEADER = #{userId} and STATUS = '3000') or (SECTIONHEAD = #{userId} and STATUS = '0300') or (DEPARTMENTHEAD = #{userId} and STATUS = '0030') or (LEADER = #{userId} and STATUS = '0003')) and A.DELYN = 'N'
 			</when>
 			<otherwise>
 				<if test="searchWord == '나의 결재문서'.toString()">AND T_ID = #{userId}</if>
-				<if test="searchWord == ''">AND (TEAMLEADER = #{userId} and STATUS = '3000') or (SECTIONHEAD = #{userId} and STATUS = '0300') or (DEPARTMENTHEAD = #{userId} and STATUS = '0030') or (LEADER = #{userId} and STATUS = '0003') and A.DELYN = 'N'</if>
+				<if test="searchWord == ''">AND ((TEAMLEADER = #{userId} and STATUS = '3000') or (SECTIONHEAD = #{userId} and STATUS = '0300') or (DEPARTMENTHEAD = #{userId} and STATUS = '0030') or (LEADER = #{userId} and STATUS = '0003')) and A.DELYN = 'N'</if>
 			</otherwise>
 		</choose>
 	</sql>

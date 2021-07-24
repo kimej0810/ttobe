@@ -50,3 +50,7 @@
 #myWriteDocument{
 	float: right;
 }
+#active a{
+	background-color: #0a58ca7d;
+	color:black;
+}

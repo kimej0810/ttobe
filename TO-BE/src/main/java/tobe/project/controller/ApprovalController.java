@@ -60,13 +60,13 @@ public class ApprovalController {
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(service.totalCountApprovalDocument(scri));
+		
+		model.addAttribute("paging",pageMaker);
+		model.addAttribute("elist", service.selectAllApprovalDocumentList(scri));
 		System.out.println("카운트"+pageMaker.getTotalCount());
 		System.out.println("키워드"+scri.getKeyword());
 		System.out.println("타입"+scri.getSearchType());
 		System.out.println("워드"+scri.getSearchWord());
-		model.addAttribute("paging",pageMaker);
-		model.addAttribute("elist", service.selectAllApprovalDocumentList(scri));
-		
 		model.addAttribute("wa",service.totalCountWaiting());
 		model.addAttribute("pr",service.totalCountProgress());
 		model.addAttribute("co",service.totalCountComplete());
@@ -74,22 +74,6 @@ public class ApprovalController {
 		
 		return "/approval/documentListMain";
 	}
-	@RequestMapping(value = "/documentListMy")
-	public String documentListMy(Model model,@ModelAttribute("scri")SearchCriteria scri, String t_id) throws Exception {
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(scri);
-		pageMaker.setTotalCount(service.totalCountApprovalDocument(scri));
-		
-		model.addAttribute("paging",pageMaker);
-		model.addAttribute("elist", service.selectAllApprovalDocumentList(scri));
-		
-		model.addAttribute("wa",service.totalCountWaiting());
-		model.addAttribute("pr",service.totalCountProgress());
-		model.addAttribute("co",service.totalCountComplete());
-		model.addAttribute("no",service.totalCountNo());
-		return "/approval/documentListMy";
-	}
-	
 	@RequestMapping(value = "/documentWite")
 	public String documentWite(Model model,Locale locale) throws Exception {
 		List<MemberVO> vo = aservice.selectAllMember();

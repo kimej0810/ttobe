@@ -20,16 +20,6 @@
 		<meta charset="UTF-8">
 		<title>모든 결재문서 리스트</title>
 		<link href="<c:url value="/resources/static/form/css/documentListMain.css"/>" rel='stylesheet'/>
-		<script type="text/javascript">
-		function enterkey() {
-			if (window.event.keyCode == 13) {
-				self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() 
-				+ "&keyword=" + encodeURIComponent($('#keyword').val()) + "&userId=<%=userId%>";
-			} 
-		}
-
-			
-		</script>
 	</head>
 	<body>
 		<div id="approvalContent">
@@ -89,6 +79,13 @@
 					</div>
 				</div>
 				<script type="text/javascript">
+					function enterkey() {
+						if (window.event.keyCode == 13) {
+								var check = $("#searchWord").val();
+								self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=" + check + "&searchType=" + $("select option:selected").val() 
+								+ "&keyword=" + encodeURIComponent($('#keyword').val()) + "&userId=<%=userId%>";
+						} 
+					}
 					function documentWite(){ //기안서 팝업창
 						var url = "<%=request.getContextPath()%>/approval/documentWite";
 						var name = "documentWite";
@@ -101,6 +98,15 @@
 						});
 						$('#myWriteDocument').on("click",function(){
 							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=나의 결재문서"+"&userId=<%=userId%>";
+						});
+						$("#keyword").attr("disabled",true);
+						$("#searchType").change(function(){
+							var selectOptionChk = $("select option:selected").val();
+							if(selectOptionChk != '전체보기'){
+								$("#keyword").attr("disabled",false);
+							}else{
+								$("#keyword").attr("disabled",true);
+							}
 						});
 					});
 				</script>
@@ -186,7 +192,7 @@
 									</li>
 								</c:if> 
 								<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="idx">
-									<li class="page-item">
+									<li class="page-item" <c:out value="${paging.cri.page == idx ? 'id=active' : ''}"/>>
 										<a class="page-link" href="<%=request.getContextPath()%>/approval/documentListMain${paging.makeSearch(idx)}&userId=<%=userId%>">${idx}</a>
 									</li>
 								</c:forEach>
