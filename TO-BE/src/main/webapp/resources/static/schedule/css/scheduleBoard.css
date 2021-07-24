@@ -1,6 +1,12 @@
 .content{
 	overflow: hidden;
 }
+#addScheduleBtn{
+	float: right;
+	width: 120px;
+    height: 35px;
+    margin-bottom: 10px;
+}
 #board{
 	text-align:center;
 }
@@ -38,9 +44,6 @@
 #calendarButton{
 				width: 120px;
 }
-#scheduleBtn{
-	text-align: right;
-}
 #aBtn{
 	text-decoration : none;
 	color:black;
@@ -60,5 +63,9 @@
 }
 #scheduleLink{
 	text-decoration:none;
+	color:black;
+}
+#active a{
+	background-color: #0a58ca7d;
 	color:black;
 }

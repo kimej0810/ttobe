@@ -35,11 +35,12 @@
 			        		<button id="allSchedule" class="btn btn-outline-secondary" type="button">전체 일정보기</button>
 			        		<button id="mySchedule" class="btn btn-outline-secondary" type="button">나의 일정보기</button>
 							<button id="calendarButton" class="btn btn-outline-secondary" type="button">캘린더형</button>
+							<button id="addScheduleBtn" class="btn btn-primary btn-sm float-right" onclick="scheduleAddPopup()" type="button"> 일정 추가</button>
 						</div>
 				        	<div class="search">
 					        	<div id="searchbox" class="input-group mb-3">
 									<select name="searchType"  class="form-control" id="searchType">
-										<option value="전체"<c:out value="${scri.searchType == null ? 'selected' : '' }"/>>-----</option>
+										<option value="전체"<c:out value="${scri.searchType == null ? 'selected' : '' }"/>>전체보기</option>
 						 				<option value="유형"<c:out value="${scri.searchType eq '유형' ? 'selected' : '' }"/>>유형</option>
 										<option value="제목"<c:out value="${scri.searchType eq '제목' ? 'selected' : '' }"/>>제목</option>
 										<option value="내용"<c:out value="${scri.searchType eq '내용' ? 'selected' : '' }"/>>내용</option>
@@ -59,6 +60,15 @@
 									});
 									$(document).on("click","#mySchedule",function(){
 										self.location = "<%=request.getContextPath()%>/schedule/scheduleBoard" + '${paging.makeQuery(1)}' + "&searchType=나의 일정보기" + "&userId=" + "<%=userId%>";
+									});
+									$("#keyword").attr("disabled",true);
+									$("#searchType").change(function(){
+										var selectOptionChk = $("select option:selected").val();
+										if(selectOptionChk != '전체'){
+											$("#keyword").attr("disabled",false);
+										}else{
+											$("#keyword").attr("disabled",true);
+										}
 									});
 								});
 							</script>
@@ -142,9 +152,6 @@
 										</c:forEach>
 									</tbody>
 								</table>
-								<div id="scheduleBtn">
-									<button type="button" class="btn btn-primary btn-sm float-right" onclick="scheduleAddPopup()"> 일정 추가</button>
-								</div>
 							</div>					
 						</form>
 					
@@ -160,7 +167,7 @@
 								</li>
 							</c:if> 
 							<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="idx">
-								<li class="page-item">
+								<li class="page-item" <c:out value="${paging.cri.page == idx ? 'id=active' : ''}"/>>
 									<a class="page-link" href="<%=request.getContextPath()%>/schedule/scheduleBoard${paging.makeSearch(idx)}&userId=<%=userId %>">${idx}</a>
 								</li>
 							</c:forEach>
