@@ -55,18 +55,31 @@ public class ApprovalController {
 	private ScheduleService sservice;
 	
 	@RequestMapping(value = "/documentListMain")
-	public String documentMain(Model model, @ModelAttribute("scri")SearchCriteria scri, HttpSession session) throws Exception{
+	public String documentMain(Model model, @ModelAttribute("scri")SearchCriteria scri,String userId) throws Exception{
 		System.out.println("ApprovalController");
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(scri);
-		pageMaker.setTotalCount(service.totalCountApprovalDocument(scri));
+		MemberVO Idvo = service.selectOneMemberId(userId);
+		if(Idvo.getT_position().equals("사원") || Idvo.getT_position().equals("대리")) {
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(scri);
+			pageMaker.setTotalCount(service.totalCountApprovalDocumentNormal(scri));
+			System.out.println("타입"+scri.getSearchType());
+			System.out.println("워드"+scri.getSearchWord());
+			System.out.println("키워드"+scri.getKeyword());
+			System.out.println("포지션"+Idvo.getT_position());
+			model.addAttribute("paging",pageMaker);
+			model.addAttribute("elist", service.selectAllApprovalDocumentListNormal(scri));
+		}else {
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(scri);
+			pageMaker.setTotalCount(service.totalCountApprovalDocument(scri));
+			System.out.println("타입"+scri.getSearchType());
+			System.out.println("워드"+scri.getSearchWord());
+			System.out.println("키워드"+scri.getKeyword());
+			System.out.println("포지션"+Idvo.getT_position());
+			model.addAttribute("paging",pageMaker);
+			model.addAttribute("elist", service.selectAllApprovalDocumentList(scri));
+		}
 		
-		model.addAttribute("paging",pageMaker);
-		model.addAttribute("elist", service.selectAllApprovalDocumentList(scri));
-		System.out.println("카운트"+pageMaker.getTotalCount());
-		System.out.println("키워드"+scri.getKeyword());
-		System.out.println("타입"+scri.getSearchType());
-		System.out.println("워드"+scri.getSearchWord());
 		model.addAttribute("wa",service.totalCountWaiting());
 		model.addAttribute("pr",service.totalCountProgress());
 		model.addAttribute("co",service.totalCountComplete());
@@ -89,7 +102,7 @@ public class ApprovalController {
 		System.out.println(dto.getT_position());
 		
 		
-		if(dto.getT_position().equals("사원")) { 
+		if(dto.getT_position().equals("사원") || dto.getT_position().equals("대리")) { 
 			dto.setE_status("결재대기"); 
 			dto.setStatus("3000");
 		}else if(dto.getT_position().equals("팀장")) {
@@ -176,7 +189,7 @@ public class ApprovalController {
 	@RequestMapping(value = "/documentNo")
 	public ApprovalDTO documentNo(Model model,ApprovalDTO dto) throws Exception{
  		service.selectOneApprovalDocumentContents(dto.getEidx());
-		dto.setE_approvalNoPerson(service.selectOneMember(dto.getTidx()).getT_name());
+		dto.setE_approvalNoPerson(service.selectOneMember(dto.getTidx()).getT_id());
 		lservice.modifyApprovalNo(dto.getEidx());
 		service.modifyApprovalStatusNo(dto);
 		return dto;

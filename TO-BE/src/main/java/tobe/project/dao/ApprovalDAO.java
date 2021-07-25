@@ -14,6 +14,7 @@ public interface ApprovalDAO {
 	public void deleteApprovalDocument(int eidx) throws Exception;
 	public void modifyApprovalDocument(ApprovalDTO dto) throws Exception;
 	public MemberVO selectOneMember(int tidx) throws Exception;
+	public MemberVO selectOneMemberId(String t_id) throws Exception;
 	
 	public void modifyApprovalStatusProgress(int eidx) throws Exception;
 	public int modifyApprovalStatusOk(int eidx) throws Exception;
@@ -22,6 +23,9 @@ public interface ApprovalDAO {
 	 
 	public List<ApprovalVO> selectAllApprovalDocumentList(SearchCriteria scri) throws Exception;
 	public int totalCountApprovalDocument(SearchCriteria scri) throws Exception;
+	
+	public List<ApprovalVO> selectAllApprovalDocumentListNormal(SearchCriteria scri) throws Exception;
+	public int totalCountApprovalDocumentNormal(SearchCriteria scri) throws Exception;
 
 	public int totalCountWaiting() throws Exception;
 	public int totalCountProgress()	throws Exception;

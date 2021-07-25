@@ -10,7 +10,7 @@
 	if(userTidx == null){ 
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+request.getContextPath()+"'/member/login';</script>");
 	}
-
+	
 	List<ApprovalVO> elist = (List<ApprovalVO>)request.getAttribute("elist"); 
 	PageMaker paging = (PageMaker)request.getAttribute("paging");
 %>
@@ -29,10 +29,13 @@
 					<%if(userPosition != null){ %>
 							<%if(userPosition.equals("팀장") || userPosition.equals("부장") || userPosition.equals("과장") || userPosition.equals("대표")){ %>
 							<button type="button" class="btn btn-outline-secondary" id="my">결재 예정 문서</button>
+							<button type="button" class="btn btn-outline-secondary" id="myDocumentNo">결재 반려 문서</button>
+							<button type="button" class="btn btn-outline-secondary" id="myDocumentComplete">결재 완료 문서</button>
 						<%}%>
 					<%}%>
 					<%if(userPosition != "대표" || userGrade != "A"){ %>
 						<button type="button" class="btn btn-outline-secondary" id="myWriteDocument">나의 결재문서</button>
+						<button type="button" id="writeBtn" class="btn btn-primary" onclick="documentWite()">결재 문서 작성</button>
 					<%} %>
 				</div>
 				<div id="statusGroup">
@@ -72,19 +75,17 @@
 							<option value="기안내용"  <c:out value = "${scri.searchType eq '기안 내용' ? 'selected' : '' }"/>>기안 내용</option>
 							<option value="제목+내용" <c:out value = "${scri.searchType eq '제목+내용' ? 'selected' : '' }"/>>제목+내용</option>
 						</select>
-						<input type="text" id="keyword" class="form-control" name="keyword" value="${scri.keyword}" style="height:30px; width:40%; font-size:0.5rem;" onkeyup="enterkey()">
+						<input type="text" id="keyword" class="form-control" name="keyword" value="${scri.keyword}" style="height:30px; width:40%; font-size:0.5rem;">
 						<div class="input-group-prepend">
-							<button type="button" id="searchBtn" style="height:30px; font-size:0.5rem;" class="btn btn-outline-secondary">검색</button>
+							<button type="button" id="searchBtn" style="height:30px; font-size:0.5rem;" class="btn btn-outline-secondary"  onclick="btnSearch()">검색</button>
 						</div>
 					</div>
 				</div>
 				<script type="text/javascript">
-					function enterkey() {
-						if (window.event.keyCode == 13) {
-								var check = $("#searchWord").val();
-								self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=" + check + "&searchType=" + $("select option:selected").val() 
-								+ "&keyword=" + encodeURIComponent($('#keyword').val()) + "&userId=<%=userId%>";
-						} 
+					function btnSearch(){
+						var check = $("#searchWord").val();
+						self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=" + check + "&searchType=" + $("select option:selected").val() 
+						+ "&keyword=" + encodeURIComponent($('#keyword').val()) + "&userId=<%=userId%>";
 					}
 					function documentWite(){ //기안서 팝업창
 						var url = "<%=request.getContextPath()%>/approval/documentWite";
@@ -96,16 +97,27 @@
 						$('#my').on("click",function(){
 							self.location = "<%=request.getContextPath()%>/approval/documentListMain?userId=<%=userId%>"; 
 						});
+						$('#myDocumentComplete').on("click",function(){
+							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재 완료 문서"+"&userId=<%=userId%>";
+						});
+						$('#myDocumentNo').on("click",function(){
+							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재 반려 문서"+"&userId=<%=userId%>";
+						});
 						$('#myWriteDocument').on("click",function(){
 							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=나의 결재문서"+"&userId=<%=userId%>";
 						});
-						$("#keyword").attr("disabled",true);
-						$("#searchType").change(function(){
+						$("#keyword").keydown(function(key) {
+						             if (key.keyCode == 13) {
+						             	event.preventDefault();
+						             }
+						         });
+						         $("#searchType").change(function(){
 							var selectOptionChk = $("select option:selected").val();
 							if(selectOptionChk != '전체보기'){
 								$("#keyword").attr("disabled",false);
 							}else{
 								$("#keyword").attr("disabled",true);
+								$("#keyword").attr("value","");
 							}
 						});
 					});
@@ -175,11 +187,6 @@
 							</c:forEach>
 						</tbody>
 					</table>
-					<c:if test="${userPosition != '대표' && userPosition != 'admin'}">
-						<div id="writeBtnBox">
-							<button type="button" id="writeBtn" class="btn btn-primary btn-sm float-right" onclick="documentWite()">기안 작성</button>
-						</div>
-					</c:if>
 					<div id="paging">
 						<nav aria-label="Page navigation example" id="paging">
 							<ul class="pagination">

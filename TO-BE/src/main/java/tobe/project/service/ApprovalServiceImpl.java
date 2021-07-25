@@ -38,6 +38,16 @@ public class ApprovalServiceImpl implements ApprovalService{
 	}
 	
 	@Override
+	public List<ApprovalVO> selectAllApprovalDocumentListNormal(SearchCriteria scri) throws Exception {
+		return dao.selectAllApprovalDocumentListNormal(scri);
+	}
+
+	@Override
+	public int totalCountApprovalDocumentNormal(SearchCriteria scri) throws Exception {
+		return dao.totalCountApprovalDocumentNormal(scri);
+	}
+	
+	@Override
 	public List<ApprovalVO> selectAllApprovalDocumentList(SearchCriteria scri) throws Exception {
 		return dao.selectAllApprovalDocumentList(scri);
 	}
@@ -50,7 +60,11 @@ public class ApprovalServiceImpl implements ApprovalService{
 	public MemberVO selectOneMember(int tidx) throws Exception {
 		return dao.selectOneMember(tidx);
 	}
-
+	@Override
+	public MemberVO selectOneMemberId(String t_id) throws Exception {
+		return dao.selectOneMemberId(t_id);
+	}
+	
 	@Override
 	public int totalCountWaiting() throws Exception {
 		return dao.totalCountWaiting();

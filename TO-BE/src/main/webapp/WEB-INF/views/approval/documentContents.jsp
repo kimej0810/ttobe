@@ -29,6 +29,8 @@
 	String lineSectionHead = "";
 	String lineDepartmentHead = "";
 	String lineLeader = "";
+	String approvalnoperson = "";
+	
 	for(int i = 0; i<vo.size(); i ++){
 		MemberVO name = (MemberVO)vo.get(i);
 		if(to.getTeamLeader().equals(name.getT_id()) || to.getTeamLeader().equals(name.getT_name())){
@@ -459,7 +461,15 @@
 						<table id="approvalNoboard">
 							<tr>
 								<th id="noth">반려자</th>
-								<td id="notd"><%=contents.getE_approvalNoPerson() %></td>
+								<td id="notd">
+									<c:forEach items="${vo}" var="vo">
+										<c:choose>
+											<c:when test="${vo.t_id == contents.e_approvalNoPerson }">
+												${vo.t_name}
+											</c:when>
+										</c:choose>
+									</c:forEach>
+								</td>
 							</tr>
 							<tr>
 								<th id="noth">반려사유</th>
