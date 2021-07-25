@@ -23,7 +23,7 @@
 	</head>
 	<body>
 		<div id="approvalContent">
-			<form name="frm" id="frm" method="post">
+			<form name="frm" id="frm" method="post"> 
 				<input type="hidden" id="userId" name="userId" value="<%=userId%>">
 				<div id="category">
 					<%if(userPosition != null){ %>
