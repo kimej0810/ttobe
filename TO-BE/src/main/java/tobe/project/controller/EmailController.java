@@ -33,7 +33,8 @@ public class EmailController{
 	private MemberService memberService;
 	
 	@RequestMapping(value = "/list")
-	public String list(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria, Model model) throws Exception {
+	public String list(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria, Model model,Locale locale) throws Exception {
+		logger.info("메일 리스트", locale);
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(searchCriteria);
 		pageMaker.setTotalCount(emailService.totalCountsearchEmail(searchCriteria));
@@ -43,6 +44,7 @@ public class EmailController{
 	}
 	@RequestMapping(value="/email")
 	public String adminEmail(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Integer tidx,Locale locale, Model model) throws Exception{
+		logger.info("메일작성페이지", locale);
 		if(tidx!=null) {
 			MemberVO vo = service.selectOneMember(tidx);
 			model.addAttribute("member",vo);
@@ -56,6 +58,7 @@ public class EmailController{
 	}
 	@RequestMapping(value="/emailAction")
 	public String adminEmailAction(Locale locale, Model model,EmailDTO evo) {
+		logger.info("메일전송처리", locale);
 		try {
 			if(evo.getTidx()==0) {
 				int tidx = emailService.searchMember(evo);
@@ -76,6 +79,7 @@ public class EmailController{
 	}
 	@RequestMapping(value="/read")
 	public String emailRead(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Locale locale, Model model,EmailDTO dto) throws Exception {
+		logger.info("메일 읽기", locale);
 		EmailDTO evo = emailService.selectOneEmail(dto);
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(searchCriteria);
@@ -87,7 +91,8 @@ public class EmailController{
 	}
 	@RequestMapping(value="/delete")
 	@ResponseBody
-	public int emailDelete(@RequestParam(value="eidxList")String eidxList) throws Exception {
+	public int emailDelete(@RequestParam(value="eidxList")String eidxList,Locale locale) throws Exception {
+		logger.info("메일 삭제", locale);
 		String[] eidx = eidxList.split(",");
 		if(eidx.length>0) {
 			for(int i=0;i<eidx.length;i++) {
@@ -100,6 +105,7 @@ public class EmailController{
 	}
 	@RequestMapping(value="/memberList")
 	public String memberList(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Locale locale, Model model) throws Exception{
+		logger.info("사원 리스트", locale);
 		List<MemberDTO> selectAllMember = memberService.selectAllMember2();
 		model.addAttribute("selectAllMember",selectAllMember);
 		PageMaker pageMaker = new PageMaker();

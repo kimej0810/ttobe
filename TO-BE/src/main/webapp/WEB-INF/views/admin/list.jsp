@@ -34,6 +34,9 @@
 				
 			}
 		});
+		$(document).on("click","#active",function(e){
+			e.preventDefault();
+		});
 	});
 </script>
 <style>
@@ -56,6 +59,7 @@
 	#active a{
     	background-color: #0a58ca7d;
     	color:black;
+    	cursor: context-menu;
     }
     .pageDiv a{
     	color:#0a58ca;
@@ -135,7 +139,7 @@
 						</tr>
 					</c:if>
 					<c:if test="${member.delyn eq 'Y' }">
-						<tr class="saoneGo" id="byeMember">
+						<tr class="saoneGo" id="byeMember" style="cursor: context-menu;">
 							<td>${member.t_name}</td>
 							<td>${member.t_department}</td>
 							<td>${member.t_position}</td>
@@ -148,18 +152,18 @@
 							<td class="delyn">퇴사</td>
 						</tr>
 					</c:if>
+					<c:if test="${member.delyn eq 'N' }">
 					<tr>
 						<td colspan="9" style="padding:0;text-align:center;">
 							<div class="saoneGoTag">
 								<button type="button" class="saoneBtn btn btn-outline-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/admin/info${pageMaker.makeSearch(pageMaker.cri.page)}&tidx=${member.tidx}'">정보보기</button>
 								<button type="button" class="saoneBtn btn btn-outline-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/email/email${pageMaker.makeSearch(pageMaker.cri.page)}&tidx=${member.tidx}'">메일전송</button>
-								<c:if test="${member.delyn eq 'N' }">
 								<button type="button" id="deleteBtn" class="saoneBtn btn btn-outline-danger btn-sm">사원 퇴사</button>
-								</c:if>
 								<input type="hidden" value="${member.tidx}">
 							</div>
 						</td>
 					</tr>
+					</c:if>
 				</c:forEach>
 				</tbody>
 			</table>
@@ -184,15 +188,10 @@
 		</form>
 	</div>
 </div>
-<%-- <select name="searchType" id="xlawkd">
-	<option value="p" <c:out value="${searchCriteria.searchType eq 'p' ? 'selected' : '' }"/>>부장</option>
-</select>
-<button type="button" id="btbtn">큼</button> --%>
 <script>
 	$("#xlawkd").on("click",function(){
 		var searchType = $(this).val();
 		var keyword = $.trim($(this).text());
-		//alert(keyword);
 		$.ajax({
 			url:$("#domain").val()+"/admin/test",
 			data:"searchType="+searchType+"&keyword="+keyword,
@@ -202,9 +201,6 @@
 				
 				for(var i = 0 ; i < mvo.length; i++){
 					timList += "<option value='"+mvo[i].t_name+"'>"+mvo[i].t_name+mvo[i].t_department+"</option>";
-					//timList += "<option value='"+list[i].t_name+"'>"+list[i].t_name+"</option>";
-					//alert(mvo[i].t_name);
-					
 				}
 				$("#xlawkd").html(timList);
 				$("#xlawkd").attr("id","xladnjs");

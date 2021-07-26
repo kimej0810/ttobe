@@ -11,7 +11,8 @@
 							solist += "<div class='info'>";
 							solist += "<input type='hidden' id='tidx' name='tidx' value='"+searchDepartmentMember[i].tidx+"'>";
 							if(searchDepartmentMember[i].f_stored_file_name!=null){
-							solist += "<img class='listProfile' src='<c:url value='/resources/static/profile/"+searchDepartmentMember[i].f_stored_file_name+"'/>'>";
+							solist += "<img class='listProfile' src=";
+							solist += "<c:url value='/resources/static/profile/'"+searchDepartmentMember[i].f_stored_file_name+"'/>'>";
 							}else{
 								solist += "<img src='<c:url value='/resources/static/profile/notprofile.jpg'/>' class='listProfile'>";
 							}

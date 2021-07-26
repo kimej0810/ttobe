@@ -50,6 +50,9 @@
 				alert("선택된 글이 없습니다.");
 			}
 		});
+		$(document).on("click","#active",function(e){
+			e.preventDefault();
+		});
 	});
 	function sendFn(){
 		if(confirm('사원리스트를 보시겠습니까?')){
@@ -85,6 +88,7 @@
     #active a{
     	background-color: #0a58ca7d;
     	color:black;
+    	cursor: context-menu;
     }
     #search{
 		width:100%;

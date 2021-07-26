@@ -47,6 +47,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "/list")
 	public String selectListMember(Locale locale, Model model) throws Exception {
+		logger.info("사원 리스트", locale);
 		List<MemberDTO> selectAllMember = service.selectAllMember2();
 		model.addAttribute("selectAllMember",selectAllMember);
 		return "/member/list";
@@ -54,6 +55,7 @@ public class MemberController {
 	@RequestMapping(value = "/buseolist")
 	@ResponseBody
 	public Object searchDepartmentMember(Locale locale, Model model, String t_department) throws Exception {
+		logger.info("부서별 사원리스트", locale);
 		if(t_department.equals("all")) {
 			List<MemberDTO> searchDepartmentMember = service.selectAllMember2();
 			model.addAttribute("searchDepartmentMember",searchDepartmentMember);
@@ -66,20 +68,24 @@ public class MemberController {
 	@RequestMapping(value = "/saoneinfo")
 	@ResponseBody
 	public Object selectOneMember(Locale locale, Model model, int tidx) throws Exception {
+		logger.info("사원 정보", locale);
 		MemberDTO saoneInfo = service.selectOneMemberIdx(tidx);
 		model.addAttribute("saoneinfo",saoneInfo);
 		return saoneInfo;
 	}
-	@RequestMapping(value = "/insertSaone")
-	@ResponseBody
-	public Object addMember(Locale locale, Model model, int tidx) throws Exception {
-		MemberDTO saoneInfo = service.selectOneMemberIdx(tidx);
-		model.addAttribute("saoneinfo",saoneInfo);
-		return saoneInfo;
-	}
+
+	/*
+	 * @RequestMapping(value = "/insertSaone")
+	 * 
+	 * @ResponseBody public Object addMember(Locale locale, Model model, int tidx)
+	 * throws Exception { logger.info("이건뭐지?", locale); MemberDTO saoneInfo =
+	 * service.selectOneMemberIdx(tidx); model.addAttribute("saoneinfo",saoneInfo);
+	 * return saoneInfo; }
+	 */
 	@RequestMapping(value = "/search")
 	@ResponseBody
-	public Object searchMember(Model model,MemberVO vo)throws Exception{
+	public Object searchMember(Locale locale,Model model,MemberVO vo)throws Exception{
+		logger.info("사원 검색", locale);
 		String department = vo.getT_department();
 		String name = vo.getT_name();
 		String result[] = department.split("=");
@@ -98,7 +104,8 @@ public class MemberController {
 		return searchMember;
 	}
 	@RequestMapping(value="/logout")
-	public String logout(Model model,HttpServletRequest request) {
+	public String logout(Model model,HttpServletRequest request,Locale locale) {
+		logger.info("로그아웃", locale);
 		HttpSession session = request.getSession();
 		if(session!=null) {
 			session.invalidate();
@@ -107,7 +114,8 @@ public class MemberController {
 		return "redirect:/member/login";
 	}
 	@RequestMapping(value = "/myHome")
-	public String myHome(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Model model,HttpSession session)throws Exception{
+	public String myHome(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Model model,HttpSession session,Locale locale)throws Exception{
+		logger.info("내 정보", locale);
 		int tidx = 0;
 		if(session.getAttribute("userTidx")!=null) {
 			tidx = (int)session.getAttribute("userTidx");
@@ -121,7 +129,8 @@ public class MemberController {
 		return "/member/myHome";
 	}
 	@RequestMapping(value="/emailRead")
-	public String emailRead(Model model,HttpSession session,EmailDTO dto) throws Exception {
+	public String emailRead(Model model,HttpSession session,EmailDTO dto,Locale locale) throws Exception {
+		logger.info("메일 보기", locale);
 		EmailDTO reDto = eService.selectOneEmail(dto);
 		model.addAttribute("emailRead",reDto);
 		return "/member/emailRead";

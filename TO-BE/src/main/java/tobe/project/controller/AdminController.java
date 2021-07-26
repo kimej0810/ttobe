@@ -35,6 +35,7 @@ public class AdminController{
 
 	@RequestMapping(value="/add")
 	public String addMember(Locale locale, Model model,MemberVO vo) throws Exception {
+		logger.info("사원 등록", locale);
 		String t_id = service.selectOneId();
 		if(t_id.equals("admin")) {
 			Calendar cal = Calendar.getInstance();
@@ -61,6 +62,7 @@ public class AdminController{
 	}
 	@RequestMapping(value="/addAction")
 	public String addMemberAction(Locale locale, Model model, MemberVO vo,MultipartHttpServletRequest mpRequest) throws Exception {
+		logger.info("사원 등록 처리", locale);
 		String tid = vo.getT_id();
 		String pwd = pwdEncoder.encode(tid);
 		vo.setT_pwd(pwd);
@@ -72,11 +74,13 @@ public class AdminController{
 	}
 	@RequestMapping(value="/delete")
 	public String deleteMember(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Locale locale, Model model,int tidx)throws Exception{
+		logger.info("사원 퇴사", locale);
 		service.deleteMember(tidx);
 		return "redirect:/admin/memberlist";
 	}
 	@RequestMapping(value="/info")
 	public String selectOneMember(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Locale locale, Model model,int tidx) throws Exception {
+		logger.info("사원 정보", locale);
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(searchCriteria);
 		model.addAttribute("pageMaker",pageMaker);
@@ -86,40 +90,33 @@ public class AdminController{
 		model.addAttribute("member",vo);
 		return "/admin/info";
 	}
-	@RequestMapping(value="/modify")
-	public String modifyMember(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Locale locale, Model model,int tidx) throws Exception {
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(searchCriteria);
-		pageMaker.setTotalCount(service.totalCountsearchMember(searchCriteria));
-		model.addAttribute("memberList",service.searchMemberList(searchCriteria));
-		model.addAttribute("pageMaker",pageMaker);
-		MemberVO vo = service.selectOneMember(tidx);
-		model.addAttribute("member",vo);
-		return "/admin/modify";
-	}
 	@RequestMapping(value = "/modifyName")
 	@ResponseBody
-	public int modifyName(String reName, Integer tidx) throws Exception {
+	public int modifyName(Locale locale,String reName, Integer tidx) throws Exception {
+		logger.info("사원 이름 수정", locale);
 		MemberVO vo = service.selectOneMember(tidx);
 		vo.setT_name(reName);
 		return service.modifyName(vo);
 	}
 	@RequestMapping(value = "/modifyPosition")
 	@ResponseBody
-	public int modifyPosition(String rePosition, Integer tidx) throws Exception {
+	public int modifyPosition(Locale locale,String rePosition, Integer tidx) throws Exception {
+		logger.info("사원 직급 수정", locale);
 		MemberVO vo = service.selectOneMember(tidx);
 		vo.setT_position(rePosition);
 		return service.modifyPosition(vo);
 	}
 	@RequestMapping(value = "/modifyDepartment")
 	@ResponseBody
-	public int modifyDepartment(String reDepartment, Integer tidx) throws Exception {
+	public int modifyDepartment(Locale locale,String reDepartment, Integer tidx) throws Exception {
+		logger.info("사원 부서 수정", locale);
 		MemberVO vo = service.selectOneMember(tidx);
 		vo.setT_department(reDepartment);
 		return service.modifyDepartment(vo);
 	}
 	@RequestMapping(value="/memberlist")
 	public String selectAllMember(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Locale locale, Model model) throws Exception {
+		logger.info("관리자 사원리스트", locale);
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(searchCriteria);
 		pageMaker.setTotalCount(service.totalCountsearchMember(searchCriteria));
@@ -128,7 +125,8 @@ public class AdminController{
 		return "/admin/list";
 	}
 	@RequestMapping(value = "/findAdmin")
-	public String findAdmin(Model model,HttpSession session)throws Exception{
+	public String findAdmin(Locale locale,Model model,HttpSession session)throws Exception{
+		logger.info("관리자 조회", locale);
 		int check = service.adminCheck();
 		if(check==0) {
 			model.addAttribute("message","관리자 등록페이지로 이동합니다.");
@@ -144,11 +142,13 @@ public class AdminController{
 		return "/member/login";
 	}
 	@RequestMapping(value = "/join")
-	public String joinAdmin(Model model)throws Exception{
+	public String joinAdmin(Locale locale,Model model)throws Exception{
+		logger.info("관리자 가입", locale);
 		return "/admin/join";
 	}
 	@RequestMapping(value = "/joinAction")
-	public String joinAction(Model model,MemberVO vo,MultipartHttpServletRequest mpRequest,HttpSession session)throws Exception{
+	public String joinAction(Locale locale,Model model,MemberVO vo,MultipartHttpServletRequest mpRequest,HttpSession session)throws Exception{
+		logger.info("관리자 가입 처리", locale);
 		String pwd = pwdEncoder.encode(vo.getT_pwd());
 		vo.setT_pwd(pwd);
 		service.insertAdmin(vo,mpRequest);
