@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.ApprovalVO;
 import tobe.project.dto.BoardVO;
+import tobe.project.dto.MemberVO;
 import tobe.project.service.ApprovalService;
 import tobe.project.service.BoardService;
 
@@ -39,8 +41,29 @@ public class RealMainController extends HttpServlet {
 
 	// 硫��명���댁�
 	@RequestMapping(value = "/mainPage", produces = "application/text; charset=utf8")
-	public String list(Locale locale, Model model, HttpServletRequest request, @RequestParam Map<String, String> param) throws Exception {
+	public String list(Locale locale, Model model, HttpServletRequest request, @RequestParam Map<String, String> param, HttpSession session) throws Exception {
 		System.out.println("~~~~~~~메인 컨트롤러~~~~~~");
+		
+		//전자결재
+		String userId = (String)session.getAttribute("userId");
+		MemberVO mvo = approvalService.selectOneMemberId(userId);
+		List<ApprovalVO> approvalList = null;
+		
+		if(mvo.getT_position().equals("사원")||mvo.getT_position().equals("대리")) {
+			SearchCriteria scri = new SearchCriteria();
+			scri.setUserId(userId);
+			scri.setPage(1);
+			scri.setPerPageNum(5);
+			scri.setSearchType("");
+			model.addAttribute("approvalList", approvalService.selectAllApprovalDocumentListNormal(scri));
+		}else {
+			SearchCriteria scri = new SearchCriteria();
+			scri.setUserId(userId);
+			scri.setPage(1);
+			scri.setPerPageNum(5);
+			scri.setSearchType("");
+			model.addAttribute("approvalList", approvalService.selectAllApprovalDocumentList(scri));
+		}
 		
 		List<BoardVO> boardList;
 		Map<String, String> search = new HashMap<String, String>();
@@ -100,11 +123,7 @@ public class RealMainController extends HttpServlet {
 	
 
 		// 전자결재 다섯개만 뽑아옴
-		SearchCriteria scri = new SearchCriteria();
-		scri.setPage(1);
-		scri.setPerPageNum(5);
-		scri.setSearchType("");
-		List<ApprovalVO> approvalList = approvalService.selectAllApprovalDocumentList(scri);
+		
 		
 		// 넘겨주자
 		request.setCharacterEncoding("utf-8");
@@ -120,24 +139,48 @@ public class RealMainController extends HttpServlet {
 	// 전자결재 버튼 눌렸을때 오는곳
 	@RequestMapping(value = "/approval", produces = "application/json; charset=utf8")
 	@ResponseBody
-	public List<ApprovalVO> approval(@RequestParam Map<String, String> param) throws Exception {
+	public List<ApprovalVO> approval(@RequestParam Map<String, String> param, HttpSession session) throws Exception {
 
 		String state = param.get("state");
+		String userId = (String)session.getAttribute("userId");
 		
+		System.out.println("asfskljfsdklfsklfk->"+state);
+		System.out.println("sjdflaksdfjskdfdsfjlㅁㄴㄹㅇ->"+userId);
+		
+		MemberVO mvo = approvalService.selectOneMemberId(userId);
 		SearchCriteria scri = new SearchCriteria();
-		scri.setPage(1);
-		scri.setPerPageNum(5);
-		
-		if(state.equals("wating")) {
-			scri.setSearchWord("결재대기");
-		}else if(state.equals("progress")) {
-			scri.setSearchWord("결재진행");
-		}else if(state.equals("completed")) {
-			scri.setSearchWord("결재완료");
-		}else if(state.equals("rejected")){
-			scri.setSearchWord("결재반려");
+		if(mvo.getT_position().equals("사원")||mvo.getT_position().equals("대리")) {
+			scri.setUserId(userId);
+			scri.setPage(1);
+			scri.setPerPageNum(5);
+			scri.setSearchType("");
+			
+			if(state.equals("wating")) {
+				scri.setSearchWord("");
+			}else if(state.equals("completed")) {
+				scri.setSearchWord("결재 완료 문서");
+			}else if(state.equals("rejected")){
+				scri.setSearchWord("결재 반려 문서");
+			}else {
+				scri.setSearchWord("");
+			}
+			
 		}else {
-			scri.setSearchWord("");
+			scri.setUserId(userId);
+			scri.setPage(1);
+			scri.setPerPageNum(5);
+			scri.setSearchType("");
+			
+			if(state.equals("wating")) {
+				scri.setSearchWord("");
+			}else if(state.equals("completed")) {
+				scri.setSearchWord("결재 완료 문서");
+			}else if(state.equals("rejected")){
+				scri.setSearchWord("결재 반려 문서");
+			}else {
+				scri.setSearchWord("");
+			}
+			
 		}
 		
 		List<ApprovalVO> approvalList = approvalService.selectAllApprovalDocumentList(scri);

@@ -345,10 +345,9 @@ p {
 			<div class="button_elec"
 				style="text-align: right; margin-bottom: 10px;">
 				<div class="btn-group" role="group" aria-label="Basic example">
-					<button type="button" class="btn btn-secondary" id="wating">결재대기</button>
-					<button type="button" class="btn btn-secondary" id="progress">결재진행</button>
-					<button type="button" class="btn btn-secondary" id="completed">결재완료</button>
+					<button type="button" class="btn btn-secondary" id="wating">결재예정</button>
 					<button type="button" class="btn btn-secondary" id="rejected">결재반려</button>
+					<button type="button" class="btn btn-secondary" id="completed">결재완료</button>
 				</div>
 			</div>
 			<table id="table_notice" class="table w-100 table-hover">
@@ -367,6 +366,14 @@ p {
 					<th>상태</th>
 				</tr>
 				<tbody id="approval">
+				<c:choose>
+					<c:when test="${empty approvalList}">
+						<tr>
+							<td colspan="6">해당하는 문서가 존재하지 않습니다.</td>
+						</tr>
+					</c:when>
+					<c:otherwise>
+					
 					<c:forEach items="${approvalList}" var="approval">
 						<tr>
 							<td>${approval.eidx}</td>
@@ -388,6 +395,8 @@ p {
 							<td>${approval.e_status}</td>
 						</tr>
 					</c:forEach>
+					</c:otherwise>
+					</c:choose>
 				</tbody>
 			</table>
 		</div>
@@ -467,7 +476,7 @@ p {
 
 		$(document).ready(
 				function() {
-					$("#wating, #progress, #completed, #rejected").on(
+					$("#wating, #completed, #rejected").on(
 							"click",
 							function() {
 
