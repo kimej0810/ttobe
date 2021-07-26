@@ -18,7 +18,7 @@ public class CommuteServiceImpl implements CommuteService{
 	
 	@Inject
 	private CommuteDAO dao;
-	
+	//출근 등록
 	@Override
 	public boolean addStartWork(int tidx) throws Exception {
 		
@@ -48,7 +48,7 @@ public class CommuteServiceImpl implements CommuteService{
 			return true;
 		}
 	}
-	
+	//퇴근등록
 	@Override
 	public boolean addEndWork(int tidx) throws Exception {
 		
@@ -84,17 +84,17 @@ public class CommuteServiceImpl implements CommuteService{
 			return true;
 		}	
 	}
-	
+	//출근 기록 조회
 	@Override
 	public String selectStartWork(int tidx) throws Exception {
 		return dao.selectStartWork(tidx);
 	}
-	
+	//퇴근 기록 조회
 	@Override
 	public String selectEndWork(int tidx) throws Exception {
 		return dao.selectEndWork(tidx);
 	}
-	
+	//근태 목록
 	@Override
 	public List<CommuteVO> selectAllCommute2(Map<String, Object> map) throws Exception {
 		return dao.selectAllCommute2(map);
