@@ -102,7 +102,7 @@
 					<td><input type="text" name="t_name" value="${member.t_name}" readonly style="border:0px;"></td>
 					<td rowspan="4"  colspan="2">
 						<div class="img_wrap">
-							<img id="previewImg" src="<c:url value="/resources/static/profile/${member.f_stored_file_name}"/>" alt="your image" style="width:200px;height:150px;"/>
+							<img id="previewImg" src="<c:url value="/resources/static/profile/${member.f_stored_file_name}"/>" alt="your profile" style="width:200px;height:150px;"/>
 							<input type="file" id="inputImg" name="file" accept="image/*"/>
 							<input type="hidden" id="tidx" name="tidx" value="${member.tidx}"/>
 						</div>
