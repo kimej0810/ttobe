@@ -4,12 +4,13 @@
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.*" %>
 <%
+	String domain = request.getContextPath();
 	Date date = new Date();
 	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
 	String toDate = simpleDate.format(date);
 	String userName = (String)session.getAttribute("userName");
 	if(userName==null){
-		out.println("<script>alert('잘못된 접근입니다.');window.close();</script>");
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+domain+"/member/login';</script>");
 	}
 %>
 <!DOCTYPE html>

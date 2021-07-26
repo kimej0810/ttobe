@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -91,17 +92,19 @@ public class EmailController{
 	}
 	@RequestMapping(value="/delete")
 	@ResponseBody
-	public int emailDelete(@RequestParam(value="eidxList")String eidxList,Locale locale) throws Exception {
+	public Object emailDelete(@RequestParam(value="eidxList")String eidxList,Locale locale,HttpServletRequest request) throws Exception {
 		logger.info("메일 삭제", locale);
-		String[] eidx = eidxList.split(",");
-		if(eidx.length>0) {
-			for(int i=0;i<eidx.length;i++) {
-				int result = Integer.parseInt(eidx[i]);
-				emailService.deleteEmail(result);
+		if(eidxList!=null) {
+			String[] eidx = eidxList.split(",");
+			if(eidx.length>0) {
+				for(int i=0;i<eidx.length;i++) {
+					int result = Integer.parseInt(eidx[i]);
+					emailService.deleteEmail(result);
+				}
+				return 1;
 			}
-			return 1;
 		}
-		return 0;
+		return "<script>location.href='"+request.getContextPath()+"/member/login';</script>";
 	}
 	@RequestMapping(value="/memberList")
 	public String memberList(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Locale locale, Model model) throws Exception{

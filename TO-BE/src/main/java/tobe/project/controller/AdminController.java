@@ -3,6 +3,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -33,34 +34,39 @@ public class AdminController{
 	BCryptPasswordEncoder pwdEncoder;
 
 	@RequestMapping(value="/add")
-	public String addMember(Locale locale, Model model,MemberVO vo) throws Exception {
+	public String addMember(Locale locale, Model model,MemberVO vo,HttpSession session) throws Exception {
 		logger.info("사원 등록", locale);
-		String t_id = service.selectOneId();
-		if(t_id.equals("admin")) {
-			Calendar cal = Calendar.getInstance();
-			int year = cal.get(cal.YEAR)-2000;
-			model.addAttribute("tid",year+"-0000");
-			return "/admin/add";
-		}else {
-			String[] tid = t_id.split("-");
-			int nextTid = Integer.parseInt(tid[1])+1;
-			int length = (int)(Math.log10(nextTid)+1);
-			String hipen = "";
-			if(length==2) {
-				hipen = "-00";
-			}else if(length==3) {
-				hipen = "-0";
-			}else if(length==1) {
-				hipen = "-000";
-			}else if(length==4){
-				hipen = "-";
+		String check = (String)session.getAttribute("userId"); 
+		if(check!=null){
+			String t_id = service.selectOneId();
+			if(t_id.equals("admin")) {
+				Calendar cal = Calendar.getInstance();
+				int year = cal.get(cal.YEAR)-2000;
+				model.addAttribute("tid",year+"-0000");
+				return "/admin/add";
+			}else {
+				String[] tid = t_id.split("-");
+				int nextTid = Integer.parseInt(tid[1])+1;
+				int length = (int)(Math.log10(nextTid)+1);
+				String hipen = "";
+				if(length==2) {
+					hipen = "-00";
+				}else if(length==3) {
+					hipen = "-0";
+				}else if(length==1) {
+					hipen = "-000";
+				}else if(length==4){
+					hipen = "-";
+				}
+				model.addAttribute("tid",tid[0]+hipen+nextTid);
+				return "/admin/add";
 			}
-			model.addAttribute("tid",tid[0]+hipen+nextTid);
-			return "/admin/add";
 		}
+		model.addAttribute("idnull","null");
+		return "/member/checklogin"; 
 	}
 	@RequestMapping(value="/addAction")
-	public String addMemberAction(Locale locale, Model model, MemberVO vo,MultipartHttpServletRequest mpRequest) throws Exception {
+	public String addMemberAction(Locale locale, Model model, MemberVO vo,MultipartHttpServletRequest mpRequest,HttpSession session) throws Exception {
 		logger.info("사원 등록 처리", locale);
 		String tid = vo.getT_id();
 		String pwd = pwdEncoder.encode(tid);
@@ -72,46 +78,66 @@ public class AdminController{
 		return "redirect:/admin/memberlist";
 	}
 	@RequestMapping(value="/delete")
-	public String deleteMember(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Locale locale, Model model,int tidx)throws Exception{
+	public String deleteMember(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Locale locale, Model model,Integer tidx,HttpSession session)throws Exception{
 		logger.info("사원 퇴사", locale);
-		service.deleteMember(tidx);
-		return "redirect:/admin/memberlist";
+		String check = (String)session.getAttribute("userId"); 
+		if(check!=null){
+			service.deleteMember(tidx);
+			return "redirect:/admin/memberlist";
+		}
+		model.addAttribute("idnull","null");
+		return "/member/checklogin";
 	}
 	@RequestMapping(value="/info")
-	public String selectOneMember(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Locale locale, Model model,int tidx) throws Exception {
+	public String selectOneMember(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Locale locale, Model model,Integer tidx,HttpSession session) throws Exception {
 		logger.info("사원 정보", locale);
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(searchCriteria);
-		model.addAttribute("pageMaker",pageMaker);
-		MemberVO vo = service.selectOneMember(tidx);
-		FileVO fileList = service.selectOneFile(tidx);
-		model.addAttribute("file",fileList);
-		model.addAttribute("member",vo);
-		return "/admin/info";
+		String check = (String)session.getAttribute("userId"); 
+		if(check!=null){
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(searchCriteria);
+			model.addAttribute("pageMaker",pageMaker);
+			MemberVO vo = service.selectOneMember(tidx);
+			FileVO fileList = service.selectOneFile(tidx);
+			model.addAttribute("file",fileList);
+			model.addAttribute("member",vo);
+			return "/admin/info";
+		}
+		model.addAttribute("idnull","null");
+		return "/member/checklogin"; 
 	}
 	@RequestMapping(value = "/modifyName")
 	@ResponseBody
-	public int modifyName(Locale locale,String reName, Integer tidx) throws Exception {
+	public Object modifyName(Locale locale,String reName, Integer tidx, Model model,HttpServletRequest request) throws Exception {
 		logger.info("사원 이름 수정", locale);
-		MemberVO vo = service.selectOneMember(tidx);
-		vo.setT_name(reName);
-		return service.modifyName(vo);
+		if(reName!=null) {
+			MemberVO vo = service.selectOneMember(tidx);
+			vo.setT_name(reName);
+			return service.modifyName(vo);
+		}
+		return "<script>location.href='"+request.getContextPath()+"/member/login';</script>";
 	}
 	@RequestMapping(value = "/modifyPosition")
 	@ResponseBody
-	public int modifyPosition(Locale locale,String rePosition, Integer tidx) throws Exception {
+	public Object modifyPosition(Locale locale,String rePosition, Integer tidx, Model model,HttpServletRequest request) throws Exception {
 		logger.info("사원 직급 수정", locale);
-		MemberVO vo = service.selectOneMember(tidx);
-		vo.setT_position(rePosition);
-		return service.modifyPosition(vo);
+		if(rePosition!=null) {
+			MemberVO vo = service.selectOneMember(tidx);
+			vo.setT_position(rePosition);
+			return service.modifyPosition(vo);
+		}
+		return "<script>location.href='"+request.getContextPath()+"/member/login';</script>";
+		
 	}
 	@RequestMapping(value = "/modifyDepartment")
 	@ResponseBody
-	public int modifyDepartment(Locale locale,String reDepartment, Integer tidx) throws Exception {
+	public Object modifyDepartment(Locale locale,String reDepartment, Integer tidx,HttpServletRequest request) throws Exception {
 		logger.info("사원 부서 수정", locale);
-		MemberVO vo = service.selectOneMember(tidx);
-		vo.setT_department(reDepartment);
-		return service.modifyDepartment(vo);
+		if(reDepartment!=null) {
+			MemberVO vo = service.selectOneMember(tidx);
+			vo.setT_department(reDepartment);
+			return service.modifyDepartment(vo);
+		}
+		return "<script>location.href='"+request.getContextPath()+"/member/login';</script>";
 	}
 	@RequestMapping(value="/memberlist")
 	public String selectAllMember(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Locale locale, Model model) throws Exception {
@@ -148,6 +174,10 @@ public class AdminController{
 	@RequestMapping(value = "/joinAction")
 	public String joinAction(Locale locale,Model model,MemberVO vo,MultipartHttpServletRequest mpRequest,HttpSession session)throws Exception{
 		logger.info("관리자 가입 처리", locale);
+		if(vo==null) {
+			model.addAttribute("idnull","null");
+			return "/member/checklogin"; 
+		}
 		String pwd = pwdEncoder.encode(vo.getT_pwd());
 		vo.setT_pwd(pwd);
 		service.insertAdmin(vo,mpRequest);

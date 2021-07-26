@@ -5,12 +5,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page import="tobe.project.dto.*" %>
 <%
+	String domain = request.getContextPath();
 	String userName = (String)session.getAttribute("userName");
 	String userId = (String)session.getAttribute("userId");
 	Integer userIdx = (Integer)session.getAttribute("userTidx");
 	MemberDTO member = (MemberDTO)request.getAttribute("member");
 	if(userName==null){
-		out.println("<script>alert('잘못된 접근입니다.');window.close();</script>");
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+domain+"/member/login';</script>");
 	}
 %>
 <!DOCTYPE html>

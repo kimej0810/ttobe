@@ -54,45 +54,56 @@ public class MemberController {
 	}
 	@RequestMapping(value = "/buseolist")
 	@ResponseBody
-	public Object searchDepartmentMember(Locale locale, Model model, String t_department) throws Exception {
+	public Object searchDepartmentMember(Locale locale, Model model, String t_department,HttpServletRequest request) throws Exception {
 		logger.info("부서별 사원리스트", locale);
-		if(t_department.equals("all")) {
-			List<MemberDTO> searchDepartmentMember = service.selectAllMember2();
+		if(t_department!=null) {
+			if(t_department.equals("all")) {
+				List<MemberDTO> searchDepartmentMember = service.selectAllMember2();
+				model.addAttribute("searchDepartmentMember",searchDepartmentMember);
+				return searchDepartmentMember;
+			}
+			List<MemberDTO> searchDepartmentMember = service.searchDepartmentMember(t_department);
 			model.addAttribute("searchDepartmentMember",searchDepartmentMember);
 			return searchDepartmentMember;
 		}
-		List<MemberDTO> searchDepartmentMember = service.searchDepartmentMember(t_department);
-		model.addAttribute("searchDepartmentMember",searchDepartmentMember);
-		return searchDepartmentMember;
+		return "<script>location.href='"+request.getContextPath()+"/member/login';</script>";
 	}
 	@RequestMapping(value = "/saoneinfo")
 	@ResponseBody
-	public Object selectOneMember(Locale locale, Model model, int tidx) throws Exception {
+	public Object selectOneMember(Locale locale, Model model, Integer tidx,HttpServletRequest request,HttpSession session) throws Exception {
 		logger.info("사원 정보", locale);
-		MemberDTO saoneInfo = service.selectOneMemberIdx(tidx);
-		model.addAttribute("saoneinfo",saoneInfo);
-		return saoneInfo;
+		String check = (String)session.getAttribute("userId"); 
+		if(check!=null){
+			MemberDTO saoneInfo = service.selectOneMemberIdx(tidx);
+			model.addAttribute("saoneinfo",saoneInfo);
+			return saoneInfo;
+		}
+		return "<script>location.href='"+request.getContextPath()+"/member/login';</script>";
 	}
 	@RequestMapping(value = "/search")
 	@ResponseBody
-	public Object searchMember(Locale locale,Model model,MemberVO vo)throws Exception{
+	public Object searchMember(Locale locale,Model model,MemberVO vo,HttpServletRequest request,HttpSession session)throws Exception{
 		logger.info("사원 검색", locale);
-		String department = vo.getT_department();
-		String name = vo.getT_name();
-		String result[] = department.split("=");
-		String department1 = result[1];
-		String result2[] = name.split("=");
-		String name1 = result2[1];
-		if(department1.equals("all")) {
-			List<MemberDTO> searchMember = service.searchMember2(name1);
+		String check = (String)session.getAttribute("userId"); 
+		if(check!=null){
+			String department = vo.getT_department();
+			String name = vo.getT_name();
+			String result[] = department.split("=");
+			String department1 = result[1];
+			String result2[] = name.split("=");
+			String name1 = result2[1];
+			if(department1.equals("all")) {
+				List<MemberDTO> searchMember = service.searchMember2(name1);
+				model.addAttribute("searchMember",searchMember);
+				return searchMember;
+			}
+			vo.setT_department(department1);
+			vo.setT_name(name1);
+			List<MemberDTO> searchMember = service.searchMember(vo);
 			model.addAttribute("searchMember",searchMember);
 			return searchMember;
 		}
-		vo.setT_department(department1);
-		vo.setT_name(name1);
-		List<MemberDTO> searchMember = service.searchMember(vo);
-		model.addAttribute("searchMember",searchMember);
-		return searchMember;
+		return "<script>location.href='"+request.getContextPath()+"/member/login';</script>";
 	}
 	@RequestMapping(value="/logout")
 	public String logout(Model model,HttpServletRequest request,Locale locale) {
@@ -108,23 +119,32 @@ public class MemberController {
 	public String myHome(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,Model model,HttpSession session,Locale locale)throws Exception{
 		logger.info("내 정보", locale);
 		int tidx = 0;
-		if(session.getAttribute("userTidx")!=null) {
-			tidx = (int)session.getAttribute("userTidx");
+		String check = (String)session.getAttribute("userId"); 
+		if(check!=null){
+			if(session.getAttribute("userTidx")!=null) {
+				tidx = (int)session.getAttribute("userTidx");
+			}
+			MemberDTO dto = service.selectOneMemberIdx(tidx);
+			model.addAttribute("member",dto);
+			model.addAttribute("myEmail",myService.selectAllEmail(searchCriteria));
+			model.addAttribute("myBoard",myService.selectAllBoard(searchCriteria));
+			model.addAttribute("myLeave",myService.selectAllLeave(searchCriteria));
+			model.addAttribute("mySchedule",myService.selectAllSchedule(searchCriteria));
+			return "/member/myHome";
 		}
-		MemberDTO dto = service.selectOneMemberIdx(tidx);
-		model.addAttribute("member",dto);
-		model.addAttribute("myEmail",myService.selectAllEmail(searchCriteria));
-		model.addAttribute("myBoard",myService.selectAllBoard(searchCriteria));
-		model.addAttribute("myLeave",myService.selectAllLeave(searchCriteria));
-		model.addAttribute("mySchedule",myService.selectAllSchedule(searchCriteria));
-		return "/member/myHome";
+		model.addAttribute("idnull","null");
+		return "/member/checklogin";
 	}
 	@RequestMapping(value="/emailRead")
 	public String emailRead(Model model,HttpSession session,EmailDTO dto,Locale locale) throws Exception {
 		logger.info("메일 보기", locale);
-		EmailDTO reDto = eService.selectOneEmail(dto);
-		model.addAttribute("emailRead",reDto);
-		return "/member/emailRead";
+		if(dto!=null) {
+			EmailDTO reDto = eService.selectOneEmail(dto);
+			model.addAttribute("emailRead",reDto);
+			return "/member/emailRead";
+		}
+		model.addAttribute("idnull","null");
+		return "/member/checklogin";
 	}
 	//로그인 페이지불러오기
 	@RequestMapping(value="/login", method = RequestMethod.GET)
