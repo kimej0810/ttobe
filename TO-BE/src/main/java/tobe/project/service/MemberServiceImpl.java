@@ -146,6 +146,7 @@ public class MemberServiceImpl implements MemberService{
 		}
 		
 	}
+	//사원
 	@Override
 	public List<MemberDTO> selectAllMember2() throws Exception {
 		return dao.selectAllMember2();
