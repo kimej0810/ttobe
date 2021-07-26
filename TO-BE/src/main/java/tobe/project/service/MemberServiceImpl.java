@@ -77,8 +77,8 @@ public class MemberServiceImpl implements MemberService{
 		String msg = "";
 		if(div.equals("findPwd")) {
 			subject = "AFPS 임시 비밀번호 입니다.";
-			msg += vo.getT_id() + "님의 임시 비밀번호입니다. 비밀번호를 변경하여 사용하세요.";
-			msg += "임시 비밀번호 :";
+			msg += vo.getT_id() + "님의 임시 비밀번호입니다.<br>비밀번호를 변경하여 사용하세요.<br>";
+			msg += "<b>임시 비밀번호 : </b>";
 			msg += pwd;
 		}
 		//받는사람 설정
@@ -125,7 +125,8 @@ public class MemberServiceImpl implements MemberService{
 			vo.setT_pwd(repwd);
 			dao.modifyPwd(vo);
 			sendEmail(vo,"findPwd",pwd);
-			out.print("이메일로 임시 비밀번호를 발송하였습니다."); 
+			out.print("<script>alert('이메일로 임시 비밀번호를 발송하였습니다.');</script>");
+			out.print("<script>window.close();</script>");
 			out.close();
 		}
 	}
