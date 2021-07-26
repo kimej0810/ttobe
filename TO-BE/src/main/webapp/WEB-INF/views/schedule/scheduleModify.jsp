@@ -6,12 +6,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% 
-	if(session.getAttribute("userTidx") == null){ 
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+request.getContextPath()+"'/member/login';</script>");
-	}
+	
 	ScheduleVO vo = (ScheduleVO)request.getAttribute("vo"); 
 	MemberVO mo = (MemberVO)request.getAttribute("mo");
 	Integer userTidx = (Integer)session.getAttribute("userTidx");
+	
+	if(userTidx == null){ 
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+request.getContextPath()+"/member/login';</script>");
+	}
 %> 
 <!DOCTYPE html>
 <html> 
@@ -63,6 +65,10 @@
 							alert("일정 수정이 완료되었습니다.");
 							opener.parent.location.reload();
 							location.href="<%=request.getContextPath()%>/schedule/scheduleContents?sidx=<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>";
+						},
+						error:function(){
+							alert("일정 수정에 실패하였습니다.");
+							opener.parent.location.reload();
 						}
 					});
 				}

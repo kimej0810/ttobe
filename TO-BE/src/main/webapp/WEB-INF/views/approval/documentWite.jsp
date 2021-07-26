@@ -9,11 +9,11 @@
 	String toDate = simpleDate.format(Date);
 	String userName = (String)session.getAttribute("userName");
 	String userDep = (String)session.getAttribute("userDep");
-	Object userTidx = session.getAttribute("userTidx");
+	Integer userTidx = (Integer)session.getAttribute("userTidx");
 	String userPosition = (String)session.getAttribute("userPosition");
 	
-	if(userTidx == null){
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+request.getContextPath()+"'/member/login';</script>");
+	if(userTidx == null){ 
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+request.getContextPath()+"/member/login';</script>");
 	}
 %>
 <!DOCTYPE html>
@@ -91,18 +91,20 @@
 							</td>
 							<td class="style33 style33" rowspan="3">결<br><br>재</td>
 							<td class="style35 style36" colspan="2">담당</td>
-							<%if(userPosition.equals("과장")){ %>
-								<td class="style35 style36" colspan="2">결재권한없음</td>
-								<td class="style35 style36" colspan="3">과장</td>
-								<td class="style35 style36" colspan="2">부장</td>
-							<%}else if(userPosition.equals("부장")){%>
-								<td class="style35 style36" colspan="2">결재권한없음</td>
-								<td class="style35 style36" colspan="3">결재권한없음</td>
-								<td class="style35 style36" colspan="2">부장</td>
-							<%}else{%>
-								<td class="style35 style36" colspan="2">팀장</td>
-								<td class="style35 style36" colspan="3">과장</td>
-								<td class="style35 style36" colspan="2">부장</td>
+							<%if(userTidx != null){ %>
+								<%if(userPosition.equals("과장")){ %>
+									<td class="style35 style36" colspan="2">결재권한없음</td>
+									<td class="style35 style36" colspan="3">과장</td>
+									<td class="style35 style36" colspan="2">부장</td>
+								<%}else if(userPosition.equals("부장")){%>
+									<td class="style35 style36" colspan="2">결재권한없음</td>
+									<td class="style35 style36" colspan="3">결재권한없음</td>
+									<td class="style35 style36" colspan="2">부장</td>
+								<%}else{%>
+									<td class="style35 style36" colspan="2">팀장</td>
+									<td class="style35 style36" colspan="3">과장</td>
+									<td class="style35 style36" colspan="2">부장</td>
+								<%}%>
 							<%}%>
 							<td class="style11 s">대 표</td>
 						</tr> 

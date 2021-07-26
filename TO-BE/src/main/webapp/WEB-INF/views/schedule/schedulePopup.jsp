@@ -6,8 +6,8 @@
 	Integer userTidx = (Integer)session.getAttribute("userTidx");
 	String userName = (String)session.getAttribute("userName");
 	
-	if(userTidx == 0){
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+request.getContextPath()+"'/member/login';</script>"); 
+	if(userTidx == null){
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+request.getContextPath()+"/member/login';</script>");
 	}
 %>
 <!DOCTYPE html>
@@ -15,6 +15,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>일정 추가</title>
+		<meta name="viewport" content="width=device-width, initial-scal=1.0">
 		<script src="<c:url value="/resources/static/schedule/js/jquery-3.6.0.min.js"/>"></script>
 		<script src="<c:url value="/resources/static/schedule/js/jquery.datetimepicker.full.min.js"/>"></script>
 		<link href="<c:url value="/resources/static/schedule/css/jquery.datetimepicker.css"/>" rel="stylesheet">

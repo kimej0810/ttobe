@@ -4,13 +4,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
-	if(session.getAttribute("userTidx") == null){ 
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+request.getContextPath()+"'/member/login';</script>");
-	}
-	
 	Integer userTidx = (Integer)session.getAttribute("userTidx");
 	ApprovalDTO contents = (ApprovalDTO)request.getAttribute("contents");
 	
+	if(userTidx == null){ 
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+request.getContextPath()+"/member/login';</script>");
+	}
 %>
 <!DOCTYPE html>
 <html>

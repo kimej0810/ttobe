@@ -120,12 +120,12 @@ button {
     display: none; 
 }
 #imgd{
-	position: absolute;
-    top: 25%;
+	position: fixed;
+    top: 32%;
     right: 6%;
 }
 img{
-	width: 258px;
+	width: 200px;
 }
 .close-button{
 	margin-top:20px;

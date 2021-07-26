@@ -35,7 +35,7 @@ ul {
 	margin : 0;
 }
 .group {
-	width : 36%;
+	width : 98%;
 	box-shadow : 0 5px 15px rgba(0,0,0,.5);
 	margin : 8px auto;
 	border : 1px solid #ddd;
@@ -121,12 +121,12 @@ button {
     display: none; 
 }
 #imgd{
-	position: absolute;
-    top: 25%;
+	position: fixed;
+    top: 32%;
     right: 6%;
 }
 img{
-	width: 258px;
+	width: 200px;
 }
 .cancel-button{
 	 margin-top:20px;

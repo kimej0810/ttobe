@@ -85,7 +85,11 @@ function click_ok(){
 				alert("일정 등록이 완료되었습니다.");
 				opener.parent.location.reload();
 				window.close();
-			}
+			},
+			error:function(){
+					alert("일정 등록에 실패하였습니다.");
+					opener.parent.location.reload();
+				}
 		});
 	}
 };

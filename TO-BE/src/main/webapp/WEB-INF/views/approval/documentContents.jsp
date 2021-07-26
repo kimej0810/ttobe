@@ -8,15 +8,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" trimDirectiveWhitespaces="true"%>
 <%
-	if(session.getAttribute("userTidx") == null){
-		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+request.getContextPath()+"'/member/login';</script>"); 
-	}
- 
 	Integer userTidx = (Integer)session.getAttribute("userTidx");;
 	String userPosition = (String)session.getAttribute("userPosition");
 	String userId = (String)session.getAttribute("userId");
 	String userGrade = (String) session.getAttribute("userGrade");
 	String userName = (String)session.getAttribute("userName");
+	
+	if(userTidx == null){
+		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+request.getContextPath()+"/member/login';</script>"); 
+	}
 	
 	ApprovalDTO contents = (ApprovalDTO)request.getAttribute("contents");
 	ApprovalDTO to = (ApprovalDTO)request.getAttribute("to");

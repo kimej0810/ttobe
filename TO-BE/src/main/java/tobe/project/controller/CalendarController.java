@@ -1,11 +1,13 @@
 package tobe.project.controller;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -72,17 +74,17 @@ public class CalendarController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/searchSchedule")
-	public Object searchSchedule(SearchCriteria scri) throws Exception{
+	public Object searchSchedule(SearchCriteria scri, HttpServletRequest request) throws Exception{
 		System.out.println("scri======="+ scri);
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(service.countSchedule(scri));
-		
 		List<ScheduleVO> svo = service.selectSchedule(scri);
-		return svo;
+		
+		return "<script>location.href='"+request.getContextPath()+"/member/login';</script>";
 	}
 	@RequestMapping(value = "/schedulePopup")
-	public String schedulePopup() throws Exception {
+	public String schedulePopup(HttpSession session,HttpServletRequest request,HttpServletResponse response) throws Exception {
 		return "/schedule/schedulePopup";
 	}
 	
@@ -91,13 +93,6 @@ public class CalendarController {
 	public ScheduleVO addSchedule(@RequestBody ScheduleVO vo) throws Exception{
 		service.addSchedule(vo);
 		return vo;
-	}
-	
-	@ResponseBody
-	@RequestMapping(value = "/showSchedule")
-	public List<ScheduleVO> show() throws Exception {
-		List<ScheduleVO> list = service.showSchedule();
-		return list;
 	}
 	
 	@RequestMapping(value = "/scheduleContents")
