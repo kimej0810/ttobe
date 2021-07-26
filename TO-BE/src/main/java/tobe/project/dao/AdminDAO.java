@@ -5,7 +5,6 @@ import java.util.Map;
 
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.FileVO;
-import tobe.project.dto.MemberDTO;
 import tobe.project.dto.MemberVO;
 
 public interface AdminDAO {

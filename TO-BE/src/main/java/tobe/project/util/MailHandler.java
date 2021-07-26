@@ -1,8 +1,6 @@
 package tobe.project.util;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
@@ -10,8 +8,6 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.context.request.RequestContextHolder;

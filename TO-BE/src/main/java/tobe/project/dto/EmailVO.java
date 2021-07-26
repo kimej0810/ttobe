@@ -1,7 +1,5 @@
 package tobe.project.dto;
 
-import java.util.List;
-
 public class EmailVO {
 	private int midx;
 	private String m_addressee;

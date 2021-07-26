@@ -1,6 +1,6 @@
 package tobe.project.dao;
 
-import java.util.List; 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import tobe.project.domain.SearchCriteria;
 import tobe.project.dto.FileVO;
-import tobe.project.dto.MemberDTO;
 import tobe.project.dto.MemberVO;
 import tobe.project.util.FileUtils;
 

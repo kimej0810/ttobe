@@ -73,15 +73,6 @@ public class MemberController {
 		model.addAttribute("saoneinfo",saoneInfo);
 		return saoneInfo;
 	}
-
-	/*
-	 * @RequestMapping(value = "/insertSaone")
-	 * 
-	 * @ResponseBody public Object addMember(Locale locale, Model model, int tidx)
-	 * throws Exception { logger.info("이건뭐지?", locale); MemberDTO saoneInfo =
-	 * service.selectOneMemberIdx(tidx); model.addAttribute("saoneinfo",saoneInfo);
-	 * return saoneInfo; }
-	 */
 	@RequestMapping(value = "/search")
 	@ResponseBody
 	public Object searchMember(Locale locale,Model model,MemberVO vo)throws Exception{
