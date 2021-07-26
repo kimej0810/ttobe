@@ -138,7 +138,7 @@ public class MemberController {
 		MemberDTO vo = service.login(dto); 
 		if(vo!=null) {
 			boolean check = BCrypt.checkpw(dto.getT_pwd(), vo.getT_pwd());
-			if(check) {	//	"1234" , "$2a$10$NuKJxnN.O7W0xvhFZZedMeFPqZtmwYVOWABefqex62oIQv3ftbOyi"
+			if(check) {	
 				session.setAttribute("userName", vo.getT_name());
 				session.setAttribute("userTidx", vo.getTidx());
 				session.setAttribute("userId", vo.getT_id());
@@ -151,10 +151,10 @@ public class MemberController {
 				return "redirect:/main/mainPage";
 			}
 			model.addAttribute("idnull", "pw_error");
-			System.out.println("비밀번호 오류"); //비밀번호가 다를경우
+			System.out.println("비밀번호 오류"); //비밀번호 다름
 			return "/member/checklogin"; 
 		}else {
-			model.addAttribute("idnull", "id_error");//아이디없음
+			model.addAttribute("idnull", "id_error"); //아이디없음
 			return "/member/checklogin";
 		}
 	}
