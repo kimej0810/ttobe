@@ -121,7 +121,7 @@
 <body onkeydown="javascript:enterLogin();">
 	<input type="hidden" value="${pageContext.request.contextPath}" id="domain">
 	<section class="login-form">
-		<img id="logo" class="img-responsive w-100" src="<c:url value="/resources/static/img/loginlogo.png"/>" >
+		<img id="logo" class="img-responsive w-100" src="<c:url value='/resources/static/img/loginlogo.png'/>" alt="A few persons logo" title="afps_logo_image">
 		<form name="frm">
 			<div>
 				<input type="text" name="t_id" id="t_id" placeholder="아이디" aria-live="assertive" class="form-control">
