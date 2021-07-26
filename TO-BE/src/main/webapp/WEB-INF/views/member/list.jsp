@@ -26,9 +26,9 @@ $(document).ready(function(){
 						solist += "<div class='info'>";
 						solist += "<input type='hidden' id='tidx' name='tidx' value='"+searchDepartmentMember[i].tidx+"'>";
 						if(searchDepartmentMember[i].f_stored_file_name!=null){
-						solist += "<img style='width:60px;height:40px;border:1px solid lightgray;' src='<c:url value='/resources/static/profile/"+searchDepartmentMember[i].f_stored_file_name+"'/>'></td>";
+						solist += "<img style='width:60px;height:40px;border:1px solid lightgray;' src='<c:url value='/resources/static/profile/"+searchDepartmentMember[i].f_stored_file_name+"'/>' alt='프로필이미지'></td>";
 						}else{
-							solist += "<img src='<c:url value='/resources/static/profile/notprofile.jpg'/>' class='listProfile'>";
+							solist += "<img src='<c:url value='/resources/static/profile/notprofile.jpg'/>' class='listProfile' alt='프로필이미지'>";
 						}
 						solist += " <span>";
 						solist += searchDepartmentMember[i].t_name;
@@ -66,9 +66,9 @@ $(document).ready(function(){
 				var solist = "";
 				solist += "<tr><td rowspan='4' scope='col' width='30%' style='text-align:center;'>";
 				if(selectOneMember.f_stored_file_name!=null){
-					solist += "<img style='width:150px;height:100px;border:1px solid lightgray;' src='<c:url value='/resources/static/profile/"+selectOneMember.f_stored_file_name+"'/>'></td>";	
+					solist += "<img style='width:150px;height:100px;border:1px solid lightgray;' src='<c:url value='/resources/static/profile/"+selectOneMember.f_stored_file_name+"'/>' alt='프로필이미지'></td>";	
 				}else{
-					solist += "<img src='<c:url value='/resources/static/profile/notprofile.jpg'/>' class='listProfile' style='width:150px;height:100px;border:lightgray;'>";	
+					solist += "<img src='<c:url value='/resources/static/profile/notprofile.jpg'/>'  alt='프로필이미지' class='listProfile' style='width:150px;height:100px;border:lightgray;'>";	
 				}
 				solist += "<th width='20%' style='text-align:center;'>이름</th><td>";
 				solist += selectOneMember.t_name;
@@ -99,9 +99,9 @@ $(document).ready(function(){
 						solist += "<div class='info'>";
 						solist += "<input type='hidden' id='tidx' name='tidx' value='"+searchMember[i].tidx+"'>";
 						if(searchMember[i].f_stored_file_name!=null){
-							solist += "<img  class='listProfile' src='<c:url value='/resources/static/profile/"+searchMember[i].f_stored_file_name+"'/>'>";	
+							solist += "<img  class='listProfile' src='<c:url value='/resources/static/profile/"+searchMember[i].f_stored_file_name+"'/>' alt='프로필이미지'>";	
 						}else{
-							solist += "<img src='<c:url value='/resources/static/profile/notprofile.jpg'/>' class='listProfile'>";
+							solist += "<img src='<c:url value='/resources/static/profile/notprofile.jpg'/>' class='listProfile' alt='프로필이미지'>";
 						}
 						solist += " <span>";
 						solist += searchMember[i].t_name;
@@ -144,7 +144,7 @@ $(document).ready(function(){
 %>
 	<div class="contentheader" style="box-shadow:0 2px 5px lightgrey;background-color:white;">
 		<div class="mainLogo" >
-			<img src="<c:url value="/resources/static/img/sideImg.png"/>" style="width:225px;margin:8px 0 0 15px;">
+			<img src="<c:url value="/resources/static/img/sideImg.png"/>" style="width:225px;margin:8px 0 0 15px;" alt='로고이미지'>
 		</div>
 		<div class="search">
 			<div class="input-group mb-3">
@@ -170,7 +170,7 @@ $(document).ready(function(){
 					<c:set var="profile" value="${member.f_stored_file_name}"/>
 					<c:choose>
 						<c:when test="${profile == null }">
-							<img src="<c:url value="/resources/static/profile/notprofile.jpg"/>" alt="프로필이미지">		
+							<img src="<c:url value="/resources/static/profile/notprofile.jpg"/>" alt="프로필이미지없음">		
 						</c:when>
 						<c:otherwise>
 							<img src="<c:url value="/resources/static/profile/${member.f_stored_file_name}"/>" alt="프로필이미지"  style='width:60px;height:40px;border:1px solid lightgray;'>

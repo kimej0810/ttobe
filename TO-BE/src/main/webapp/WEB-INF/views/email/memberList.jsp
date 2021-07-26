@@ -25,7 +25,7 @@
 						for(var i=0; i<searchDepartmentMember.length;i++){
 							solist += "<div class='info'>";
 							solist += "<input type='hidden' id='tidx' name='tidx' value='"+searchDepartmentMember[i].tidx+"'>";
-							solist += "<img src='<c:url value='/resources/static/profile/"+searchDepartmentMember[i].f_stored_file_name+"'/>'>";
+							solist += "<img src='<c:url value='/resources/static/profile/"+searchDepartmentMember[i].f_stored_file_name+"'/>' alt='프로필이미지'>";
 							solist += " <span>";
 							solist += searchDepartmentMember[i].t_name;
 							solist += "</span>";
@@ -76,7 +76,7 @@
 						for(var i=0; i<searchMember.length;i++){
 							solist += "<div class='info'>";
 							solist += "<input type='hidden' id='tidx' name='tidx' value='"+searchMember[i].tidx+"'>";
-							solist += "<img src='<c:url value='/resources/static/profile/"+searchMember[i].f_stored_file_name+"'/>'>";
+							solist += "<img src='<c:url value='/resources/static/profile/"+searchMember[i].f_stored_file_name+"'/>' alt='프로필이미지'>";
 							solist += " <span>";
 							solist += searchMember[i].t_name;
 							solist += "</span>";
@@ -134,7 +134,7 @@
 %>
 	<div class="contentheader" style="box-shadow:0 2px 5px lightgrey;background-color:white;">
 		<div class="mainLogo" >
-			<img src="<c:url value="/resources/static/img/sideLogo.png"/>" style="width:50px;margin:8px 0 0 15px;">
+			<img src="<c:url value="/resources/static/img/sideLogo.png"/>" style="width:50px;margin:8px 0 0 15px;" alt='회사로고이미지'>
 		</div>
 		<div class="search">
 			<div class="input-group mb-3">
