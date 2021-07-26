@@ -12,6 +12,7 @@ import tobe.project.dto.MemberDTO;
 import tobe.project.dto.MemberVO;
 
 public interface MemberService {
+	
 	public List<MemberVO> selectAllMember() throws Exception;
 	public List<MemberDTO> searchDepartmentMember(@Param(value="t_department")String t_department) throws Exception;
 	public MemberDTO selectOneMemberIdx(@Param(value="tidx")int tidx) throws Exception;
@@ -26,8 +27,10 @@ public interface MemberService {
 	public void findPwd(HttpServletResponse response, MemberVO vo) throws Exception;
 	//사원정보 수정
 	public void modifyMember(MemberVO vo, MultipartHttpServletRequest mpRequest) throws Exception;
-	public MemberDTO selectOneMember(String t_id) throws Exception;
 	//비밀번호 변경
 	public int modifyPwd(MemberVO vo) throws Exception;
+	//사원
+	public MemberDTO selectOneMember(String t_id) throws Exception;
 	public List<MemberDTO> selectAllMember2()throws Exception;
+	
 }
