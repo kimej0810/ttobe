@@ -376,7 +376,7 @@ button:disabled {
 
 			var content = $(this).parent().parent().prev().children();
 			var value = content.html();
-			content.html("<textarea id='modifyContent' style='resize: none;'></textarea>");
+			content.html("<textarea id='modifyContent' style='resize: none;' class='form-control'></textarea>");
 			$("#modifyContent").html(value);
 			$(this).attr('class', 'modifyReplyBtn');
 			$(this).html('확인');

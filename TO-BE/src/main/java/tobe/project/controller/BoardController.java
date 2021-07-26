@@ -1,6 +1,7 @@
 package tobe.project.controller;
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.List;
 import java.util.Locale;
@@ -114,19 +115,28 @@ public class BoardController {
 	@RequestMapping(value = "/fileDown")
 	public void fileDown(@RequestParam Map<String, Object> map, HttpServletResponse response,
 			HttpServletRequest request) throws Exception {
-		Map<String, Object> resultMap = fileInfoService.selectOneFile(map);
-		String storedFileName = (String) resultMap.get("F_STORED_FILE_NAME");
-		String originalFileName = (String) resultMap.get("F_ORG_FILE_NAME");
-		String filePath = request.getSession().getServletContext().getRealPath("/resources/static/file/");
-		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File(filePath + storedFileName));
+		
+		try {
+			Map<String, Object> resultMap = fileInfoService.selectOneFile(map);
+			String storedFileName = (String) resultMap.get("F_STORED_FILE_NAME");
+			String originalFileName = (String) resultMap.get("F_ORG_FILE_NAME");
+			String filePath = request.getSession().getServletContext().getRealPath("/resources/static/file/");
+			byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File(filePath + storedFileName));
 
-		response.setContentType("application/octet-stream");
-		response.setContentLength(fileByte.length);
-		response.setHeader("Content-Disposition",
-				"attachment; fileName=\"" + URLEncoder.encode(originalFileName, "UTF-8") + "\";");
-		response.getOutputStream().write(fileByte);
-		response.getOutputStream().flush();
-		response.getOutputStream().close();
+			response.setContentType("application/octet-stream");
+			response.setContentLength(fileByte.length);
+			response.setHeader("Content-Disposition",
+					"attachment; fileName=\"" + URLEncoder.encode(originalFileName, "UTF-8") + "\";");
+			response.getOutputStream().write(fileByte);
+			response.getOutputStream().flush();
+			response.getOutputStream().close();
+		}catch(Exception e) {
+			response.setContentType("text/html; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('해당 파일이 존재하지 않습니다.');history.back();</script>");
+			out.flush();
+		}
+		
 	}
 
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
