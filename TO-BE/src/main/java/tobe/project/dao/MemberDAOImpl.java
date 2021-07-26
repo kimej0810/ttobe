@@ -14,9 +14,11 @@ import tobe.project.dto.MemberVO;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO{
+	
 	@Inject
 	private SqlSession sqlSession;
 	private static final String Namespace = "tobe.project.mapper.memberMapper";
+	
 	@Override
 	public List<MemberVO> selectAllMember() throws Exception{
 		return sqlSession.selectList(Namespace+".selectAllMember");
@@ -52,6 +54,17 @@ public class MemberDAOImpl implements MemberDAO{
 	public int checkId(String t_id) throws Exception{
 		return sqlSession.selectOne(Namespace+".checkId", t_id);
 	}
+	//사원정보 수정
+	@Override
+	public void modifyMember(MemberVO vo) throws Exception {
+		sqlSession.update(Namespace+".modifyMember", vo);
+	}
+	//사진 업로드
+	@Override
+	public void insertFile(Map<String, Object> map) throws Exception {
+		sqlSession.insert(Namespace+".insertFile", map);
+	}
+	//사원
 	@Override
 	public MemberDTO selectOneMemberId(String t_id)  throws Exception{
 		return sqlSession.selectOne(Namespace+".selectOneMemberId",t_id);
@@ -61,15 +74,8 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSession.selectOne(Namespace+".selectOneMemberId", t_id);
 	}
 	@Override
-	public void modifyMember(MemberVO vo) throws Exception {
-		sqlSession.update(Namespace+".modifyMember", vo);
-	}
-	@Override
-	public void insertFile(Map<String, Object> map) throws Exception {
-		sqlSession.insert(Namespace+".insertFile", map);
-	}
-	@Override
 	public List<MemberDTO> selectAllMember2() throws Exception {
 		return sqlSession.selectList(Namespace+".selectAllMember2");
 	}
+	
 }
