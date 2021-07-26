@@ -56,7 +56,10 @@ public class CalendarController {
 		return "/schedule/scheduleCalendar";
 	}
 	@RequestMapping(value = "/scheduleBoard")
-	public String scheduleBoard(Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception{
+	public String scheduleBoard(Model model, @ModelAttribute("scri")SearchCriteria scri,HttpSession session) throws Exception{
+		String userId = (String)session.getAttribute("userId");
+		scri.setUserId(userId);
+		
 		PageMaker pageMaker = new PageMaker();
 		
 		pageMaker.setCri(scri);
