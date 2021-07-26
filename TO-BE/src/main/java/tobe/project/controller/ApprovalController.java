@@ -55,31 +55,33 @@ public class ApprovalController {
 	private ScheduleService sservice;
 	
 	@RequestMapping(value = "/documentListMain")
-	public String documentMain(Model model, @ModelAttribute("scri")SearchCriteria scri,String userId) throws Exception{
+	public String documentMain(Model model, @ModelAttribute("scri")SearchCriteria scri,HttpSession session) throws Exception{
 		System.out.println("ApprovalController");
+		
+		String userId = (String)session.getAttribute("userId");
+		scri.setUserId(userId);
 		MemberVO Idvo = service.selectOneMemberId(userId);
-		if(Idvo.getT_position().equals("사원") || Idvo.getT_position().equals("대리")) {
-			PageMaker pageMaker = new PageMaker();
-			pageMaker.setCri(scri);
-			pageMaker.setTotalCount(service.totalCountApprovalDocumentNormal(scri));
-			System.out.println("타입"+scri.getSearchType());
-			System.out.println("워드"+scri.getSearchWord());
-			System.out.println("키워드"+scri.getKeyword());
-			System.out.println("포지션"+Idvo.getT_position());
-			model.addAttribute("paging",pageMaker);
-			model.addAttribute("elist", service.selectAllApprovalDocumentListNormal(scri));
-		}else {
-			PageMaker pageMaker = new PageMaker();
-			pageMaker.setCri(scri);
-			pageMaker.setTotalCount(service.totalCountApprovalDocument(scri));
-			System.out.println("타입"+scri.getSearchType());
-			System.out.println("워드"+scri.getSearchWord());
-			System.out.println("키워드"+scri.getKeyword());
-			System.out.println("포지션"+Idvo.getT_position());
-			model.addAttribute("paging",pageMaker);
-			model.addAttribute("elist", service.selectAllApprovalDocumentList(scri));
+		
+		if(Idvo != null) {
+			if(Idvo.getT_position().equals("사원") || Idvo.getT_position().equals("대리")) {
+				
+				PageMaker pageMaker = new PageMaker();
+				pageMaker.setCri(scri);
+				pageMaker.setTotalCount(service.totalCountApprovalDocumentNormal(scri));
+				
+				model.addAttribute("paging",pageMaker);
+				model.addAttribute("elist", service.selectAllApprovalDocumentListNormal(scri));
+			}else {
+				PageMaker pageMaker = new PageMaker();
+				pageMaker.setCri(scri);
+				pageMaker.setTotalCount(service.totalCountApprovalDocument(scri));
+				
+				model.addAttribute("paging",pageMaker);
+				model.addAttribute("elist", service.selectAllApprovalDocumentList(scri));
+			}
 		}
 		
+		model.addAttribute("vo",aservice.selectAllMember());
 		model.addAttribute("wa",service.totalCountWaiting());
 		model.addAttribute("pr",service.totalCountProgress());
 		model.addAttribute("co",service.totalCountComplete());

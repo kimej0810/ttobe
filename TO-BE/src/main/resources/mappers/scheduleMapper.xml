@@ -75,7 +75,7 @@
  		select count(sidx) 
  			from (
  				select (SELECT @ROWNUM := 0) R, A.*, B.T_NAME, T_ID
- 				FROM SCHEDULE_MANAGEMENT A left join AFPS_MEMBER B on A.TIDX = B.TIDX WHERE 1=1 <include refid="search"/> 
+ 				FROM SCHEDULE_MANAGEMENT A left join AFPS_MEMBER B on A.TIDX = B.TIDX WHERE 1=1 <include refid="search"/> <include refid="searchWord"/>
  					and A.DELYN = 'N')a WHERE delyn = 'N'
 	
  	</select>
@@ -86,7 +86,7 @@
  			@rownum:=@rownum+1 rnum, SIDX, S_TYPE, S_TITLE, S_STARTDATE, S_ENDDATE, S_CONTENT, DELYN, TIDX, T_NAME, T_ID, T_DEPARTMENT, T_POSITION
  				from (
  					select  (SELECT @ROWNUM := 1) R, A.*, B.T_NAME, T_ID, T_DEPARTMENT, T_POSITION
- 					FROM SCHEDULE_MANAGEMENT A left join AFPS_MEMBER B on A.TIDX = B.TIDX WHERE 1=1 <include refid="search"/> 
+ 					FROM SCHEDULE_MANAGEMENT A left join AFPS_MEMBER B on A.TIDX = B.TIDX WHERE 1=1 <include refid="search"/> <include refid="searchWord"/>
  						and A.DELYN = 'N' ORDER BY A.SIDX desc)a WHERE DELYN ='N' and sidx LIMIT #{pageStart}, #{perPageNum}
  	</select>
  	
@@ -99,7 +99,14 @@
 			<if test="searchType == '내용'.toString()">AND S_CONTENT	 LIKE CONCAT('%',#{keyword},'%')</if>
 			<if test="searchType == '제목+내용'.toString()">AND (S_TITLE LIKE CONCAT('%',#{keyword},'%')) or (S_CONTENT LIKE CONCAT('%',#{keyword},'%'))</if>
 			<if test="searchType == '이름'.toString()">AND T_NAME LIKE CONCAT('%',#{keyword},'%')</if>
-			<if test="searchType == '나의 일정보기'.toString()">AND T_ID = #{userId} </if>
+		</if>
+	</sql>
+	<sql id="searchWord">
+		<if test="searchWord == null">
+			AND T_ID = #{userId}
+		</if>
+		<if test="searchWord != null">
+			<if test="searchWord == '나의 일정보기'.toString()">AND T_ID = #{userId} </if>
 		</if>
 	</sql>
 </mapper>

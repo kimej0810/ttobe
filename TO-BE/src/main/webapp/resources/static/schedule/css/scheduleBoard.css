@@ -5,7 +5,7 @@
 	float: right;
 	width: 120px;
     height: 35px;
-    margin-bottom: 10px;
+    margin-bottom: 60px;
 }
 #board{
 	text-align:center;
@@ -33,7 +33,6 @@
 }
 .row{
 	margin:0px auto;
-	height: 134%;
 	max-width: 100%;
 	flex-wrap: inherit;
 	background-color:white;

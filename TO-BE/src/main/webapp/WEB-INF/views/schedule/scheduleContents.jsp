@@ -71,7 +71,7 @@
 					</div>
 					<div  class="domain"> 
 						<input type = "text" class="s_type form-control" id="s_type" name="s_type" value="<%=vo.getS_type()%>" readonly>
-						<div><img src="<c:url value="/resources/static/img/scheduleLogo.png"/>"></div>
+						<div id="imgd"><img src="<c:url value="/resources/static/img/scheduleLogo.png"/>"></div>
 					</div>
 					<div class="domainTitle">
 						<h3 class="zTree-h3">시작 날짜</h3>

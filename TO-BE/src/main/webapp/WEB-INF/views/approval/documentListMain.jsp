@@ -7,7 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ include file="/WEB-INF/views/include/new_main.jsp" %>
 <% 
-	if(userTidx == null){ 
+	if(userTidx == null || userId == null){ 
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+request.getContextPath()+"'/member/login';</script>");
 	}
 	
@@ -66,7 +66,6 @@
 					<div id="searchBtnGroup" class="input-group">
 						<input type="hidden" id="searchWord" value="${scri.searchWord}">
 						<select id="searchType" class="form-control" name="searchType" style="height:30px; font-size:0.5rem;">
-							<option value="전체보기"  <c:out value = "${scri.searchType == null ? 'selected' : '' }"/>>전체보기</option>
  							<option value="기안부서"  <c:out value = "${scri.searchType eq '기안 부서' ? 'selected' : '' }"/>>기안 부서</option>
 							<option value="기안자이름" <c:out value = "${scri.searchType eq '기안자 이름' ? 'selected' : '' }"/>>기안자 이름</option>
 							<option value="기안일시"  <c:out value = "${scri.searchType eq '기안 일시' ? 'selected' : '' }"/>>기안 일시</option>
@@ -85,7 +84,7 @@
 					function btnSearch(){
 						var check = $("#searchWord").val();
 						self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=" + check + "&searchType=" + $("select option:selected").val() 
-						+ "&keyword=" + encodeURIComponent($('#keyword').val()) + "&userId=<%=userId%>";
+						+ "&keyword=" + encodeURIComponent($('#keyword').val());
 					}
 					function documentWite(){ //기안서 팝업창
 						var url = "<%=request.getContextPath()%>/approval/documentWite";
@@ -95,30 +94,21 @@
 					}
 					$(function(){
 						$('#my').on("click",function(){
-							self.location = "<%=request.getContextPath()%>/approval/documentListMain?userId=<%=userId%>"; 
+							self.location = "<%=request.getContextPath()%>/approval/documentListMain"; 
 						});
 						$('#myDocumentComplete').on("click",function(){
-							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재 완료 문서"+"&userId=<%=userId%>";
+							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재 완료 문서";
 						});
 						$('#myDocumentNo').on("click",function(){
-							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재 반려 문서"+"&userId=<%=userId%>";
+							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=결재 반려 문서";
 						});
 						$('#myWriteDocument').on("click",function(){
-							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=나의 결재문서"+"&userId=<%=userId%>";
+							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=나의 결재문서";
 						});
 						$("#keyword").keydown(function(key) {
 						             if (key.keyCode == 13) {
 						             	event.preventDefault();
 						             }
-						         });
-						         $("#searchType").change(function(){
-							var selectOptionChk = $("select option:selected").val();
-							if(selectOptionChk != '전체보기'){
-								$("#keyword").attr("disabled",false);
-							}else{
-								$("#keyword").attr("disabled",true);
-								$("#keyword").attr("value","");
-							}
 						});
 					});
 				</script>
@@ -131,6 +121,9 @@
 								<th scope="col" width="5%">기안 부서</th>
 								<th scope="col" width="5%">기안자</th> 
 								<th scope="col" width="50%">제목</th>
+								<c:if test="${scri.searchWord eq '결재 반려 문서' }">
+								<th scope="col" width="5%">반려자</th>
+								</c:if>
 								<th scope="col" width="5%">기안 일자</th>
 								<th scope="col" width="5%">상태</th>
 							</tr>
@@ -138,51 +131,54 @@
 						<tbody>
 							<c:forEach items="${elist}" var="elist" varStatus="status">
 								<tr class="waitingList">
-								<td>
-									<c:choose>
-										<c:when test="${elist.e_type == '중요일정' || elist.e_type == '회사일정' || elist.e_type == '외근' || elist.e_type == '출장'}">
-											<a href="<%=request.getContextPath()%>/approval/documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">${elist.eidx }</a>
-										</c:when>
-										<c:otherwise>
-											<a href="<%=request.getContextPath()%>/leave/view?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=650'); return false;" style="text-decoration : none; color:black;">${elist.eidx }</a>
-										</c:otherwise> 
-									</c:choose>
-								</td>
-								<td>
-									${elist.e_type}
-								</td>
-								<td>${elist.t_department }</td>
-								<td>${elist.t_name }</td>
-								<td>
-									<c:choose>
-										<c:when test="${elist.e_type == '중요일정' || elist.e_type == '회사일정' || elist.e_type == '외근' || elist.e_type == '출장'}">
-											<a href="<%=request.getContextPath()%>/approval/documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">
-												<c:set var="content" value="${elist.e_textTitle}"/>
-												<c:choose>
-													<c:when test="${fn:length(elist.e_textTitle) > 40}">
-														<c:out value="${fn:substring(content,0,40)}"/>...
-													</c:when>
-													<c:otherwise>
-														<c:out value="${elist.e_textTitle}"/>
-													</c:otherwise> 
-												</c:choose>
-											</a>
-										</c:when>
-										<c:otherwise>
-											<a href="<%=request.getContextPath()%>/leave/view?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=650'); return false;" style="text-decoration : none; color:black;"><c:set var="content" value="${elist.e_textTitle}"/>
-												<c:choose>
-													<c:when test="${fn:length(elist.e_textTitle) > 50}">
-														<c:out value="${fn:substring(content,0,50)}"/>...
-													</c:when>
-													<c:otherwise>
-														<c:out value="${elist.e_textTitle}"/>
-													</c:otherwise> 
-												</c:choose></a>
-										</c:otherwise> 
-									</c:choose>
-								</td>
-								<td>${elist.e_draftDate }</td>
-								<td>${elist.e_status }</td>
+									<td>
+										<c:choose>
+											<c:when test="${elist.e_type == '중요일정' || elist.e_type == '회사일정' || elist.e_type == '외근' || elist.e_type == '출장'}">
+												<a href="<%=request.getContextPath()%>/approval/documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">${elist.eidx }</a>
+											</c:when>
+											<c:otherwise>
+												<a href="<%=request.getContextPath()%>/leave/view?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=650'); return false;" style="text-decoration : none; color:black;">${elist.eidx }</a>
+											</c:otherwise> 
+										</c:choose>
+									</td>
+									<td>${elist.e_type}</td>
+									<td>${elist.t_department }</td>
+									<td>${elist.t_name }</td>
+									<td>
+										<c:choose>
+											<c:when test="${elist.e_type == '중요일정' || elist.e_type == '회사일정' || elist.e_type == '외근' || elist.e_type == '출장'}">
+												<a href="<%=request.getContextPath()%>/approval/documentContents?eidx=${elist.eidx}&tidx=${elist.tidx}" onclick="window.open(this.href, '_blank', 'width=770, height=915'); return false;" style="text-decoration : none; color:black;">
+													<c:set var="content" value="${elist.e_textTitle}"/>
+													<c:choose>
+														<c:when test="${fn:length(elist.e_textTitle) > 40}">
+															<c:out value="${fn:substring(content,0,40)}"/>...
+														</c:when>
+														<c:otherwise>
+															<c:out value="${elist.e_textTitle}"/>
+														</c:otherwise> 
+													</c:choose>
+												</a>
+											</c:when>
+											<c:otherwise>
+												<a href="<%=request.getContextPath()%>/leave/view?eidx=${elist.eidx}" onclick="window.open(this.href, '_blank', 'width=770, height=650'); return false;" style="text-decoration : none; color:black;"><c:set var="content" value="${elist.e_textTitle}"/>
+													<c:choose>
+														<c:when test="${fn:length(elist.e_textTitle) > 50}">
+															<c:out value="${fn:substring(content,0,50)}"/>...
+														</c:when>
+														<c:otherwise>
+															<c:out value="${elist.e_textTitle}"/>
+														</c:otherwise> 
+													</c:choose></a>
+											</c:otherwise> 
+										</c:choose>
+									</td>
+									<c:forEach items="${vo}" var="vo">
+										<c:if test="${scri.searchWord eq '결재 반려 문서' && vo.t_id eq elist.e_approvalNoPerson}">
+											<td>${vo.t_name}</td>
+										</c:if>
+									</c:forEach>
+									<td>${elist.e_draftDate }</td>
+									<td>${elist.e_status }</td>
 								</tr>
 							</c:forEach>
 						</tbody>

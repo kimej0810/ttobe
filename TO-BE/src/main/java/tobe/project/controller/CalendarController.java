@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +37,10 @@ public class CalendarController {
 	private MyService myservice;
 	
 	@RequestMapping(value = "/scheduleCalendar")
-	public String list(Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception {
+	public String list(Model model, @ModelAttribute("scri")SearchCriteria scri,HttpSession session) throws Exception {
+		
+		String userId = (String)session.getAttribute("userId");
+		scri.setUserId(userId);
 		
 		PageMaker pageMaker = new PageMaker();
 		List<ScheduleVO> schedule = service.showSchedule();

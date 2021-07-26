@@ -35,7 +35,7 @@ ul {
 	margin : 0;
 }
 .group {
-	width : 580px;
+	width : 98%;
 	box-shadow : 0 5px 15px rgba(0,0,0,.5);
 	margin : 8px auto;
 	border : 1px solid #ddd;
@@ -85,7 +85,7 @@ button {
 	margin-top : 20px;
 }
 .s_type{
-	width: 200px;
+	width: 36%;
     border: 1px solid #34aadc;
 }
 .date {
@@ -93,7 +93,7 @@ button {
     background: white;
     border-radius: 5px;
     border: 1px solid #34aadc;
-    width: 200px;
+    width: 36%;
     height: 35px;
 }
 
@@ -106,7 +106,7 @@ button {
 .t_id,.t_name {
 	border: 1px solid #34aadc;
 	border-radius: 5px;
-    width: 200px;
+    width: 36%;
     height: 35px;
 }
 .target {
@@ -116,13 +116,15 @@ button {
 .target::-webkit-scrollbar {
     display: none; 
 }
-
+#imgd{
+	position: absolute;
+    top: 25%;
+    right: 6%;
+}
 img{
 	width: 258px;
-    position: absolute;
-    left: 48%;
-    top: 23%;
 }
+
 .close-button{
 	margin-top:20px;
 	margin-right:0px;

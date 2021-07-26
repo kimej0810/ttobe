@@ -1936,7 +1936,7 @@ table.sheet0 tr.row14 {
 #documentWrite{
 	margin-left: 5px;
 	margin-top: 15px;
-	width: 740px;
+	width: 97.3%;
 	text-align: right;
 }
 #e_draftDate, #e_startDay, #e_endDay{
@@ -1948,7 +1948,7 @@ table.sheet0 tr.row14 {
 }
 #documentBtn{
 	text-align: right;
-    width: 100.8%;
+    width: 100.3%;
     margin-top: 10px;
 }
 #e_type, #e_draftDate, #e_startDay, #e_con, #t_name, #t_department, #e_endDay{

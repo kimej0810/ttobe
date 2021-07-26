@@ -39,8 +39,8 @@
 						</div>
 				        	<div class="search">
 					        	<div id="searchbox" class="input-group mb-3">
+					        		<input type="hidden" id="searchWord" value="${scri.searchWord}">
 									<select name="searchType"  class="form-control" id="searchType">
-										<option value="전체"<c:out value="${scri.searchType == null ? 'selected' : '' }"/>>전체보기</option>
 						 				<option value="유형"<c:out value="${scri.searchType eq '유형' ? 'selected' : '' }"/>>유형</option>
 										<option value="제목"<c:out value="${scri.searchType eq '제목' ? 'selected' : '' }"/>>제목</option>
 										<option value="내용"<c:out value="${scri.searchType eq '내용' ? 'selected' : '' }"/>>내용</option>
@@ -55,20 +55,16 @@
 							</div>
 							<script type="text/javascript">
 								$(function(){
+									$("#searchBtn").on("click",function(){
+										var check = $("#searchWord").val();
+										self.location = "<%=request.getContextPath()%>/schedule/scheduleBoard" + '${paging.makeQuery(1)}'  + "&searchWord=" + check + "&searchType=" + $("select option:selected").val() 
+										+ "&keyword=" + encodeURIComponent($('#keyword').val());
+									});
 									$('#allSchedule').on("click",function(){
-										self.location = "<%=request.getContextPath()%>/schedule/scheduleBoard" + '${paging.makeQuery(1)}' + "&searchType=" + "&userId=" + "<%=userId%>";
+										self.location = "<%=request.getContextPath()%>/schedule/scheduleBoard";
 									});
-									$(document).on("click","#mySchedule",function(){
-										self.location = "<%=request.getContextPath()%>/schedule/scheduleBoard" + '${paging.makeQuery(1)}' + "&searchType=나의 일정보기" + "&userId=" + "<%=userId%>";
-									});
-									$("#keyword").attr("disabled",true);
-									$("#searchType").change(function(){
-										var selectOptionChk = $("select option:selected").val();
-										if(selectOptionChk != '전체'){
-											$("#keyword").attr("disabled",false);
-										}else{
-											$("#keyword").attr("disabled",true);
-										}
+									$("#mySchedule").on("click",function(){
+										self.location = "<%=request.getContextPath()%>/schedule/scheduleBoard" + '${paging.makeQuery(1)}' + "&searchWord=나의 일정보기";
 									});
 								});
 							</script>
@@ -78,8 +74,7 @@
 				          			<tr>
 				          				<th scope="col" width="5%">일정 번호</th>
 				          				<th scope="col" width="5%">일정 유형</th>
-				          				<th scope="col" width="12%">시작 일시</th>
-				          				<th scope="col" width="12%">종료 일시</th>
+				          				<th scope="col" width="12%">일시</th>
 				          				<th scope="col" width="15%">일정 제목</th>
 				          				<th scope="col" width="15%">일정 내용</th>
 				          				<th scope="col" width="5%">사원 이름</th>
@@ -99,16 +94,12 @@
 												<c:choose>
 													<c:when test="${viewAll.s_startDate eq viewAll.s_endDate}">
 														<td class="scheduleDate">
-															${viewAll.s_startDate}
+															${viewAll.s_startDate} 
 														</td>
-														<td></td>
 													</c:when>
 													<c:otherwise>
 														<td class="scheduleDate">
-															${viewAll.s_startDate}
-														</td>
-														<td class="scheduleDate">
-															${viewAll.s_endDate}
+															${viewAll.s_startDate} ~ ${viewAll.s_endDate}
 														</td>
 													</c:otherwise>
 												</c:choose>
@@ -139,22 +130,15 @@
 														</c:choose>
 													</a>
 												</td>
-						              			<td>
-						             				${viewAll.memberVO.t_name}
-						              			</td>
-						              			<td>
-						              				${viewAll.memberVO.t_department}
-						              			</td>
-						              			<td>
-						              				${viewAll.memberVO.t_position}
-						              			</td>
+						              			<td>${viewAll.memberVO.t_name}</td>
+						              			<td>${viewAll.memberVO.t_department}</td>
+						              			<td>${viewAll.memberVO.t_position}</td>
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
 							</div>					
 						</form>
-					
 					<!-- 페이징처리 -->
 					<nav aria-label="Page navigation example" id="paging">
 						<ul class="pagination">

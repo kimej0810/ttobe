@@ -107,7 +107,7 @@
 							<option value="외근">외근</option>
 							<option value="출장">출장</option>
 						</select>
-						<div><img src="<c:url value="/resources/static/img/scheduleLogo.png"/>"></div>
+						<div id="imgd"><img src="<c:url value="/resources/static/img/scheduleLogo.png"/>"></div>
 					</div>
 					<div class="domainTitle">
 						<h3 class="zTree-h3">시작 날짜</h3>
