@@ -47,11 +47,16 @@ public class BoardController {
 	public String list(Locale locale, Model model, SearchCriteria scri) throws Exception {
 		logger.info("BoardList");
 
-		System.out.println(scri.getPageStart());
 		List<BoardVO> list;
 
 		String keyword = scri.getKeyword();
 		String searchType = scri.getSearchType();
+		System.out.println("rowStartBoard->"+scri.getRowStartBoard());
+		if(scri.getRowStartBoard()!=0) {
+			scri.setPageNumBoard(7);
+		}else {
+			scri.setPageNumBoard(8);
+		}
 
 		if ((keyword == "" || keyword == null) && (searchType == "" || searchType == null)) {
 			list = service.selectAllBoard(scri);

@@ -34,7 +34,7 @@
 		(select *
 		from board
 		where b_type='G'
-		order by bidx desc limit #{rowStartBoard},7
+		order by bidx desc limit #{rowStartBoard},#{pageNumBoard}
 		))as a
 		inner join afps_member as m on a.tidx = m.tidx
 		where a.delyn='N'
@@ -91,7 +91,7 @@
 		from
 		(select *
 		from board as b
-		order by b.b_type desc, b.bidx desc limit 0,10
+		order by b.b_type desc, b.bidx desc limit 0,12
 		)as a
 		inner join afps_member as m on a.tidx = m.tidx
 		where a.delyn='N' and a.b_writedate between date_format(#{search1}, '%y-%m-%d') and date_format(#{search2}, '%y-%m-%d')

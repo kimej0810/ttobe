@@ -9,6 +9,7 @@
 <head>
 <title>진짜메인</title>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scal=1.0">
 <script type="text/javascript"
 	src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 <style>
@@ -330,10 +331,10 @@ p {
 			style="display: grid; grid-template-columns: 1fr 1fr;">
 
 			<input type="hidden" id="tidx" value="<%=userTidx%>">
-			<button style="grid-columns: 1/2; margin: 0 5px; height:70%;" id="startWork"
+			<button style="grid-columns: 1/2; margin: 0 5px;" id="startWork"
 				type="button" class="btn btn-outline-primary btn-lg float-right"
 				onclick="location.href='${pageContext.request.contextPath}/commute/startCommute?tidx=<%=userTidx%>'">출근</button>
-			<button style="grid-columns: 2/3; margin: 0 5px; height:70%;" id="endWork"
+			<button style="grid-columns: 2/3; margin: 0 5px;" id="endWork"
 				type="button" class="btn btn-outline-danger btn-lg float-right"
 				onclick="location.href='${pageContext.request.contextPath}/commute/endCommute?tidx=<%=userTidx%>'">퇴근</button>
 		</div>
