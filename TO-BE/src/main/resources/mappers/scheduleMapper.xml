@@ -106,7 +106,8 @@
 			AND T_ID = #{userId}
 		</if>
 		<if test="searchWord != null">
-			<if test="searchWord == '나의 일정보기'.toString()">AND T_ID = #{userId} </if>
+			<if test="searchWord == ''">AND T_ID = #{userId} </if>
+			<if test="searchWord == '전체 일정보기'.toString()"></if>
 		</if>
 	</sql>
 </mapper>

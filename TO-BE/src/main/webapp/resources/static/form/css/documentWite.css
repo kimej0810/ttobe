@@ -1964,7 +1964,13 @@ table.sheet0 tr.row14 {
 	font-size: 15px;
 	text-align: center;
 }
-#charge, #teamLeader, #departmentHead, #sectionHead, #leaderRead{
+#charge, #teamLeader, #sectionHead, #departmentHead, #leaderRead{
+	width: 88px; 
+	height:50px;
+	border:none;
+	text-align: center;
+}
+#charge, #teamLeaderRead, #sectionHeadRead, #departmentHeadRead{
 	width: 88px; 
 	height:50px;
 	border:none;

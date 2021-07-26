@@ -47,7 +47,7 @@
 										<option value="제목+내용"<c:out value="${scri.searchType eq '제목+내용' ? 'selected' : '' }"/>>제목+내용</option>
 										<option value="이름"<c:out value="${scri.searchType eq '사원이름' ? 'selected' : '' }"/>>사원이름</option>
 									</select>
-									<input type="text" id="keyword" class="form-control" name="keyword" value="${scri.keyword }">
+									<input type="text" id="keyword" class="form-control" name="keyword" value="${scri.keyword }" autocomplete="off">
 									<div class="input-group-prepend">	
 										<button type="button" id="searchBtn" class="btn btn-outline-secondary">검색</button>
 									</div>
@@ -61,10 +61,15 @@
 										+ "&keyword=" + encodeURIComponent($('#keyword').val());
 									});
 									$('#allSchedule').on("click",function(){
-										self.location = "<%=request.getContextPath()%>/schedule/scheduleBoard";
+										self.location = "<%=request.getContextPath()%>/schedule/scheduleBoard" + '${paging.makeQuery(1)}' + "&searchWord=전체 일정보기";
 									});
 									$("#mySchedule").on("click",function(){
-										self.location = "<%=request.getContextPath()%>/schedule/scheduleBoard" + '${paging.makeQuery(1)}' + "&searchWord=나의 일정보기";
+										self.location = "<%=request.getContextPath()%>/schedule/scheduleBoard";
+									});
+									$("#keyword").keydown(function(key) {
+							             if (key.keyCode == 13) {
+							             	event.preventDefault();
+							             }
 									});
 								});
 							</script>

@@ -39,10 +39,7 @@ public class CalendarController {
 	private MyService myservice;
 	
 	@RequestMapping(value = "/scheduleCalendar")
-	public String list(Model model, @ModelAttribute("scri")SearchCriteria scri,HttpSession session) throws Exception {
-		
-		String userId = (String)session.getAttribute("userId");
-		scri.setUserId(userId);
+	public String list(Model model, @ModelAttribute("scri")SearchCriteria scri) throws Exception {
 		
 		PageMaker pageMaker = new PageMaker();
 		List<ScheduleVO> schedule = service.showSchedule();
@@ -66,6 +63,10 @@ public class CalendarController {
 		
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(service.countSchedule(scri));
+		
+		System.out.println("워드"+scri.getSearchWord());
+		System.out.println("타입"+scri.getSearchType());
+		System.out.println("키워드"+scri.getKeyword());
 		
 		model.addAttribute("viewAll",service.selectSchedule(scri));	
 		model.addAttribute("paging",pageMaker);

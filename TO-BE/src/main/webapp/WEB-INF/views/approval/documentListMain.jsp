@@ -65,7 +65,7 @@
 				<div id="waitingListGroup" class="search">
 					<div id="searchBtnGroup" class="input-group">
 						<input type="hidden" id="searchWord" value="${scri.searchWord}">
-						<select id="searchType" class="form-control" name="searchType" style="height:30px; font-size:0.5rem;">
+						<select id="searchType" class="form-control" name="searchType" style="height: 30px;font-size: 0.8rem;width: 70px;">
  							<option value="기안부서"  <c:out value = "${scri.searchType eq '기안 부서' ? 'selected' : '' }"/>>기안 부서</option>
 							<option value="기안자이름" <c:out value = "${scri.searchType eq '기안자 이름' ? 'selected' : '' }"/>>기안자 이름</option>
 							<option value="기안일시"  <c:out value = "${scri.searchType eq '기안 일시' ? 'selected' : '' }"/>>기안 일시</option>
@@ -74,7 +74,7 @@
 							<option value="기안내용"  <c:out value = "${scri.searchType eq '기안 내용' ? 'selected' : '' }"/>>기안 내용</option>
 							<option value="제목+내용" <c:out value = "${scri.searchType eq '제목+내용' ? 'selected' : '' }"/>>제목+내용</option>
 						</select>
-						<input type="text" id="keyword" class="form-control" name="keyword" value="${scri.keyword}" style="height:30px; width:40%; font-size:0.5rem;">
+						<input type="text" id="keyword" class="form-control" name="keyword" value="${scri.keyword}" style="height:30px; width:40%; font-size:0.8rem;" autocomplete="off">
 						<div class="input-group-prepend">
 							<button type="button" id="searchBtn" style="height:30px; font-size:0.5rem;" class="btn btn-outline-secondary"  onclick="btnSearch()">검색</button>
 						</div>
@@ -106,9 +106,9 @@
 							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=나의 결재문서";
 						});
 						$("#keyword").keydown(function(key) {
-						             if (key.keyCode == 13) {
-						             	event.preventDefault();
-						             }
+				             if (key.keyCode == 13) {
+				             	event.preventDefault();
+				             }
 						});
 					});
 				</script>

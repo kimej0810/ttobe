@@ -10,6 +10,7 @@
 	String userName = (String)session.getAttribute("userName");
 	String userDep = (String)session.getAttribute("userDep");
 	Integer userTidx = (Integer)session.getAttribute("userTidx");
+	String userId = (String)session.getAttribute("userId");
 	String userPosition = (String)session.getAttribute("userPosition");
 	
 	if(userTidx == null){ 
@@ -120,7 +121,8 @@
 							<%if(userPosition != null){ %>
 								<%if(userPosition.equals("팀장")){ %>
 									<td class="style38 style43" colspan="2" rowspan="2">
-										<input type="text" id="teamLeader" name="teamLeader" value="<%=userName%>" readonly>
+										<input type="hidden" id="teamLeader" name="teamLeader" value="<%=userId%>">
+										<input type="text" id="teamLeaderRead" value="<%=userName%>" readonly>
 									</td>
 									<td class="style38 style43" colspan="3" rowspan="2">
 										<select id="sectionHead" name="sectionHead">
@@ -153,7 +155,8 @@
 											<input type="text" id="teamLeader" name="teamLeader" value="결재권한없음" readonly>
 									</td>
 									<td class="style38 style43" colspan="3" rowspan="2">
-										<input type="text" id="sectionHead" name="sectionHead" value="<%=userName%>" readonly>
+										<input type="hidden" id="sectionHead" name="sectionHead" value="<%=userId%>">
+										<input type="text" id="sectionHeadRead" value="<%=userName%>" readonly>
 									</td>
 									<td class="style38 style43" colspan="2" rowspan="2">
  										<select id="departmentHead" name="departmentHead">
@@ -180,7 +183,8 @@
 										<input type="text" id="sectionHead" name="sectionHead" value="결재권한없음" readonly>
 									</td>
 									<td class="style38 style43" colspan="2" rowspan="2">
-										<input type="text" id="departmentHead" name="departmentHead" value="<%=userName %>" readonly>
+										<input type="hidden" id="departmentHead" name="departmentHead" value="<%=userId%>">
+										<input type="text" id="departmentHeadRead" value="<%=userName %>" readonly>
 									</td>
 									<td class="style58 style59" rowspan="2">
 										<c:forEach items="${allMember }" var="allMember" varStatus="status">

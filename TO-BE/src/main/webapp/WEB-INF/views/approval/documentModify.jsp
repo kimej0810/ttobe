@@ -169,7 +169,8 @@
 							<%if(contents.getT_position() != null){ %>
 								<%if(contents.getT_position().equals("팀장")){ %>
 									<td class="style38 style43" colspan="2" rowspan="2">
-										<input type="text" id="teamLeader" name="teamLeader" value="<%=contents.getT_name()%>" readonly>
+										<input type="hidden" id="teamLeader" name="teamLeader" value="<%=contents.getT_id()%>">
+										<input type="text" id="teamLeaderRead" value="<%=contents.getT_name()%>" readonly>
 									</td>
 									<td class="style38 style43" colspan="3" rowspan="2">
 										<select id="sectionHead" name="sectionHead">
@@ -202,7 +203,8 @@
 											<input type="text" id="teamLeader" name="teamLeader" value="결재권한없음" readonly>
 									</td>
 									<td class="style38 style43" colspan="3" rowspan="2">
-										<input type="text" id="sectionHead" name="sectionHead" value="<%=contents.getT_name()%>" readonly>
+										<input type="hidden" id="sectionHead" name="sectionHead" value="<%=contents.getT_id()%>">
+										<input type="text" id="sectionHeadRead" value="<%=contents.getT_name()%>" readonly>
 									</td>
 									<td class="style38 style43" colspan="2" rowspan="2">
 									<select id="departmentHead" name="departmentHead">
@@ -229,7 +231,8 @@
 										<input type="text" id="sectionHead" name="sectionHead" value="결재권한없음" readonly>
 									</td>
 									<td class="style38 style43" colspan="2" rowspan="2">
-											<input type="text" id="departmentHead" name="departmentHead" value="<%=contents.getT_name() %>" readonly>
+										<input type="hidden" id="departmentHead" name="departmentHead" value="<%=contents.getT_id()%>">
+										<input type="text" id="departmentHeadRead" value="<%=contents.getT_name() %>" readonly>
 									</td>
 									<td class="style58 style59" rowspan="2">
 										<c:forEach items="${allMember }" var="allMember" varStatus="status">
