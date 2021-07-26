@@ -32,30 +32,42 @@ public class LeaveController {
 	@RequestMapping(value="/write", method = RequestMethod.GET)
 	public String leave(Model model,HttpSession session,String t_id,Locale locale) throws Exception {
 		logger.info("연자 등록", locale);
-		MemberDTO vo = service.selectOneMember(t_id);
-		List<MemberDTO> dto = service.selectAllMember2();
-		model.addAttribute("memberList",dto);
-		model.addAttribute("member",vo);
-		return "/leave/write";
+		String check = (String)session.getAttribute("userId"); 
+		if(check!=null){
+			MemberDTO vo = service.selectOneMember(t_id);
+			List<MemberDTO> dto = service.selectAllMember2();
+			model.addAttribute("memberList",dto);
+			model.addAttribute("member",vo);
+			return "/leave/write";
+		}
+		model.addAttribute("idnull","null");
+		return "/member/checklogin";
 	}
 	@RequestMapping(value="/view", method = RequestMethod.GET)
-	public String leave(Model model,HttpSession session,int eidx,Locale locale) throws Exception {
+	public String leave(Model model,HttpSession session,Integer eidx,Locale locale) throws Exception {
 		logger.info("연차 보기", locale);
-		LeaveDTO leave = myService.selectOneLeave(eidx);
-		Integer tidx = (Integer)session.getAttribute("userTidx");
-		model.addAttribute("leave",leave);
-		if(tidx!=null) {
-			model.addAttribute("member",service.selectOneMemberIdx(leave.getTidx()));
-			model.addAttribute("memberList",service.selectAllMember2());
-			return "/leave/view";
+		String check = (String)session.getAttribute("userId"); 
+		if(check!=null){
+			LeaveDTO leave = myService.selectOneLeave(eidx);
+			Integer tidx = (Integer)session.getAttribute("userTidx");
+			model.addAttribute("leave",leave);
+			if(tidx!=null) {
+				model.addAttribute("member",service.selectOneMemberIdx(leave.getTidx()));
+				model.addAttribute("memberList",service.selectAllMember2());
+				return "/leave/view";
+			}
 		}
-		return "redirect:/member/login";
+		model.addAttribute("idnull","null");
+		return "/member/checklogin";
 	}
 	@ResponseBody
 	@RequestMapping(value="/no")
 	public int leaveNo(Model model,HttpSession session,ApprovalDTO dto,Locale locale) throws Exception {
 		logger.info("연차 반려", locale);
-		return myService.leaveNo(dto);
+		if(dto!=null) {
+			return myService.leaveNo(dto);
+		}
+		return 0;
 	}
 	@ResponseBody
 	@RequestMapping(value="/writeAction")
@@ -70,17 +82,21 @@ public class LeaveController {
 		return myService.leaveDelete(eidx);
 	}
 	@RequestMapping(value="/modify")
-	public String leaveModify(Model model,HttpSession session,int eidx,Locale locale) throws Exception {
+	public String leaveModify(Model model,HttpSession session,Integer eidx,Locale locale) throws Exception {
 		logger.info("연차 수정", locale);
-		LeaveDTO leave = myService.selectOneLeave(eidx);
-		Integer tidx = (Integer)session.getAttribute("userTidx");
-		model.addAttribute("leave",leave);
-		if(tidx!=null) {
-			model.addAttribute("member",service.selectOneMemberIdx(tidx));
-			model.addAttribute("memberList",service.selectAllMember2());
-			return "/leave/modify";
+		String check = (String)session.getAttribute("userId"); 
+		if(check!=null){
+			LeaveDTO leave = myService.selectOneLeave(eidx);
+			Integer tidx = (Integer)session.getAttribute("userTidx");
+			model.addAttribute("leave",leave);
+			if(tidx!=null) {
+				model.addAttribute("member",service.selectOneMemberIdx(tidx));
+				model.addAttribute("memberList",service.selectAllMember2());
+				return "/leave/modify";
+			}
 		}
-		return "/member/login";
+		model.addAttribute("idnull","null");
+		return "/member/checklogin";
 	}
 	@ResponseBody
 	@RequestMapping(value="/modifyAction")

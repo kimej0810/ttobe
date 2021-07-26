@@ -257,7 +257,7 @@
 								<option value="결재권한없음" selected="selected">선택불가</option>
 							</c:if>
 							<c:choose>
-								<c:when test="${member.t_position eq '팀장' || member.t_position eq '부장' || member.t_position eq '과장'}">
+								<c:when test="${member.t_position eq '팀장' || member.t_position eq '부장' || member.t_position eq '과장'|| member.t_position eq '대표'}">
 									<option value="결재권한없음" selected="selected">선택불가</option>
 								</c:when>
 								<c:otherwise>
@@ -278,7 +278,7 @@
 						<select class="form-select" name="sectionhead" id="sectionhead" required="required">
 							<option value="no">선 택</option>
 							<c:choose>
-								<c:when test="${member.t_position eq '과장' || member.t_position eq '부장'}">
+								<c:when test="${member.t_position eq '과장' || member.t_position eq '부장'|| member.t_position eq '대표'}">
 									<option value="결재권한없음" selected="selected">선택불가</option>
 								</c:when>
 								<c:otherwise>
@@ -299,7 +299,7 @@
 						<select class="form-select" name="departmenthead" id="departmenthead" required="required">
 							<option value="no">선 택</option>
 							<c:choose>
-								<c:when test="${member.t_position eq '부장'}">
+								<c:when test="${member.t_position eq '부장'|| member.t_position eq '대표'}">
 									<option value="결재권한없음" selected="selected">선택불가</option>
 								</c:when>
 								<c:otherwise>
