@@ -46,24 +46,32 @@ public class RealMainController extends HttpServlet {
 		
 		//전자결재
 		String userId = (String)session.getAttribute("userId");
-		MemberVO mvo = approvalService.selectOneMemberId(userId);
-		List<ApprovalVO> approvalList = null;
-		
-		if(mvo.getT_position().equals("사원")||mvo.getT_position().equals("대리")) {
-			SearchCriteria scri = new SearchCriteria();
-			scri.setUserId(userId);
-			scri.setPage(1);
-			scri.setPerPageNum(5);
-			scri.setSearchType("");
-			model.addAttribute("approvalList", approvalService.selectAllApprovalDocumentListNormal(scri));
+		if(userId==null||userId.equals("")) {
+			model.addAttribute("idnull", "null"); //아이디없음
+			return "/member/checklogin";
 		}else {
-			SearchCriteria scri = new SearchCriteria();
-			scri.setUserId(userId);
-			scri.setPage(1);
-			scri.setPerPageNum(5);
-			scri.setSearchType("");
-			model.addAttribute("approvalList", approvalService.selectAllApprovalDocumentList(scri));
+			MemberVO mvo = approvalService.selectOneMemberId(userId);
+			List<ApprovalVO> approvalList = null;
+			
+			if(mvo.getT_position().equals("사원")||mvo.getT_position().equals("대리")) {
+				SearchCriteria scri = new SearchCriteria();
+				scri.setUserId(userId);
+				scri.setPage(1);
+				scri.setPerPageNum(5);
+				scri.setSearchType("");
+				model.addAttribute("approvalList", approvalService.selectAllApprovalDocumentListNormal(scri));
+			}else {
+				SearchCriteria scri = new SearchCriteria();
+				scri.setUserId(userId);
+				scri.setPage(1);
+				scri.setPerPageNum(5);
+				scri.setSearchType("");
+				model.addAttribute("approvalList", approvalService.selectAllApprovalDocumentList(scri));
+			}
+		
+			model.addAttribute("approvalList", approvalList);
 		}
+		
 		
 		List<BoardVO> boardList;
 		Map<String, String> search = new HashMap<String, String>();
@@ -132,7 +140,7 @@ public class RealMainController extends HttpServlet {
 		model.addAttribute("author", author);
 		model.addAttribute("message", message);
 		model.addAttribute("boardList", boardList);
-		model.addAttribute("approvalList", approvalList);
+		
 		return "/main/realMain";
 	}
 
