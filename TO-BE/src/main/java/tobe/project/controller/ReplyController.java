@@ -50,10 +50,6 @@ public class ReplyController {
 	@ResponseBody
 	public List<ReplyVO> modify(ReplyVO vo) throws Exception {
 
-		System.out.println(vo.getRidx());
-		System.out.println(vo.getR_content());
-		System.out.println(vo.getBidx());
-		
 		service.modifyReply(vo);
 		List<ReplyVO> list = service.listReply(vo.getBidx());
 		return list;

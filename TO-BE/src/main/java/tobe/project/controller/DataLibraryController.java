@@ -58,7 +58,6 @@ public class DataLibraryController {
 	//데이터 추가
 	@RequestMapping(value = "/transport")
 	public String transport(DataLibraryVO vo, MultipartHttpServletRequest mpRequest) throws Exception {
-		System.out.println("데이터 추가");
 
 		System.out.println(vo.toString());
 		service.addData(vo, mpRequest);
@@ -72,7 +71,6 @@ public class DataLibraryController {
 			//dataLirbrary, fileInfo 두 테이블에서 삭제
 			
 			int didx = Integer.parseInt(param.get("didx"));
-			System.out.println("~~~~~~~~~didx에용~~~~~~~~`"+didx);
 			
 			service.deleteData(didx);
 			fileInfoService.deleteFileDidx(didx);
@@ -84,17 +82,11 @@ public class DataLibraryController {
 	@RequestMapping(value = "/fileDown")
 	@ResponseBody
 	public void fileDown(@RequestParam("didx") int didx, HttpServletResponse response, HttpServletRequest request) throws Exception {
-
-		//다운로드수 증가
-		service.hitData(didx);
 		
 		try {
 			List<Map<String, Object>> fileList = fileInfoService.selectAllFile("didx", didx);
 			String storedFileName = (String) fileList.get(0).get("F_STORED_FILE_NAME");
 			String originalFileName = (String) fileList.get(0).get("F_ORG_FILE_NAME");
-			
-			System.out.println("stored--->" + storedFileName);
-			System.out.println("original--->" + originalFileName);
 			String filePath = request.getSession().getServletContext().getRealPath("/resources/static/file/");
 
 			byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File(filePath+storedFileName));
@@ -106,6 +98,10 @@ public class DataLibraryController {
 			response.getOutputStream().write(fileByte);
 			response.getOutputStream().flush();
 			response.getOutputStream().close();
+			
+
+			//다운로드수 증가
+			service.hitData(didx);
 			
 		}catch(Exception e){
 			response.setContentType("text/html; charset=utf-8");

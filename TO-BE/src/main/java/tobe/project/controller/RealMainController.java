@@ -151,12 +151,9 @@ public class RealMainController extends HttpServlet {
 
 		String state = param.get("state");
 		String userId = (String)session.getAttribute("userId");
-		
-		System.out.println("asfskljfsdklfsklfk->"+state);
-		System.out.println("sjdflaksdfjskdfdsfjlㅁㄴㄹㅇ->"+userId);
-		
 		MemberVO mvo = approvalService.selectOneMemberId(userId);
 		SearchCriteria scri = new SearchCriteria();
+		
 		if(mvo.getT_position().equals("사원")||mvo.getT_position().equals("대리")) {
 			scri.setUserId(userId);
 			scri.setPage(1);
@@ -193,37 +190,5 @@ public class RealMainController extends HttpServlet {
 		
 		List<ApprovalVO> approvalList = approvalService.selectAllApprovalDocumentList(scri);
 		return approvalList;
-	}
-
-	// 달력인데 쓸지 안쓸지 모르겠음
-	@RequestMapping(value = "/calendar")
-	public String writeReply(@RequestParam Map<String, String> param, Model model) throws Exception {
-
-		int year = Integer.parseInt(param.get("year"));
-		int month = Integer.parseInt(param.get("month"));
-		String function = param.get("function");
-
-		if (function.equals("yearMinus")) {
-			year--;
-		} else if (function.equals("monthMinus")) {
-			if (month == 0) {
-				month = 12;
-			} else {
-				month--;
-			}
-		} else if (function.equals("yearPlus")) {
-			year++;
-		} else {
-			if (month == 12) {
-				month = 1;
-			} else {
-				month++;
-			}
-		}
-		
-		model.addAttribute("year", year);
-		model.addAttribute("month", month);
-
-		return "redirect:/board/list";
 	}
 }

@@ -145,8 +145,7 @@ button:disabled {
 								<a href="#" class="list-group-item list-group-item-action" onclick="fn_fileDown('${file.FIDX}'); return false;"
 									style="font-size: 0.8rem; text-decoration: none;">${file.F_ORG_FILE_NAME}</a>
 							</c:forEach>
-						</div> 
-
+						</div>
 						</div>
 						<div style="margin: 10px 0;">${boardVO.b_content}</div>
 					</td>

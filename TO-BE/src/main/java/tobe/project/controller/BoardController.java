@@ -52,7 +52,7 @@ public class BoardController {
 
 		String keyword = scri.getKeyword();
 		String searchType = scri.getSearchType();
-		System.out.println("rowStartBoard->"+scri.getRowStartBoard());
+		
 		if(scri.getRowStartBoard()!=0) {
 			scri.setPageNumBoard(7);
 		}else {
