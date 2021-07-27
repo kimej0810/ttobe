@@ -22,8 +22,23 @@
 		<title>게시판 일정리스트</title>
 		<script src="<c:url value="/resources/static/schedule/js/scheduleBoard.js"/>"  type="text/javascript"></script>
 		<link href="<c:url value="/resources/static/schedule/css/scheduleBoard.css"/>" rel='stylesheet' />
+		<style type = "text/css"> <!-- 로딩바스타일 -->
+			body{
+				text-align: center;
+				margin: 0 auto;
+			}
+			#Progress_Loading{
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				background: #ffffff;
+			}
+		</style>
 	</head>
 	<body>
+	<div id = "Progress_Loading"><!-- 로딩바 -->
+		<img src="<c:url value="/resources/static/img/Progress_Loading.gif"/>"/>
+	</div>
 	<div id="box">
 			<div class="row" id="row">
 				<div class="col-lg-12">
@@ -71,6 +86,15 @@
 							             	event.preventDefault();
 							             }
 									});
+								});
+								$(document).ready(function(){
+								   $('#Progress_Loading').hide(); //첫 시작시 로딩바를 숨겨준다.
+								})
+								.ajaxStart(function(){
+									$('#Progress_Loading').show(); //ajax실행시 로딩바를 보여준다.
+								})
+								.ajaxStop(function(){
+									$('#Progress_Loading').hide(); //ajax종료시 로딩바를 숨겨준다.
 								});
 							</script>
 				        	<div class="panel-body">

@@ -74,6 +74,7 @@
 							contentType : "application/json; charset=UTF-8",
 							success: function(data){
 								Swal.fire("재기안 완료","재기안이 완료되었습니다.","success").then(result => {
+									window.opener.location.href= "<%=request.getContextPath()%>/approval/documentListMain" + "?searchWord=나의 결재문서";
 									opener.parent.location.reload();
 									window.close();	
 								});

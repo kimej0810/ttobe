@@ -95,6 +95,7 @@ function click_ok(){
 				success: function(data){
 					Swal.fire("결재요청 완료","결재요청이 완료되었습니다.","success").then(result => {
 						opener.parent.location.reload();
+						window.opener.location.href= $("#projectName").val()+"/approval/documentListMain" + "?searchWord=나의 결재문서";
 						window.close();	
 					});
 				},
