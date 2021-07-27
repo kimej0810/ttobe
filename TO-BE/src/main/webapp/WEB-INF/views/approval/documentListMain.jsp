@@ -1,3 +1,4 @@
+<%@page import="tobe.project.domain.SearchCriteria"%>
 <%@page import="tobe.project.domain.PageMaker"%>
 <%@page import="tobe.project.dto.ApprovalVO"%>
 <%@page import="java.util.List"%>
@@ -10,7 +11,6 @@
 	if(userTidx == null || userId == null){ 
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+request.getContextPath()+"'/member/login';</script>");
 	}
-	
 	List<ApprovalVO> elist = (List<ApprovalVO>)request.getAttribute("elist"); 
 	PageMaker paging = (PageMaker)request.getAttribute("paging");
 %>
@@ -27,16 +27,17 @@
 				<input type="hidden" id="userId" name="userId" value="<%=userId%>">
 				<div id="category">
 					<%if(userPosition != null){ %>
-							<%if(userPosition.equals("팀장") || userPosition.equals("부장") || userPosition.equals("과장") || userPosition.equals("대표")){ %>
+						<%if(userPosition.equals("팀장") || userPosition.equals("부장") || userPosition.equals("과장") || userPosition.equals("대표")){ %>
 							<button type="button" class="btn btn-outline-secondary" id="my">결재 예정 문서</button>
 							<button type="button" class="btn btn-outline-secondary" id="myDocumentNo">결재 반려 문서</button>
 							<button type="button" class="btn btn-outline-secondary" id="myDocumentComplete">결재 완료 문서</button>
-						<%}%>
+						<%}else if(userPosition.equals("사원") || userPosition.equals("대리")){ %>
+							<button type="button" class="btn btn-outline-secondary" id="myWriteDocument">나의 결재문서</button>
+							<button type="button" id="writeBtn" class="btn btn-primary" onclick="documentWite()">결재 문서 작성</button>
+						<%}else{ %>
+							<button type="button" class="btn btn-outline-secondary" id="allDocumentList">전체 결재문서</button>
+						<%} %>
 					<%}%>
-					<%if(userPosition != "대표" || userGrade != "A"){ %>
-						<button type="button" class="btn btn-outline-secondary" id="myWriteDocument">나의 결재문서</button>
-						<button type="button" id="writeBtn" class="btn btn-primary" onclick="documentWite()">결재 문서 작성</button>
-					<%} %>
 				</div>
 				<div id="statusGroup">
 					<table id="statusTable">
@@ -104,6 +105,9 @@
 						});
 						$('#myWriteDocument').on("click",function(){
 							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=나의 결재문서";
+						});
+						$('#allDocumentList').on("click",function(){
+							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=전체 결재문서";
 						});
 						$("#keyword").keydown(function(key) {
 				             if (key.keyCode == 13) {

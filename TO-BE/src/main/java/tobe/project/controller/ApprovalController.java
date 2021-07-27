@@ -68,14 +68,21 @@ public class ApprovalController {
 				PageMaker pageMaker = new PageMaker();
 				pageMaker.setCri(scri);
 				pageMaker.setTotalCount(service.totalCountApprovalDocumentNormal(scri));
-				
+			
 				model.addAttribute("paging",pageMaker);
 				model.addAttribute("elist", service.selectAllApprovalDocumentListNormal(scri));
+			}else if(Idvo.getT_grade().equals("A")) {
+				PageMaker pageMaker = new PageMaker();
+				scri.setSearchWord("전체 결재문서");
+				pageMaker.setCri(scri);
+				pageMaker.setTotalCount(service.totalCountApprovalDocument(scri));
+				model.addAttribute("paging",pageMaker);
+				model.addAttribute("elist", service.selectAllApprovalDocumentList(scri));
 			}else {
 				PageMaker pageMaker = new PageMaker();
 				pageMaker.setCri(scri);
 				pageMaker.setTotalCount(service.totalCountApprovalDocument(scri));
-				
+				System.out.println("워드"+scri.getSearchWord());
 				model.addAttribute("paging",pageMaker);
 				model.addAttribute("elist", service.selectAllApprovalDocumentList(scri));
 			}

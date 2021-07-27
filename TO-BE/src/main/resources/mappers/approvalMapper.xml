@@ -124,7 +124,7 @@
  					select A.*, B.T_NAME, B.T_ID, B.T_DEPARTMENT, B.T_POSITION, C.TEAMLEADER, C.SECTIONHEAD, C.DEPARTMENTHEAD, C.LEADER, C.STATUS,(SELECT @ROWNUM := 1) R
  					FROM ELECTRONIC_APPROVAL A left join AFPS_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX
  						WHERE 1=1 <include refid="search"/>  AND T_ID = #{userId}
- 						ORDER BY A.EIDX desc)a WHERE delyn ='N' and EIDX LIMIT #{pageStart},#{perPageNum}
+ 						ORDER BY A.E_STATUS asc)a WHERE delyn ='N' and EIDX LIMIT #{pageStart},#{perPageNum}
  	</select>
  	<!-- 페이징 end -->
     
@@ -146,7 +146,7 @@
  					select A.*, B.T_NAME, B.T_ID, B.T_DEPARTMENT, B.T_POSITION, C.TEAMLEADER, C.SECTIONHEAD, C.DEPARTMENTHEAD, C.LEADER, C.STATUS,(SELECT @ROWNUM := 1) R
  					FROM ELECTRONIC_APPROVAL A left join AFPS_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX
  						WHERE 1=1 <include refid="searchWord"/> <include refid="search"/> and A.DELYN = 'N'
- 						ORDER BY A.EIDX desc)a WHERE delyn ='N' and EIDX LIMIT #{pageStart},#{perPageNum}
+ 						ORDER BY A.E_STATUS asc)a WHERE delyn ='N' and EIDX LIMIT #{pageStart},#{perPageNum}
  	</select>
  	<!-- 페이징 end -->
  	
@@ -172,6 +172,7 @@
 				<if test="searchWord == '결재 반려 문서'.toString()">AND E_APPROVALNOPERSON = #{userId}</if>
 				<if test="searchWord == '결재 완료 문서'.toString()">AND ((TEAMLEADER = '21-0012' and (STATUS = '0300' or STATUS = '0030' or STATUS = '0003' or STATUS = '0000')) or (SECTIONHEAD = '21-0012' and (STATUS = '0030' or STATUS = '0003' or STATUS = '0000')) or (DEPARTMENTHEAD = '21-0012' and (STATUS = '0003' or STATUS = '0000')) or (LEADER = '21-0012' and STATUS = '0000'))</if>
 				<if test="searchWord == ''">AND ((TEAMLEADER = #{userId} and STATUS = '3000') or (SECTIONHEAD = #{userId} and STATUS = '0300') or (DEPARTMENTHEAD = #{userId} and STATUS = '0030') or (LEADER = #{userId} and STATUS = '0003'))</if>
+				<if test="searchWord == '전체 결재 문서'.toString()"></if>
 			</otherwise>
 		</choose>
 	</sql>
