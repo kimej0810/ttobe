@@ -117,7 +117,7 @@ p {
 
 @media only screen and ( max-width :950px) {
 	.content {
-		margin: 20px;
+		margin:0;
 		height: calc(100vh - 58px);
 		display: grid;
 		grid-column-gap: 0px;
