@@ -21,6 +21,9 @@
 		border-radius: 50%;
 		border: 1px solid lightgray;
 	}
+	.error{
+		color: red;
+	}
 </style>
 <script src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -45,6 +48,16 @@
 	
 	var domain = $("#domain").val();
 	function modifyMember(){
+		
+		if($("#t_email").val() == ""){
+			$("#empty_t_email").css("display","block");
+			$("#t_email").focus();
+			return;
+		}else if($("#t_phone").val() == ""){
+			$("#empty_t_phone").css("display","block");
+			$("#t_phone").focus();
+			return;
+		}
 		
 		var result = confirm("정보를 수정하시겠습니까?");
 		if(result){
@@ -114,11 +127,11 @@
 				</tr>
 				<tr>
 					<th>이메일</th>
-					<td><input type="text" name="t_email" value="${member.t_email}"></td>
+					<td><input type="text" name="t_email" value="${member.t_email}" id="t_email"><span class="error" id="empty_t_email" style="display:none" aria-live="assertive">*필수입력</span></td>
 				</tr>
 				<tr>
 					<th>연락처</th>
-					<td><input type="text" name="t_phone" value="${member.t_phone}"></td>
+					<td><input type="text" name="t_phone" value="${member.t_phone}" id="t_phone"><span class="error" id="empty_t_phone" style="display:none" aria-live="assertive">*필수입력</span></td>
 				</tr>
 				<tr>
 					<th rowspan="2">주소</th>
