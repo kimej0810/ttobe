@@ -193,9 +193,16 @@ p {
 									<tr>
 								</c:if>
 								<td scope="row">${board.bidx}</td>
-								<td><a
+								<c:if test="${board.b_type eq 'N'}">
+									<td><a
+									href="${pageContext.request.contextPath}/board/view?bidx=${board.bidx}&page=1&perPageNum=10&searchType=&keyword=&pagePort=board"
+									style="text-decoration: none; color: black;">[공지] ${board.b_title}</a></td>
+								</c:if>
+								<c:if test="${board.b_type eq 'G'}">
+									<td><a
 									href="${pageContext.request.contextPath}/board/view?bidx=${board.bidx}&page=1&perPageNum=10&searchType=&keyword=&pagePort=board"
 									style="text-decoration: none; color: black;">${board.b_title}</a></td>
+								</c:if>
 								<td><fmt:parseDate var="writedate"
 										value="${board.b_writedate}" pattern="yyyy-MM-dd" /> <fmt:formatDate
 										value="${writedate}" pattern="yyyy-MM-dd" /></td>
