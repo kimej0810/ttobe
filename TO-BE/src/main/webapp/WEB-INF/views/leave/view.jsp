@@ -335,7 +335,7 @@
 				<tr>
 					<th>반려자</th>
 					<td><%=userName%>
-						<input type="hidden" name="e_approvalNoPerson" value="<%=userName%>">
+						<input type="hidden" name="e_approvalNoPerson" value="<%=userId%>">
 						<input type="hidden" name="eidx" value="${leave.eidx}">
 					</td>
 					<th>반려일</th>
