@@ -29,7 +29,7 @@
 	List<MemberVO> vo = (List<MemberVO>)request.getAttribute("vo");
 	
 	
-	//멤버리스트에 접근하여 결재라인의 아이디값을 이용해 이름 불러오기
+	//멤버리스트에 접근하여 결재라인의 아이디값을 이용해 이름 불러오기 
 	String lineTeamLeaderId = "";
 	String lineSectionHeadId = "";
 	String lineDepartmentHeadId = "";
