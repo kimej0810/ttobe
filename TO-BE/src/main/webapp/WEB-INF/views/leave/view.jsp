@@ -4,12 +4,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page import="tobe.project.dto.*" %>
+<%@ page import="java.util.*" %>
+<%@ page import="java.text.*" %>
 <%
 	String domain = request.getContextPath();
 	String userName = (String)session.getAttribute("userName");
 	String userId = (String)session.getAttribute("userId");
 	Integer userIdx = (Integer)session.getAttribute("userTidx");
 	MemberDTO member = (MemberDTO)request.getAttribute("member");
+	Date date = new Date();
+	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
+	String toDate = simpleDate.format(date);
 	if(userName==null){
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+domain+"/member/login';</script>");
 	}
@@ -333,10 +338,14 @@
 						<input type="hidden" name="e_approvalNoPerson" value="<%=userName%>">
 						<input type="hidden" name="eidx" value="${leave.eidx}">
 					</td>
+					<th>반려일</th>
+					<td>
+						<%=toDate%>					
+					</td>
 				</tr>
 				<tr>
 					<th>반려 사유</th>
-					<td>
+					<td colspan="3">
 						<input type="text" name="e_reason" id="e_reason" class="form-control" required="required">
 					</td>
 				</tr>
@@ -354,10 +363,16 @@
 					<tr>
 						<th>반려자</th>
 						<td>${leave.e_approvalnoperson}</td>
+						<th>반려일</th>
+						<td>
+							<c:set var="noDate" value="${leave.e_approvalnoday}"/>
+							${fn:substring(noDate,0,16)}
+						
+						</td>
 					</tr>
 					<tr>
 						<th>반려 사유</th>
-						<td>${leave.e_reason}</td>
+						<td colspan="3">${leave.e_reason}</td>
 					</tr>
 				</table>
 				<div style="float:right;margin:0 5px 5px 0;">
