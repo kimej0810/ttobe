@@ -243,6 +243,26 @@ button:disabled {
 		%>
 	</div>
 	<script>
+		function isEmpty(text){
+			if(typeof(text) === 'object'){
+		        if(JSON.stringify(text) === '{}' || JSON.stringify(text) === '[]'){
+		            return true;
+		        }else if(!text){
+		            return true;
+		        }
+		        return false;
+		    }else if(typeof(text) === 'string'){
+		        if(!text.trim()){
+		            return true;
+		        }
+		        return false;
+		    }else if(typeof(text) === 'undefined'){
+		        return true;
+		    }else{
+		        return false;
+		    }
+		}
+		
 		function removeHtml(text)
 		{
 		 text = text.replace(/<br>/ig, "\n"); // <br>을 엔터로 변경
@@ -316,11 +336,12 @@ button:disabled {
 		}
 
 		//댓글 작성
-		$(document).on(
-				"click",
-				".writeReplyBtn",
-				function() {
-					var form = {
+		$(document).on("click", ".writeReplyBtn",function() {
+			
+			if(isEmpty($("#r_content").val())){
+				alert("댓글을 입력해주세요.");
+			}else{
+				var form = {
 						tidx : $("#tidx").val(),
 						r_content : $("#r_content").val(),
 						bidx : $("#bidx").val()
@@ -341,7 +362,9 @@ button:disabled {
 							$("#r_content").val("");
 						}
 					});
-				});
+			}
+			
+		});
 
 		//댓글 삭제
 		$(document).on(

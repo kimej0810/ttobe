@@ -28,16 +28,15 @@
 		from
 		((select * 
 		from board
-		where b_type='N'
+		where b_type='N' and delyn='N'
 		order by bidx desc limit 0,3)
 		union all
 		(select *
 		from board
-		where b_type='G'
-		order by bidx desc limit #{rowStartBoard},#{pageNumBoard}
+		where b_type='G' and delyn='N'
+		order by bidx desc limit #{rowStartBoard},7
 		))as a
 		inner join afps_member as m on a.tidx = m.tidx
-		where a.delyn='N'
 	</select>
 
 	<!-- 게시판 검색 -->

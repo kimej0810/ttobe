@@ -52,12 +52,6 @@ public class BoardController {
 
 		String keyword = scri.getKeyword();
 		String searchType = scri.getSearchType();
-		
-		if(scri.getRowStartBoard()!=0) {
-			scri.setPageNumBoard(7);
-		}else {
-			scri.setPageNumBoard(8);
-		}
 
 		if ((keyword == "" || keyword == null) && (searchType == "" || searchType == null)) {
 			list = service.selectAllBoard(scri);
