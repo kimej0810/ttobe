@@ -10,6 +10,7 @@
 <script type="text/javascript" src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <style>
 @font-face {
 	font-family: 'NanumSquareRound';
@@ -106,6 +107,42 @@ $(document).ready(function(){
 		}else{
 			$("#pwdRe").tooltip('hide');
 		}
+	});
+	$(document).on("click","#joinBtn",function(){
+		if($("#pwd").val()==""){
+			alert("비밀번호를 입력하세요.");
+			$("#pwd").focus();
+			return;
+		}else if($("#pwdRe").val()==""){
+			alert("비밀번호를 재입력하세요.");
+			$("#pwdRe").focus();
+			return;
+		}else if($("#file").val()==null || $("#file").val()==""){
+			alert("관리자의 프로필을 등록해주세요.");
+			return;
+		}else if($("#t_phone1").val()==""){
+			alert("연락처를 입력하세요.");
+			return;
+		}else if($("#t_phone2").val()==""){
+			alert("연락처를 입력하세요.");
+			return;
+		}else if($("#t_phone3").val()==""){
+			alert("연락처를 입력하세요.");
+			return;
+		}else if($("#postcode").val()=="" || $("#address").val()=="" || $("#detailAddress").val()==""){
+			alert("우편주소를 입력하세요.");
+			return;
+		}
+		Swal.fire({
+			title:"관리자등록",
+			text:"관리자가 존재하므로 가입은 불가능합니다.",
+			icon:"warning",
+			confirmButtonText:"확인",
+		}).then(result => {
+			if(result.isConfirmed){
+				self.location.href= $("#domain").val()+"/member/login";
+			}
+		});
 	});
 });
 function execDaumPostcode() {
@@ -251,6 +288,10 @@ function joinAdmin(){
 	tPhone += "-";
 	tPhone += $("#t_phone3").val();
 	$("#t_phone").val(tPhone);
+	if($("#file").val()==null || $("#file").val()==""){
+		alert("관리자의 프로필을 등록해주세요.");
+		return false;
+	}
 	return true;
 }
 </script>
@@ -266,6 +307,7 @@ function joinAdmin(){
 	}
 	
 %> --%>
+<input type="hidden" value="${pageContext.request.contextPath}" id="domain">
 	<div class="container">
 		<div class="header" style="text-align:center;">
 			<img src="<c:url value="/resources/static/img/loginlogo.png"/>" style="width:190px;margin-bottom:10px;" alt="회사로고이미지">
@@ -312,7 +354,23 @@ function joinAdmin(){
 				<input type="hidden" placeholder="참고" id="extraAddress" name="addr3" class="form-control">
 			</div>
 			<div style="text-align:right;margin-top:20px;">
-				<input type="submit" class="btn btn-outline-secondary" value="등록하기">
+			<%
+				String check = (String)session.getAttribute("result");
+				if(check!=null){
+					if(check.equals("false")){
+						
+			%>
+						<input type="button" class="btn btn-outline-secondary" id="joinBtn" value="등록하기">
+			<%
+					}else{
+			
+			%>
+						<input type="submit" class="btn btn-outline-secondary" value="등록하기">
+			<%
+					}
+				}
+			%>
+				<input type="button" class="btn btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/member/login';" value="돌아가기">
 			</div>
 		</form>
 	</div>

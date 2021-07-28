@@ -142,19 +142,19 @@
 				비밀번호를 잊으셨나요?&nbsp;&nbsp;<button type="button" onclick="popupOpen();" class="btn btn-link">비밀번호찾기</button>
 			</div>
 			<div>
-				<%
+				<%-- <%
 					Integer admin = 0;
 					if(session.getAttribute("admin")!=null){
 						admin = (Integer)session.getAttribute("admin");
 						if(admin==0){
 							
-				%>
-					<span>관리자가 없습니다.?&nbsp;&nbsp;</span>
+				%> --%>
+					<span>관리자 등록&nbsp;&nbsp;</span>
 					<a href="${pageContext.request.contextPath}/admin/findAdmin">관리자등록</a>
-				<%
+				<%-- <%
 						}
 					}
-				%>
+				%> --%>
 			</div>
 		</form>
 	</section>

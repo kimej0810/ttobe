@@ -158,7 +158,7 @@ public class AdminController{
 			model.addAttribute("check","0");
 			session.setAttribute("result", "true");
 			return "/admin/check";
-		}else if(check==1) {
+		}else if(check>=1) {
 			model.addAttribute("message","관리자가 존재합니다.");
 			model.addAttribute("check","1");
 			session.setAttribute("result", "false");
@@ -167,8 +167,9 @@ public class AdminController{
 		return "/member/login";
 	}
 	@RequestMapping(value = "/join")
-	public String joinAdmin(Locale locale,Model model)throws Exception{
+	public String joinAdmin(Locale locale,Model model,HttpSession session)throws Exception{
 		logger.info("관리자 가입", locale);
+		session.getAttribute("result");
 		return "/admin/join";
 	}
 	@RequestMapping(value = "/joinAction")

@@ -31,6 +31,29 @@ function documentWite(){ //기안서 팝업창
 	var option = "width = 770, height = 915 left = 100, top=50,location=no";
 	window.open(url,name,option)
 }
+$(document).ready(function(){
+	$(document).on("click","#moreLeaveBtn",function(){
+		moreList = "";
+		moreList += "<c:forEach items='${myLeave}' var='leave'>"; 
+		moreList += "<tr><td>${leave.a_type}</td><td>";
+		moreList += "<a role='button' id='moreLeaveLink' style='text-decoration : none; color:black;'>${leave.e_texttitle}";
+		moreList += "<input type='hidden' id='moreLeaveLinkIdx' value='${leave.eidx}'></a></td><td>";
+		moreList += "<c:set var='startdate' value='${leave.e_startday}'/>${fn:substring(startdate,0,10)}</td><td>";
+		moreList += "<c:set var='enddate' value='${leave.e_endday}'/>${fn:substring(enddate,0,10)}</td>";
+		moreList += "<td>${leave.a_useddays}</td><td>${leave.e_status }</td>";
+		moreList += "</tr></c:forEach>";
+		$(this).css("display","none");
+		$("#leaveTb").children("tbody").html(moreList);
+	});
+	$(document).on("click","#moreLeaveLink",function(){
+		var c = $(this).children("#moreLeaveLinkIdx").val();
+		var url = $("#domain").val()+"/leave/view?eidx="+c;
+		var name = "leaveView";
+		var option = "width = 770, height = 700";
+		window.open(url,name,option);
+	});
+	
+});
 </script>
 <style>
 	#container1,#container2,#container3,#container4{
@@ -100,10 +123,10 @@ function documentWite(){ //기안서 팝업창
 									</tr>
 								</c:when>
 								<c:otherwise>
-									<c:forEach items="${myBoard}" var="board" end="6">
+									<c:forEach items="${myBoard}" var="board" end="5">
 										<tr>
 											<td>
-												<a href="${pageContext.request.contextPath}/board/view?bidx=${board.bidx}&pagePort=myhome" onclick="window.open(this.href, '_blank', 'width=600, height=730'); return false;" style="text-decoration : none; color:black;">${board.b_title}</a>
+												<a href="${pageContext.request.contextPath}/board/view?bidx=${board.bidx}&pagePort=myhome" onclick="window.open(this.href, '_blank', 'width=600, height=400'); return false;" style="text-decoration : none; color:black;">${board.b_title}</a>
 											</td>
 											<td>
 												<c:set var="boardContent" value="${board.b_content}"/>
@@ -160,7 +183,7 @@ function documentWite(){ //기안서 팝업창
 								</tr>
 							</c:when>
 								<c:otherwise>
-								<c:forEach items="${mySchedule}" var="schedule" end="6">
+								<c:forEach items="${mySchedule}" var="schedule" end="5">
 									<tr>
 										<td>${schedule.s_type}</td>
 										<td>
@@ -201,7 +224,11 @@ function documentWite(){ //기안서 팝업창
 					</div>
 				</div>
 			</div>
-			<div id="container3" class="form-control">
+			<c:choose>
+			<c:when test="${member.t_position eq '대표' }">
+			</c:when>
+			<c:otherwise>
+				<div id="container3" class="form-control">
 				<div style="text-align:right;">
 					<a class="btn btn-outline-secondary" data-bs-toggle="collapse" href="#collapseExample3" role="button"
 						aria-expanded="false" aria-controls="collapseExample">연차</a>
@@ -209,7 +236,7 @@ function documentWite(){ //기안서 팝업창
 				<div class="collapse" id="collapseExample3">
 					<div class="card card-body">
 						<span>잔여 연차 : ${member.t_leave_get}</span>
-						<table class="table">
+						<table class="table" id="leaveTb">
 							<thead>
 								<tr>
 									<th scope="col" width="5%">유형</th>
@@ -228,7 +255,7 @@ function documentWite(){ //기안서 팝업창
 								</tr>
 							</c:when>
 								<c:otherwise>
-									<c:forEach items="${myLeave}" var="leave" end="6">
+									<c:forEach items="${myLeave}" var="leave" end="5">
 										<tr>
 											<td>${leave.a_type}
 											</td>
@@ -255,15 +282,11 @@ function documentWite(){ //기안서 팝업창
 						</table>
 						<c:if test="${fn:length(myLeave) >= 6}">
 							<div style="text-align:right;">
-							<input type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'" value="더보기">
+							<input type="button" class="btn btn-primary btn-sm" id="moreLeaveBtn" value="더보기">
 							<c:if test="${member.t_leave_get > 0 }">
-								<button type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'">나의 결재</button>
-								<button type="button" class="btn btn-primary btn-sm" onclick="documentWite()">결재 기안</button>
 								<button type="button" class="btn btn-primary btn-sm" onclick="leaveBtn()">연차 신청</button>
 							</c:if>
 							<c:if test="${member.t_leave_get <= 0 }">
-								<button type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'">나의 결재</button>
-								<button type="button" class="btn btn-primary btn-sm" onclick="leaveBtn()">결재 기안</button>
 								<button type="button" class="btn btn-primary btn-sm" style="cursor: no-drop;">잔여연차없음</button>
 							</c:if>
 						</div>
@@ -271,13 +294,9 @@ function documentWite(){ //기안서 팝업창
 						<c:if test="${fn:length(myLeave) < 6}">
 							<div style="text-align:right;">
 								<c:if test="${member.t_leave_get > 0 }">
-									<button type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'">나의 결재</button>
-									<button type="button" class="btn btn-primary btn-sm" onclick="documentWite()">결재 기안</button>
 									<button type="button" class="btn btn-primary btn-sm" onclick="leaveBtn()">연차 신청</button>
 								</c:if>
 								<c:if test="${member.t_leave_get <= 0 }">
-									<button type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/approval/documentListMain?page=1&perPageNum=10&searchWord=&searchType=기안자이름&keyword=<%=userName%>'">나의 결재</button>
-									<button type="button" class="btn btn-primary btn-sm" onclick="documentWite()">결재 기안</button>
 									<button type="button" class="btn btn-primary btn-sm" style="cursor: no-drop;">잔여연차없음</button>
 								</c:if>
 							</div>
@@ -286,6 +305,8 @@ function documentWite(){ //기안서 팝업창
 					</div>
 				</div>
 			</div>
+			</c:otherwise>
+			</c:choose>
 			<div id="container4" class="form-control">
 				<div style="text-align:right;">
 					<a class="btn btn-outline-secondary" data-bs-toggle="collapse" href="#collapseExample4" role="button"
