@@ -11,10 +11,22 @@ $(document).ready(function(){
 	var domain = $("#domain").val();
 	Swal.fire({
 		title: "<img src='<c:url value='/resources/static/img/loginlogo.png'/>' style='width:200px;'>",
-		text: '로그인 페이지로 이동합니다.'
+		text:"어서와",
+		showCancelButton:true,
+		confirmButtonText:"로그인",
+		cancelButtonText:"테스터",
+		cancelButtonColor:"#2778c4"
 	}).then(result => {
-		location.href=domain+'/member/login';
-	})
+		if(result.isConfirmed){
+			location.href=domain+'/member/login';
+		}else{
+			var url = domain+"/tester";
+			var name = "tester";
+			var option = "width = 500, height = 400";
+			window.open(url,name,option);
+			location.href=domain+"/member/login";
+		}
+	});
 });
 </script>
 </head>

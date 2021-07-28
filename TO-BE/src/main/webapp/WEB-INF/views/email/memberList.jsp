@@ -104,6 +104,9 @@
 	});
 </script>
 <style>
+	body{
+		overflow: hidden;
+	}
 	#search{
 		width:100%;
 		display:grid;
@@ -115,6 +118,13 @@
 	}
 	.contentheader{
 		grid-template-columns:1fr 2fr 0.1fr;
+	}
+	#content{
+	    display: grid;
+	    min-width: 500px;
+	    grid-template-rows: 500px;
+	    background-color: white;
+	    
 	}
 </style>
 </head>
@@ -134,7 +144,7 @@
 %>
 	<div class="contentheader" style="box-shadow:0 2px 5px lightgrey;background-color:white;">
 		<div class="mainLogo" >
-			<img src="<c:url value="/resources/static/img/sideLogo.png"/>" style="width:50px;margin:8px 0 0 15px;" alt='회사로고이미지'>
+			<img src="<c:url value="/resources/static/img/sideImg.png"/>" style="width:225px;margin:8px 0 0 15px;" alt='로고이미지'>
 		</div>
 		<div class="search">
 			<div class="input-group mb-3">
@@ -152,7 +162,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="content">
+	<div id="content">
 		<div class="saone" style="height:400px;">
 			<c:forEach items="${selectAllMember}" var="member">
 				<div class="info">

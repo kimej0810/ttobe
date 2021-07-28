@@ -36,4 +36,9 @@ public class MainController extends HttpServlet {
 		System.out.println("MainController");
 		return "home";
 	}
+	@RequestMapping(value="/tester")
+	public String tester(Locale locale, Model model) {
+		logger.info("tester", locale);
+		return "tester";
+	}
 }
