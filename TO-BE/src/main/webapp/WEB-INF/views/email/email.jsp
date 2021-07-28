@@ -99,20 +99,7 @@ $(document).ready(function(){
 			<%
 					}
 				}else{
-			%>
-			<tr>
-				<th>수신자</th>
-				<td><input type="text" name="t_name" class="form-control" required="required"></td>
-				<th>직급</th>
-				<td><input type="text" name="t_position" class="form-control" required="required"></td>
-			</tr>
-			<tr>
-				<th>부서</th>
-				<td><input type="text" name="t_department" class="form-control" required="required"></td>
-				<th>수신자 이메일<input type="hidden" name="tidx" value="0"></th>
-				<td><input type="text" name="m_addressee" class="form-control" required="required"></td>
-			</tr>
-			<%
+					out.println("<script>alert('잘못된 접근입니다.');history.back();</script>");
 				}
 			%>
 			<tr>

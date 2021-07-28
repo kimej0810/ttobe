@@ -26,6 +26,7 @@ public class LeaveDTO {
 	private String e_approvalnoperson;
 	private String e_reason;
 	private int t_leave_get;
+	private String e_approvalnoday;
 	public int getEidx() {
 		return eidx;
 	}
@@ -175,6 +176,12 @@ public class LeaveDTO {
 	}
 	public void setT_leave_get(int t_leave_get) {
 		this.t_leave_get = t_leave_get;
+	}
+	public String getE_approvalnoday() {
+		return e_approvalnoday;
+	}
+	public void setE_approvalnoday(String e_approvalnoday) {
+		this.e_approvalnoday = e_approvalnoday;
 	}
 	
 	

@@ -145,7 +145,20 @@
 			</tbody>
 		</table>
 		<div class="btnwrap">
-			<button type="button" onclick="modifyMember();" class="btn btn-outline-primary btn-sm">수정</button>
+		<%
+				String chk = (String) session.getAttribute("userGrade");
+				if(chk!=null){
+					if(chk.equals("A")){
+			%>
+						<button type="button" class="btn btn-outline-primary btn-sm">관리자 변경불가</button>
+			<%
+					}else{
+			%>
+						<button type="button" onclick="modifyMember();" class="btn btn-outline-primary btn-sm">수정</button>
+			<%
+					}
+				}
+			%>
 			<button type="button" onclick="location.href='${pageContext.request.contextPath}/main/mainPage'" class="btn btn-outline-danger btn-sm">취소</button>
 		</div>
 	</form>

@@ -55,16 +55,11 @@
 		});
 	});
 	function sendFn(){
-		if(confirm('사원리스트를 보시겠습니까?')){
-			window.open(
-					$("#domain").val()+"/email/memberList",
-				"memberList",
-				"width=600,height=550,location=no,status=no,toolbar=no,scrollbars=no"
-			);	
-		}else{
-			location.href = $("#domain").val()+"/email/email";
-		}
-		
+		window.open(
+			$("#domain").val()+"/email/memberList",
+			"memberList",
+			"width=600,height=550,location=no,status=no,toolbar=no,scrollbars=no"
+		);	
 	}
 </script>
 <style>

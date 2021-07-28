@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>find password page</title>
 <link type="text/css" rel="stylesheet" href="<c:url value="/resources/static/css/bootstrap.css"/>">
+<script type="text/javascript" src="<c:url value="/resources/static/js/jquery-3.6.0.min.js"/>"></script>
 <style type="text/css">
 	@font-face {
             font-family: 'NanumSquareRound';
@@ -37,9 +38,22 @@
 		margin: 10px 0px;
 	}
 </style>
+<script>
+	function check(){
+		var mail = $("#t_email").val();
+		var ck = "tobe202105";
+		if(mail.indexOf(ck)!=-1){
+			alert("해당 이메일은 이용할 수 없습니다.");
+			$("#t_id").val("");
+			$("#t_email").val("");
+			return false;
+		}
+		return true;
+	}
+</script>
 </head>
 <body>	
-	<form action="${pageContext.request.contextPath}/member/findPwd" method="POST">
+	<form action="${pageContext.request.contextPath}/member/findPwd" onsubmit="return check()" method="POST">
 		<div id="title">비밀번호 찾기</div>
 		<div class="inputWrap">
 			<label for="t_id">ID</label>

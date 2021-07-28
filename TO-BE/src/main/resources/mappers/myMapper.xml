@@ -156,6 +156,7 @@
 		UPDATE ELECTRONIC_APPROVAL
 		SET E_APPROVALNOYN = 'Y',
 		E_APPROVALNOPERSON = #{e_approvalNoPerson},
+		E_APPROVALNODAY = now(),
 		E_REASON = #{e_reason},
 		E_STATUS = '결재반려'
 		WHERE EIDX = #{eidx}

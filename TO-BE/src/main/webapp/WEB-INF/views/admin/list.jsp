@@ -124,6 +124,9 @@
 				</thead>
 				<tbody>
 				<c:forEach items="${memberList}" var="member">
+					<c:if test="${member.delyn eq 'A' }">
+					
+					</c:if>
 					<c:if test="${member.delyn eq 'N' }">
 						<tr class="saoneGo">
 							<td>${member.t_name}</td>
