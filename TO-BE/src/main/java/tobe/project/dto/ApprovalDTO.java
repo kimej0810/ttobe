@@ -13,6 +13,7 @@ public class ApprovalDTO {
 	private int tidx;
 	private String delYn;
 	private String e_approvalNoYn;
+	private String e_approvalNoDay;
 	private String e_approvalNoPerson;
 	private String e_reason;
 	
@@ -27,6 +28,12 @@ public class ApprovalDTO {
 	private String t_department;
 	private String t_position;
 	
+	public String getE_approvalNoDay() {
+		return e_approvalNoDay;
+	}
+	public void setE_approvalNoDay(String e_approvalNoDay) {
+		this.e_approvalNoDay = e_approvalNoDay;
+	}
 	public String getT_id() {
 		return t_id;
 	}

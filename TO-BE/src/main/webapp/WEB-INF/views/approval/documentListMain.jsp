@@ -31,6 +31,10 @@
 							<button type="button" class="btn btn-outline-secondary" id="my">결재 예정 문서</button>
 							<button type="button" class="btn btn-outline-secondary" id="myDocumentNo">결재 반려 문서</button>
 							<button type="button" class="btn btn-outline-secondary" id="myDocumentComplete">결재 완료 문서</button>
+							<%if(!userPosition.equals("대표")){%>
+								<button type="button" class="btn btn-outline-secondary" id="myWriteDocument">나의 결재문서</button>
+								<button type="button" id="writeBtn" class="btn btn-primary" onclick="documentWite()">결재 문서 작성</button>
+							<%} %>
 						<%}else if(userPosition.equals("사원") || userPosition.equals("대리")){ %>
 							<button type="button" class="btn btn-outline-secondary" id="myWriteDocument">나의 결재문서</button>
 							<button type="button" id="writeBtn" class="btn btn-primary" onclick="documentWite()">결재 문서 작성</button>
@@ -125,10 +129,15 @@
 								<th scope="col" width="5%">기안 부서</th>
 								<th scope="col" width="5%">기안자</th> 
 								<th scope="col" width="50%">제목</th>
-								<c:if test="${scri.searchWord eq '결재 반려 문서' }">
-								<th scope="col" width="5%">반려자</th>
-								</c:if>
-								<th scope="col" width="5%">기안 일자</th>
+								<c:choose>
+									<c:when test="${scri.searchWord eq '결재 반려 문서' }">
+										<th scope="col" width="5%">반려자</th>
+										<th scope="col" width="5%">반려 일자</th>
+									</c:when>
+									<c:otherwise>
+										<th scope="col" width="5%">기안 일자</th>
+									</c:otherwise>
+								</c:choose>
 								<th scope="col" width="5%">상태</th>
 							</tr>
 						</thead>
@@ -176,12 +185,19 @@
 											</c:otherwise> 
 										</c:choose>
 									</td>
-									<c:forEach items="${vo}" var="vo">
-										<c:if test="${scri.searchWord eq '결재 반려 문서' && vo.t_id eq elist.e_approvalNoPerson}">
-											<td>${vo.t_name}</td>
-										</c:if>
-									</c:forEach>
-									<td>${elist.e_draftDate }</td>
+									<c:choose>
+										<c:when test="${scri.searchWord eq '결재 반려 문서'}">
+											<c:forEach items="${vo}" var="vo">
+												<c:if test="${scri.searchWord eq '결재 반려 문서' && vo.t_id eq elist.e_approvalNoPerson}">
+													<td>${vo.t_name}</td>
+												</c:if>
+											</c:forEach>
+											<td>${fn:substring(elist.e_approvalNoDay,0,10)}</td>
+										</c:when>
+										<c:otherwise>
+											<td>${elist.e_draftDate }</td>
+										</c:otherwise>
+									</c:choose>
 									<td>${elist.e_status }</td>
 								</tr>
 							</c:forEach>

@@ -24,7 +24,7 @@
  	<select id="selectOneApprovalDocumentContents" resultType="ApprovalDTO" parameterType="ApprovalDTO">
  		SELECT
   			 @rownum:=@rownum+1 rnum, EIDX, E_TYPE, E_DRAFTDATE, E_STARTDAY, E_ENDDAY, E_CON, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS,
- 			 TIDX, E_APPROVALNOYN, E_APPROVALNOPERSON, E_REASON, T_NAME, T_ID, T_DEPARTMENT, T_POSITION, TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, DELYN
+ 			 TIDX, E_APPROVALNOYN, E_APPROVALNODAY, E_APPROVALNOPERSON, E_REASON, T_NAME, T_ID, T_DEPARTMENT, T_POSITION, TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS, DELYN
  		from (
  				select (SELECT @ROWNUM := 0) R, A.*, B.T_NAME, T_ID, T_DEPARTMENT, T_POSITION,C.TEAMLEADER, DEPARTMENTHEAD, SECTIONHEAD, LEADER, STATUS
  				FROM ELECTRONIC_APPROVAL A left join AFPS_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX 
@@ -55,7 +55,7 @@
  			ELECTRONIC_APPROVAL
  		set
  			E_TYPE = #{e_type}, E_DRAFTDATE = #{e_draftDate}, E_STARTDAY = #{e_startDay}, E_ENDDAY =  #{e_endDay},
- 			E_CON = #{e_con},E_TEXTTITLE =  #{e_textTitle}, E_TEXTCONTENT = #{e_textContent}, E_STATUS = '결재대기', E_APPROVALNOYN = 'N' , E_APPROVALNOPERSON = '' , E_REASON = ''
+ 			E_CON = #{e_con},E_TEXTTITLE =  #{e_textTitle}, E_TEXTCONTENT = #{e_textContent}, E_STATUS = '결재대기', E_APPROVALNOYN = 'N' , E_APPROVALNOPERSON = '' , E_REASON = '', E_APPROVALNODAY = ''
  		where
  			eidx = #{eidx} 			     
  	</update>
@@ -81,7 +81,7 @@
  		update 
  			ELECTRONIC_APPROVAL
  		set
- 			E_STATUS = '결재반려', E_APPROVALNOYN = 'Y' , E_APPROVALNOPERSON = #{e_approvalNoPerson},  E_REASON = #{e_reason}
+ 			E_STATUS = '결재반려', E_APPROVALNOYN = 'Y' , E_APPROVALNOPERSON = #{e_approvalNoPerson},  E_REASON = #{e_reason} , E_APPROVALNODAY= #{e_approvalNoDay}
  		where
  			eidx = #{eidx} 			     
  	</update>
@@ -118,7 +118,7 @@
  	<!-- 일반사원 페이징 -->
  	<select id="selectAllApprovalDocumentListNormal" resultType="ApprovalDTO" parameterType="ApprovalDTO">
  		 select
- 		 	 EIDX, E_TYPE, E_DRAFTDATE, E_STARTDAY, E_ENDDAY, E_CON, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, E_APPROVALNOYN, E_APPROVALNOPERSON, E_REASON, TIDX, T_NAME, T_ID, T_DEPARTMENT, T_POSITION,
+ 		 	 EIDX, E_TYPE, E_DRAFTDATE, E_STARTDAY, E_ENDDAY, E_CON, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, E_APPROVALNOYN, E_APPROVALNODAY, E_APPROVALNOPERSON, E_REASON, TIDX, T_NAME, T_ID, T_DEPARTMENT, T_POSITION,
  		 	TEAMLEADER, SECTIONHEAD, DEPARTMENTHEAD, LEADER, STATUS, DELYN
  				from (
  					select A.*, B.T_NAME, B.T_ID, B.T_DEPARTMENT, B.T_POSITION, C.TEAMLEADER, C.SECTIONHEAD, C.DEPARTMENTHEAD, C.LEADER, C.STATUS,(SELECT @ROWNUM := 1) R
@@ -133,20 +133,18 @@
  	select count(eidx) as cnt from (
  				select A.*,B.T_NAME, B.T_ID, B.T_DEPARTMENT, B.T_POSITION, C.TEAMLEADER, C.SECTIONHEAD, C.DEPARTMENTHEAD, C.LEADER, C.STATUS
  					FROM ELECTRONIC_APPROVAL A left join AFPS_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX
- 					where 1=1  <include refid="searchWord"/> <include refid="search"/> and A.DELYN = 'N'
- 							)a where eidx > 0 and delyn = 'N' 
+ 					where 1=1  <include refid="search"/>  <include refid="searchWord"/>)a where eidx > 0 and delyn = 'N' 
  	</select>
  	
  	<!-- 결재권한 페이징 -->
  	<select id="selectAllApprovalDocumentList" resultType="ApprovalDTO" parameterType="ApprovalDTO">
  		 select
- 		 	 EIDX, E_TYPE, E_DRAFTDATE, E_STARTDAY, E_ENDDAY, E_CON, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, E_APPROVALNOYN, E_APPROVALNOPERSON, E_REASON, TIDX, T_NAME, T_ID, T_DEPARTMENT, T_POSITION,
+ 		 	 EIDX, E_TYPE, E_DRAFTDATE, E_STARTDAY, E_ENDDAY, E_CON, E_TEXTTITLE, E_TEXTCONTENT, E_STATUS, E_APPROVALNOYN, E_APPROVALNODAY, E_APPROVALNOPERSON, E_REASON, TIDX, T_NAME, T_ID, T_DEPARTMENT, T_POSITION,
  		 	TEAMLEADER, SECTIONHEAD, DEPARTMENTHEAD, LEADER, STATUS, DELYN
  				from (
  					select A.*, B.T_NAME, B.T_ID, B.T_DEPARTMENT, B.T_POSITION, C.TEAMLEADER, C.SECTIONHEAD, C.DEPARTMENTHEAD, C.LEADER, C.STATUS,(SELECT @ROWNUM := 1) R
  					FROM ELECTRONIC_APPROVAL A left join AFPS_MEMBER B ON A.TIDX = B.TIDX LEFT JOIN APPROVAL_LINE C on A.EIDX = C.EIDX
- 						WHERE 1=1 <include refid="searchWord"/> <include refid="search"/> and A.DELYN = 'N'
- 						ORDER BY A.E_STATUS asc)a WHERE delyn ='N' and EIDX LIMIT #{pageStart},#{perPageNum}
+ 						WHERE 1=1 <include refid="search"/>  <include refid="searchWord"/> )a WHERE delyn ='N' and EIDX LIMIT #{pageStart},#{perPageNum}
  	</select>
  	<!-- 페이징 end -->
  	
@@ -165,14 +163,14 @@
 	<sql id="searchWord">
 		<choose>
 			<when test="searchWord == null">
-				AND ((TEAMLEADER = #{userId} and STATUS = '3000') or (SECTIONHEAD = #{userId} and STATUS = '0300') or (DEPARTMENTHEAD = #{userId} and STATUS = '0030') or (LEADER = #{userId} and STATUS = '0003')) and A.DELYN = 'N'
+				AND ((TEAMLEADER = #{userId} and STATUS = '3000') or (SECTIONHEAD = #{userId} and STATUS = '0300') or (DEPARTMENTHEAD = #{userId} and STATUS = '0030') or (LEADER = #{userId} and STATUS = '0003')) and A.DELYN = 'N' and A.DELYN = 'N' ORDER BY A.EIDX desc
 			</when>
 			<otherwise>
-				<if test="searchWord == '나의 결재문서'.toString()">AND T_ID = #{userId}</if>
-				<if test="searchWord == '결재 반려 문서'.toString()">AND E_APPROVALNOPERSON = #{userId}</if>
-				<if test="searchWord == '결재 완료 문서'.toString()">AND ((TEAMLEADER = '21-0012' and (STATUS = '0300' or STATUS = '0030' or STATUS = '0003' or STATUS = '0000')) or (SECTIONHEAD = '21-0012' and (STATUS = '0030' or STATUS = '0003' or STATUS = '0000')) or (DEPARTMENTHEAD = '21-0012' and (STATUS = '0003' or STATUS = '0000')) or (LEADER = '21-0012' and STATUS = '0000'))</if>
-				<if test="searchWord == ''">AND ((TEAMLEADER = #{userId} and STATUS = '3000') or (SECTIONHEAD = #{userId} and STATUS = '0300') or (DEPARTMENTHEAD = #{userId} and STATUS = '0030') or (LEADER = #{userId} and STATUS = '0003'))</if>
-				<if test="searchWord == '전체 결재 문서'.toString()"></if>
+				<if test="searchWord == '나의 결재문서'.toString()">AND T_ID = #{userId} and A.DELYN = 'N' ORDER BY A.EIDX desc</if>
+				<if test="searchWord == '결재 반려 문서'.toString()">AND E_APPROVALNOPERSON = #{userId} and A.DELYN = 'N' ORDER BY A.EIDX desc</if>
+				<if test="searchWord == '결재 완료 문서'.toString()">AND ((TEAMLEADER = '21-0012' and (STATUS = '0300' or STATUS = '0030' or STATUS = '0003' or STATUS = '0000')) or (SECTIONHEAD = '21-0012' and (STATUS = '0030' or STATUS = '0003' or STATUS = '0000')) or (DEPARTMENTHEAD = '21-0012' and (STATUS = '0003' or STATUS = '0000')) or (LEADER = '21-0012' and STATUS = '0000')) and A.DELYN = 'N' ORDER BY A.EIDX desc</if>
+				<if test="searchWord == ''">AND ((TEAMLEADER = #{userId} and STATUS = '3000') or (SECTIONHEAD = #{userId} and STATUS = '0300') or (DEPARTMENTHEAD = #{userId} and STATUS = '0030') or (LEADER = #{userId} and STATUS = '0003')) and A.DELYN = 'N' ORDER BY A.EIDX desc</if>
+				<if test="searchWord == '전체 결재 문서'.toString()">and A.DELYN = 'N' ORDER BY A.E_STATUS asc</if>
 			</otherwise>
 		</choose>
 	</sql>

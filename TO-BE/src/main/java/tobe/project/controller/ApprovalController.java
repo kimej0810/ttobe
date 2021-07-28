@@ -199,6 +199,7 @@ public class ApprovalController {
 	public ApprovalDTO documentNo(Model model,ApprovalDTO dto) throws Exception{
  		service.selectOneApprovalDocumentContents(dto.getEidx());
 		dto.setE_approvalNoPerson(service.selectOneMember(dto.getTidx()).getT_id());
+		System.out.println("dtatadasdfas+"+dto.getE_approvalNoDay());
 		lservice.modifyApprovalNo(dto.getEidx());
 		service.modifyApprovalStatusNo(dto);
 		return dto;

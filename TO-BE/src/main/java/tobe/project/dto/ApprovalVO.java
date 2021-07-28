@@ -13,11 +13,19 @@ public class ApprovalVO {
 	private int tidx;
 	private String delYn;
 	private String e_approvalNoYn;
+	private String e_approvalNoDay;
 	private String e_approvalNoPerson;
 	private String e_reason; 
 	private MemberVO memberVO;
 	private ApprovalLineVO approvalLineVO;
 	
+	
+	public String getE_approvalNoDay() {
+		return e_approvalNoDay;
+	}
+	public void setE_approvalNoDay(String e_approvalNoDay) {
+		this.e_approvalNoDay = e_approvalNoDay;
+	}
 	public String getE_endDay() {
 		return e_endDay;
 	}
@@ -55,9 +63,9 @@ public class ApprovalVO {
 	public void setE_reason(String e_reason) {
 		this.e_reason = e_reason;
 	}
-	
-	public ApprovalLineVO getApprovalLineVO() {
-		return approvalLineVO;
+	 
+	public ApprovalLineVO getApprovalLineVO() { 
+		return approvalLineVO; 
 	}
 	public void setApprovalLineVO(ApprovalLineVO approvalLineVO) {
 		this.approvalLineVO = approvalLineVO;

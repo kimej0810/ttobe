@@ -1,4 +1,5 @@
-<%@page import="java.util.List"%>
+<%@page import="java.text.*"%>
+<%@page import="java.util.*"%>
 <%@page import="tobe.project.dto.ApprovalDTO"%>
 <%@page import="tobe.project.dto.ApprovalLineVO"%>
 <%@page import="tobe.project.dto.MemberVO"%>
@@ -6,13 +7,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" trimDirectiveWhitespaces="true"%>
 <%
+	Date Date = new Date();
+	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd a hh:mm");
+	String toDate = simpleDate.format(Date);
 	Integer userTidx = (Integer)session.getAttribute("userTidx");;
 	String userPosition = (String)session.getAttribute("userPosition");
 	String userId = (String)session.getAttribute("userId");
 	String userGrade = (String) session.getAttribute("userGrade");
-	String userName = (String)session.getAttribute("userName");
+	String userName = (String)session.getAttribute("userName");	
 	
 	if(userTidx == null){
 		out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+request.getContextPath()+"/member/login';</script>"); 
@@ -25,22 +30,31 @@
 	
 	
 	//멤버리스트에 접근하여 결재라인의 아이디값을 이용해 이름 불러오기
-	String lineTeamLeader = "";
-	String lineSectionHead = "";
-	String lineDepartmentHead = "";
-	String lineLeader = "";
+	String lineTeamLeaderId = "";
+	String lineSectionHeadId = "";
+	String lineDepartmentHeadId = "";
+	String lineLeaderId = "";
+	
+	String lineTeamLeaderName = "";
+	String lineSectionHeadName = "";
+	String lineDepartmentHeadName = "";
+	String lineLeaderName = "";
 	String approvalnoperson = "";
 	
 	for(int i = 0; i<vo.size(); i ++){
 		MemberVO name = (MemberVO)vo.get(i);
 		if(to.getTeamLeader().equals(name.getT_id()) || to.getTeamLeader().equals(name.getT_name())){
-			lineTeamLeader = name.getT_name();
+			lineTeamLeaderName = name.getT_name();
+			lineTeamLeaderId = name.getT_id();
 		}else if(to.getSectionHead().equals(name.getT_id()) || to.getSectionHead().equals(name.getT_name())){
-			lineSectionHead = name.getT_name();
+			lineSectionHeadName = name.getT_name();
+			lineSectionHeadId = name.getT_id();
 		}else if(to.getDepartmentHead().equals(name.getT_id()) || to.getDepartmentHead().equals(name.getT_name())){
-			lineDepartmentHead = name.getT_name();
+			lineDepartmentHeadName = name.getT_name();
+			lineDepartmentHeadId = name.getT_id();
 		}else if(to.getLeader().equals(name.getT_id()) || to.getLeader().equals(name.getT_name())){
-			lineLeader = name.getT_name();
+			lineLeaderName = name.getT_name();
+			lineLeaderId = name.getT_id();
 		}
 	}
 %>
@@ -60,6 +74,7 @@
 		<style type="text/css">
 			.modal-header{
 				justify-content: center;
+				border-bottom: 2px solid #e5e5e5;
 			}
 			.modal{
 				top:262px;
@@ -73,9 +88,19 @@
 				width:80px;
 				text-align: center;
 			}
-			#notd{
-				padding: 10px;
+			#e_approvalNoDayTd{
+				width: 35%;
 			}
+			#e_approvalNoDay{
+				text-align: center;
+				border: none;
+				font-size: 14px;
+			}
+			#e_reason{
+			    width: 100%;
+    			height: 61%;
+    			
+    		}
 		</style>
 		<script type="text/javascript">
 			//반려된 문서일시 반려사유 로드
@@ -91,6 +116,7 @@
 			//반려처리(입력값 있으면 ajax 호출)
 			$(document).on("click","#noOk",function(){
 				var returnValue = $("#e_reason").val();
+				var returnDate = $("#e_approvalNoDay").val();
 				if(returnValue != ""){
 					Swal.fire({
 						title:"반려 사유 확인",
@@ -102,7 +128,7 @@
 					}).then(result => {
 						if(result.isConfirmed){
 							$.ajax({
-								url : "<%=request.getContextPath()%>/approval/documentNo?eidx=<%=contents.getEidx()%>&tidx=<%=userTidx%>&e_reason="+returnValue,
+								url : "<%=request.getContextPath()%>/approval/documentNo?eidx=<%=contents.getEidx()%>&tidx=<%=userTidx%>&e_reason="+returnValue+"&e_approvalNoDay="+returnDate,
 								data: returnValue,
 								dateType:"json",
 								success:function(){
@@ -287,27 +313,27 @@
 							<td class="style33 style33" rowspan="3">결<br><br>재</td>
 							<td class="style35 style36" colspan="2"><%=contents.getT_name()%></td>
 							<td class="style35 style36" colspan="2">
-							<%if(lineTeamLeader == ""){%>
+							<%if(lineTeamLeaderName == ""){%>
 								결재권한없음
 							<%}else{%>
-								<%=lineTeamLeader%>
+								<%=lineTeamLeaderName%>
 							<%}%>
 							</td>
 							<td class="style35 style36" colspan="3">
-							<%if(lineSectionHead == ""){%>
+							<%if(lineSectionHeadName == ""){%>
 								결재권한없음
 							<%}else{%>
-								<%=lineSectionHead%>
+								<%=lineSectionHeadName%>
 							<%}%>
 							</td>
 							<td class="style35 style36" colspan="2">
-							<%if(lineDepartmentHead == ""){%>
+							<%if(lineDepartmentHeadName == ""){%>
 								결재권한없음
 							<%}else{%>
-								<%=lineDepartmentHead%>
+								<%=lineDepartmentHeadName%>
 							<%}%>
 							</td>
-							<td class="style11 s"><%=lineLeader %></td>
+							<td class="style11 s"><%=lineLeaderName %></td>
 						</tr>
 						<tr class="row7">
 							<td></td>
@@ -319,37 +345,37 @@
 								<input type="text" id="charge" readonly value="승인">
 							</td>
 							<td class="style38 style43" colspan="2" rowspan="2">
-							<%if(lineTeamLeader == ""){%>
+							<%if(lineTeamLeaderId == ""){%>
 								<input type="text" id="teamLeader" readonly value="결재권한없음">
 							<%}else if(contents.getStatus().equals("3000")){ %>
 								<input type="text" id="teamLeader" readonly value="예정">
-							<%}else if(lineTeamLeader.equals(contents.getE_approvalNoPerson())){%>
+							<%}else if(lineTeamLeaderId.equals(contents.getE_approvalNoPerson())){%>
 								<input type="text" id="teamLeader" readonly value="반려">
 							<%}else{%>
 								<input type="text" id="teamLeader" readonly value="승인">
 							<%}%>
 							</td> 
 							<td class="style38 style43" colspan="3" rowspan="2">
-							<% if(lineSectionHead == ""){%>
+							<% if(lineSectionHeadId == ""){%>
 								<input type="text" id="sectionHead" readonly value="결재권한없음">
 							<%}else if(contents.getStatus().equals("3000")){ %>
 								<input type="text" id="sectionHead" readonly value="대기">
 							<%}else if(contents.getStatus().equals("0300")){ %>
 								<input type="text" id="sectionHead" readonly value="예정">
-							<%}else if(lineSectionHead.equals(contents.getE_approvalNoPerson())){%>
+							<%}else if(lineSectionHeadId.equals(contents.getE_approvalNoPerson())){%>
 								<input type="text" id="sectionHead" readonly value="반려">
 							<%}else{%>
 								<input type="text" id="sectionHead" readonly value="승인">
 							<%}%>
 							</td>
 							<td class="style38 style43" colspan="2" rowspan="2">
-							<% if(lineDepartmentHead == ""){%>
+							<% if(lineDepartmentHeadId == ""){%>
 								<input type="text" id="departmentHead" readonly value="결재권한없음">
 							<%}else if(contents.getStatus().equals("3000") || contents.getStatus().equals("0300")){ %>
 								<input type="text" id="departmentHead" readonly value="대기">
 							<%}else if(contents.getStatus().equals("0030")){ %>
 								<input type="text" id="departmentHead" readonly value="예정">
-							<%}else if(lineDepartmentHead.equals(contents.getE_approvalNoPerson())){%>
+							<%}else if(lineDepartmentHeadId.equals(contents.getE_approvalNoPerson())){%>
 								<input type="text" id="departmentHead" readonly value="반려">
 							<%}else{%>
 								<input type="text" id="departmentHead" readonly value="승인">
@@ -360,7 +386,7 @@
 								<input type="text" id="leader" readonly value="예정">
 							<%}else if(contents.getStatus().equals("0000")){%>
 								<input type="text" id="leader" readonly value="승인">
-							<%}else if(lineLeader.equals(contents.getE_approvalNoPerson())){%>
+							<%}else if(lineLeaderId.equals(contents.getE_approvalNoPerson())){%>
 								<input type="text" id="leader" readonly value="반려">
 							<%}else{%>
 								<input type="text" id="leader" readonly value="대기">
@@ -472,8 +498,12 @@
 								</td>
 							</tr>
 							<tr>
-								<th id="noth">반려사유</th>
+								<th id="noth">반려 사유</th>
 								<td id="notd"><%=contents.getE_reason() %></td>
+							</tr>
+							<tr>
+								<th id="noth">반려 일자</th>
+								<td id="notd">${fn:substring(contents.e_approvalNoDay,0,16)}</td>
 							</tr>
 						</table>
 					</div>
@@ -497,11 +527,16 @@
 							<tr>
 								<th id="noth">반려자</th>
 								<td id="notd"><%=userName%></td>
+								<th id="noth">반려 일자</th>
+								<td id="e_approvalNoDayTd">
+									<input type="hidden" id="e_approvalNoDay" value="<%=toDate %>" readonly>
+									<%=toDate %>
+								</td>
 							</tr>
 							<tr>
 								<th id="noth">반려사유</th>
-								<td id="notd">
-									<input type="text" id="e_reason">
+								<td id="notd" colspan="4">
+									<input type="text" id="e_reason" autocomplete="off">
 								</td>
 							</tr>
 						</table>
