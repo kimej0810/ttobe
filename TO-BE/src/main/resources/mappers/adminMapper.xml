@@ -78,14 +78,9 @@
     </select>
     <!-- file end -->
     <select id="searchMemberList" resultType="memberVO">
-    		<!-- SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY TIDX DESC)NUM,
-    		A.* FROM AFPS_MEMBER A  WHERE 1=1
-    		<include refid="search"/>
-    		ORDER BY TIDX DESC)
-    		WHERE NUM BETWEEN #{rowStart} AND #{rowEnd} -->
     		SELECT AFPS.* FROM(SELECT A.*,@ROW_NUM := @ROW_NUM+1 AS NUM 
     		FROM AFPS_MEMBER AS A, (SELECT @ROW_NUM := 1) AS B
-    		WHERE 1=1
+    		WHERE A.DELYN NOT IN('A')
     		<include refid="search"/>
     		ORDER BY A.TIDX DESC) AFPS LIMIT #{pageStart},#{perPageNum}
     </select>
@@ -94,6 +89,7 @@
     		SELECT COUNT(TIDX)
     		FROM AFPS_MEMBER AS A
     		WHERE A.TIDX > 0
+    		AND A.DELYN NOT IN('A')
     	]]>
     	<include refid="search"/>
     </select>
