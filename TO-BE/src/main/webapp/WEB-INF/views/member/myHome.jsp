@@ -25,12 +25,6 @@ function leaveBtn(){
 	var option = "width = 770, height = 700 left = 100, top=50,location=no";
 	window.open(url,name,option)
 }
-function documentWite(){ //기안서 팝업창
-	var url = $("#domain").val()+"/approval/documentWite";
-	var name = "documentWite";
-	var option = "width = 770, height = 915 left = 100, top=50,location=no";
-	window.open(url,name,option)
-}
 $(document).ready(function(){
 	$(document).on("click","#moreLeaveBtn",function(){
 		moreList = "";
