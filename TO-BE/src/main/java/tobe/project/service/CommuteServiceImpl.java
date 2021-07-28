@@ -1,5 +1,6 @@
 package tobe.project.service;
 
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
 
@@ -50,8 +52,8 @@ public class CommuteServiceImpl implements CommuteService{
 	}
 	//퇴근등록
 	@Override
-	public boolean addEndWork(int tidx) throws Exception {
-		
+	public boolean addEndWork(int tidx, HttpServletResponse response) throws Exception {
+		try {
 		Date today = new Date();
 		
 		SimpleDateFormat format2 = new SimpleDateFormat("HH:mm");
@@ -82,7 +84,14 @@ public class CommuteServiceImpl implements CommuteService{
 		}
 		else {
 			return true;
-		}	
+		}
+		}catch(Exception e) {
+			response.setContentType("text/html; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('출근 기록이 없습니다.');history.back();</script>");
+			out.close();
+		}
+		return false;
 	}
 	//출근 기록 조회
 	@Override

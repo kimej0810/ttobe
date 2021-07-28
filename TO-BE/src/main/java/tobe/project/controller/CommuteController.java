@@ -68,7 +68,7 @@ public class CommuteController {
 		response.setContentType("text/html; charset=utf-8"); 
 		PrintWriter out = response.getWriter();
 		
-		boolean test = service.addEndWork(tidx); 
+		boolean test = service.addEndWork(tidx, response); 
 		if(test) {
 			out.println("<script>alert('이미 퇴근 처리되었습니다.');</script>");
 			out.println("<script>window.location.href='"+request.getContextPath()+"/main/mainPage';</script>");
