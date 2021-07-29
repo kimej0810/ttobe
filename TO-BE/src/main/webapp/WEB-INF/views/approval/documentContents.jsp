@@ -117,10 +117,16 @@
 			$(document).on("click","#noOk",function(){
 				var returnValue = $("#e_reason").val();
 				var returnDate = $("#e_approvalNoDay").val();
-				if(returnValue != ""){
+				if(returnValue == ""){
+					Swal.fire({
+						title:"반려사유 입력 확인",
+						text:"반려사유를 입력해주세요.",
+						icon:"warning",
+					});
+				}else{
 					Swal.fire({
 						title:"반려 사유 확인",
-						text:"반려 사유 : "+returnValue+" 로 반려하시겠습니까?",
+						text:"반려 사유 : "+returnValue+" 반려하시겠습니까?",
 						icon:"warning",
 						showCancelButton:true,
 						confirmButtonText:"확인",

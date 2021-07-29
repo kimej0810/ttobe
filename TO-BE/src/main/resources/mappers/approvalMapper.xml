@@ -169,7 +169,7 @@
 			<otherwise>
 				<if test="searchWord == '나의 결재문서'.toString()">AND T_ID = #{userId} and A.DELYN = 'N' ORDER BY A.EIDX desc</if>
 				<if test="searchWord == '결재 반려 문서'.toString()">AND E_APPROVALNOPERSON = #{userId} and A.DELYN = 'N' ORDER BY A.EIDX desc</if>
-				<if test="searchWord == '결재 완료 문서'.toString()">AND ((TEAMLEADER = '21-0012' and (STATUS = '0300' or STATUS = '0030' or STATUS = '0003' or STATUS = '0000')) or (SECTIONHEAD = '21-0012' and (STATUS = '0030' or STATUS = '0003' or STATUS = '0000')) or (DEPARTMENTHEAD = '21-0012' and (STATUS = '0003' or STATUS = '0000')) or (LEADER = '21-0012' and STATUS = '0000')) and A.DELYN = 'N' ORDER BY A.EIDX desc</if>
+				<if test="searchWord == '결재 완료 문서'.toString()">AND ((TEAMLEADER = #{userId} and (STATUS = '0300' or STATUS = '0030' or STATUS = '0003' or STATUS = '0000')) or (SECTIONHEAD = #{userId} and (STATUS = '0030' or STATUS = '0003' or STATUS = '0000')) or (DEPARTMENTHEAD = #{userId} and (STATUS = '0003' or STATUS = '0000')) or (LEADER = #{userId} and STATUS = '0000')) and A.DELYN = 'N' ORDER BY A.EIDX desc</if>
 				<if test="searchWord == ''">AND ((TEAMLEADER = #{userId} and STATUS = '3000') or (SECTIONHEAD = #{userId} and STATUS = '0300') or (DEPARTMENTHEAD = #{userId} and STATUS = '0030') or (LEADER = #{userId} and STATUS = '0003')) and A.DELYN = 'N' ORDER BY A.EIDX desc</if>
 				<if test="searchWord == '전체 결재 문서'.toString()">and A.DELYN = 'N' ORDER BY A.E_STATUS asc</if>
 			</otherwise>
