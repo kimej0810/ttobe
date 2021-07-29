@@ -22,6 +22,7 @@
 		<title>게시판 일정리스트</title>
 		<script src="<c:url value="/resources/static/schedule/js/scheduleBoard.js"/>"  type="text/javascript"></script>
 		<link href="<c:url value="/resources/static/schedule/css/scheduleBoard.css"/>" rel='stylesheet' />
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 		<style type = "text/css"> <!-- 로딩바스타일 -->
 			body{
 				text-align: center;
@@ -71,9 +72,17 @@
 							<script type="text/javascript">
 								$(function(){
 									$("#searchBtn").on("click",function(){
-										var check = $("#searchWord").val();
-										self.location = "<%=request.getContextPath()%>/schedule/scheduleBoard" + '${paging.makeQuery(1)}'  + "&searchWord=" + check + "&searchType=" + $("select option:selected").val() 
-										+ "&keyword=" + encodeURIComponent($('#keyword').val());
+										if($("#keyword").val() == ""){
+											Swal.fire({
+												title:"검색어 입력 확인",
+												text:"검색어를 입력해주세요.",
+												icon:"warning",
+											});
+										}else{
+											var check = $("#searchWord").val();
+											self.location = "<%=request.getContextPath()%>/schedule/scheduleBoard" + '${paging.makeQuery(1)}'  + "&searchWord=" + check + "&searchType=" + $("select option:selected").val() 
+											+ "&keyword=" + encodeURIComponent($('#keyword').val());
+										}
 									});
 									$('#allSchedule').on("click",function(){
 										self.location = "<%=request.getContextPath()%>/schedule/scheduleBoard" + '${paging.makeQuery(1)}' + "&searchWord=전체 일정보기";

@@ -36,13 +36,18 @@
 				history.back();
 			}
 			function click_up(){
-				var draftDate = $("#e_draftDate").val().replace("-","/");
 				var startDay = $("#e_startDay").val().replace("-","/");
-				var draft = new Date(draftDate); 
+				var endDay = $("#e_endDay").val().replace("-","/");
 				var start = new Date(startDay);
+				var end = new Date(endDay);
 				
-				
-				if($("#e_con").val() == "" || $("#e_con").val().length < 2 || $("#e_con").val().length > 10){
+				if($("#teamLeader").val() == null || $("#sectionHead").val() == null || $("#departmentHead").val() == null || $("#leader").val() == null){
+					alert("결재자를 선택해주세요.");
+					return false;
+				}else if($("#e_draftDate").val() == "" || $("#e_startDay").val() == "" || $("#e_endDay").val() == "" || start>end){
+					alert("날짜를 올바르게 선택해주세요. [시행일자보다 기안일자가 작아야 합니다.]");
+					return false;
+				}else if($("#e_con").val() == "" || $("#e_con").val().length < 2 || $("#e_con").val().length > 10){
 					alert("합의부서를 입력해주세요. [2글자 이상 10글자 이하]");
 					$("#e_con").focus();
 					return false;
