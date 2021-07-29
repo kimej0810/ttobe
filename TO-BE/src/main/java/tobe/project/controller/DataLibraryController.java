@@ -59,7 +59,6 @@ public class DataLibraryController {
 	@RequestMapping(value = "/transport")
 	public String transport(DataLibraryVO vo, MultipartHttpServletRequest mpRequest) throws Exception {
 
-		System.out.println(vo.toString());
 		service.addData(vo, mpRequest);
 		return "redirect:/data/list";
 	}
@@ -98,7 +97,6 @@ public class DataLibraryController {
 			response.getOutputStream().write(fileByte);
 			response.getOutputStream().flush();
 			response.getOutputStream().close();
-			
 
 			//다운로드수 증가
 			service.hitData(didx);

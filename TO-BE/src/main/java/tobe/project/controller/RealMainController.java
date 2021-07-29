@@ -39,11 +39,8 @@ public class RealMainController extends HttpServlet {
 	@Inject
 	private ApprovalService approvalService;
 
-	// 硫��명���댁�
 	@RequestMapping(value = "/mainPage", produces = "application/text; charset=utf8")
 	public String list(Locale locale, Model model, HttpServletRequest request, @RequestParam Map<String, String> param, HttpSession session) throws Exception {
-		System.out.println("~~~~~~~메인 컨트롤러~~~~~~");
-		
 		//전자결재
 		String userId = (String)session.getAttribute("userId");
 		if(userId==null||userId.equals("")) {
@@ -129,11 +126,6 @@ public class RealMainController extends HttpServlet {
 		String author = (String) jsonObject.get("author");
 		String message = (String) jsonObject.get("message");
 	
-
-		// 전자결재 다섯개만 뽑아옴
-		
-		
-		// 넘겨주자
 		request.setCharacterEncoding("utf-8");
 		model.addAttribute("year", year);
 		model.addAttribute("month", month);
@@ -144,7 +136,6 @@ public class RealMainController extends HttpServlet {
 		return "/main/realMain";
 	}
 
-	// 전자결재 버튼 눌렸을때 오는곳
 	@RequestMapping(value = "/approval", produces = "application/json; charset=utf8")
 	@ResponseBody
 	public List<ApprovalVO> approval(@RequestParam Map<String, String> param, HttpSession session) throws Exception {

@@ -261,8 +261,6 @@ p {
 				int week = cal.get(Calendar.DAY_OF_WEEK);
 				//달의 말일 
 				int lastDay = cal.getActualMaximum(Calendar.DATE);
-
-				System.out.println("~~~~~~~~~~~구분선~~~~~~~~~~~~`");
 				%>
 				<tr>
 					<td colspan="7" style="text-align: center;"><img 

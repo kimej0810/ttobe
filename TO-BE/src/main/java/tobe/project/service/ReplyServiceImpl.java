@@ -37,9 +37,6 @@ public class ReplyServiceImpl implements ReplyService {
 		
 		for(int i=0; i<listReply.size(); i++) {
 			Map<String, String> filePath = fdao.selectFileTidx(listReply.get(i).getTidx());
-			
-			System.out.println("프로필사진경로임~~~~~~~~~``"+filePath.get("F_STORED_FILE_NAME"));
-			
 			listReply.get(i).getMemberDTO().setF_stored_file_name(filePath.get("F_STORED_FILE_NAME"));
 		}
 		
