@@ -22,7 +22,7 @@ $(document).ready(function(){
 		}else{
 			var url = domain+"/tester";
 			var name = "tester";
-			var option = "width = 500, height = 400";
+			var option = "width = 600, height = 500";
 			window.open(url,name,option);
 			location.href=domain+"/member/login";
 		}
