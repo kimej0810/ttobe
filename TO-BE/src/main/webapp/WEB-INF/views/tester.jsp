@@ -138,7 +138,7 @@
 							<th>My work</th>
 						</tr>
 						<tr>
-							<td style="text-align:right;font-size:1rem;vertical-align : center;">전자결재,일정관리</td>
+							<td style="text-align:right;font-size:1rem;vertical-align : center;">전자결재,일정관리,연차관리</td>
 						</tr>
 					</table>
 				</div>
@@ -180,7 +180,7 @@
 							<th>My work</th>
 						</tr>
 						<tr>
-							<td style="text-align:right;font-size:1rem;vertical-align : center;">메인,게시판,자료실</td>
+							<td style="text-align:right;font-size:1rem;vertical-align : center;">메인,게시판,자료실,Include</td>
 						</tr>
 					</table>
 				</div>
@@ -194,7 +194,7 @@
 							<th>이름</th>
 						</tr>
 						<tr>
-							<td style="text-align:right;font-size:1rem;vertical-align : center;">이가람</td>
+							<td style="text-align:right;font-size:1rem;vertical-align : center;">LGR</td>
 						</tr>
 						<tr>
 							<th>Email
@@ -222,7 +222,7 @@
 							<th>My work</th>
 						</tr>
 						<tr>
-							<td style="text-align:right;font-size:1rem;vertical-align : center;">로그인,비번찾기,정보수정</td>
+							<td style="text-align:right;font-size:1rem;vertical-align : center;">로그인,비번찾기,마이페이지,근태관리</td>
 						</tr>
 					</table>
 				</div>
@@ -264,7 +264,7 @@
 							<th>My work</th>
 						</tr>
 						<tr>
-							<td style="text-align:right;font-size:1rem;vertical-align : center;">사원정보,관리자등록,관리자</td>
+							<td style="text-align:right;font-size:1rem;vertical-align : center;">사원정보,내정보,연차관리,관리자,이메일</td>
 						</tr>
 					</table>
 				</div>
