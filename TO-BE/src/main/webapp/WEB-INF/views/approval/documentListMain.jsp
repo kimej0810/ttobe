@@ -20,6 +20,7 @@
 		<meta charset="UTF-8">
 		<title>모든 결재문서 리스트</title>
 		<link href="<c:url value="/resources/static/form/css/documentListMain.css"/>" rel='stylesheet'/>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	</head>
 	<body>
 		<div id="approvalContent">
@@ -71,12 +72,13 @@
 					<div id="searchBtnGroup" class="input-group">
 						<input type="hidden" id="searchWord" value="${scri.searchWord}">
 						<select id="searchType" class="form-control" name="searchType" style="height: 30px;font-size: 0.8rem;width: 70px;">
- 							<option value="기안부서"  <c:out value = "${scri.searchType eq '기안 부서' ? 'selected' : '' }"/>>기안 부서</option>
-							<option value="기안자이름" <c:out value = "${scri.searchType eq '기안자 이름' ? 'selected' : '' }"/>>기안자 이름</option>
-							<option value="기안일시"  <c:out value = "${scri.searchType eq '기안 일시' ? 'selected' : '' }"/>>기안 일시</option>
-							<option value="결재상태"  <c:out value = "${scri.searchType eq '결재 상태' ? 'selected' : '' }"/>>결재 상태</option>
+							<option value="기안유형"  <c:out value = "${scri.searchType eq '기안유형' ? 'selected' : '' }"/>>기안 유형</option>
+ 							<option value="기안부서"  <c:out value = "${scri.searchType eq '기안부서' ? 'selected' : '' }"/>>기안 부서</option>
+							<option value="기안자이름" <c:out value = "${scri.searchType eq '기안자이름' ? 'selected' : '' }"/>>기안자 이름</option>
+							<option value="기안일시"  <c:out value = "${scri.searchType eq '기안일시' ? 'selected' : '' }"/>>기안 일시</option>
+							<option value="결재상태"  <c:out value = "${scri.searchType eq '결재상태' ? 'selected' : '' }"/>>결재 상태</option>
 							<option value="기안 제목"  <c:out value = "${scri.searchType eq '기안 제목' ? 'selected' : '' }"/>>기안 제목</option>
-							<option value="기안내용"  <c:out value = "${scri.searchType eq '기안 내용' ? 'selected' : '' }"/>>기안 내용</option>
+							<option value="기안내용"  <c:out value = "${scri.searchType eq '기안내용' ? 'selected' : '' }"/>>기안 내용</option>
 							<option value="제목+내용" <c:out value = "${scri.searchType eq '제목+내용' ? 'selected' : '' }"/>>제목+내용</option>
 						</select>
 						<input type="text" id="keyword" class="form-control" name="keyword" value="${scri.keyword}" style="height:30px; width:40%; font-size:0.8rem;" autocomplete="off">
@@ -87,9 +89,18 @@
 				</div>
 				<script type="text/javascript">
 					function btnSearch(){
-						var check = $("#searchWord").val();
-						self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=" + check + "&searchType=" + $("select option:selected").val() 
-						+ "&keyword=" + encodeURIComponent($('#keyword').val());
+						if($("#keyword").val() == ""){
+							Swal.fire({
+								title:"검색어 입력 확인",
+								text:"검색어를 입력해주세요.",
+								icon:"warning",
+							});
+						}else{
+							var check = $("#searchWord").val();
+							self.location = "<%=request.getContextPath()%>/approval/documentListMain" + '${paging.makeQuery(1)}' + "&searchWord=" + check + "&searchType=" + $("select option:selected").val() 
+							+ "&keyword=" + encodeURIComponent($('#keyword').val());
+						}
+					
 					}
 					function documentWite(){ //기안서 팝업창
 						var url = "<%=request.getContextPath()%>/approval/documentWite";

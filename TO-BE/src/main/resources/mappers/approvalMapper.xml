@@ -151,6 +151,7 @@
  	<!-- sql code 조각 -->
  	<sql id="search">
 		<if test="searchType != null">
+			<if test="searchType == '기안유형'.toString()">AND E_TYPE LIKE CONCAT('%',#{keyword},'%')</if>
 			<if test="searchType == '기안부서'.toString()">AND T_DEPARTMENT LIKE CONCAT('%',#{keyword},'%')</if>
 			<if test="searchType == '기안자이름'.toString()">AND T_NAME LIKE CONCAT('%',#{keyword},'%')</if>
 			<if test="searchType == '기안일시'.toString()">AND E_DRAFTDATE LIKE CONCAT('%',#{keyword},'%')</if>
