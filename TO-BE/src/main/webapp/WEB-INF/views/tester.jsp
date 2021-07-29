@@ -83,6 +83,13 @@
 		background-color: #6c757d;
 		color:white;
 	}
+	#krg{
+		text-decoration: none;
+		color: black;
+	}
+	#krg:hover{
+		color: blue;
+	}
 </style>
 </head>
 <body>
@@ -107,10 +114,10 @@
 				<div class="kio">
 					<table class="table" style="margin-bottom: 0;">
 						<tr>
-							<th>이름</th>
+							<th>Name</th>
 						</tr>
 						<tr>
-							<td style="text-align:right;font-size:1rem;vertical-align : center;">김륜광</td>
+							<td style="text-align:right;font-size:1rem;vertical-align : center;"><a href="https://krg-sns.netlify.app/" target='_blank' id="krg">김륜광</a></td>
 						</tr>
 						<tr>
 							<th>Email
@@ -132,7 +139,9 @@
 							</th>
 						</tr>
 						<tr>
-							<td style="text-align:right;font-size:1rem;vertical-align : center;">https://github.com/K-RG</td>
+							<td style="text-align:right;font-size:1rem;vertical-align : center;">
+								<a href="https://github.com/K-RG" target='_blank' id="krg">https://github.com/K-RG</a>
+							</td>
 						</tr>
 						<tr>
 							<th>My work</th>
