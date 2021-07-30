@@ -2,8 +2,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="tobe.project.dto.ScheduleVO"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% 
 	ScheduleVO vo = (ScheduleVO)request.getAttribute("vo"); 
@@ -46,8 +45,8 @@
 			</div>
 			<div class="group-body">
 				<form id="scheduleData">
-				<input type="hidden" name="sidx" id="sidx" value="<%=vo.getSidx()%>">
-				<input type="hidden" name="tidx" id="tidx" value="<%=vo.getTidx()%>">
+					<input type="hidden" name="sidx" id="sidx" value="<%=vo.getSidx()%>">
+					<input type="hidden" name="tidx" id="tidx" value="<%=vo.getTidx()%>">
 					<div class="domainTitle">
 						<h3 class="zTree-h3">제목</h3>
 					</div>

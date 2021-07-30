@@ -1,7 +1,6 @@
 <%@page import="tobe.project.domain.*"%>
 <%@page import="org.apache.ibatis.annotations.Select"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@page import="tobe.project.dto.*"%>
@@ -44,15 +43,15 @@
 			<div class="row" id="row">
 				<div class="col-lg-12">
 					<section class="panel">
-			        	<form role="form" method="get">
-			        	<input type="hidden" value="${pageContext.request.contextPath}" id="projectName">
-			        	<input type="hidden" id="userId" name="userId" value="<%=userId%>">
-			        	<div class="category">
-			        		<button id="allSchedule" class="btn btn-outline-secondary" type="button">전체 일정보기</button>
-			        		<button id="mySchedule" class="btn btn-outline-secondary" type="button">나의 일정보기</button>
-							<button id="calendarButton" class="btn btn-outline-secondary" type="button">캘린더형</button>
-							<button id="addScheduleBtn" class="btn btn-primary btn-sm float-right" onclick="scheduleAddPopup()" type="button"> 일정 추가</button>
-						</div>
+				        <form role="form" method="get">
+				        	<input type="hidden" value="${pageContext.request.contextPath}" id="projectName">
+				        	<input type="hidden" id="userId" name="userId" value="<%=userId%>">
+				        	<div class="category">
+				        		<button id="allSchedule" class="btn btn-outline-secondary" type="button">전체 일정보기</button>
+				        		<button id="mySchedule" class="btn btn-outline-secondary" type="button">나의 일정보기</button>
+								<button id="calendarButton" class="btn btn-outline-secondary" type="button">캘린더형</button>
+								<button id="addScheduleBtn" class="btn btn-primary btn-sm float-right" onclick="scheduleAddPopup()" type="button"> 일정 추가</button>
+							</div>
 				        	<div class="search">
 					        	<div id="searchbox" class="input-group mb-3">
 					        		<input type="hidden" id="searchWord" value="${scri.searchWord}">
@@ -109,16 +108,16 @@
 				        	<div class="panel-body">
 				          		<table class="table table-hover" id="board">
 				          			<thead>
-				          			<tr>
-				          				<th scope="col" width="5%">일정 번호</th>
-				          				<th scope="col" width="5%">일정 유형</th>
-				          				<th scope="col" width="12%">일시</th>
-				          				<th scope="col" width="15%">일정 제목</th>
-				          				<th scope="col" width="15%">일정 내용</th>
-				          				<th scope="col" width="5%">사원 이름</th>
-				          				<th scope="col" width="5%">부서</th>
-				          				<th scope="col" width="5%">직급</th>
-				          			</tr> 
+					          			<tr>
+					          				<th scope="col" width="5%">일정 번호</th>
+					          				<th scope="col" width="5%">일정 유형</th>
+					          				<th scope="col" width="12%">일시</th>
+					          				<th scope="col" width="15%">일정 제목</th>
+					          				<th scope="col" width="15%">일정 내용</th>
+					          				<th scope="col" width="5%">사원 이름</th>
+					          				<th scope="col" width="5%">부서</th>
+					          				<th scope="col" width="5%">직급</th>
+					          			</tr> 
 				          			</thead>
 				          			<tbody id="scheduleDataTbody">
 					          			<c:forEach items="${viewAll}" var="viewAll">
@@ -177,32 +176,32 @@
 								</table>
 							</div>					
 						</form>
-					<!-- 페이징처리 -->
-					<nav aria-label="Page navigation example" id="paging">
-						<ul class="pagination">
-							<c:if test="${paging.prev}">
-								<li class="page-item" style="color:black;">
-									<a class="page-link" href="<%=request.getContextPath()%>/schedule/scheduleBoard${paging.makeSearch(pageMaker.startPage - 1)}&userId=<%=userId %>" aria-label="Previous">
-									    <span aria-hidden="true">&laquo;</span>
-									    <span class="sr-only"></span>
-									</a>
-								</li>
-							</c:if> 
-							<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="idx">
-								<li class="page-item" <c:out value="${paging.cri.page == idx ? 'id=active' : ''}"/>>
-									<a class="page-link" href="<%=request.getContextPath()%>/schedule/scheduleBoard${paging.makeSearch(idx)}&userId=<%=userId %>">${idx}</a>
-								</li>
-							</c:forEach>
-							<c:if test="${paging.next && paging.endPage > 0}">
-								<li class="page-item">
-									<a class="page-link" href="<%=request.getContextPath()%>/schedule/scheduleBoard${paging.makeSearch(pageMaker.endPage + 1)}&userId=<%=userId %>" aria-label="Next">
-									    <span aria-hidden="true">&raquo;</span>
-									    <span class="sr-only"></span>
-									</a>
-								</li>
-							</c:if> 
-						</ul>
-		 			</nav>
+						<!-- 페이징처리 -->
+						<nav aria-label="Page navigation example" id="paging">
+							<ul class="pagination">
+								<c:if test="${paging.prev}">
+									<li class="page-item" style="color:black;">
+										<a class="page-link" href="<%=request.getContextPath()%>/schedule/scheduleBoard${paging.makeSearch(pageMaker.startPage - 1)}&userId=<%=userId %>" aria-label="Previous">
+										    <span aria-hidden="true">&laquo;</span>
+										    <span class="sr-only"></span>
+										</a>
+									</li>
+								</c:if> 
+								<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="idx">
+									<li class="page-item" <c:out value="${paging.cri.page == idx ? 'id=active' : ''}"/>>
+										<a class="page-link" href="<%=request.getContextPath()%>/schedule/scheduleBoard${paging.makeSearch(idx)}&userId=<%=userId %>">${idx}</a>
+									</li>
+								</c:forEach>
+								<c:if test="${paging.next && paging.endPage > 0}">
+									<li class="page-item">
+										<a class="page-link" href="<%=request.getContextPath()%>/schedule/scheduleBoard${paging.makeSearch(pageMaker.endPage + 1)}&userId=<%=userId %>" aria-label="Next">
+										    <span aria-hidden="true">&raquo;</span>
+										    <span class="sr-only"></span>
+										</a>
+									</li>
+								</c:if> 
+							</ul>
+			 			</nav>
 		 			</section>
 				</div>
 			</div>

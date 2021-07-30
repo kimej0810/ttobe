@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="java.util.*"%>
 <%@page import="java.text.*"%>
@@ -140,7 +139,7 @@
 									</td>
 								<%}else if(userPosition.equals("과장")){ %>
 									<td class="style38 style43" colspan="2" rowspan="2">
-											<input type="text" id="teamLeader" name="teamLeader" value="결재권한없음" readonly>
+										<input type="text" id="teamLeader" name="teamLeader" value="결재권한없음" readonly>
 									</td>
 									<td class="style38 style43" colspan="3" rowspan="2">
 										<input type="hidden" id="sectionHead" name="sectionHead" value="<%=userId%>">
@@ -182,7 +181,7 @@
 											</c:if>
 										</c:forEach>
 									</td>
-								<%}	else{ %>
+								<%}else{%>
 									<td class="style38 style43" colspan="2" rowspan="2">
 										<select id="teamLeader" name="teamLeader">
 											<c:forEach items="${allMember}" var="allMember" varStatus="status">

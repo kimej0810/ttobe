@@ -1,7 +1,6 @@
 <%@page import="tobe.project.domain.*"%>
 <%@page import="org.apache.ibatis.annotations.Select"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@page import="tobe.project.dto.*"%>
@@ -52,7 +51,7 @@
 				        center: 'title',
 				        right: 'myCustomButton'
 					},
-//					initialDate: '2020-09-12',  삭제시 현재날짜 focus!!
+//					initialDate: '2020-09-12',  삭제시 현재날짜 focus
 					locale : "ko", //한글로 출력하는 속성 추가
 					navLinks: false, // can click day/week names to navigate views
 					businessHours: true, // display business hours
@@ -61,85 +60,63 @@
 					dayMaxEventRows: true,
 					dayMaxEvents: 3,
 					events: [
-					<%
-					  	  for (int i = 0; i < list.size(); i++) {
-					  	  	ScheduleVO vo = (ScheduleVO)list.get(i);
-					  	  	if(vo.getS_type().equals("회사일정")){
-					%>	
-			        {
-
-					        	url:"<%=request.getContextPath()%>/schedule/scheduleContents?sidx=<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
-					        	title: "<%=vo.getS_title()%>",
-					        	start: "<%=vo.getS_startDate()%>",
-					        	end: "<%=vo.getS_endDate()%>"
-			        },
-			        <%
-					  	  	}else if(vo.getS_type().equals("중요일정")){
-					%>
-					{
-
-					        	url:"<%=request.getContextPath()%>/schedule/scheduleContents?sidx=<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
-					        	title: "<%=vo.getS_title()%>",
-					        	start: "<%=vo.getS_startDate()%>",
-					        	end: "<%=vo.getS_endDate()%>",
-					        	color : "red",
+					<%for (int i = 0; i < list.size(); i++) {
+						ScheduleVO vo = (ScheduleVO)list.get(i);
+						if(vo.getS_type().equals("회사일정")){%>	
+						{
+							url:"<%=request.getContextPath()%>/schedule/scheduleContents?sidx=<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
+				        	title: "<%=vo.getS_title()%>",
+				        	start: "<%=vo.getS_startDate()%>",
+				        	end: "<%=vo.getS_endDate()%>"
+						},
+			        	<%}else if(vo.getS_type().equals("중요일정")){	%>
+						{
+				        	url:"<%=request.getContextPath()%>/schedule/scheduleContents?sidx=<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
+				        	title: "<%=vo.getS_title()%>",
+				        	start: "<%=vo.getS_startDate()%>",
+				        	end: "<%=vo.getS_endDate()%>",
+				        	color : "red",
 				        	
-				    },
-					<%
-					  	  	}else if(vo.getS_type().equals("외근")){
-					%>
-					{
-
-					        	url:"<%=request.getContextPath()%>/schedule/scheduleContents?sidx=<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
-					        	title: "<%=vo.getS_title()%>",
-					        	start: "<%=vo.getS_startDate()%>",
-					        	end: "<%=vo.getS_endDate()%>",
-					        	color : "black",
-			        	
-			   		},
-					
-					<%
-					  	  	}else if(vo.getS_type().equals("출장")){
-					 
-					%>
-					{
-
+						},
+						<%}else if(vo.getS_type().equals("외근")){%>
+						{
+							url:"<%=request.getContextPath()%>/schedule/scheduleContents?sidx=<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
+				        	title: "<%=vo.getS_title()%>",
+				        	start: "<%=vo.getS_startDate()%>",
+				        	end: "<%=vo.getS_endDate()%>",
+				        	color : "black",	
+						},
+						<%}else if(vo.getS_type().equals("출장")){%>
+						{
 				        	url:"<%=request.getContextPath()%>/schedule/scheduleContents?sidx=<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
 				        	title: "<%=vo.getS_title()%>",
 				        	start: "<%=vo.getS_startDate()%>",
 				        	end: "<%=vo.getS_endDate()%>",
 				        	color : "gray",
-	        	
-	   				},
-					<%
-					  	  	}else{
-					%>
-					{
-
-					        	url:"<%=request.getContextPath()%>/schedule/scheduleContents?sidx=<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
-					        	title: "<%=vo.getS_title()%>",
-					        	start: "<%=vo.getS_startDate()%>",
-					        	end: "<%=vo.getS_endDate()%>",
-					        	color : "#FFFF00",
-					        	textColor:"black",
-					        	
-        	
-   					},
-					<%
-					  	  	}
-					}
-					%>
-			        	{
-							title : 'defult',
-							start : "2019-01-01",
-							end : "2019-01-01"
-			        	}
+						},
+						<%}else{%>
+						{
+				        	url:"<%=request.getContextPath()%>/schedule/scheduleContents?sidx=<%=vo.getSidx()%>&tidx=<%=vo.getTidx()%>",
+				        	title: "<%=vo.getS_title()%>",
+				        	start: "<%=vo.getS_startDate()%>",
+				        	end: "<%=vo.getS_endDate()%>",
+				        	color : "#FFFF00",
+				        	textColor:"black",
+   						},
+						<%}%>
+					<%}%>
+		        	{
+						title : 'defult',
+						start : "2019-01-01",
+						end : "2019-01-01"
+		        	}
 					],
-					 eventTimeFormat: { // like '14:30:00'
-						    hour: '2-digit',
-						    minute: '2-digit',
-						    second: '2-digit',
-						    meridiem: false
+					eventTimeFormat: 
+					{ // like '14:30:00'
+						hour: '2-digit',
+						minute: '2-digit',
+						second: '2-digit',
+						meridiem: false
 					},
 					eventClick: function(info) {
 						info.jsEvent.preventDefault(); // don't let the browser navigate
@@ -155,89 +132,89 @@
 			});
 		</script>
 		<style type="text/css">
-		a{color:black;text-decoration: none;}
-		/* 토요일 색상 */
-		table.fc-col-header>tbody>tr:last-child>th:last-child>div>a{color:blue}
-		table.fc-scrollgrid-sync-table>tbody>tr>td:last-child>.fc-daygrid-day-frame>.fc-daygrid-day-top>a{color:blue}
-		/* 일요일 색상 */
-		table.fc-col-header>tbody>tr:first-child>th:first-child>div>a{color:red}
-		table.fc-scrollgrid-sync-table>tbody>tr>td:first-child>.fc-daygrid-day-frame>.fc-daygrid-day-top>a{color:red}
-		.fc-header-toolbar>div:nth-child(2){margin-right: 13.4%}
-		
-		@media (max-width:1920px) { 
-			#explanation{
-				position: absolute;
-				right: 20.6%;
-		  			top: 11.7%;
+			a{color:black;text-decoration: none;}
+			/* 토요일 색상 */
+			table.fc-col-header>tbody>tr:last-child>th:last-child>div>a{color:blue}
+			table.fc-scrollgrid-sync-table>tbody>tr>td:last-child>.fc-daygrid-day-frame>.fc-daygrid-day-top>a{color:blue}
+			/* 일요일 색상 */
+			table.fc-col-header>tbody>tr:first-child>th:first-child>div>a{color:red}
+			table.fc-scrollgrid-sync-table>tbody>tr>td:first-child>.fc-daygrid-day-frame>.fc-daygrid-day-top>a{color:red}
+			.fc-header-toolbar>div:nth-child(2){margin-right: 13.4%}
+			
+			@media (max-width:1920px) { 
+				#explanation{
+					position: absolute;
+					right: 20.6%;
+			  			top: 11.7%;
+				}
 			}
-		}
-		@media (max-width:1820px) { 
-			#explanation{
-				position: absolute;
-				right: 21.2%;
-		  			top: 11.7%;
+			@media (max-width:1820px) { 
+				#explanation{
+					position: absolute;
+					right: 21.2%;
+			  			top: 11.7%;
+				}
 			}
-		}
-		@media (max-width:1720px) { 
-			#explanation{
-				position: absolute;
-				right: 20.2%;
-		  			top: 11.7%;
+			@media (max-width:1720px) { 
+				#explanation{
+					position: absolute;
+					right: 20.2%;
+			  			top: 11.7%;
+				}
 			}
-		}
-		@media (max-width:1620px) { 
-			#explanation{
-				position: absolute;
-				right: 19.7%;
-		  			top: 11.7%;
+			@media (max-width:1620px) { 
+				#explanation{
+					position: absolute;
+					right: 19.7%;
+			  			top: 11.7%;
+				}
 			}
-		}
-		@media (max-width:1530px) { 
-			#explanation{
-				position: absolute;
-			    right: 19.7%;
-			    top: 7.7%;
+			@media (max-width:1530px) { 
+				#explanation{
+					position: absolute;
+				    right: 19.7%;
+				    top: 7.7%;
+				}
 			}
-		}
-		@media (max-width:600px) { 
-			#explanation{
-				position: absolute;
-				right: 9.7%;
-				top: 7.7%;
+			@media (max-width:600px) { 
+				#explanation{
+					position: absolute;
+					right: 9.7%;
+					top: 7.7%;
+				}
 			}
-		}
-		#explanation1{
-			background-color: #0d6efd;
-		    width: 13px;
-		    height: 13px;
-		}
-		#explanation2{
-			background-color: red;
-		    width: 13px;
-		    height: 13px;
-		    margin-left: 10px;
-		}
-		#explanation3{
-			background-color: #FFFF00;
-		    width: 13px;
-		    height: 13px;
-		    margin-left: 10px;
-		}
-		#explanation4{
-			background-color: black;
-		    width: 13px;
-		    height: 13px;
-		    margin-left: 10px;
-		}
-		#explanation5{
-			background-color: gray;
-		    width: 13px;
-		    height: 13px;
-		    margin-left: 10px;
-		}
-		li{
-			display: inline-block;
-		}
+			#explanation1{
+				background-color: #0d6efd;
+			    width: 13px;
+			    height: 13px;
+			}
+			#explanation2{
+				background-color: red;
+			    width: 13px;
+			    height: 13px;
+			    margin-left: 10px;
+			}
+			#explanation3{
+				background-color: #FFFF00;
+			    width: 13px;
+			    height: 13px;
+			    margin-left: 10px;
+			}
+			#explanation4{
+				background-color: black;
+			    width: 13px;
+			    height: 13px;
+			    margin-left: 10px;
+			}
+			#explanation5{
+				background-color: gray;
+			    width: 13px;
+			    height: 13px;
+			    margin-left: 10px;
+			}
+			li{
+				display: inline-block;
+			}
 		</style>
 	</head>
 	<body>		
