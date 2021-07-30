@@ -58,7 +58,14 @@ public class AdminController{
 				}else if(length==4){
 					hipen = "-";
 				}
-				model.addAttribute("tid",tid[0]+hipen+nextTid);
+				String autoNum = tid[0]+hipen+nextTid;
+				service.autoNumInsert(autoNum);
+				//자동 증가 시키기!
+				/*
+				 * int chch = Integer.parseInt(service.autoNumSelect());
+				 * System.out.println(chch);
+				 */
+				model.addAttribute("tid",autoNum);
 				return "/admin/add";
 			}
 		}

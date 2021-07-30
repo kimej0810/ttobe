@@ -96,4 +96,12 @@ public class AdminServiceImpl implements AdminService{
 	public int selectLastPk() throws Exception {
 		return dao.selectLastPk();
 	}
+	@Override
+	public int autoNumInsert(String autoNum) throws Exception {
+		return dao.autoNumInsert(autoNum);
+	}
+	@Override
+	public String autoNumSelect() throws Exception {
+		return dao.autoNumSelect();
+	}
 }

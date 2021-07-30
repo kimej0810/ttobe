@@ -87,4 +87,12 @@ public class AdminDAOImpl implements AdminDAO{
 	public int selectLastPk() throws Exception {
 		return sqlSession.selectOne(Namespace+".selectLastPk");
 	}
+	@Override
+	public int autoNumInsert(String autoNum) throws Exception {
+		return sqlSession.insert(Namespace+".autoNumInsert",autoNum);
+	}
+	@Override
+	public String autoNumSelect() throws Exception {
+		return sqlSession.selectOne(Namespace+".autoNumSelect");
+	}
 }

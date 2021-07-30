@@ -108,6 +108,12 @@
     	</if>
     </sql>
     <select id="selectLastPk" resultType="int">
-    	SELECT MAX(TIDX) FROM AFPS_MEMBER ORDER BY TIDX DESC
+    	SELECT MAX(TIDX) FROM AFPS_MEMBER ORDER BY AIDX DESC
+    </select>
+    <insert id="autoNumInsert">
+    	INSERT MEMBER_AUTONUM SET MEMBER_NUM = #{autoNum}
+    </insert>
+    <select id="autoNumSelect" resultType="String">
+    	SELECT A.* FROM (SELECT MAX(MEMBER_NUM) FROM MEMBER_AUTONUM ORDER BY AIDX DESC) AS A
     </select>
 </mapper>

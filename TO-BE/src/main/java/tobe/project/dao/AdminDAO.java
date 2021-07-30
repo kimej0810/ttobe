@@ -28,5 +28,9 @@ public interface AdminDAO {
 	//첨부파일 조회
 	public FileVO selectOneFile(int tidx) throws Exception;
 	public int selectLastPk()throws Exception;
+	//번호자동등록
+	public int autoNumInsert(String autoNum)throws Exception;
+	//번호가져오기
+	public String autoNumSelect()throws Exception;
 }
 
