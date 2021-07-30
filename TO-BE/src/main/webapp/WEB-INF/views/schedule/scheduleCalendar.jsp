@@ -145,7 +145,7 @@
 				#explanation{
 					position: absolute;
 					right: 20.6%;
-			  		top: 113px;
+			  		top: 113px; 
 				}
 			}
 			@media (max-width:1820px) { 
