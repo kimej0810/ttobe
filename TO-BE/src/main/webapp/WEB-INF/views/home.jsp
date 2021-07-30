@@ -11,7 +11,7 @@ $(document).ready(function(){
 	var domain = $("#domain").val();
 	Swal.fire({
 		title: "<img src='<c:url value='/resources/static/img/loginlogo.png'/>' style='width:200px;'>",
-		text:"어서와",
+		text:"",
 		showCancelButton:true,
 		confirmButtonText:"로그인",
 		cancelButtonText:"테스터",

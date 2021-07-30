@@ -151,6 +151,9 @@
 				%> --%>
 					<span>관리자 등록&nbsp;&nbsp;</span>
 					<a href="${pageContext.request.contextPath}/admin/findAdmin">관리자등록</a>
+					<div>
+						테스트용 계정&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/tester" onclick="window.open(this.href, '_blank', 'width=600, height=500'); return false;">테스트용계정</a>
+					</div>
 				<%-- <%
 						}
 					}
