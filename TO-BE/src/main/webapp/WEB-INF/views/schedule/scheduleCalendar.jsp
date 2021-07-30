@@ -145,42 +145,42 @@
 				#explanation{
 					position: absolute;
 					right: 20.6%;
-			  			top: 11.7%;
+			  		top: 113px;
 				}
 			}
 			@media (max-width:1820px) { 
 				#explanation{
 					position: absolute;
 					right: 21.2%;
-			  			top: 11.7%;
+			  		top: 113px;
 				}
 			}
 			@media (max-width:1720px) { 
 				#explanation{
 					position: absolute;
 					right: 20.2%;
-			  			top: 11.7%;
+			  		top: 113px;
 				}
 			}
 			@media (max-width:1620px) { 
 				#explanation{
 					position: absolute;
 					right: 19.7%;
-			  			top: 11.7%;
+			  		top: 113px;
 				}
 			}
 			@media (max-width:1530px) { 
 				#explanation{
 					position: absolute;
 				    right: 19.7%;
-				    top: 7.7%;
+				    top: 74px;
 				}
 			}
 			@media (max-width:600px) { 
 				#explanation{
 					position: absolute;
 					right: 9.7%;
-					top: 7.7%;
+					top: 74px;
 				}
 			}
 			#explanation1{
