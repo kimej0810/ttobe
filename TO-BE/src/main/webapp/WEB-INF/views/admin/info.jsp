@@ -100,9 +100,9 @@
 			str += "<select class='form-select' id='t_position' name='t_position' style='height:30px;'>";
 			str += "<option value='no'>직급 선택</option>";
 			str += "<option value='대표'>대표</option>";
-			str += "<option value='팀장'>팀장</option>";
 			str += "<option value='부장'>부장</option>";
 			str += "<option value='과장'>과장</option>";
+			str += "<option value='팀장'>팀장</option>";
 			str += "<option value='대리'>대리</option>";
 			str += "<option value='사원'>사원</option>";
 			$("#userPosition").html(str);
