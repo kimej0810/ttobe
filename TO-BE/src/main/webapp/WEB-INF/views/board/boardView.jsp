@@ -115,9 +115,9 @@ button:disabled {
 	<input type="hidden" value="${pageContext.request.contextPath}" id="domain">
 	<div class="category">
 		<input type="hidden" id="boardType" value="${boardVO.b_type}">
-		<button id="noticeBtn" class="btn btn-outline-secondary" type="button">공지사항</button>
+		<button id="noticeBtn" class="btn btn-outline-secondary" type="button" style="height:100%;">공지사항</button>
 		<button id="generalBtn" class="btn btn-outline-secondary"
-			type="button">일반게시글</button>
+			type="button" style="height:100%;">일반게시글</button>
 	</div>
 	<div class="container-fluid" id="view">
 		<table class="table" id="board">
